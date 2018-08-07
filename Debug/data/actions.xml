@@ -1,0 +1,11 @@
+<action>
+	<id>default</id>
+	<name>Default</name>
+	<duration>0</duration>
+</action>
+
+<action>
+	<id>move</id>
+	<name>Move</name>
+	<duration>1</duration>
+</action>

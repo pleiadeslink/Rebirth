@@ -1,0 +1,220 @@
+c_engine::c_engine()
+:   command(""),
+    commandPrompt(false),
+    f_quit(false) {
+}
+
+c_engine::~c_engine() {
+
+    // Write log to file
+    std::ofstream out("log.txt");
+    for(unsigned int i = 0; i < v_messageLog.size(); ++i) {
+        out << v_messageLog[i] << "\n";
+    }
+    out.close();
+
+
+}
+
+void c_engine::start() {
+	
+    message("---------");
+    message(" REBIRTH ");
+    message("---------");
+
+    // Load assets
+    assetManager.load();
+
+    // Create screen
+    screen.start();
+
+    // Create game
+    game = new c_game();
+    game -> newGame();
+    interface.init();
+
+    // Main loop
+    f_quit = false;
+    int key = 0;
+    while(f_quit == false) {
+        
+        key = input();
+        key = interface.update(key);
+        if(game and interface.getMode() == imode::game) {
+            game -> update(key);
+        }
+        screen.clear();
+        interface.draw();
+        screen.display();
+    }
+
+    delete game;
+    message("Goodbye!");
+}
+
+void c_engine::message(std::string message) {
+    
+    v_messageLog.push_back(message);
+    std::cout << message << std::endl;
+}
+
+int c_engine::input() {
+    sf::Event event;
+    sf::RenderWindow* rwindow = screen.getWindow();
+    while (rwindow -> pollEvent(event)) {
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            return key::lclick;
+        } else if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+            return key::rclick;
+        }
+        if(interface.getMode() == imode::edit and event.type == sf::Event::TextEntered) {
+            
+            if(event.text.unicode == 8 and command.size() != 0) { // Backspace key
+                command.pop_back();
+            } else if(event.text.unicode == 13) { // Return key
+                kaguya::State state;
+                #include "luabind.cpp"
+                state.dostring(command);
+                std::string str = "Command run: " + command;
+                message(str);
+                prevCommand = command;
+                command = "";
+            } else if(event.text.unicode == 9) { // Tab key
+                command = prevCommand;
+            } else if(event.text.unicode < 128 and event.text.unicode != 8) {
+                command.push_back((char)event.text.unicode);
+            }
+        } else if(event.type == sf::Event::KeyPressed) {
+            switch(event.key.code) {
+                case sf::Keyboard::F: {
+                    return key::f;
+                }
+                case sf::Keyboard::P: {
+                    return key::p;
+                }
+                case sf::Keyboard::T: {
+                    return key::t;
+                }
+                case sf::Keyboard::V: {
+                    return key::v;
+                }
+                case sf::Keyboard::W: {
+                    return key::w;
+                }
+                case sf::Keyboard::Num0: {
+                    return key::num0;
+                }
+                case sf::Keyboard::Num1: {
+                    return key::num1;
+                }
+                case sf::Keyboard::Num2: {
+                    return key::num2;
+                }
+                case sf::Keyboard::Num3: {
+                    return key::num3;
+                }
+                case sf::Keyboard::Num4: {
+                    return key::num4;
+                }
+                case sf::Keyboard::Num5: {
+                    return key::num5;
+                }
+                case sf::Keyboard::Num6: {
+                    return key::num6;
+                }
+                case sf::Keyboard::Num7: {
+                    return key::num7;
+                }
+                case sf::Keyboard::Num8: {
+                    return key::num8;
+                }
+                case sf::Keyboard::Num9: {
+                    return key::num9;
+                }
+                case sf::Keyboard::F1: {
+                    return key::f1;
+                }
+                case sf::Keyboard::Up: {
+                    return key::up;
+                }
+                case sf::Keyboard::Down: {
+                    return key::down;
+                }
+                case sf::Keyboard::Left: {
+                    return key::left;
+                }
+                case sf::Keyboard::Right: {
+                    return key::right;
+                }
+                case sf::Keyboard::Space: {
+                    return key::space;
+                }
+                case sf::Keyboard::Escape: {
+                    return key::escape;
+                }
+                case sf::Keyboard::LControl: {
+                    return key::lcontrol;
+                }
+                case sf::Keyboard::Tab: {
+                    return key::tab;
+                }
+                case sf::Keyboard::BackSpace: {
+                    return key::backspace;
+                }
+                case sf::Keyboard::Add: {
+                    return key::add;
+                }
+                case sf::Keyboard::Subtract: {
+                    return key::subtract;
+                }
+                case sf::Keyboard::Comma: {
+                    return key::comma;
+                }
+                case sf::Keyboard::Period: {
+                    return key::period;
+                }
+            }
+        } else if(event.type == sf::Event::Closed) {
+            engine -> quit();
+        }
+    }
+}
+
+void c_engine::quit() {
+    f_quit = true;
+ }
+
+void c_engine::runScript(const std::string& path) {
+    structEventData data;
+    data.type = "none";
+    runScript(path, data);
+ }
+
+ void c_engine::runScript(const std::string& path, const structEventData& data) {
+
+    kaguya::State state;
+    #include "luabind.cpp"
+
+    // Bind event data
+    state["s_data"].setClass(kaguya::UserdataMetatable<structEventData>()
+                            .setConstructors<structEventData()>()
+                            .addFunction("setEmitter", &structEventData::setEmitter)
+                            .addFunction("setTarget", &structEventData::setTarget)
+                            .addFunction("setType", &structEventData::setType)
+                            .addFunction("setMapX", &structEventData::setMapX)
+                            .addFunction("setMapY", &structEventData::setMapY)
+                            .addFunction("setValue1", &structEventData::setValue1)
+                            .addFunction("setString1", &structEventData::setString1));
+    state["emitter"] = data.emitter;
+    state["target"] = data.target;
+    state["type"] = data.type;
+    state["mapX"] = data.mapX;
+    state["mapY"] = data.mapY;
+    state["value1"] = data.value1;
+    state["string1"] = data.string1;
+
+    // Run file
+    std::stringstream str;
+    str << "data/lua/" << path;
+    state.dofile(str.str());
+ }

@@ -1,0 +1,99 @@
+c_winMap::c_winMap(const int& x, const int& y, const int& tileWidth, const int& tileHeight)
+:   x(x),
+    y(y),
+    tileWidth(tileWidth),
+    tileHeight(tileHeight)
+{ }
+
+int c_winMap::update(int key, const int& mapX0, const int& mapY0) {
+
+    sf::Vector2i mousePos = engine -> getMouse();
+    int yOffset = 2;
+    int mapX = mapX0 + mousePos.x / global::tileSize - tileWidth / 2;
+    int mapY = mapY0 + mousePos.y / global::tileSize - tileHeight / 2 + yOffset;
+
+    if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
+    and mapY >= 0 and mapY < engine -> game -> map -> getHeight()
+    and mousePos.y < tileHeight * 16) {
+        c_tile* tile = engine -> game -> map -> getTile(mapX, mapY);
+        switch(engine -> interface.getMode()) {
+            case imode::game: {
+                if(tile -> getExplored()) {
+                    engine -> interface.selectTile(tile);
+                    if(key == key::lclick and tile -> getType() != tileType::wall and tile -> isObstacle() == false) {
+                        engine -> interface.setTileDestination(tile);
+                        return 0;
+                    }
+                }
+                break;
+            }
+            case imode::edit: {
+                engine -> interface.selectTile(tile);
+                switch(engine -> interface.getEmode()) {
+                    case emode::tile: {
+                        if(key == key::lclick) {
+                            tile -> setAsset(engine -> interface.getEditTile());;
+                        }
+                        break;
+                    }
+                    case emode::actor: {
+                        if(key == key::lclick and !tile -> hasAnyActor()) {
+                            engine -> game -> actorManager.createActor(engine -> interface.getEditActor() -> id, tile -> getX(), tile -> getY());
+                        }
+                        if(key == key::rclick) {
+                            tile -> removeActors();
+                        }
+                        break;
+                    }
+                }
+                /*if(key == key::lclick) {
+                    int radius = engine -> interface.getEditRadius();
+                    for(int i1 = 0; i1 < radius; ++i1) {
+                        for(int i2 = 0; i2 < radius; ++i2) {
+                            engine -> game -> map -> getTile(tile -> getX() - (radius / 2) + i1, tile -> getY() - (radius / 2)  + i2)  -> setAsset(engine -> interface.getEditTile());;
+                        }
+                    }
+                    return 0;
+                }*/
+                break;
+            }
+            case imode::selectCloseTarget: {
+                if(c_helper::calculateDistance(mapX, mapY, mapX0, mapY0) == 1 and tile -> hasAnyActor()) {
+                    engine -> interface.selectTile(tile);
+                    if(key == key::lclick) {
+                        engine -> interface.selectActor(c_helper::getCreatureFromTile(mapX, mapY));
+                        return 0;
+                    }
+                }
+                break;
+            }
+
+        }
+        
+    }
+    return key;
+}
+
+void c_winMap::draw(const int& mapX0, const int& mapY0) {
+    if(!engine -> game or !engine -> game -> map) {
+        return;
+    }
+    int yOffset = 2;
+    for(int i1 = 0; i1 < tileWidth; ++i1) {
+        for(int i2 = 0; i2 < tileHeight; ++i2) {
+
+            int mapX = mapX0 - tileWidth / 2 + i1;
+            int mapY = mapY0 - tileHeight / 2 + i2 + yOffset;
+
+            // Draw tile
+            if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
+            and mapY >= 0 and mapY < engine -> game -> map -> getHeight()) {
+                c_tile* tile = engine -> game -> map -> getTile(mapX0 + i1 - tileWidth / 2, mapY0 + i2 - tileHeight / 2 + yOffset);
+                tile -> draw(x + (i1 - 1)  * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16, tile -> getInterior()); 
+                if(engine -> interface.getSelectedTile() == tile) {
+                    engine -> screen.drawTexture("selectedTile", x + (i1 - 1)  * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16);
+                }
+            }
+        }
+    }
+}

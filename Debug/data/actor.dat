@@ -1,0 +1,315 @@
+-- CREATURES --
+
+[avatar]
+type: avatar
+name: Avatar
+texture: 0x4
+
+[abomination]
+type: creature
+name: Abomination
+desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
+texture: 15x8
+color: dark sepia
+damage: 30-40
+speed: 3
+speed_a: 2
+accuracy: 100
+exp: 100
+
+[bear]
+type: creature
+name: Bear
+desc: A large, powerful omnivore that inhabits many of Terra's forested hills. Equally happy consuming nuts, berries, fish, or small mammals, the bear is nonetheless fiercely territorial, and will chase off—or, failing that, kill and eat—any intruders it views as competition.
+texture: 2x6
+color: light sepia
+speed: 1
+speed_a: 2
+accuracy: 50
+protection: 5
+exp: 15
+faction: animal
+
+[dog]
+type: creature
+name: Dog
+desc: This four-legged creature has a rought coat and wagging tail. Dogs make popular companions among other humans.
+color: light sepia
+speed: 1
+speed_a: 1
+accuracy: 70
+protection: 2
+exp: 8
+faction: animal
+
+[horse]
+type: creature
+name: Horse
+desc: A proud and noble animal that thunders across the grassy plain with fluid grace, wind tugging at its loose-fitting barding.
+texture: 8x6
+color: white
+damage: 4-10
+speed: 1
+speed_a: 2
+accuracy: 50
+exp: 10
+
+[hyena]
+type: creature
+name: Hyena
+desc: Pack hunters infamous for their cunning and their unnerving, laughter-like vocalizations. They are largely scavengers, but aren't above supplementing their diet of carrion with fresh prey.
+texture: 8x6
+color: brass
+speed: 1
+damage: 8-14
+speed_a: 1
+protection: 2
+accuracy: 60
+dodge: 40
+exp: 30
+
+[rat]
+type: creature
+name: Dire rat
+desc: This filthy rat is the size of a small dog. It has a coat of coarse fur, a long and scabby tail, and two glittering eyes.
+texture: 2x7
+color: dark grey
+speed: 2
+damage: 2-4
+speed_a: 1
+accuracy: 60
+dodge: 40
+resist: poison
+faction: animal
+exp: 10
+loot: 100.rat_corpse
+
+[serpopard]
+type: creature
+name: Serpopard
+desc: A beast with the body of a great cat topped with a long and serpentine neck that ends in a draconic head filled with savage teeth.
+texture: 3x5
+color: amber
+speed: 2
+damage: 30-50
+speed_a: 1
+protection: 30
+accuracy: 120
+dodge: 60
+exp: 3000
+
+[skeleton_warrior]
+type: creature
+name: Skeleton Warrior
+desc: Clad in corroded armour, their lifeless hands gripping swords, spears and shields these mindless automatons take up their blades when the clarion call of battle sounds, ready once more to fight for their king.
+texture: 3x7
+color: white
+speed: 2
+damage: 3-6
+speed_a: 1
+protection: 10
+accuracy: 60
+dodge: 30
+parry: 20
+resist: pierce|blunt
+exp: 40
+loot: 50.weapon_physical_1|100.skeleton_corpse|20.shield_1
+
+[skeleton_sorcerer]
+type: creature
+name: Skeleton Sorcerer
+texture: 3x7
+color: azure
+damage: 2-2
+spell: curse
+protection: 4
+dodge: 5
+resist: pierce|blunt
+exp: 60
+loot: 100.skeleton_corpse
+
+[snake]
+type: creature
+name: Snake
+desc: Countless species of these poisonous serpents dwell in the wild, their bites capable of bringing down creatures much larger than themselves.
+texture: 3x7
+color: green
+speed: 1
+damage: 5-10
+speed_a: 0.5
+accuracy: 80
+dodge: 60
+exp: 15
+
+##########################################################################################
+##########################################################################################
+##   WEAPONS                                                                            ##
+##########################################################################################
+##########################################################################################
+
+[short_sword]
+type: weapon
+name: Short sword
+desc: A small, sharp blade made of steel held by a grip wrapped in leather.
+texture: 3x17
+color: grey
+type_w: one_handed
+category_w: sword
+damage: 3-6
+speed: 1
+mass: 5
+
+##########################################################################################
+##########################################################################################
+##   ARMOR                                                                              ##
+##########################################################################################
+##########################################################################################
+
+[buckler]
+type: armor
+name: Buckler
+desc: A small shield gripped in the fist with a central handle behind the boss.
+
+##########################################################################################
+##########################################################################################
+##   ITEMS                                                                              ##
+##########################################################################################
+##########################################################################################
+
+[barrel]
+type: misc
+name: Barrel
+desc: A cylindrical container made of wood, commonly used to store water and supplies.
+texture: 0x17
+color: dark sepia
+canMove: 0
+canGet: 0
+
+[bed]
+type: misc
+name: Bed
+desc: A pile of straw lying on top of a wooden platform raised off the ground to avoid pests. Used as a place to sleep or relax.
+texture: 1x16
+color: amber
+canMove: 0
+canGet: 0
+
+[coin]
+type: misc
+name: Gold coin
+desc: A coin made of gold used as a currency to trade with goods and services.
+texture: 7x0
+color: gold
+mass: 0.01
+
+[chest]
+type: container
+name: Chest
+desc: Chests are popular among adventureres because of the treasures that are often stored inside.
+texture: 12x13
+color: dark sepia
+
+[door]
+type: door
+name: Door
+desc: A solid, wooden door.
+texture: 11x2
+color: dark sepia
+
+[fence]
+type: misc
+name: Fence
+desc: This structure is constructed from posts connected by wood boards and is commonly used to enclose livestock.
+texture: 1x13
+color: dark sepia
+canMove: 0
+canGet: 0
+
+[health_potion]
+type: potion
+name: Health potion
+desc: This magic elixir restores its user's health.
+texture: 13x10
+color: red
+mass: 0.3
+
+[magic_scroll]
+type: scroll
+name: Magic Scroll
+texture: 0x0
+mass: 0.2
+
+[shrub]
+type: misc
+name: Shrub
+desc: A short, woody plant.
+texture: 10x2
+color: darker chartreuse
+canMove: 0
+canGet: 0
+
+[signpost]
+type: misc
+name: Singpost
+desc: A wooden signpost that provides directions to guide wandering travelers.
+texture: 0x2
+color: dark sepia
+canMove: 0
+canGet: 0
+
+[stairs_down]
+type: staircase
+direction: down
+name: Staircase
+desc: These solid stairs go one level down.
+texture: 1x1
+color: grey
+canGet: 0
+
+[stairs_up]
+type: staircase
+direction: up
+name: Staircase
+desc: These solid stairs go one level up.
+texture: 1x1
+color: grey
+canView: 0
+canGet: 0
+
+[table]
+type: misc
+name: Table
+desc: A wooden table.
+texture: 2x13
+color: dark sepia
+canMove: 0
+canGet: 0
+
+[tree]
+type: misc
+name: Tree
+desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
+texture: 5x0
+color: darker chartreuse
+canView: 0
+canMove: 0
+canGet: 0
+
+[urn]
+type: misc
+name: Urn
+desc: A tall, rounded vase carved with numerous geometric patterns.
+texture: 8x14
+color: darker amber
+canMove: 0
+canGet: 0
+
+[wheat]
+type: misc
+name: Wheat
+desc: A cereal grain that yields a fine white flour used chiefly in breads and baked goods.
+texture: 15x10
+color: light amber
+mass: 2
+
+[end]
