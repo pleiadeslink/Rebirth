@@ -21,6 +21,7 @@ class c_assetManager {
         int indexActor;
         void loadActors();
         structActorAsset clearActorAsset(structActorAsset asset);
+        structMapAsset clearMapAsset(structMapAsset asset);
 	
     public:
         void load();

@@ -12,8 +12,6 @@ c_engine::~c_engine() {
         out << v_messageLog[i] << "\n";
     }
     out.close();
-
-
 }
 
 void c_engine::start() {

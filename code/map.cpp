@@ -149,6 +149,7 @@ void c_map::createMatrix() {
         for(int i2 = 0; i2 < height; ++i2) {
             matrix[i1][i2].setCoords(i1, i2);
             matrix[i1][i2].setAsset(engine -> assetManager.getTileAsset("floor_grass"));
+            
         }
     }
 }

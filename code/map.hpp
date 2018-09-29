@@ -23,10 +23,6 @@ class c_map : public TCODMap {
         double dirX, dirY;
         double planeX, planeY;
 
-        // Build
-        void createMatrix();
-        void fill(const structTileAsset* asset);
-
     public:
         c_map();
         ~c_map();
@@ -38,6 +34,8 @@ class c_map : public TCODMap {
         c_tile* runaway(const int& x1, const int& y1, const int& tx, const int& ty);
 
         // Public build
+        void createMatrix();
+        void fill(const structTileAsset* asset);
         void flood(const structTileAsset* asset, const int& x, const int& y);
         void floodAux(const structTileAsset* asset, const int& x, const int& y);
 

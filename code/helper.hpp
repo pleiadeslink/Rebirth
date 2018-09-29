@@ -13,6 +13,8 @@ class c_helper {
 		static const int& getMapSeed();
 		static const int& getMapWidth();
 		static const int& getMapHeight();
+		static const int& getMapX();
+		static const int& getMapY();
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getCreatureFromTile(const int& x, const int& y);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);
@@ -36,6 +38,9 @@ class c_helper {
 		static const int& getConstitution(const int& actor); // Returns the actor's constitution
 		static const int& getMaxHealth(const int& actor); // Returns the actor's max health
 		static const int& getViewRange(const int& actor); // Returns the actor's view range
+		static const int& getMinMeleeDamage(const int& actor);
+		static const int& getMaxMeleeDamage(const int& actor);
+		static const int& getMeleeDamage(const int& actor); // How much damage does the actor deal?
 		static void restoreHealth(const int& actor, const int& points); // Restore 
 		
 		static void damage(const int& actor, const int& value);
@@ -46,9 +51,7 @@ class c_helper {
 		static const int& findStaircase(const int& x, const int& y); // Returns direction if found
 		static const bool& equipItem(const int& emitter, const int& item);
 		static const bool& removeItem(const int& emitter, const int& item);
-		static const int& getDamage(const int& actor);
 		static void give(std::string item);
-		static const int& calculateHitDamage(const int& actor);
 };
 
 #endif

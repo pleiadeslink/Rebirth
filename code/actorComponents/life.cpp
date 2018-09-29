@@ -52,36 +52,6 @@ void c_life::consumeEnergy(const int& points) {
     }
 }
 
-const int& c_life::getMaxHitDamage() {
-	int damage = 0;
-	int weaponDamage = 0;
-
-	// No weapon
-	if(equipment[bodySlot::mainHand] == 0) {
-		damage = constitution / 4;
-		return damage;
-
-	// Has weapon
-	} else {
-		c_actor* p_weapon = engine -> game -> actorManager.getActor(equipment[bodySlot::mainHand]);
-		if(p_weapon -> weapon and (p_weapon -> weapon -> getType() == weaponType::oneHanded or p_weapon -> weapon -> getType() == weaponType::twoHanded)) {
-			weaponDamage = p_weapon -> weapon -> getMinDamage();
-		}	
-		return (constitution / 2) + weaponDamage;	
-	}
-}
-
-// -20% hit damage
-const int& c_life::getMinHitDamage() {
-	return getMaxHitDamage() - (getMaxHitDamage() * 20 / 100);
-}
-
-const int& c_life::getHitDamage() {
-	int minDam = getMinHitDamage();
-	int maxDam = getMaxHitDamage();
-	return c_helper::random(minDam, maxDam);
-}
-
 void c_life::changeFrequency(const int& points) {
 	energy += points;
 	if(energy < 0) {

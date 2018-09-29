@@ -103,6 +103,7 @@ void c_winInfo::draw() {
         desc.append("/n/n");
         desc.append(p_actor -> getDescription());
         engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
+        drawTitle("[U]se, [D]rop", height - 2);
     }
 		
     drawTitle("Details", 1);

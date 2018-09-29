@@ -71,7 +71,7 @@ exp: 30
 [rat]
 type: creature
 name: Dire rat
-desc: This filthy rat is the size of a small dog. It has a coat of coarse fur, a long and scabby tail, and two glittering eyes.
+desc: This filthy vermin is the size of a small dog. It has a coat of coarse fur, a long and scabby tail, and two glittering eyes.
 texture: 2x7
 color: dark grey
 speed: 2
@@ -181,7 +181,7 @@ type: misc
 name: Barrel
 desc: A cylindrical container made of wood, commonly used to store water and supplies.
 texture: 0x17
-color: dark sepia
+color: sepia
 canMove: 0
 canGet: 0
 
@@ -190,7 +190,7 @@ type: misc
 name: Bed
 desc: A pile of straw lying on top of a wooden platform raised off the ground to avoid pests. Used as a place to sleep or relax.
 texture: 1x16
-color: amber
+color: lighter grey
 canMove: 0
 canGet: 0
 
@@ -207,7 +207,7 @@ type: container
 name: Chest
 desc: Chests are popular among adventureres because of the treasures that are often stored inside.
 texture: 12x13
-color: dark sepia
+color: sepia
 
 [door]
 type: door
@@ -221,7 +221,7 @@ type: misc
 name: Fence
 desc: This structure is constructed from posts connected by wood boards and is commonly used to enclose livestock.
 texture: 1x13
-color: dark sepia
+color: sepia
 canMove: 0
 canGet: 0
 
@@ -251,7 +251,7 @@ canGet: 0
 [signpost]
 type: misc
 name: Singpost
-desc: A wooden signpost that provides directions to guide wandering travelers.
+desc: A wooden signpost, its indications are most helpful to wandering travelers.
 texture: 0x2
 color: dark sepia
 canMove: 0
@@ -261,7 +261,7 @@ canGet: 0
 type: staircase
 direction: down
 name: Staircase
-desc: These solid stairs go one level down.
+desc: These solid stairs allow you to travel one level down.
 texture: 1x1
 color: grey
 canGet: 0
@@ -270,7 +270,7 @@ canGet: 0
 type: staircase
 direction: up
 name: Staircase
-desc: These solid stairs go one level up.
+desc: These solid stairs allow you to travel one level up.
 texture: 1x1
 color: grey
 canView: 0
@@ -281,7 +281,7 @@ type: misc
 name: Table
 desc: A wooden table.
 texture: 2x13
-color: dark sepia
+color: sepia
 canMove: 0
 canGet: 0
 

@@ -21,8 +21,8 @@ void c_interface::init()     {
     targetText = "";
     inputText = "";
     pasteMode = false;
-    info = new c_winInfo(44, 15, 23, 26);
-    map = new c_winMap(0, 0, 67, 45);
+    info = new c_winInfo(44, 16, 23, 25);
+    map = new c_winMap(0, 0, 67, 41);
     gamelog = new c_winGamelog(0, 35, 80, 10);
     //sidebar = new c_winSidebar("sidebar", 0, 43, 80, 2);
     character = new c_winCharacter(0, 0, 67, 41);
@@ -57,8 +57,8 @@ void c_interface::draw() {
         case imode::character: {
             gamelog -> draw();
             sidebar -> draw();
-            character -> draw();
             info -> draw();
+            character -> draw();
             break;
         }
         case imode::edit: {

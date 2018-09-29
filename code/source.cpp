@@ -31,9 +31,8 @@ namespace global {
 	const int maxFOVRange = 36;
 	const int maxLight = 255;
 	const int lightMult = 16;
-	const int mapSize = 128;
+	const int mapSize = 256;
 	const int tileSize = 16;
-	const std::string frameColor = "white";
 };
 
 #include "tinyxml/tinyxml.h"
@@ -65,6 +64,7 @@ namespace global {
 #include "actorManager.hpp"
 #include "gamelog.hpp"
 #include "map.hpp"
+#include "mapGen.hpp"
 #include "game.hpp"
 #include "helper.hpp"
 #include "engine.hpp"
@@ -108,5 +108,6 @@ int main(int argc, char *argv[]) {
 #include "helper.cpp"
 #include "gamelog.cpp"
 #include "map.cpp"
+#include "mapGen.cpp"
 #include "game.cpp"
 #include "engine.cpp"

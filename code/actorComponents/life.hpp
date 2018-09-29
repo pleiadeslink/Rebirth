@@ -34,10 +34,6 @@ class c_life {
         void consumeEnergy(const int& points);
         void setEnergy(const int& value) { energy = value; }
 
-        const int& getMaxHitDamage();
-        const int& getMinHitDamage();
-        const int& getHitDamage();
-
         const int& getFrequency() { return frequency; }
         void changeFrequency(const int& points);
         const int& getViewRange() { return global::maxFOVRange; }

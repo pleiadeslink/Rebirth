@@ -6,12 +6,12 @@ if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), getActorMapX(
 	return false;
 end
 
-damage = calculateHitDamage(emitter)
+damage = getMeleeDamage(emitter)
 
 if(isPlayer(emitter)) then
-	message("You hit the " .. getName(target):lower() .. " (" .. damage .. ").")
+	message("You hit the " .. getName(target):lower() .. " (" .. damage .. " damage).")
 else
-	message("The " .. getName(emitter) .. " hits the " .. getName(target):lower() .. " (" .. damage .. ").")
+	message("The " .. getName(emitter) .. " hits the " .. getName(target):lower() .. " (" .. damage .. " damage).")
 end
 
 data = s_data.new()

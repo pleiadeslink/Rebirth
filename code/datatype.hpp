@@ -51,6 +51,7 @@ struct structActorAsset {
     int tx;
     int ty;
     sf::Color color;
+    bool shadow;
     float mass;
     bool canMove;
     bool canView;

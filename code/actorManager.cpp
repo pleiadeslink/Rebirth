@@ -62,7 +62,7 @@ void c_actorManager::loadPlayer() {
         int player = createActor(id, x, y);
         c_actor* p_player = getActor(player);
         p_player -> load(&zip);
-        int invSize = zip.getInt();
+        /*int invSize = zip.getInt();
         for(int i = 0; i < invSize; ++i) {
             s_invItem item;
             item.quantity = zip.getInt();
@@ -81,7 +81,7 @@ void c_actorManager::loadPlayer() {
             if(item.equipped == true) {
                 p_player -> life -> equipItem(item.uid);
             }
-        }
+        }*/
     }
 }
 

@@ -75,6 +75,7 @@ void c_game::changeMap(const int& x, const int& y, const int& z, const int& play
     loadMap(x, y, z);
     actorManager.loadPlayer();
     c_helper::teleportActor(actorManager.getPlayer() -> getUid(), playerX, playerY);
+    
 }
 
 void c_game::resetMap() {

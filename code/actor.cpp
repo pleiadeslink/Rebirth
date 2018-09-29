@@ -56,7 +56,7 @@ void c_actor::init(structActorAsset* asset) {
     tileY = asset -> ty;
     color = asset -> color;
     faction = asset -> faction;
-    //shadow = asset -> shadow;
+    shadow = asset -> shadow;
 
     switch(type) {
         case actorType::avatar: {

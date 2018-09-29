@@ -18,6 +18,10 @@ void c_helper::changeMap(const int& direction, const int& mapX, const int& mapY)
 		return;
 	}
 	switch(direction) {
+		/*case direction::none: {
+			engine -> game -> changeMap(100, 100, 0, mapX, mapY);
+			return;
+		}*/
 		case direction::east: {
 			engine -> game -> changeMap(engine -> game -> map -> getX() + 1, engine -> game -> map -> getY(), engine -> game -> map -> getZ(), mapX, mapY);
 			return;
@@ -75,6 +79,20 @@ const int& c_helper::getMapHeight() {
     	return 0;
     }
     return engine -> game -> map -> getHeight();
+}
+
+const int& c_helper::getMapX() {
+    if(!engine -> game or !engine -> game -> map) {
+    	return 0;
+    }
+    return engine -> game -> map -> getX();
+}
+
+const int& c_helper::getMapY() {
+    if(!engine -> game or !engine -> game -> map) {
+    	return 0;
+    }
+    return engine -> game -> map -> getY();
 }
 
 const bool& c_helper::isObstacle(const int& x, const int& y) {
@@ -301,6 +319,52 @@ const bool& c_helper::isPlayer(const int& actor) {
 	}
 }
 
+// -20% MaxMeleeDamage
+const int& c_helper::getMinMeleeDamage(const int& actor) {
+	int damage = getMaxMeleeDamage(actor);
+	return damage - (damage * 20 / 100);
+}
+
+// Constitution / 4
+const int& c_helper::getMaxMeleeDamage(const int& actor) {
+if(!engine -> game or !engine -> game -> actorManager.getActor(actor)) {
+		return 0;
+	}
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(p_actor and p_actor -> life) {
+		return p_actor -> life -> getConstitution() / 4;;
+	}
+	return 0;
+}
+
+// How much damage does the actor deal?
+const int& c_helper::getMeleeDamage(const int& actor) {
+	if(!engine -> game or !engine -> game -> actorManager.getActor(actor)) {
+		return 0;
+	}
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(p_actor and p_actor -> life) {
+		int minDamage = getMinMeleeDamage(actor);
+		int maxDamage = getMaxMeleeDamage(actor);
+		int baseDamage = c_helper::random(minDamage, maxDamage);
+
+		// No weapon
+		if(p_actor -> life -> getEquippedItem(bodySlot::mainHand) == 0) {
+			return baseDamage;
+
+		// Has weapon
+		} else {
+			c_actor* p_weapon = engine -> game -> actorManager.getActor(p_actor -> life -> getEquippedItem(bodySlot::mainHand));
+			if(p_weapon -> weapon and (p_weapon -> weapon -> getType() == weaponType::oneHanded or p_weapon -> weapon -> getType() == weaponType::twoHanded)) {
+				int weaponDamage = c_helper::random(p_weapon -> weapon -> getMinDamage(), p_weapon -> weapon -> getMaxDamage());
+				return baseDamage + weaponDamage;
+			}	
+			return baseDamage;
+		}
+	}
+	return 0;
+}
+
 void c_helper::restoreHealth(const int& actor, const int& points) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
 	if(p_actor -> life) {
@@ -395,14 +459,6 @@ const bool& c_helper::removeItem(const int& emitter, const int& item) {
 	return p_emitter -> life -> removeItem(item);
 }
 
-const int& c_helper::getDamage(const int& actor) {
-	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-	if(!p_actor -> life) {
-		return 0;
-	}
-	//int baseDamage = p_actor -> life
-}
-
 void c_helper::give(std::string item) {
 	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
 		return;
@@ -411,15 +467,4 @@ void c_helper::give(std::string item) {
 	if(actor != 0 and engine -> game -> actorManager.getPlayer() -> life -> addToInventory(actor) == true) {
 	        engine -> game -> actorManager.deleteActor(actor);
 	}
-}
-
-const int& c_helper::calculateHitDamage(const int& actor) {
-	if(!engine -> game or !engine -> game -> actorManager.getActor(actor)) {
-		return 0;
-	}
-	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-	if(p_actor and p_actor -> life) {
-		return p_actor -> life -> getHitDamage();
-	}
-	return 0;
 }
