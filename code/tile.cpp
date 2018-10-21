@@ -309,10 +309,16 @@ const bool& c_tile::removeActor(const int& actor) {
     return false;
 }
 
-void c_tile::removeActors() {
+void c_tile::removeActors(const bool& savePlayer) {
     std::vector<int> actors = v_actor;
     for(int i = 0; i < actors.size(); ++i) {
-        engine -> game -> actorManager.deleteActor(actors[i]);
+        if(engine -> game -> actorManager.getActor(actors[i]) == engine -> game -> actorManager.getPlayer()) {
+            if(savePlayer == false) {
+                engine -> game -> actorManager.deleteActor(actors[i]);
+            }
+        } else {
+            engine -> game -> actorManager.deleteActor(actors[i]);
+        }
     }
 }
 

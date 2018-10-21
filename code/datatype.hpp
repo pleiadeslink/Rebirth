@@ -86,6 +86,12 @@ struct structTileAsset {
     int script;
 };
 
+struct structGenTile {
+    int tile;
+    std::string actor;
+    bool flag;
+};
+
 struct structMapAsset {
     std::string name;
     int width;

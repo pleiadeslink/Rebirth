@@ -102,7 +102,6 @@ void c_interface::edit() {
         draw();
         engine -> screen.display();
     }
-    engine -> game -> saveMap(true);
     this -> mode = imode::game;
 }
 

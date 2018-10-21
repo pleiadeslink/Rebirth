@@ -198,7 +198,7 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
     }
 
     // Teleport to position
-    c_helper::teleportActor(newActor -> getUid(), mapX, mapY);
+    c_helper::teleportActor(newActor -> getUid(), mapX, mapY, false);
 
     engine -> message("Actor '" + id + "' created.");
     return newActor -> getUid();

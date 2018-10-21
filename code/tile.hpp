@@ -35,7 +35,7 @@ class c_tile {
         // Actor
         void addActor(const int& actor);
         const bool& removeActor(const int& actor);
-        void removeActors();
+        void removeActors(const bool& savePlayer = false);
         const bool& hasActor(const int& actor);
         const bool& hasActorType(std::string actType);
         const bool& hasAnyActor() { if(v_actor.size() > 0 ) return true; else return false; }

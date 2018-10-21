@@ -7,19 +7,32 @@ class c_helper {
 		static void test() { std::cout << "test" << std::endl; }
 		static std::vector<std::string> split(const std::string& s, char delimiter);
 		static const int& random(const int& min, const int& max);
-		static void changeMap(const int& direction, const int& mapX, const int& mapY);
 		static void gameMessage(const std::string& text);
+
+		// Map
+		static void changeMap(const int& direction, const int& mapX, const int& mapY);
+		static void worldMap(const int& mapX, const int& mapY);
 		static const int& calculateDistance(const int& x1, const int& y1, const int& x2, const int& y2);
 		static const int& getMapSeed();
 		static const int& getMapWidth();
 		static const int& getMapHeight();
 		static const int& getMapX();
 		static const int& getMapY();
+		static const int& genClear(const int& value);
+		static const int& setGenFloor1(std::string value);
+		static const int& setGenFloor2(std::string value);
+		static const int& setGenFloor3(std::string value);
+		static const int& setGenWall1(std::string value);
+		static const int& setGenWall2(std::string value);
+		static const int& setGenWall3(std::string value);
+		static const int& build();
+		static void saveMap();
+
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getCreatureFromTile(const int& x, const int& y);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);
 		static const int& getFirstActorInTile(const int& emitter, const int& x, const int& y);
-		static void teleportActor(const int& actor, const int& x, const int& y);
+		static void teleportActor(const int& actor, const int& x, const int& y, const bool& recalculateFOV = true);
 		static const int& createActor(std::string id, const int& x, const int& y);
 		static const int& tryToTalk(const int& x, const int& y);
 		static void startAction(const structEventData& eventData);

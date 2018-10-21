@@ -7,6 +7,7 @@ struct structFOVMap;
 class c_map : public TCODMap {
     private:
         c_tile** matrix; // *
+        structGenTile** genMatrix;
         std::string name; // *
         int x; // *
         int y; // *
@@ -18,6 +19,14 @@ class c_map : public TCODMap {
         int selectedTileX;
         int selectedTileY;
         int randomSeed;
+
+        // Generator
+        std::string genFloor1;
+        std::string genFloor2;
+        std::string genFloor3;
+        std::string genWall1;
+        std::string genWall2;
+        std::string genWall3;
 
         // 3D Stuff
         double dirX, dirY;
@@ -35,9 +44,21 @@ class c_map : public TCODMap {
 
         // Public build
         void createMatrix();
+        void createGenMatrix();
         void fill(const structTileAsset* asset);
         void flood(const structTileAsset* asset, const int& x, const int& y);
         void floodAux(const structTileAsset* asset, const int& x, const int& y);
+        void genClear(const int& tile = 0);
+        void genCastle(const int& rooms);
+        void genDigRoom();
+        void genDigCorridor();
+        void setGenFloor1(std::string value) { genFloor1 = value; }
+        void setGenFloor2(std::string value) { genFloor2 = value; }
+        void setGenFloor3(std::string value) { genFloor3 = value; }
+        void setGenWall1(std::string value) { genWall1 = value; }
+        void setGenWall2(std::string value) { genWall2 = value; }
+        void setGenWall3(std::string value) { genWall3 = value; }
+        void build();
 
         // Actor management
         const bool& addActorToTile(const int& actor, const int& x, const int& y);

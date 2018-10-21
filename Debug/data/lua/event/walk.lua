@@ -51,7 +51,7 @@ end
 -- Go west
 if(mapX == 0) then
 	if(isPlayer(emitter) == true) then
-		changeMap(7, getMapWidth() - 2, mapY)
+		worldMap(getMapX() - 1, getMapY())
 		message("You travel to the west.")
 	end
 	return
@@ -59,7 +59,7 @@ if(mapX == 0) then
 -- Go east
 elseif(mapX == getMapWidth() - 1) then
 	if(isPlayer(emitter) == true) then
-		changeMap(3, 1, mapY)
+		worldMap(getMapX() + 1, getMapY())
 		message("You travel to the east.")
 	end
 	return
@@ -67,7 +67,7 @@ elseif(mapX == getMapWidth() - 1) then
 -- Go north
 elseif(mapY == 0) then
 	if(isPlayer(emitter) == true) then
-		changeMap(1, mapX, getMapHeight() - 2)
+		worldMap(getMapX(), getMapY() - 1)
 		message("You travel to the north.")
 	end
 	return
@@ -75,7 +75,7 @@ elseif(mapY == 0) then
 -- Go south
 elseif(mapY == getMapWidth() - 1) then
 	if(isPlayer(emitter) == true) then
-		changeMap(5, mapX, 1)
+		worldMap(getMapX(), getMapY() + 1)
 		message("You travel to the south.")
 	end
 	return
@@ -104,12 +104,12 @@ else
 		
 	-- Walk
 	else
-		teleportActor(emitter, mapX, mapY)
+		teleportActor(emitter, mapX, mapY, true)
 
 		-- Check if there's an item on the new tile
 		item = getFirstActorInTile(emitter, mapX, mapY)
 		if(item ~= 0) then
-			--message("You see a " .. getName(item) .. ".")
+			message("You see a " .. getName(item) .. ".")
 		end
 	end
 end

@@ -10,7 +10,7 @@ const bool& c_game::newGame() {
 
     map = new c_map();
     map -> init();
-    loadMap(0, 0, 0);
+    loadMap(1, 1, 0);
     actorManager.createActor("avatar", 24, 24);
     return true;
 }
@@ -43,6 +43,7 @@ void c_game::saveMap(const bool& default) {
 
 void c_game::loadMap(const int& x, const int& y, const int& z) {
 
+    map -> wipe(x, y, z);
     TCODZip zip;
 
     // Load saved
@@ -51,7 +52,7 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
         map -> load(&zip);
         actorManager.loadActors(&zip);
     
-    // Load default
+    // Load default 
     } else {
         std::string defaultFilename = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
         if(zip.loadFromFile(defaultFilename.c_str())) {
@@ -74,8 +75,7 @@ void c_game::changeMap(const int& x, const int& y, const int& z, const int& play
     map -> wipe(x, y, z);
     loadMap(x, y, z);
     actorManager.loadPlayer();
-    c_helper::teleportActor(actorManager.getPlayer() -> getUid(), playerX, playerY);
-    
+    c_helper::teleportActor(actorManager.getPlayer() -> getUid(), playerX, playerY, true);
 }
 
 void c_game::resetMap() {
@@ -123,7 +123,6 @@ bool c_game::runEvent(structEventData& data) {
     if(!engine -> game -> map) {
         return false;
     }
-    
     std::string path = "event/" + data.type + ".lua";
     c_engine::runScript(path, data);
     return false;
@@ -133,7 +132,6 @@ bool c_game::runEffect(structEventData& data) {
     if(!engine -> game -> map) {
         return false;
     }
-    
     std::string path = "effect/" + data.type + ".lua";
     c_engine::runScript(path, data);
     return false;

@@ -157,6 +157,19 @@ namespace tile {
     };
 }
 
+namespace genTile {
+    enum genTiles {
+        floor1,
+        floor2,
+        floor3,
+        wall1,
+        wall2,
+        wall3,
+        water,
+        lava
+    };
+}
+
 namespace layer {
     enum layers {
         thebackest,

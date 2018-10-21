@@ -34,9 +34,16 @@ void c_map::init() {
     this -> oldYFOV = 0;
     selectedTileX = 0;
     selectedTileY = 0;
+    genFloor1 = "floor_grass";
+    genFloor2 = "floor_grass";
+    genFloor3 = "floor_grass";
+    genWall1 = "wall_rock";
+    genWall2 = "wall_rock";
+    genWall3 = "wall_rock";
 
     // Creates initial matrix
     createMatrix();
+    createGenMatrix();
     fill(engine -> assetManager.getTileAsset("floor_grass"));
 }
 
@@ -149,12 +156,21 @@ void c_map::createMatrix() {
         for(int i2 = 0; i2 < height; ++i2) {
             matrix[i1][i2].setCoords(i1, i2);
             matrix[i1][i2].setAsset(engine -> assetManager.getTileAsset("floor_grass"));
-            
         }
     }
 }
 
-// --- PUBLIC BUILD ---
+void c_map::createGenMatrix() {
+   	genMatrix = new structGenTile*[width];
+	for(int i = 0; i < width; ++i)
+		genMatrix[i] = new structGenTile[height];
+    for(int i1 = 0; i1 < width; ++i1) {
+        for(int i2 = 0; i2 < height; ++i2) {
+            genMatrix[i1][i2].tile = 0;
+            genMatrix[i1][i2].actor = "";
+        }
+    }
+}
 
 void c_map::fill(const structTileAsset* asset) {
 	for(int i1 = 0; i1 < width; ++i1) {
@@ -189,6 +205,70 @@ void c_map::floodAux(const structTileAsset* asset, const int& x, const int& y) {
     floodAux(asset, x, y - 1);
 }
 
+void c_map::genClear(const int& tile) {
+	for(int i1 = 0; i1 < width; ++i1) {
+		for(int i2 = 0; i2 < height; ++i2) {
+			genMatrix[i1][i2].tile = tile;
+            genMatrix[i1][i2].actor = "";
+		}
+	}
+}
+
+void c_map::genCastle(const int& rooms) {
+    
+    // Pick up a random wall tile
+    bool wallFound = false;
+    while(wallFound == false) {
+        int x = c_helper::random(0, width);
+        int y = c_helper::random(0, height);
+    }
+}
+
+void c_map::build() {
+    for(int x = 0; x < width; ++x) {
+        for(int y = 0; y < height; ++y) {
+            // Delete previous actor, unless it's the actor
+            matrix[x][y].removeActors(true);
+
+            // Applies generator tiles to the real matrix
+            std::cout << genMatrix[x][y].tile << genFloor2 << std::endl;
+            switch(genMatrix[x][y].tile) {
+                case genTile::floor1: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor1));
+                    break;
+                }
+                case genTile::floor2: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor2));
+                    break;
+                }
+                case genTile::floor3: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor3));
+                    break;
+                }
+                case genTile::wall1: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genWall1));
+                    break;
+                }
+                case genTile::wall2: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genWall2));
+                    break;
+                }
+                case genTile::wall3: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genWall3));
+                    break;
+                }
+                case genTile::water: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset("water"));
+                    break;
+                }
+                case genTile::lava: {
+                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset("lava"));
+                    break;
+                }
+            }
+        }
+    }
+}
 
 // --- ACTOR ---
 

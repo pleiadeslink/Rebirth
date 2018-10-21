@@ -49,6 +49,21 @@ void c_helper::changeMap(const int& direction, const int& mapX, const int& mapY)
 	}
 }
 
+
+
+void c_helper::worldMap(const int& mapX, const int& mapY) {
+    if(!engine -> game or !engine -> game -> map) {
+        return;
+    }
+
+    engine -> game -> saveMap(false);
+    engine -> game -> actorManager.savePlayer();
+    engine -> game -> actorManager.clear();
+    engine -> game -> loadMap(0, 0, 0);
+    engine -> game -> actorManager.loadPlayer();
+    teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
+}
+
 void c_helper::gameMessage(const std::string& text) {
 	if(!engine -> game) {
 		return;
@@ -95,6 +110,75 @@ const int& c_helper::getMapY() {
     return engine -> game -> map -> getY();
 }
 
+const int& c_helper::genClear(const int& value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> genClear(value);
+	return 0;
+}
+
+const int& c_helper::setGenFloor1(std::string value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> setGenFloor1(value);
+	return 0;
+}
+
+const int& c_helper::setGenFloor2(std::string value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> setGenFloor2(value);
+	return 0;
+}
+
+const int& c_helper::setGenFloor3(std::string value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> setGenFloor3(value);
+	return 0;
+}
+
+const int& c_helper::setGenWall1(std::string value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> setGenWall1(value);
+	return 0;
+}
+
+const int& c_helper::setGenWall2(std::string value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> setGenWall2(value);
+	return 0;
+}
+
+const int& c_helper::setGenWall3(std::string value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> setGenWall3(value);
+	return 0;
+}
+
+const int& c_helper::build() {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	engine -> game -> map -> build();
+	return 0;
+}
+
+void c_helper::saveMap() {
+	engine -> game -> saveMap(true);
+	return;
+}
+
 const bool& c_helper::isObstacle(const int& x, const int& y) {
 	return engine -> game -> map -> getTile(x, y) -> isObstacle();
 }
@@ -136,7 +220,7 @@ const int& c_helper::getFirstActorInTile(const int& emitter, const int& x, const
 	return 0;
 }
 
-void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY) {
+void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY, const bool& recalculateFOV) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
 	}
@@ -152,7 +236,7 @@ void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY)
     p_actor -> setMapY(mapY);
             
     // Recalculate FOV
-    if(p_actor == engine -> game -> actorManager.getPlayer()) {
+    if(recalculateFOV == true and p_actor == engine -> game -> actorManager.getPlayer()) {
         engine -> game -> map -> fov(mapX, mapY, p_actor -> life -> getViewRange(), true);
     }
 
@@ -325,7 +409,7 @@ const int& c_helper::getMinMeleeDamage(const int& actor) {
 	return damage - (damage * 20 / 100);
 }
 
-// Constitution / 4
+// melee = constitution / 4
 const int& c_helper::getMaxMeleeDamage(const int& actor) {
 if(!engine -> game or !engine -> game -> actorManager.getActor(actor)) {
 		return 0;
