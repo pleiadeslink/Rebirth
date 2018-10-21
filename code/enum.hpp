@@ -35,7 +35,8 @@ namespace actorType {
         staircase,
         door,
         container,
-        misc
+        misc,
+        trigger
     };
 }
 

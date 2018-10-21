@@ -16,10 +16,6 @@ class c_game {
         const bool& newGame();
         const bool& saveGame();
         const bool& loadGame();
-        void saveMap(const bool& default = false);
-        void loadMap(const int& x, const int& y, const int& z);
-        void changeMap(const int& x, const int& y, const int& z, const int& playerX, const int& playerY);
-        void resetMap();
         void update(const int& key);
         static bool runEvent(structEventData& data);
         static bool runEffect(structEventData& data);

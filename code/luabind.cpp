@@ -1,11 +1,13 @@
 state["runEvent"] = &c_game::runEvent;
 state["random"] = &c_helper::random;
-state["changeMap"] = &c_helper::changeMap;
-state["worldMap"] = &c_helper::worldMap;
 state["test"] = &c_helper::test;
 state["message"] = &c_helper::gameMessage;
 
 // Map
+state["saveMap"] = &c_helper::saveMap;
+state["changeMap"] = &c_helper::changeMap;
+state["worldMap"] = &c_helper::worldMap;
+state["resetMap"] = c_helper::resetMap;
 state["getMapSeed"] = &c_helper::getMapSeed;
 state["getMapWidth"] = &c_helper::getMapWidth;
 state["getMapHeight"] = &c_helper::getMapHeight;
@@ -19,7 +21,6 @@ state["setWall1"] = &c_helper::setGenWall1;
 state["setWall2"] = &c_helper::setGenWall2;
 state["setWall3"] = &c_helper::setGenWall3;
 state["build"] = &c_helper::build;
-state["saveMap"] = &c_helper::saveMap;
 
 state["isObstacle"] = &c_helper::isObstacle;
 state["createActor"] = &c_helper::createActor;

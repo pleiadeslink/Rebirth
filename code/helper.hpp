@@ -10,8 +10,11 @@ class c_helper {
 		static void gameMessage(const std::string& text);
 
 		// Map
-		static void changeMap(const int& direction, const int& mapX, const int& mapY);
+		static void loadMap(const int& x, const int& y, const int& z);
+		static void saveMap(const bool& default = false);
+		static void changeMap(const int& x, const int& y, const int& z, const int& direction);
 		static void worldMap(const int& mapX, const int& mapY);
+		static void resetMap();
 		static const int& calculateDistance(const int& x1, const int& y1, const int& x2, const int& y2);
 		static const int& getMapSeed();
 		static const int& getMapWidth();
@@ -26,8 +29,8 @@ class c_helper {
 		static const int& setGenWall2(std::string value);
 		static const int& setGenWall3(std::string value);
 		static const int& build();
-		static void saveMap();
 
+		// Actor
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getCreatureFromTile(const int& x, const int& y);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);
@@ -39,7 +42,6 @@ class c_helper {
 		static const int& findEnemy(const int& actor);
 		static const bool& isEnemy(const int& emitter, const int& target);
 		static const int& getDirectionToActor(const int& emitter, const int& target);
-
 		static std::string getActorId(const int& actor); // Returns the actor's id
 		static std::string getName(const int& actor); // Returns the actor's name
 		static std::string getPlayerName(); // Returns the actor's name
@@ -55,7 +57,6 @@ class c_helper {
 		static const int& getMaxMeleeDamage(const int& actor);
 		static const int& getMeleeDamage(const int& actor); // How much damage does the actor deal?
 		static void restoreHealth(const int& actor, const int& points); // Restore 
-		
 		static void damage(const int& actor, const int& value);
 		static void kill(const int& actor);
 		static void openCloseDoor(const int& emitter, const int& door);

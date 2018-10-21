@@ -9,7 +9,8 @@ c_actor::c_actor(const int& uid)
     consumable(0),
     staircase(0),
     weapon(0),
-    armor(0) {
+    armor(0),
+    trigger(0) {
 }
 
 c_actor::~c_actor() {
@@ -42,6 +43,9 @@ c_actor::~c_actor() {
     }
     if(armor) {
         delete armor;
+    }
+    if(trigger) {
+        delete trigger;
     }
 }
 
@@ -109,6 +113,10 @@ void c_actor::init(structActorAsset* asset) {
         }
         case actorType::misc: {
             body = new c_body(this, asset -> canMove, asset -> canView, asset -> canGet, asset -> mass);
+            break;
+        }
+        case actorType::trigger: {
+            trigger = new c_trigger(this);
             break;
         }
     }    

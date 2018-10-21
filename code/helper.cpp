@@ -13,55 +13,87 @@ const int&  c_helper::random(const int& min, const int& max) {
     return ran -> getInt(min, max);
 }
 
-void c_helper::changeMap(const int& direction, const int& mapX, const int& mapY) {
+void c_helper::loadMap(const int& x, const int& y, const int& z) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
 	}
-	switch(direction) {
-		/*case direction::none: {
-			engine -> game -> changeMap(100, 100, 0, mapX, mapY);
-			return;
-		}*/
-		case direction::east: {
-			engine -> game -> changeMap(engine -> game -> map -> getX() + 1, engine -> game -> map -> getY(), engine -> game -> map -> getZ(), mapX, mapY);
-			return;
-		}
-		case direction::west: {
-			engine -> game -> changeMap(engine -> game -> map -> getX() - 1, engine -> game -> map -> getY(), engine -> game -> map -> getZ(), mapX, mapY);
-			return;
-		}
-		case direction::north: {
-			engine -> game -> changeMap(engine -> game -> map -> getX(), engine -> game -> map -> getY() - 1, engine -> game -> map -> getZ(), mapX, mapY);
-			return;
-		}
-		case direction::south: {
-			engine -> game -> changeMap(engine -> game -> map -> getX(), engine -> game -> map -> getY() + 1, engine -> game -> map -> getZ(), mapX, mapY);
-			return;
-		}
-		case direction::up: {
-			engine -> game -> changeMap(engine -> game -> map -> getX(), engine -> game -> map -> getY(), engine -> game -> map -> getZ() + 1, mapX, mapY);
-			return;
-		}
-		case direction::down: {
-			engine -> game -> changeMap(engine -> game -> map -> getX(), engine -> game -> map -> getY(), engine -> game -> map -> getZ() - 1, mapX, mapY);
-			return;
-		}
-	}
+
+    engine -> game -> map -> wipe(x, y, z);
+    TCODZip zip;
+
+    // Load saved
+    std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
+    if(zip.loadFromFile(savedFilename.c_str())) {
+        engine -> game -> map -> load(&zip);
+        engine -> game -> actorManager.loadActors(&zip);
+    
+    // Load default 
+    } else {
+        std::string defaultFilename = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
+        if(zip.loadFromFile(defaultFilename.c_str())) {
+            engine -> game -> map -> load(&zip);
+            engine -> game -> actorManager.loadActors(&zip);
+            //map -> create(x, y, z, engine -> assetManager.getMapAsset(x, y, z));
+        }
+    }
 }
 
+void c_helper::saveMap(const bool& default) {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
 
+    TCODZip zip;
+    engine -> game -> map -> save(&zip);
+    engine -> game -> actorManager.saveMapActors(&zip);
+    std::string filename;
+    if(default == true) {
+        filename = "data/map/" + std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()) + ".map";
+    } else {
+        filename = "data/save/" + std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()) + ".sav";
+    }
+    zip.saveToFile(filename.c_str());
+	return;
+}
+
+void c_helper::changeMap(const int& x, const int& y, const int& z, const int& direction) {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+
+    saveMap(false);
+    engine -> game -> actorManager.savePlayer();
+    engine -> game -> actorManager.clear();
+    loadMap(x, y, z);
+    engine -> game -> actorManager.loadPlayer();
+	std::cout << "Change map: " << x << "." << y << "." << z << std::endl;
+    c_helper::teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
+}
 
 void c_helper::worldMap(const int& mapX, const int& mapY) {
     if(!engine -> game or !engine -> game -> map) {
         return;
     }
 
-    engine -> game -> saveMap(false);
+    saveMap(false);
     engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
-    engine -> game -> loadMap(0, 0, 0);
+    loadMap(0, 0, 0);
     engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
+}
+
+void c_helper::resetMap() {
+    if(!engine -> game or !engine -> game -> map) {
+        return;
+    }
+
+    engine -> game -> actorManager.clear();
+    std::string defaultFilename = "data/map/" + std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()) + ".map";
+    TCODZip zip;
+    if(zip.loadFromFile(defaultFilename.c_str())) {
+        engine -> game -> map -> load(&zip);
+    }
 }
 
 void c_helper::gameMessage(const std::string& text) {
@@ -172,11 +204,6 @@ const int& c_helper::build() {
 	}
 	engine -> game -> map -> build();
 	return 0;
-}
-
-void c_helper::saveMap() {
-	engine -> game -> saveMap(true);
-	return;
 }
 
 const bool& c_helper::isObstacle(const int& x, const int& y) {
