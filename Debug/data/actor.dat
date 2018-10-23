@@ -312,4 +312,7 @@ texture: 15x10
 color: light amber
 mass: 2
 
+[trigger]
+type: trigger
+
 [end]

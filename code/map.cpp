@@ -146,6 +146,10 @@ c_tile* c_map::runaway(const int& x1, const int& y1, const int& tx, const int& t
     return &matrix[dx][dy];
 }
 
+void c_map::addScript(s_script script) {
+    v_script.push_back(script);
+}
+
 // --- BUILD ---
 
 void c_map::createMatrix() {

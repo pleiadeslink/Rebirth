@@ -13,7 +13,7 @@ class c_tile {
         sf::Color bgcolor;
         sf::Color olcolor;
         int type;
-        std::string script; // *
+        int script; // *
         bool interior; // *
         bool explored; // *
         bool visible; // *
@@ -40,6 +40,7 @@ class c_tile {
         const bool& hasActorType(std::string actType);
         const bool& hasAnyActor() { if(v_actor.size() > 0 ) return true; else return false; }
         std::vector<int> getActorList() { return v_actor; }
+        const int& findActor(std::string type);
         const int& findStaircase(); // Returns direction if found
         
         const int& getX() { return x; }
@@ -47,7 +48,7 @@ class c_tile {
         const std::string& getId() { return id; }
         const std::string& getName() { return name; }
         const int& getType() { return type; }
-        std::string getScript() { return script; }
+        const int& getScript() { return script; }
         const bool& getInterior() { return interior; }
         const bool& getExplored() { return explored; }
         const bool& getVisible() { return visible; }
@@ -56,7 +57,7 @@ class c_tile {
         void setCoords(const int& x, const int& y) { this -> x = x; this -> y = y; }
         void setAsset(const structTileAsset* asset);
         void wipe(const structTileAsset* asset);
-        void setScript(std::string script) { this -> script = script; }
+        void setScript(const int& script) { this -> script = script; }
         void setInterior(const bool& interior) { this -> interior = interior; }
         void setVisible(const bool& visible) { this -> visible = visible; }
         void setCheck(const bool& check) { this -> check = check; }

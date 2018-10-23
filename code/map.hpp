@@ -19,6 +19,7 @@ class c_map : public TCODMap {
         int selectedTileX;
         int selectedTileY;
         int randomSeed;
+        std::vector<s_script> v_script;
 
         // Generator
         std::string genFloor1;
@@ -41,6 +42,7 @@ class c_map : public TCODMap {
         void wipe(const int& x, const int& y, const int& z);
         TCODPath* path(const int& x0, const int& y0, const int& x1, const int& y1);
         c_tile* runaway(const int& x1, const int& y1, const int& tx, const int& ty);
+        void addScript(s_script script);
 
         // Public build
         void createMatrix();
@@ -78,6 +80,7 @@ class c_map : public TCODMap {
         const int& getWidth() { return width; }
         const int& getHeight() { return height; }
         const int& getRandomSeed() { return randomSeed; }
+        std::vector<s_script> getScripts() { return v_script; }
 };
 
 #endif

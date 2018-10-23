@@ -6,7 +6,7 @@ c_tile::c_tile()
     tileX(0),
     tileY(0),
     type(tileType::floor),
-    script(""),
+    script(0),
     interior(false),
     explored(false),
     visible(false),
@@ -359,12 +359,18 @@ void c_tile::wipe(const structTileAsset* asset) {
     color = asset -> color;
     bgcolor = asset -> bgcolor;
     type = asset -> type;
-    script = "";
+    script = 0;
     interior = 0;
     explored = 0;
     visible = 0;
     v_actor.clear();
     check = 0;
+}
+
+const int& c_tile::findActor(std::string type) {
+    for(int i = 0; i < v_actor.size(); ++i) {
+    }
+    return 0;
 }
 
 const int& c_tile::findStaircase() {

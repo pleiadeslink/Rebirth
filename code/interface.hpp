@@ -26,6 +26,7 @@ class c_interface {
         std::string inputText;
         structTileAsset* editTile;
         structActorAsset* editActor;
+        int editScript;
         int editRadius;
         bool pasteMode;
         int processInput(int key);
@@ -44,9 +45,11 @@ class c_interface {
         void setTileDestination(c_tile* tile) { destination = tile; }
         void setEditTile(structTileAsset* tile) { editTile = tile; }
         void setEditActor(structActorAsset* actor) { editActor = actor; }
+        void setEditScript(int script) { editScript = script; }
         void setEmode(const int& value) { emode = value; }
         structTileAsset* getEditTile() { return editTile; }
         structActorAsset* getEditActor() { return editActor; }
+        const int& getEditScript() { return editScript; }
         int selectCloseTarget(const int& prevMode, const std::string& targetText);
         //c_tile* selectTarget(const int& prevMode, const std::string& targetText);
         int getEmode() { return emode; }

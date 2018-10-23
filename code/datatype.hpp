@@ -124,3 +124,9 @@ struct s_invItem {
     int quantity;
     bool equipped;
 };
+
+struct s_script {
+    int uid;
+    std::string command;
+    bool autodelete;
+};

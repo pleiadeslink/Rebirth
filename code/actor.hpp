@@ -37,7 +37,6 @@ class c_actor {
         c_staircase* staircase;
         c_weapon* weapon;
         c_armor* armor;
-        c_trigger* trigger;
         
         c_actor(const int& uid);
         ~c_actor();

@@ -15,6 +15,7 @@ class c_helper {
 		static void changeMap(const int& x, const int& y, const int& z, const int& direction);
 		static void worldMap(const int& mapX, const int& mapY);
 		static void resetMap();
+		static void createMapScript(std::string command, const bool& autodelete);
 		static const int& calculateDistance(const int& x1, const int& y1, const int& x2, const int& y2);
 		static const int& getMapSeed();
 		static const int& getMapWidth();
@@ -31,6 +32,7 @@ class c_helper {
 		static const int& build();
 
 		// Actor
+		static const int& findActor(const int& x, const int&y, std::string type);
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getCreatureFromTile(const int& x, const int& y);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);

@@ -25,27 +25,45 @@ int c_winSidebar::update(int key) {
 					return 0;
 				}
 				case key::left: {
-					if(engine -> interface.getEmode() == emode::tile) {
-						engine -> interface.setEditTile(engine -> assetManager.getPreviousTileAsset());
-					} else {
-						engine -> interface.setEditActor(engine -> assetManager.getPreviousActorAsset());
+					switch(engine -> interface.getEmode()) {
+						case emode::tile: {
+							engine -> interface.setEditTile(engine -> assetManager.getPreviousTileAsset());
+							break;
+						}
+						case emode::actor: {
+							engine -> interface.setEditActor(engine -> assetManager.getPreviousActorAsset());
+							break;
+						}
+						case emode::script: {
+							std::vector<s_script> v_script = engine -> game -> map -> getScripts();
+							if(v_script.size() != 0 and engine -> interface.getEditScript() > 1) {
+								std::cout << engine -> interface.getEditScript() - 1 << std::endl;
+								engine -> interface.setEditScript(engine -> interface.getEditScript() - 1);
+							}
+							break;
+						}
 					}
 					return 0;
 				}
 				case key::right: {
-					if(engine -> interface.getEmode() == emode::tile) {
-						engine -> interface.setEditTile(engine -> assetManager.getNextTileAsset());
-					} else {
-						engine -> interface.setEditActor(engine -> assetManager.getNextActorAsset());
+					switch(engine -> interface.getEmode()) {
+						case emode::tile: {
+							engine -> interface.setEditTile(engine -> assetManager.getNextTileAsset());
+							break;
+						}
+						case emode::actor: {
+							engine -> interface.setEditActor(engine -> assetManager.getNextActorAsset());
+							break;
+						}
+						case emode::script: {
+							std::vector<s_script> v_script = engine -> game -> map -> getScripts();
+							if(v_script.size() != 0 and engine -> interface.getEditScript() < v_script.size()) {
+								std::cout << engine -> interface.getEditScript() + 1 << std::endl;
+								engine -> interface.setEditScript(engine -> interface.getEditScript() + 1);
+							}
+							break;
+						}
 					}
-					return 0;
-				}
-				case key::up: {
-					
-					return 0;
-				}
-				case key::down: {
-					engine -> interface.setEmode(emode::actor);
 					return 0;
 				}
 			}
@@ -56,7 +74,11 @@ int c_winSidebar::update(int key) {
 }
 
 void c_winSidebar::draw() {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
 
+	// If edit mode on
 	if(engine -> interface.getMode() == imode::edit) {
 		switch(engine -> interface.getEmode()) {
 			case emode::tile: {
@@ -67,9 +89,17 @@ void c_winSidebar::draw() {
 				engine -> screen.drawText(">", (x + 1) * 16, (y + 1) * 16, sf::Color::White);
 				break;
 			}
+			case emode::script: {
+				engine -> screen.drawText(">", (x + 1) * 16, (y + 2) * 16, sf::Color::White);
+				break;
+			}
 		}
 		engine -> screen.drawText(engine -> interface.getEditTile() -> name, (x + 2) * 16, (y) * 16, sf::Color::White);
 		engine -> screen.drawText(engine -> interface.getEditActor() -> name, (x + 2) * 16, (y + 1) * 16, sf::Color::White);
+		std::vector<s_script> v_script = engine -> game -> map -> getScripts();
+		if(v_script.size() > 0) {
+			engine -> screen.drawText(v_script[engine -> interface.getEditScript() - 1].command, (x + 2) * 16, (y + 2) * 16, sf::Color::White);
+		}
 		return;
 	}
 

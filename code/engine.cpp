@@ -65,15 +65,17 @@ int c_engine::input() {
         } else if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
             return key::rclick;
         }
+
+        // Edit
         if(interface.getMode() == imode::edit and event.type == sf::Event::TextEntered) {
             
             if(event.text.unicode == 8 and command.size() != 0) { // Backspace key
                 command.pop_back();
             } else if(event.text.unicode == 13) { // Return key
+            std::string str = "Command run: " + command;
                 kaguya::State state;
                 #include "luabind.cpp"
                 state.dostring(command);
-                std::string str = "Command run: " + command;
                 message(str);
                 prevCommand = command;
                 command = "";
@@ -82,6 +84,8 @@ int c_engine::input() {
             } else if(event.text.unicode < 128 and event.text.unicode != 8) {
                 command.push_back((char)event.text.unicode);
             }
+
+        // Normal
         } else if(event.type == sf::Event::KeyPressed) {
             switch(event.key.code) {
                 case sf::Keyboard::F: {

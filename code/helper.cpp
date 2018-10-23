@@ -96,11 +96,23 @@ void c_helper::resetMap() {
     }
 }
 
+void c_helper::createMapScript(std::string command, const bool& autodelete) {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+	s_script script;
+	script.command = command;
+	script.autodelete = autodelete;
+	engine -> game -> map -> addScript(script);
+	engine -> interface.setEditScript(1);
+}
+
 void c_helper::gameMessage(const std::string& text) {
 	if(!engine -> game) {
 		return;
 	}
 	engine -> game -> gamelog.message(text);
+	std::cout << "Game: " << text << std::endl;
 }
 
 const int& c_helper::calculateDistance(const int& x1, const int& y1, const int& x2, const int& y2) {
@@ -206,6 +218,14 @@ const int& c_helper::build() {
 	return 0;
 }
 
+const int& c_helper::findActor(const int& x, const int&y, std::string type) {
+	if(!engine -> game or !engine -> game -> map) {
+		return 0;
+	}
+	int result = engine -> game -> map -> getTile(x, y) -> findActor(type);
+    return result;		
+}
+
 const bool& c_helper::isObstacle(const int& x, const int& y) {
 	return engine -> game -> map -> getTile(x, y) -> isObstacle();
 }
@@ -270,6 +290,12 @@ void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY,
     // Remove from last position and add to the new one
     engine -> game -> map -> removeActorFromTile(actor, oldX, oldY);
     engine -> game -> map -> addActorToTile(actor, mapX, mapY);
+
+	// If it's the player, check for a script
+	int script = engine -> game -> map -> getTile(mapX, mapY) -> getScript();
+	if(script != 0 ) {
+
+	}
 }
 
 const int& c_helper::createActor(std::string id, const int& x, const int& y) {

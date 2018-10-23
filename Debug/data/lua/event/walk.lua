@@ -107,9 +107,9 @@ else
 		teleportActor(emitter, mapX, mapY, true)
 
 		-- Check if there's an item on the new tile
-		item = getFirstActorInTile(emitter, mapX, mapY)
-		if(item ~= 0) then
-			message("You see a " .. getName(item) .. ".")
-		end
+		--item = getFirstActorInTile(emitter, mapX, mapY)
+		--if(item ~= 0) then
+		--	message("You see a " .. getName(item) .. ".")
+		--end
 	end
 end

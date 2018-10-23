@@ -8,6 +8,7 @@ state["saveMap"] = &c_helper::saveMap;
 state["changeMap"] = &c_helper::changeMap;
 state["worldMap"] = &c_helper::worldMap;
 state["resetMap"] = c_helper::resetMap;
+state["addScript"] = &c_helper::createMapScript;
 state["getMapSeed"] = &c_helper::getMapSeed;
 state["getMapWidth"] = &c_helper::getMapWidth;
 state["getMapHeight"] = &c_helper::getMapHeight;

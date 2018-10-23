@@ -54,8 +54,6 @@ void c_assetManager::loadActors() {
 				asset.type = actorType::container;
 			} else if(line == "misc") {
 				asset.type = actorType::misc;
-			} else if(line == "trigger") {
-				asset.type = actorType::trigger;
 			}
 		}
 
