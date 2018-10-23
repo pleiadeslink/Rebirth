@@ -23,6 +23,7 @@ class c_helper {
 		static const int& getMapX();
 		static const int& getMapY();
 		static const int& genClear(const int& value);
+		static const bool& genCastle(const int& value);
 		static const int& setGenFloor1(std::string value);
 		static const int& setGenFloor2(std::string value);
 		static const int& setGenFloor3(std::string value);

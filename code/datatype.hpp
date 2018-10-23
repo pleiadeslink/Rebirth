@@ -86,7 +86,7 @@ struct structTileAsset {
     int script;
 };
 
-struct structGenTile {
+struct s_genTile {
     int tile;
     std::string actor;
     bool flag;

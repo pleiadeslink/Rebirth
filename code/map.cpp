@@ -165,9 +165,9 @@ void c_map::createMatrix() {
 }
 
 void c_map::createGenMatrix() {
-   	genMatrix = new structGenTile*[width];
+   	genMatrix = new s_genTile*[width];
 	for(int i = 0; i < width; ++i)
-		genMatrix[i] = new structGenTile[height];
+		genMatrix[i] = new s_genTile[height];
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
             genMatrix[i1][i2].tile = 0;
@@ -218,14 +218,42 @@ void c_map::genClear(const int& tile) {
 	}
 }
 
-void c_map::genCastle(const int& rooms) {
+const bool& c_map::genCastle(const int& rooms) {
+
+    c_helper::gameMessage("Generating castle map...");
+
+    // Fills with wall
+    genClear(genTile::wall1);
     
     // Pick up a random wall tile
     bool wallFound = false;
     while(wallFound == false) {
         int x = c_helper::random(0, width);
         int y = c_helper::random(0, height);
+        if(genIsWall(x, y) == true) {
+            wallFound = true;
+        }
     }
+
+    return true;
+}
+
+const bool& c_map::genIsFloor(const int& x, const int& y) {
+    if(genMatrix[x][y].tile == genTile::floor1 or
+    genMatrix[x][y].tile == genTile::floor2 or
+    genMatrix[x][y].tile == genTile::floor3) {
+        return true;
+    }
+    false;
+}
+
+const bool& c_map::genIsWall(const int& x, const int& y) {
+    if(genMatrix[x][y].tile == genTile::wall1 or
+    genMatrix[x][y].tile == genTile::wall2 or
+    genMatrix[x][y].tile == genTile::wall3) {
+        return true;
+    }
+    false;
 }
 
 void c_map::build() {

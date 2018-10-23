@@ -15,6 +15,7 @@ state["getMapHeight"] = &c_helper::getMapHeight;
 state["getMapX"] = &c_helper::getMapX;
 state["getMapY"] = &c_helper::getMapY;
 state["genClear"] = &c_helper::genClear;
+state["genCastle"] = &c_helper::genCastle;
 state["setFloor1"] = &c_helper::setGenFloor1;
 state["setFloor2"] = &c_helper::setGenFloor2;
 state["setFloor3"] = &c_helper::setGenFloor3;

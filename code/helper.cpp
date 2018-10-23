@@ -162,6 +162,13 @@ const int& c_helper::genClear(const int& value) {
 	return 0;
 }
 
+const bool& c_helper::genCastle(const int& value) {
+	if(!engine -> game or !engine -> game -> map) {
+		return false;
+	}
+	return engine -> game -> map -> genCastle(value);
+}
+
 const int& c_helper::setGenFloor1(std::string value) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;

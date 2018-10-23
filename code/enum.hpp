@@ -182,18 +182,6 @@ namespace layer {
     };
 }
 
-namespace tileScript {
-    enum tileScripts {
-        none,
-        travelNorth,
-        travelSouth,
-        travelEast,
-        travelWest,
-        travelUp,
-        travelDown
-    };
-}
-
 namespace weaponType {
     enum weaponTypes {
         none,

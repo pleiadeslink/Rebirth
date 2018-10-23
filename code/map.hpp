@@ -7,7 +7,7 @@ struct structFOVMap;
 class c_map : public TCODMap {
     private:
         c_tile** matrix; // *
-        structGenTile** genMatrix;
+        s_genTile** genMatrix;
         std::string name; // *
         int x; // *
         int y; // *
@@ -51,9 +51,11 @@ class c_map : public TCODMap {
         void flood(const structTileAsset* asset, const int& x, const int& y);
         void floodAux(const structTileAsset* asset, const int& x, const int& y);
         void genClear(const int& tile = 0);
-        void genCastle(const int& rooms);
+        const bool& genCastle(const int& rooms = 10);
         void genDigRoom();
         void genDigCorridor();
+        const bool& genIsFloor(const int& x, const int& y);
+        const bool& genIsWall(const int& x, const int& y);
         void setGenFloor1(std::string value) { genFloor1 = value; }
         void setGenFloor2(std::string value) { genFloor2 = value; }
         void setGenFloor3(std::string value) { genFloor3 = value; }
