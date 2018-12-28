@@ -1,9 +1,10 @@
 c_player::c_player(c_actor* father) {
     this -> father = father;
     key = 0;
+    god = false;
 }
 
-bool c_player::channel(const int& key) {
+bool c_player::channel(const int& key, const bool& worldMap) {
 
     // Checks destination tile
     if(engine -> interface.getTileDestination()) {
@@ -46,6 +47,8 @@ bool c_player::channel(const int& key) {
 
     // Reads input
 	if(key) {
+
+        // World map input
         switch(key) {
 
             case key::up: {
@@ -59,7 +62,7 @@ bool c_player::channel(const int& key) {
                     return false;
                 }
 
-                return engine -> game -> map -> getTile(x, y - 1) -> playerAction();
+                return engine -> game -> map -> getTile(x, y - 1) -> playerAction(father);
             }
 
             case key::down: {
@@ -73,7 +76,7 @@ bool c_player::channel(const int& key) {
                     return false;
                 }
 
-                return engine -> game -> map -> getTile(x, y + 1) -> playerAction();
+                return engine -> game -> map -> getTile(x, y + 1) -> playerAction(father);
             }
 
             case key::right: {
@@ -87,7 +90,7 @@ bool c_player::channel(const int& key) {
                     return false;
                 }
 
-                return engine -> game -> map -> getTile(x + 1, y) -> playerAction();
+                return engine -> game -> map -> getTile(x + 1, y) -> playerAction(father);
             }
 
             case key::left: {
@@ -101,7 +104,7 @@ bool c_player::channel(const int& key) {
                     return false;
                 }
 
-                return engine -> game -> map -> getTile(x - 1, y) -> playerAction();
+                return engine -> game -> map -> getTile(x - 1, y) -> playerAction(father);
             }
 
             case key::t: {

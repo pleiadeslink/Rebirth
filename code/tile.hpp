@@ -26,8 +26,8 @@ class c_tile {
     public:
         c_tile();
         ~c_tile();
-        void draw(const int& x, const int& y, const bool& playerIsInside);
-        bool playerAction(); // Returns true if successful
+        void draw(const int& x, const int& y, const bool& playerIsInside, const bool& fog);
+        bool playerAction(c_actor* p_player); // Returns true if successful
         bool isObstacle();
         void updateObstacle();
         void explore();

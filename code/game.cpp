@@ -45,7 +45,7 @@ void c_game::update(const int& key) {
 
     // If he's not, check if he can channel the human player
     } else {
-        actorManager.getPlayer() -> player -> channel(key);
+        actorManager.getPlayer() -> player -> channel(key, map -> isWorldMap());
     }
 
     gamelog.update();

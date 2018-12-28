@@ -43,6 +43,7 @@ class c_map : public TCODMap {
         TCODPath* path(const int& x0, const int& y0, const int& x1, const int& y1);
         c_tile* runaway(const int& x1, const int& y1, const int& tx, const int& ty);
         void addScript(s_script script);
+        const bool& isWorldMap();
 
         // Public build
         void createMatrix();
@@ -51,8 +52,8 @@ class c_map : public TCODMap {
         void flood(const structTileAsset* asset, const int& x, const int& y);
         void floodAux(const structTileAsset* asset, const int& x, const int& y);
         void genClear(const int& tile = 0);
+        const bool& genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile = true);
         const bool& genCastle(const int& rooms = 10);
-        void genDigRoom();
         void genDigCorridor();
         const bool& genIsFloor(const int& x, const int& y);
         const bool& genIsWall(const int& x, const int& y);
@@ -62,7 +63,7 @@ class c_map : public TCODMap {
         void setGenWall1(std::string value) { genWall1 = value; }
         void setGenWall2(std::string value) { genWall2 = value; }
         void setGenWall3(std::string value) { genWall3 = value; }
-        void build();
+        void build(); // Returns true if current instance is the world map (x=0 y=0 z=0)
 
         // Actor management
         const bool& addActorToTile(const int& actor, const int& x, const int& y);

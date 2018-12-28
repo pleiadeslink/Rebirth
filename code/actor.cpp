@@ -155,9 +155,7 @@ void c_actor::load(TCODZip* zip) {
     }
 }
 
-bool c_actor::playerAction(const bool& fromWalk) {
-
-    c_actor* p_player = engine -> game -> actorManager.getPlayer();
+bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
 
     if(!p_player or p_player -> action -> isRunning()) {
         return false;

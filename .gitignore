@@ -13,10 +13,10 @@ Debug/Rebirth.ilk
 Debug/Rebirth.v12.suo
 Debug/log.txt
 Debug/lua53.lib
-Debug/data/save
-Debug/data/map
-Debug/data/texture
-Debug/data/font
+data/save
+data/map
+data/texture
+data/font
 Debug/screenshot.png
 docs/
 Rebirth/

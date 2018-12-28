@@ -139,35 +139,72 @@ void c_winSidebar::draw() {
 
 	// << TARGETS >>
 
-	drawTitle("Creatures", 8);
-	std::vector<int> creatures = engine -> game -> actorManager.getActiveActors();
-			
-	if(creatures.size() > 0) {
-		int counter = 0;
-		for(int i = 0; i < creatures.size(); ++i) {
+	if(engine -> game -> map -> isWorldMap() == false) {
 
-			// If the creature is on a visible tile, draw panel
-			c_actor* p_actor = engine -> game -> actorManager.getActor(creatures[i]);
-			if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
-						
-				// Health bar
-				engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, (width - 2) * 16, 16, color("darkest red"));
-				engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(),
-				16, color("darker red"));
-				engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + counter) * 16);
+		drawTitle("Creatures", 8);
+		std::vector<int> creatures = engine -> game -> actorManager.getActiveActors();
+				
+		if(creatures.size() > 0) {
+			int counter = 0;
+			for(int i = 0; i < creatures.size(); ++i) {
 
-				// Symbol
-				engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 1, (y + 9 + counter) * 16 + 1, sf::Color::Black);
-				engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16, (y + 9 + counter) * 16, p_actor -> getColor());
-						
+				// If the creature is on a visible tile, draw panel
+				c_actor* p_actor = engine -> game -> actorManager.getActor(creatures[i]);
+				if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
+							
+					// Health bar
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, (width - 2) * 16, 16, color("darkest red"));
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(),
+					16, color("darker red"));
+					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + counter) * 16);
 
-				// Name
-				engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 9 + counter) * 16 - 3 + 1, sf::Color::Black);
-				engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 9 + counter) * 16 - 3, sf::Color::White);
+					// Symbol
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 1, (y + 9 + counter) * 16 + 1, sf::Color::Black);
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16, (y + 9 + counter) * 16, p_actor -> getColor());
+							
 
-				++counter;
+					// Name
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 9 + counter) * 16 - 3 + 1, sf::Color::Black);
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 9 + counter) * 16 - 3, sf::Color::White);
+
+					++counter;
+				}
 			}
 		}
+
+	// << LOCATIONS >>
+
+	} else {
+		drawTitle("Locations", 8);
+		std::vector<int> creatures = engine -> game -> actorManager.getActiveActors();
+				
+		if(creatures.size() > 0) {
+			int counter = 0;
+			for(int i = 0; i < creatures.size(); ++i) {
+
+				// If the creature is on a visible tile, draw panel
+				c_actor* p_actor = engine -> game -> actorManager.getActor(creatures[i]);
+				if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
+							
+					// Health bar
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, (width - 2) * 16, 16, color("darkest red"));
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(),
+					16, color("darker red"));
+					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + counter) * 16);
+
+					// Symbol
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 1, (y + 9 + counter) * 16 + 1, sf::Color::Black);
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16, (y + 9 + counter) * 16, p_actor -> getColor());
+							
+
+					// Name
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 9 + counter) * 16 - 3 + 1, sf::Color::Black);
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 9 + counter) * 16 - 3, sf::Color::White);
+
+					++counter;
+				}
+			}
+		}		
 	}
 
 	// << QUICK MENU >>

@@ -150,6 +150,15 @@ void c_map::addScript(s_script script) {
     v_script.push_back(script);
 }
 
+// Returns true if current instance is the world map (x=0 y=0 z=0)
+const bool& c_map::isWorldMap() {
+    if(x == 0 and y == 0 and z == 0) {
+        return true;
+    } else { 
+        return false;
+    }
+}
+
 // --- BUILD ---
 
 void c_map::createMatrix() {
@@ -218,23 +227,132 @@ void c_map::genClear(const int& tile) {
 	}
 }
 
-const bool& c_map::genCastle(const int& rooms) {
+const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile) {
 
-    c_helper::gameMessage("Generating castle map...");
+    if(digStartingTile == true) {
+        genMatrix[x0][y0].tile = genTile::floor1;
+    }
 
-    // Fills with wall
-    genClear(genTile::wall1);
-    
-    // Pick up a random wall tile
-    bool wallFound = false;
-    while(wallFound == false) {
-        int x = c_helper::random(0, width);
-        int y = c_helper::random(0, height);
-        if(genIsWall(x, y) == true) {
-            wallFound = true;
+    // Check free (wall) space
+    for(int i = 0; i < rwidth; ++i) {
+        for(int j = 0; j < rheight; ++j) {
+            switch(direction) {
+                case direction::north: {
+                    int x = x0 - ((rwidth - 1) / 2) + i;
+                    int y = y0 - 1 - j;
+                    if(x < 1 or
+                       y < 1 or 
+                       x > width - 1 or
+                       y > height - 1 or
+                       genIsWall(x, y) == false) {
+                        return false;
+                    }
+                    break;
+                }
+                case direction::south: {
+                    int x = x0 - ((rwidth - 1) / 2) + i;
+                    int y = y0 + 1 + j;
+                    if(x < 1 or
+                       y < 1 or 
+                       x > width - 1 or
+                       y > height - 1 or
+                       genIsWall(x, y) == false) {
+                        return false;
+                    }
+                    break;
+                }
+                case direction::west: {
+                    int x = x0 - 1 - i;
+                    int y = y0 - ((rheight - 1) / 2) + j;
+                    if(x < 1 or
+                       y < 1 or 
+                       x > width - 1 or
+                       y > height - 1 or
+                       genIsWall(x, y) == false) {
+                        return false;
+                    }
+                    break;
+                }
+                case direction::east: {
+                    int x = x0 + 1 + i;
+                    int y = y0 - ((rheight - 1) / 2) + j;
+                    if(x < 1 or
+                       y < 1 or 
+                       x > width - 1 or
+                       y > height - 1 or
+                       genIsWall(x, y) == false) {
+                        return false;
+                    }
+                    break;
+                }
+            }
         }
     }
 
+    // Dig room
+    for(int i = 0; i < rwidth; ++i) {
+        for(int j = 0; j < rheight; ++j) {
+            switch(direction) {
+                case direction::north: {
+                    genMatrix[x0 - ((rwidth - 1) / 2) + i][y0 - 1 - j].tile = genTile::floor1;
+                    break;
+                }
+                case direction::south: {
+                    genMatrix[x0 - ((rwidth - 1) / 2) + i][y0 + 1 + j].tile = genTile::floor1;
+                    break;
+                }
+                case direction::west: {
+                    genMatrix[x0 - 1 - i][y0 - ((rheight - 1) / 2) + j].tile = genTile::floor1;
+                    break;
+                }
+                case direction::east: {
+                    genMatrix[x0 + 1 + i][y0 - ((rheight - 1) / 2) + j].tile = genTile::floor1;
+                    break;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+const bool& c_map::genCastle(const int& rooms) {
+
+    c_helper::gameMessage("Generating castle map...");
+    
+    /*/ Pick up a random wall tile
+    int x = 0;
+    int y = 0;
+    bool wallFound = false;
+    while(wallFound == false) {
+        x = c_helper::random(0, width);
+        y = c_helper::random(0, height);
+        if(genIsWall(x, y) == true) {
+            wallFound = true;
+        }
+    }*/
+
+    // Dig random initial room
+    genClear(genTile::wall1);
+    genDigRoom(c_helper::random(1, width - 1), c_helper::random(1, height - 1), c_helper::random(7, 15), c_helper::random(7, 15), c_helper::random(1, 4), false);
+
+    // Dig room and corridors
+    for(int i = 0; i < rooms; ++i) {
+        bool ok = false;
+        while(ok == false) {
+            //ok = genDigRoom(, , , , );
+            int x = c_helper::random(1, width - 1);
+            int y = c_helper::random(1, height - 1);
+            int w = c_helper::random(3, 9);
+            int h = c_helper::random(3, 9);
+            int d = c_helper::random(1, 4);
+            if(genIsWall(x, y) == false) {
+                ok = genDigRoom(x, y, w, h, d);
+            }
+        }
+    }
+
+    build();
+    c_helper::gameMessage("Map 'castle' generated.");
     return true;
 }
 
@@ -244,7 +362,7 @@ const bool& c_map::genIsFloor(const int& x, const int& y) {
     genMatrix[x][y].tile == genTile::floor3) {
         return true;
     }
-    false;
+    return false;
 }
 
 const bool& c_map::genIsWall(const int& x, const int& y) {
@@ -253,7 +371,7 @@ const bool& c_map::genIsWall(const int& x, const int& y) {
     genMatrix[x][y].tile == genTile::wall3) {
         return true;
     }
-    false;
+    return false;
 }
 
 void c_map::build() {
@@ -263,7 +381,6 @@ void c_map::build() {
             matrix[x][y].removeActors(true);
 
             // Applies generator tiles to the real matrix
-            std::cout << genMatrix[x][y].tile << genFloor2 << std::endl;
             switch(genMatrix[x][y].tile) {
                 case genTile::floor1: {
                     matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor1));

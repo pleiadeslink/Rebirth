@@ -44,12 +44,12 @@ namespace direction {
     enum directions {
         none,
         north,
-        northeast,
-        east,
-        southeast,
         south,
-        southwest,
+        east,
         west,
+        northeast,
+        southeast,
+        southwest,
         northwest,
         up,
         down

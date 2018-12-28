@@ -6,7 +6,7 @@ class c_helper {
 	public:
 		static void test() { std::cout << "test" << std::endl; }
 		static std::vector<std::string> split(const std::string& s, char delimiter);
-		static const int& random(const int& min, const int& max);
+		static int random(const int& min, const int& max);
 		static void gameMessage(const std::string& text);
 
 		// Map
@@ -23,6 +23,7 @@ class c_helper {
 		static const int& getMapX();
 		static const int& getMapY();
 		static const int& genClear(const int& value);
+		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction);
 		static const bool& genCastle(const int& value);
 		static const int& setGenFloor1(std::string value);
 		static const int& setGenFloor2(std::string value);
@@ -69,6 +70,8 @@ class c_helper {
 		static const bool& equipItem(const int& emitter, const int& item);
 		static const bool& removeItem(const int& emitter, const int& item);
 		static void give(std::string item);
+		static void toggleGodMode();
+		static const bool& isPlayerGod();
 };
 
 #endif

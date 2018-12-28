@@ -44,7 +44,8 @@ class c_actor {
         void timeUpdate();
         void save(TCODZip* zip);
         void load(TCODZip* zip);
-        bool playerAction(const bool& fromWalk);
+        bool playerAction(const bool& fromWalk, c_actor* p_player);
+        const bool& isGod() { if(player) return player -> isGod(); else return false; }
 
         const int& getUid() { return uid; }
         std::string getId() { return id; }

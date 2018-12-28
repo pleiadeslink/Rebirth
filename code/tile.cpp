@@ -17,17 +17,17 @@ c_tile::c_tile()
 c_tile::~c_tile() {
 }
 
-void c_tile::draw(const int& x, const int& y, const bool& playerIsInside) {
+void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const bool& fog) {
 
-    if(engine -> interface.getMode() == imode::edit) {
+    if(fog == false) {
         engine -> screen.drawTile(11, 13, x, y, bgcolor);
         drawOverlay(x, y);
         if(v_actor.size() > 0) {
             c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[0]);
-            if(p_actor != engine -> game -> actorManager.getPlayer()) {
+            //if(p_actor != engine -> game -> actorManager.getPlayer()) {
                 drawShadow(x, y);
                 engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x, y, p_actor -> getColor());
-            }
+            //}
         } else {
             drawShadow(x, y);
             engine -> screen.drawTile(tileX, tileY, x, y, color);
@@ -155,25 +155,23 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside) {
     //engine -> screen.drawTexture("fog-night", x, y);
 }
 
-bool c_tile::playerAction() {
+bool c_tile::playerAction(c_actor* p_player) {
 
-    c_actor* p_player = engine -> game -> actorManager.getPlayer();
-
-    if(!p_player or p_player -> action -> isRunning()) {
+    if(p_player -> action -> isRunning()) {
         return false;
     }
 
     // Tile blocks movement
-    if(type == tileType::wall) {
+    if(p_player -> isGod() == false and type == tileType::wall) {
         engine -> game -> gamelog.message("A " + name + " blocks your way.");
         return false;
     }
-
+    
     // Actor
     bool playerAction = false;
     if(v_actor.size() > 0) {
         for(int i = 0; i < v_actor.size(); ++i) {
-            playerAction = engine -> game -> actorManager.getActor(v_actor[i]) -> playerAction(true);
+            playerAction = engine -> game -> actorManager.getActor(v_actor[i]) -> playerAction(true, p_player);
         }                    
     }
     if(playerAction == true) {

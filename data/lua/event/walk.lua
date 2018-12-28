@@ -42,7 +42,7 @@ if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), mapX, mapY) ~
 end
 
 -- Is there an obstacle?
-if(isObstacle(mapX, mapY)) then
+if(isObstacle(mapX, mapY) and isPlayerGod == false) then
 	return
 end
 

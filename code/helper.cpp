@@ -8,7 +8,7 @@ std::vector<std::string> c_helper::split(const std::string& s, char delimiter) {
    return tokens;	
 }
 
-const int&  c_helper::random(const int& min, const int& max) {
+int c_helper::random(const int& min, const int& max) {
     TCODRandom* ran = TCODRandom::getInstance();
     return ran -> getInt(min, max);
 }
@@ -160,6 +160,13 @@ const int& c_helper::genClear(const int& value) {
 	}
 	engine -> game -> map -> genClear(value);
 	return 0;
+}
+
+const bool& c_helper::genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction) {
+	if(!engine -> game or !engine -> game -> map) {
+		return false;
+	}
+	return engine -> game -> map -> genDigRoom(x0, y0, width, height, direction);
 }
 
 const bool& c_helper::genCastle(const int& value) {
@@ -611,4 +618,23 @@ void c_helper::give(std::string item) {
 	if(actor != 0 and engine -> game -> actorManager.getPlayer() -> life -> addToInventory(actor) == true) {
 	        engine -> game -> actorManager.deleteActor(actor);
 	}
+}
+
+void c_helper::toggleGodMode() {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	}
+	bool god = engine -> game -> actorManager.getPlayer() -> player -> toggleGodMode();
+	if(god == true) {
+		gameMessage("God mode enabled. Have fun!");
+	} else {
+		gameMessage("God mode disabled. Run for your life!");
+	}
+}
+
+const bool& c_helper::isPlayerGod() {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return false;
+	}
+	return engine -> game -> actorManager.getPlayer() -> isGod();
 }
