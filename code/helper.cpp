@@ -13,6 +13,22 @@ int c_helper::random(const int& min, const int& max) {
     return ran -> getInt(min, max);
 }
 
+void c_helper::gameMessage(const std::string& text) {
+	if(!engine -> game) {
+		return;
+	}
+	engine -> game -> gamelog.message(text);
+	std::cout << "Game: " << text << std::endl;
+}
+
+void c_helper::toggleFullScreen() {
+	if(engine -> screen.isFullScreen() == true) {
+		engine -> screen.start(false);
+	} else {
+		engine -> screen.start(true);
+	}
+}
+
 void c_helper::loadMap(const int& x, const int& y, const int& z) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
@@ -105,14 +121,6 @@ void c_helper::createMapScript(std::string command, const bool& autodelete) {
 	script.autodelete = autodelete;
 	engine -> game -> map -> addScript(script);
 	engine -> interface.setEditScript(1);
-}
-
-void c_helper::gameMessage(const std::string& text) {
-	if(!engine -> game) {
-		return;
-	}
-	engine -> game -> gamelog.message(text);
-	std::cout << "Game: " << text << std::endl;
 }
 
 const int& c_helper::calculateDistance(const int& x1, const int& y1, const int& x2, const int& y2) {
@@ -229,6 +237,7 @@ const int& c_helper::build() {
 		return 0;
 	}
 	engine -> game -> map -> build();
+	gameMessage("Map rebuilt.");
 	return 0;
 }
 
@@ -364,6 +373,26 @@ const bool& c_helper::isEnemy(const int& emitter, const int& target) {
 		}
 	}
 	return false;
+}
+
+void c_helper::showActorPosition(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor) {
+		return;
+	} 
+	std::ostringstream s;
+	s << p_actor -> getName() << " is located at " << p_actor -> getMapX() << "x" << p_actor -> getMapY() << ".";
+	gameMessage(s.str());
+}
+
+void c_helper::showPlayerPosition() {
+	c_actor* p_actor = engine -> game -> actorManager.getPlayer();
+	if(!p_actor) {
+		return;
+	} 
+	std::ostringstream s;
+	s << p_actor -> getName() << " is located at " << p_actor -> getMapX() << "x" << p_actor -> getMapY() << ".";
+	gameMessage(s.str());
 }
 
 const int& c_helper::getDirectionToActor(const int& emitter, const int& target) {

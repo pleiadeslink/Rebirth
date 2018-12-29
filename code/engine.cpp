@@ -24,7 +24,7 @@ void c_engine::start() {
     assetManager.load();
 
     // Create screen
-    screen.start();
+    screen.start(false);
 
     // Create game
     game = new c_game();
@@ -72,15 +72,21 @@ int c_engine::input() {
             if(event.text.unicode == 8 and command.size() != 0) { // Backspace key
                 command.pop_back();
             } else if(event.text.unicode == 13) { // Return key
-            std::string str = "Command run: " + command;
+                std::string str = "Command run: " + command;
                 kaguya::State state;
                 #include "luabind.cpp"
                 state.dostring(command);
                 message(str);
-                prevCommand = command;
+                commandHistory.push_back(command);
+                commandIndex = commandHistory.size() - 1;
                 command = "";
             } else if(event.text.unicode == 9) { // Tab key
-                command = prevCommand;
+                if(commandHistory.size() != 0) {
+                    command = commandHistory[commandIndex];
+                    if(commandIndex > 0) {
+                        --commandIndex;
+                    }
+                }
             } else if(event.text.unicode < 128 and event.text.unicode != 8) {
                 command.push_back((char)event.text.unicode);
             }

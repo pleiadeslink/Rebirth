@@ -5,7 +5,8 @@ class c_engine {
     private:
         std::vector<std::string> v_messageLog;
         std::string command;
-        std::string prevCommand;
+        std::vector<std::string> commandHistory;
+        int commandIndex;
         bool commandPrompt;
         bool f_quit;
         

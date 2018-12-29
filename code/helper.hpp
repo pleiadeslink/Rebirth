@@ -8,6 +8,7 @@ class c_helper {
 		static std::vector<std::string> split(const std::string& s, char delimiter);
 		static int random(const int& min, const int& max);
 		static void gameMessage(const std::string& text);
+		static void toggleFullScreen();
 
 		// Map
 		static void loadMap(const int& x, const int& y, const int& z);
@@ -45,6 +46,8 @@ class c_helper {
 		static void startAction(const structEventData& eventData);
 		static const int& findEnemy(const int& actor);
 		static const bool& isEnemy(const int& emitter, const int& target);
+		static void showActorPosition(const int& actor);
+		static void showPlayerPosition();
 		static const int& getDirectionToActor(const int& emitter, const int& target);
 		static std::string getActorId(const int& actor); // Returns the actor's id
 		static std::string getName(const int& actor); // Returns the actor's name

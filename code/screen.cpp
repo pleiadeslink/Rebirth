@@ -1,6 +1,7 @@
 c_screen::c_screen() {
     xRes = 1280;
     yRes = 720;
+    fullScreen = false;
 }
 
 c_screen::~c_screen() {
@@ -13,6 +14,26 @@ void c_screen::clear() {
 
 void c_screen::display() {
     window.display();
+}
+
+void c_screen::start(bool fullscreen) {
+    sf::VideoMode videoMode(xRes, yRes);
+    if(fullScreen == true) {
+        window.create(videoMode, "Rebirh", sf::Style::Fullscreen);
+        fullScreen = false;
+    } else {
+        window.create(videoMode, "Rebirh", sf::Style::Titlebar);
+        fullScreen = true;    
+    }  
+    window.setFramerateLimit(0);
+    window.setVerticalSyncEnabled(true);
+    window.setMouseCursorVisible(0);
+}
+
+void c_screen::screenshot() {
+    sf::Image screenshot = window.capture();
+    screenshot.saveToFile("screenshot.png");
+    engine -> message("Screenshot saved.");
 }
 
 void c_screen::drawTile(const int& charX, const int& charY, const int& x, const int& y, const sf::Color color, const int& scale) {
@@ -130,17 +151,4 @@ const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Co
     return 1;
 }
 
-void c_screen::screenshot() {
-    sf::Image screenshot = window.capture();
-    screenshot.saveToFile("screenshot.png");
-    engine -> message("Screenshot saved.");
-}
 
-void c_screen::start() {
-    sf::VideoMode videoMode(xRes, yRes);
-	window.create(videoMode, "Rebirh");
-    //window.create(videoMode, "Rebirh",sf::Style::Fullscreen);
-    window.setFramerateLimit(0);
-    window.setVerticalSyncEnabled(true);
-    window.setMouseCursorVisible(0);
-}

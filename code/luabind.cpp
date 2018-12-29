@@ -2,6 +2,7 @@ state["runEvent"] = &c_game::runEvent;
 state["random"] = &c_helper::random;
 state["test"] = &c_helper::test;
 state["message"] = &c_helper::gameMessage;
+state["fullscreen"] = &c_helper::toggleFullScreen;
 
 // Map
 state["saveMap"] = &c_helper::saveMap;
@@ -14,7 +15,7 @@ state["getMapWidth"] = &c_helper::getMapWidth;
 state["getMapHeight"] = &c_helper::getMapHeight;
 state["getMapX"] = &c_helper::getMapX;
 state["getMapY"] = &c_helper::getMapY;
-state["clearMap"] = &c_helper::genClear;
+state["clear"] = &c_helper::genClear;
 state["digRoom"] = &c_helper::genDigRoom;
 state["genCastle"] = &c_helper::genCastle;
 state["setFloor1"] = &c_helper::setGenFloor1;
@@ -33,6 +34,8 @@ state["teleportActor"] = &c_helper::teleportActor;
 state["startAction"] = &c_helper::startAction;
 state["findEnemy"] = &c_helper::findEnemy;
 state["isEnemy"] = &c_helper::isEnemy;
+state["showActorPosition"] = &c_helper::showActorPosition;
+state["showPlayerPosition"] = &c_helper::showPlayerPosition;
 state["getDirectionToActor"] = &c_helper::getDirectionToActor;
 state["getActorId"] = &c_helper::getActorId;
 state["getName"] = &c_helper::getName;

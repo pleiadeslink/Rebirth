@@ -1,3 +1,4 @@
+
 namespace key {
     enum keys {
         none,
@@ -42,7 +43,6 @@ namespace actorType {
 
 namespace direction {
     enum directions {
-        none,
         north,
         south,
         east,

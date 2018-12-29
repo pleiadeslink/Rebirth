@@ -6,6 +6,8 @@ class c_winMap
 	private:
 		int x;
 		int y;
+		int xOffset;
+		int yOffset;
 		int tileWidth;
 		int tileHeight;
 

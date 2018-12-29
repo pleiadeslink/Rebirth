@@ -65,6 +65,7 @@ void c_interface::draw() {
             if(engine -> game -> actorManager.getPlayer()) {
                 map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
             }
+            gamelog -> draw();
             sidebar -> draw();
             std::string str = "> " + engine -> getCommand();
             engine -> screen.drawText(str, 4, 4, sf::Color::White);
@@ -96,8 +97,9 @@ void c_interface::edit() {
         editActor = engine -> assetManager.getActorAsset("default");
     }
     while(mode == imode::edit) {
-        
+        engine -> game -> gamelog.clear();
         update(engine -> input());
+        engine -> game -> gamelog.update();
         engine -> screen.clear();
         draw();
         engine -> screen.display();
@@ -113,8 +115,9 @@ int c_interface::selectCloseTarget(const int& prevMode, const std::string& targe
     sActor = 0;
     this -> targetText = targetText;
     while(sActor == 0) {
-        
+        engine -> game -> gamelog.clear();
         update(engine -> input());
+        engine -> game -> gamelog.update();
         engine -> screen.clear();
         draw();
         engine -> screen.display();

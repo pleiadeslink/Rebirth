@@ -229,10 +229,6 @@ void c_map::genClear(const int& tile) {
 
 const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile) {
 
-    if(digStartingTile == true) {
-        genMatrix[x0][y0].tile = genTile::floor1;
-    }
-
     // Check free (wall) space
     for(int i = 0; i < rwidth; ++i) {
         for(int j = 0; j < rheight; ++j) {
@@ -290,6 +286,9 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
     }
 
     // Dig room
+    if(digStartingTile == true) {
+        genMatrix[x0][y0].tile = genTile::floor1;
+    }
     for(int i = 0; i < rwidth; ++i) {
         for(int j = 0; j < rheight; ++j) {
             switch(direction) {
