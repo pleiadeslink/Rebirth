@@ -18,6 +18,7 @@ class c_map : public TCODMap {
         int oldYFOV;
         int selectedTileX;
         int selectedTileY;
+        std::string ambience;
         int randomSeed;
         std::vector<s_script> v_script;
 
@@ -65,6 +66,7 @@ class c_map : public TCODMap {
         void setGenWall1(std::string value) { genWall1 = value; }
         void setGenWall2(std::string value) { genWall2 = value; }
         void setGenWall3(std::string value) { genWall3 = value; }
+        void setAmbience(std::string track) { ambience = track; }
         void build(); // Returns true if current instance is the world map (x=0 y=0 z=0)
 
         // Actor management
@@ -84,6 +86,7 @@ class c_map : public TCODMap {
         const int& getZ() { return z; }
         const int& getWidth() { return width; }
         const int& getHeight() { return height; }
+        std::string getAmbience() { return ambience; }
         const int& getRandomSeed() { return randomSeed; }
         std::vector<s_script> getScripts() { return v_script; }
 };

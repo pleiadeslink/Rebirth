@@ -10,6 +10,9 @@ class c_helper {
 		static void gameMessage(const std::string& text);
 		static void toggleFullScreen(); // Changes between window and fullscreen mode
 
+		// Sound
+		static void playAmbience(std::string track); // Plays a big audio file
+
 		// Map
 		static void loadMap(const int& x, const int& y, const int& z);
 		static void saveMap(const bool& default = false);
@@ -32,6 +35,7 @@ class c_helper {
 		static const int& setGenWall1(std::string value);
 		static const int& setGenWall2(std::string value);
 		static const int& setGenWall3(std::string value);
+		static void setAmbience(std::string track);
 		static const int& build();
 
 		// Actor

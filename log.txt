@@ -3,42 +3,21 @@
 ---------
 Loading tiles...
 Loading maps...
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'door' created.
-Actor 'rat' created.
-Actor 'chest' created.
 Actor 'tree' created.
-Actor 'bed' created.
-Actor 'bed' created.
-Actor 'bear' created.
-Actor 'stairs_up' created.
-Actor 'stairs_down' created.
-Actor 'bed' created.
-Actor 'bed' created.
-Actor 'bed' created.
-Actor 'bed' created.
-Actor 'bed' created.
-Actor 'bed' created.
-Actor 'bed' created.
-Actor 'coin' created.
-Actor 'bed' created.
-Actor 'bed' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
 Actor 'avatar' created.
-Loading /texture/wallmark.png...
-Loading /texture/tileShadowBottom.png...
-Loading /texture/tileShadowFull.png...
-Loading /texture/tileShadowRight.png...
-Loading /texture/tileShadowBottomRight.png...
 Loading /texture/fog.png...
 Loading /texture/healthbar.png...
 Loading /texture/ribbon.png...
@@ -47,9 +26,17 @@ Loading /texture/vbar.png...
 Loading /texture/pointer.png...
 Loading /texture/travelWest.png...
 Loading /texture/selectedTile.png...
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Loading /texture/targetbar.png...
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Actor 'shrub' created.
+Loading /texture/background.png...
+Loading /texture/travelEast.png...
 Goodbye!

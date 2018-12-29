@@ -30,6 +30,10 @@ void c_helper::toggleFullScreen() {
 	}
 }
 
+void c_helper::playAmbience(std::string track) {
+	engine -> sound.playAmbience(track);
+}
+
 void c_helper::loadMap(const int& x, const int& y, const int& z) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
@@ -85,6 +89,7 @@ void c_helper::changeMap(const int& x, const int& y, const int& z, const int& di
     engine -> game -> actorManager.loadPlayer();
 	std::cout << "Change map: " << x << "." << y << "." << z << std::endl;
     c_helper::teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
+	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 }
 
 void c_helper::worldMap(const int& mapX, const int& mapY) {
@@ -239,6 +244,11 @@ const int& c_helper::setGenWall3(std::string value) {
 	}
 	engine -> game -> map -> setGenWall3(value);
 	return 0;
+}
+
+void c_helper::setAmbience(std::string track) {
+	engine -> game -> map -> setAmbience(track);
+	engine -> sound.playAmbience(track);
 }
 
 const int& c_helper::build() {

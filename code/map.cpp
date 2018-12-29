@@ -9,7 +9,8 @@ c_map::c_map()
   oldXFOV(0),
   oldYFOV(0),
   selectedTileX(0),
-  selectedTileY(0) {
+  selectedTileY(0),
+  ambience("") {
     dirX = -1; // Initial direction vector
     dirY = 0; 
     planeX = 0; // The 2d raycaster version of camera plane
@@ -56,6 +57,7 @@ void c_map::save(TCODZip* zip) {
     zip -> putInt(z);
     zip -> putInt(width);
     zip -> putInt(height);
+    zip -> putString(ambience.c_str());
 
     // Save map tiles 
     for(int i1 = 0; i1 < width; ++i1) {
@@ -73,6 +75,7 @@ void c_map::load(TCODZip* zip) {
     z = zip -> getInt();
     width = zip -> getInt();;
     height = zip -> getInt();
+    ambience = zip -> getString();
 
     // Load map tiles 
     for(int i1 = 0; i1 < width; ++i1) {

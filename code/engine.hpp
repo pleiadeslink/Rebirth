@@ -12,6 +12,7 @@ class c_engine {
         
 	public:
         c_screen screen;
+        c_sound sound;
         c_interface interface;
         c_assetManager assetManager;
         c_game* game;

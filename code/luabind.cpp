@@ -4,6 +4,9 @@ state["test"] = &c_helper::test;
 state["message"] = &c_helper::gameMessage;
 state["fullscreen"] = &c_helper::toggleFullScreen; // Changes between window and fullscreen mode
 
+// Sound
+state["playAmbience"] = &c_helper::playAmbience;
+
 // Map
 state["saveMap"] = &c_helper::saveMap;
 state["changeMap"] = &c_helper::changeMap;
@@ -24,6 +27,7 @@ state["setFloor3"] = &c_helper::setGenFloor3;
 state["setWall1"] = &c_helper::setGenWall1;
 state["setWall2"] = &c_helper::setGenWall2;
 state["setWall3"] = &c_helper::setGenWall3;
+state["setAmbience"] = &c_helper::setAmbience;
 state["build"] = &c_helper::build;
 
 state["isObstacle"] = &c_helper::isObstacle;

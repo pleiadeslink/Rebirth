@@ -39,6 +39,7 @@ namespace global {
 #include "enum.hpp"
 #include "datatype.hpp"
 #include "screen.hpp"
+#include "sound.hpp"
 #include "interface.hpp"
 #include "window.hpp"
 #include "windows/winButton.hpp"
@@ -79,6 +80,7 @@ int main(int argc, char *argv[]) {
 
 #include "richText.cpp"
 #include "screen.cpp"
+#include "sound.cpp"
 #include "interface.cpp"
 #include "window.cpp"
 #include "windows/winButton.cpp"
