@@ -28,14 +28,11 @@ class c_assetManager {
         sf::Font* getFont() { return &font; }
         sf::Texture* getTileset() { return &tileset; }
         sf::Texture* getTextureAsset(const std::string& id);
-        structActorAsset* getActorAsset(const std::string& id);
         structMapAsset* getMapAsset(const int& x, const int& y, const int& z);
         structTileAsset* getTileAsset(const std::string& id);
         std::vector<std::string> getTileIdList();
-        structTileAsset* getNextTileAsset();
-        structTileAsset* getPreviousTileAsset();
-        structActorAsset* getNextActorAsset();
-        structActorAsset* getPreviousActorAsset();
+        structActorAsset* getActorAsset(const std::string& id);
+        std::vector<std::string> getActorIdList();
         structVerbAsset* getVerbAsset(const std::string& id);
 };
 

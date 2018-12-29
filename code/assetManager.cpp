@@ -814,19 +814,6 @@ structVerbAsset* c_assetManager::getVerbAsset(const std::string& id) {
 	return &v_verbAsset[0]; 
 }
 
-structActorAsset* c_assetManager::getActorAsset(const std::string& id) {
-    int max = v_actorAsset.size();
-	if(max != 0) { 
-		for(int i = 0; i < max; ++i) {
-			if(v_actorAsset[i].id == id) {
-				return &v_actorAsset[i];
-            }
-        }
-    }
-    // Not found, default returned
-	return &v_actorAsset[0]; 
-}
-
 structMapAsset* c_assetManager::getMapAsset(const int& x, const int& y, const int& z) {
 	return &a_mapAsset[x][y][z]; 
 }
@@ -855,39 +842,26 @@ std::vector<std::string> c_assetManager::getTileIdList() {
 	return list;
 }
 
-structTileAsset* c_assetManager::getNextTileAsset() {
-    ++indexTile;
-    int max = v_tileAsset.size();
-    if(indexTile > max - 1) {
-    	indexTile = 0;
-    }
-	return &v_tileAsset[indexTile]; 
-}
-
-structTileAsset* c_assetManager::getPreviousTileAsset() {
-    --indexTile;
-    int max = v_tileAsset.size();
-    if(indexTile < 0) {
-    	indexTile = max - 1;
-    }
-	return &v_tileAsset[indexTile]; 
-}
-
-structActorAsset* c_assetManager::getNextActorAsset() {
-    
-    ++indexActor;
+structActorAsset* c_assetManager::getActorAsset(const std::string& id) {
     int max = v_actorAsset.size();
-    if(indexActor > max - 1) {
-    	indexActor = 0;
+	if(max != 0) { 
+		for(int i = 0; i < max; ++i) {
+			if(v_actorAsset[i].id == id) {
+				return &v_actorAsset[i];
+            }
+        }
     }
-	return &v_actorAsset[indexActor]; 
+    // Not found, default returned
+	return &v_actorAsset[0]; 
 }
 
-structActorAsset* c_assetManager::getPreviousActorAsset() {
-    --indexActor;
-    int max = v_actorAsset.size();
-    if(indexActor < 0) {
-    	indexActor = max - 1;
+std::vector<std::string> c_assetManager::getActorIdList() {
+	std::vector<std::string> list;
+	int max = v_actorAsset.size();
+	if(max != 0) { 
+		for(int i = 0; i < max; ++i) {
+			list.push_back(v_actorAsset[i].id);
+        }
     }
-	return &v_actorAsset[indexActor]; 
+	return list;
 }

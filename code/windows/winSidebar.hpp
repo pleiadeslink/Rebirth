@@ -5,9 +5,11 @@ class c_winSidebar : public c_window
 {
 	private:
 		c_winButton** m_tileButtons;
-		//c_winButton** m_tileButtons;
+		c_winButton** m_actorButtons;
 		int tileButtonWidth;
 		int tileButtonHeight;
+		int actorButtonWidth;
+		int actorButtonHeight;
 
 	public:
 		c_winSidebar(const int& x, const int& y, const int& width, const int&height);

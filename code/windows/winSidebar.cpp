@@ -3,8 +3,10 @@ c_winSidebar::c_winSidebar(const int& x, const int& y, const int& width, const i
 	this -> y = y;
 	this -> width = width;
 	this -> height = height;
-	this -> tileButtonWidth = 8;
+	this -> tileButtonWidth = 11;
 	this -> tileButtonHeight = 8;
+	this -> actorButtonWidth = 11;
+	this -> actorButtonHeight = 8;
 }
 
 void c_winSidebar::init() {
@@ -16,7 +18,18 @@ void c_winSidebar::init() {
 	}
     for(int i1 = 0; i1 < tileButtonWidth; ++i1) {
         for(int i2 = 0; i2 < tileButtonHeight; ++i2) {
-            m_tileButtons[i1][i2].init(x + i1 + 1, y + i2 + 8, global::tileSize, global::tileSize, buttonType::tile);
+            m_tileButtons[i1][i2].init(x + i1 + 1, y + i2 + 9, global::tileSize, global::tileSize, buttonType::tile);
+        }
+    }
+
+	// Create actor button matrix
+	m_actorButtons = new c_winButton*[actorButtonWidth];
+	for(int i = 0; i < actorButtonWidth; ++i) {
+		m_actorButtons[i] = new c_winButton[actorButtonHeight];
+	}
+    for(int i1 = 0; i1 < actorButtonWidth; ++i1) {
+        for(int i2 = 0; i2 < actorButtonHeight; ++i2) {
+            m_actorButtons[i1][i2].init(x + i1 + 1, y + i2 + 13, global::tileSize, global::tileSize, buttonType::actor);
         }
     }
 }
@@ -50,63 +63,28 @@ int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 				}
 			}
 
-			// Key input
-			switch(key) {
-				case key::num1: {
-					engine -> interface.setEmode(emode::tile);
-					return 0;
-				}
-				case key::num2: {
-					engine -> interface.setEmode(emode::actor);
-					return 0;
-				}
-				case key::num3: {
-					engine -> interface.setEmode(emode::script);
-					return 0;
-				}
-				case key::left: {
-					switch(engine -> interface.getEmode()) {
-						case emode::tile: {
-							engine -> interface.setEditTile(engine -> assetManager.getPreviousTileAsset());
-							break;
+			// Update actor buttons
+			index = 0;
+			std::vector<std::string> v_actorIdList = engine -> assetManager.getActorIdList();
+			if(v_actorIdList.size() != 0) {
+				for(int i2 = 0; i2 < actorButtonHeight; ++i2) {
+					for(int i1 = 0; i1 < actorButtonWidth; ++i1) {
+				
+						// Sets id
+						if(index <= v_actorIdList.size() - 1) {
+							m_actorButtons[i1][i2].setId(v_actorIdList[index]);
 						}
-						case emode::actor: {
-							engine -> interface.setEditActor(engine -> assetManager.getPreviousActorAsset());
-							break;
-						}
-						case emode::script: {
-							std::vector<s_script> v_script = engine -> game -> map -> getScripts();
-							if(v_script.size() != 0 and engine -> interface.getEditScript() > 1) {
-								std::cout << engine -> interface.getEditScript() - 1 << std::endl;
-								engine -> interface.setEditScript(engine -> interface.getEditScript() - 1);
-							}
-							break;
+						++index;
+
+						// If mouse is inside the area, check input
+						if(mousePos.x > x * global::tileSize and mousePos.y > y * global::tileSize
+						and mousePos.x < (x + width) * global::tileSize and mousePos.y < (y + height) * global::tileSize) {
+							key = m_actorButtons[i1][i2].update(key, mousePos);
 						}
 					}
-					return 0;
-				}
-				case key::right: {
-					switch(engine -> interface.getEmode()) {
-						case emode::tile: {
-							engine -> interface.setEditTile(engine -> assetManager.getNextTileAsset());
-							break;
-						}
-						case emode::actor: {
-							engine -> interface.setEditActor(engine -> assetManager.getNextActorAsset());
-							break;
-						}
-						case emode::script: {
-							std::vector<s_script> v_script = engine -> game -> map -> getScripts();
-							if(v_script.size() != 0 and engine -> interface.getEditScript() < v_script.size()) {
-								std::cout << engine -> interface.getEditScript() + 1 << std::endl;
-								engine -> interface.setEditScript(engine -> interface.getEditScript() + 1);
-							}
-							break;
-						}
-					}
-					return 0;
 				}
 			}
+
 			break;
 		}
 	}
@@ -120,31 +98,11 @@ void c_winSidebar::draw() {
 
 	// Edit mode
 	if(engine -> interface.getMode() == imode::edit) {
-		/*switch(engine -> interface.getEmode()) {
-			case emode::tile: {
-				engine -> screen.drawText(">", (x + 1) * 16, (y) * 16, sf::Color::White);
-				break;
-			}
-			case emode::actor: {
-				engine -> screen.drawText(">", (x + 1) * 16, (y + 1) * 16, sf::Color::White);
-				break;
-			}
-			case emode::script: {
-				engine -> screen.drawText(">", (x + 1) * 16, (y + 2) * 16, sf::Color::White);
-				break;
-			}
-		}
-		engine -> screen.drawText(engine -> interface.getEditTile() -> name, (x + 2) * 16, (y) * 16, sf::Color::White);
-		engine -> screen.drawText(engine -> interface.getEditActor() -> name, (x + 2) * 16, (y + 1) * 16, sf::Color::White);
-		std::vector<s_script> v_script = engine -> game -> map -> getScripts();
-		if(v_script.size() > 0) {
-			engine -> screen.drawText(v_script[engine -> interface.getEditScript() - 1].command, (x + 2) * 16, (y + 2) * 16, sf::Color::White);
-		}*/
 
 		// Draw title
 		engine -> screen.drawText("EDIT MODE", x * 16 + ((width * 16) / 2), (y + 1) * 16 + 8 - 2, sf::Color::White, textAlign::center);
 
-		// Draw active edit element icon
+		// Draw active edit element icon and name
 		switch(engine -> interface.getEmode() ) {
 			case emode::tile: {
 				structTileAsset* p_tile = engine -> interface.getEditTile();
@@ -154,6 +112,17 @@ void c_winSidebar::draw() {
 					engine -> screen.drawTile(11, 13, xf, yf, p_tile -> bgcolor, 2);
                 	c_tile::drawOverlay(xf, yf, p_tile -> type, p_tile -> olcolor, 2);
                 	engine -> screen.drawTile(p_tile -> tileX, p_tile -> tileY, xf, yf, p_tile -> color, 2);
+					engine -> screen.drawText(p_tile -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
+				}
+				break;
+			}
+			case emode::actor: {
+				structActorAsset* p_actor = engine -> interface.getEditActor();
+				if(p_actor != 0) {
+					int xf = x * 16 + ((width * 16) / 2) - 16;
+					int yf = (y + 3) * 16 + 4;
+					engine -> screen.drawTile(p_actor -> tx, p_actor -> ty, xf, yf, p_actor -> color, 2);
+					engine -> screen.drawText(p_actor -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
 				}
 				break;
 			}
@@ -164,13 +133,21 @@ void c_winSidebar::draw() {
 			for(int i2 = 0; i2 < tileButtonHeight; ++i2) {
 				m_tileButtons[i1][i2].draw();
 			}
-		}		
+		}
+
+		// Draw actor buttons
+		for(int i1 = 0; i1 < actorButtonWidth; ++i1) {
+			for(int i2 = 0; i2 < actorButtonHeight; ++i2) {
+				m_actorButtons[i1][i2].draw();
+			}
+		}
 
 		// Draw external frame
-		drawTitle("Tiles", 7);
+		drawTitle("Tiles", 8);
+		drawTitle("Actors", 12);
 		drawFrame();
-		drawHBar(6);
-		
+		drawHBar(7);
+		drawHBar(11);
 		return;
 	}
 

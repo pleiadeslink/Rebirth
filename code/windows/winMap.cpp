@@ -7,6 +7,11 @@ c_winMap::c_winMap(const int& x, const int& y, const int& tileWidth, const int& 
 
 int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i mousePos) {
 
+    // No need to update if mouse is not inside the area
+    if(mousePos.x > tileWidth * global::tileSize or mousePos.y > tileHeight * global::tileSize) {
+        return key;
+    }
+
     int yUIOffset = 2;
     int mapX = mapX0 + mousePos.x / global::tileSize - tileWidth / 2;
     int mapY = mapY0 + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset;
