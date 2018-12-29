@@ -5,9 +5,8 @@ c_winMap::c_winMap(const int& x, const int& y, const int& tileWidth, const int& 
     tileHeight(tileHeight)
 { }
 
-int c_winMap::update(int key, const int& mapX0, const int& mapY0) {
+int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i mousePos) {
 
-    sf::Vector2i mousePos = engine -> getMouse();
     int yUIOffset = 2;
     int mapX = mapX0 + mousePos.x / global::tileSize - tileWidth / 2;
     int mapY = mapY0 + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset;
@@ -20,6 +19,8 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0) {
             case imode::game: {
                 if(tile -> getExplored()) {
                     engine -> interface.selectTile(tile);
+
+                    // Left click moves player to position
                     if(key == key::lclick and tile -> getType() != tileType::wall and tile -> isObstacle() == false) {
                         engine -> interface.setTileDestination(tile);
                         return 0;
@@ -31,18 +32,25 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0) {
                 engine -> interface.selectTile(tile);
                 switch(engine -> interface.getEmode()) {
                     case emode::tile: {
+
+                        // Left click sets the tile terrain
                         if(key == key::lclick) {
                             tile -> setAsset(engine -> interface.getEditTile());;
                         }
                         break;
                     }
                     case emode::actor: {
-                        if(key == key::lclick and !tile -> hasAnyActor()) {
-                            engine -> game -> actorManager.createActor(engine -> interface.getEditActor() -> id, tile -> getX(), tile -> getY());
-                        }
+
+                        // Right click removes the actor
                         if(key == key::rclick) {
                             tile -> removeActors();
                         }
+
+                        // Left click adds the actor
+                        else if(key == key::lclick and !tile -> hasAnyActor()) {
+                            engine -> game -> actorManager.createActor(engine -> interface.getEditActor() -> id, tile -> getX(), tile -> getY());
+                        }
+
                         break;
                     }
                 }
@@ -98,7 +106,7 @@ void c_winMap::draw(const int& mapX0, const int& mapY0) {
             if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
             and mapY >= 0 and mapY < engine -> game -> map -> getHeight()) {
                 c_tile* tile = engine -> game -> map -> getTile(mapX0 + i1 - tileWidth / 2, mapY0 + i2 - tileHeight / 2 + yUIOffset);
-                tile -> draw(x + (i1 - 1)  * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16, tile -> getInterior(), fog);
+                tile -> draw(x + (i1 - 1) * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16, tile -> getInterior(), fog);
                 if(engine -> interface.getSelectedTile() == tile) {
                     engine -> screen.drawTexture("selectedTile", x + (i1 - 1)  * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16);
                 }

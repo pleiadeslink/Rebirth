@@ -34,10 +34,10 @@ void c_map::init() {
     this -> oldYFOV = 0;
     selectedTileX = 0;
     selectedTileY = 0;
-    genFloor1 = "floor_grass";
+    genFloor1 = "floor_stone";
     genFloor2 = "floor_grass";
     genFloor3 = "floor_grass";
-    genWall1 = "wall_rock";
+    genWall1 = "wall_stone";
     genWall2 = "wall_rock";
     genWall3 = "wall_rock";
 

@@ -27,6 +27,7 @@ void c_interface::init()     {
     //sidebar = new c_winSidebar("sidebar", 0, 43, 80, 2);
     character = new c_winCharacter(0, 0, 67, 41);
     sidebar = new c_winSidebar(67, 0, 13, 45);
+    sidebar -> init();
 }
 
 int c_interface::update(int key) {
@@ -34,11 +35,11 @@ int c_interface::update(int key) {
     sActor = 0;
     if(engine -> game -> actorManager.getPlayer()) {
         if(mode == imode::game or mode == imode::edit) {
-            key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
+            key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(), engine -> getMouse());
         } else if(mode == imode::character) {
             key = character -> update(key);
         }
-        key = sidebar -> update(key);
+        key = sidebar -> update(key, engine -> getMouse());
     }
     key = processInput(key);
     return key;

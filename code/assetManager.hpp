@@ -31,6 +31,7 @@ class c_assetManager {
         structActorAsset* getActorAsset(const std::string& id);
         structMapAsset* getMapAsset(const int& x, const int& y, const int& z);
         structTileAsset* getTileAsset(const std::string& id);
+        std::vector<std::string> getTileIdList();
         structTileAsset* getNextTileAsset();
         structTileAsset* getPreviousTileAsset();
         structActorAsset* getNextActorAsset();

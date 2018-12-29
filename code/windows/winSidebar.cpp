@@ -3,14 +3,54 @@ c_winSidebar::c_winSidebar(const int& x, const int& y, const int& width, const i
 	this -> y = y;
 	this -> width = width;
 	this -> height = height;
+	this -> tileButtonWidth = 8;
+	this -> tileButtonHeight = 8;
 }
 
-int c_winSidebar::update(int key) {
+void c_winSidebar::init() {
+
+	// Create tile button matrix
+	m_tileButtons = new c_winButton*[tileButtonWidth];
+	for(int i = 0; i < tileButtonWidth; ++i) {
+		m_tileButtons[i] = new c_winButton[tileButtonHeight];
+	}
+    for(int i1 = 0; i1 < tileButtonWidth; ++i1) {
+        for(int i2 = 0; i2 < tileButtonHeight; ++i2) {
+            m_tileButtons[i1][i2].init(x + i1 + 1, y + i2 + 8, global::tileSize, global::tileSize, buttonType::tile);
+        }
+    }
+}
+
+int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 	switch(engine -> interface.getMode()) {
 		case imode::game: {
 			break;
 		}
 		case imode::edit: {
+
+			// Update tile buttons
+			int index = 0;
+			std::vector<std::string> v_tileIdList = engine -> assetManager.getTileIdList();
+			if(v_tileIdList.size() != 0) {
+				for(int i2 = 0; i2 < tileButtonHeight; ++i2) {
+					for(int i1 = 0; i1 < tileButtonWidth; ++i1) {
+				
+						// Sets id
+						if(index <= v_tileIdList.size() - 1) {
+							m_tileButtons[i1][i2].setId(v_tileIdList[index]);
+						}
+						++index;
+
+						// If mouse is inside the area, check input
+						if(mousePos.x > x * global::tileSize and mousePos.y > y * global::tileSize
+						and mousePos.x < (x + width) * global::tileSize and mousePos.y < (y + height) * global::tileSize) {
+							key = m_tileButtons[i1][i2].update(key, mousePos);
+						}
+					}
+				}
+			}
+
+			// Key input
 			switch(key) {
 				case key::num1: {
 					engine -> interface.setEmode(emode::tile);
@@ -78,9 +118,9 @@ void c_winSidebar::draw() {
 		return;
 	}
 
-	// If edit mode on
+	// Edit mode
 	if(engine -> interface.getMode() == imode::edit) {
-		switch(engine -> interface.getEmode()) {
+		/*switch(engine -> interface.getEmode()) {
 			case emode::tile: {
 				engine -> screen.drawText(">", (x + 1) * 16, (y) * 16, sf::Color::White);
 				break;
@@ -99,7 +139,38 @@ void c_winSidebar::draw() {
 		std::vector<s_script> v_script = engine -> game -> map -> getScripts();
 		if(v_script.size() > 0) {
 			engine -> screen.drawText(v_script[engine -> interface.getEditScript() - 1].command, (x + 2) * 16, (y + 2) * 16, sf::Color::White);
+		}*/
+
+		// Draw title
+		engine -> screen.drawText("EDIT MODE", x * 16 + ((width * 16) / 2), (y + 1) * 16 + 8 - 2, sf::Color::White, textAlign::center);
+
+		// Draw active edit element icon
+		switch(engine -> interface.getEmode() ) {
+			case emode::tile: {
+				structTileAsset* p_tile = engine -> interface.getEditTile();
+				if(p_tile != 0) {
+					int xf = x * 16 + ((width * 16) / 2) - 16;
+					int yf = (y + 3) * 16 + 4;
+					engine -> screen.drawTile(11, 13, xf, yf, p_tile -> bgcolor, 2);
+                	c_tile::drawOverlay(xf, yf, p_tile -> type, p_tile -> olcolor, 2);
+                	engine -> screen.drawTile(p_tile -> tileX, p_tile -> tileY, xf, yf, p_tile -> color, 2);
+				}
+				break;
+			}
 		}
+
+		// Draw tile buttons
+		for(int i1 = 0; i1 < tileButtonWidth; ++i1) {
+			for(int i2 = 0; i2 < tileButtonHeight; ++i2) {
+				m_tileButtons[i1][i2].draw();
+			}
+		}		
+
+		// Draw external frame
+		drawTitle("Tiles", 7);
+		drawFrame();
+		drawHBar(6);
+		
 		return;
 	}
 

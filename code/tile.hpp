@@ -21,7 +21,6 @@ class c_tile {
         bool check;
         void drawTransitionMark(const int& x, const int& y);
         void drawShadow(const int& x, const int& y);
-        void drawOverlay(const int& x, const int& y);
         
     public:
         c_tile();
@@ -31,6 +30,7 @@ class c_tile {
         bool isObstacle();
         void updateObstacle();
         void explore();
+        static void drawOverlay(const int& x, const int& y, const int& type, sf::Color color, const int& scale = 1);
 
         // Actor
         void addActor(const int& actor);

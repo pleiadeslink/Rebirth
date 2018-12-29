@@ -136,10 +136,10 @@ namespace faction {
     };
 }
 
-namespace screen {
-    enum screens {
-        game,
-        worldmap
+namespace buttonType {
+    enum buttonTypes {
+        tile,
+        actor
     };
 }
 

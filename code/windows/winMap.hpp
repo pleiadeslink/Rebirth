@@ -13,7 +13,7 @@ class c_winMap
 
 	public:
 		c_winMap(const int& x, const int& y, const int& tileWidth, const int& tileHeight);
-		int update(int key, const int& mapX0, const int& mapY0);
+		int update(int key, const int& mapX0, const int& mapY0, sf::Vector2i mousePos);
         void draw(const int& mapX0, const int& mapY0);
 };
 

@@ -844,6 +844,17 @@ structTileAsset* c_assetManager::getTileAsset(const std::string& id) {
 	return &v_tileAsset[0]; 
 }
 
+std::vector<std::string> c_assetManager::getTileIdList() {
+	std::vector<std::string> list;
+	int max = v_tileAsset.size();
+	if(max != 0) { 
+		for(int i = 0; i < max; ++i) {
+			list.push_back(v_tileAsset[i].id);
+        }
+    }
+	return list;
+}
+
 structTileAsset* c_assetManager::getNextTileAsset() {
     ++indexTile;
     int max = v_tileAsset.size();

@@ -1,8 +1,7 @@
 - Wilderness generator
 - Cave generator
-- Dungeon generator
 - Mountain generator
 - World map
 - Fix inventory when changing map
 - Map system
--
+- c_winSidebar::update: copy v_tileAsset by reference instead of value to increase performance

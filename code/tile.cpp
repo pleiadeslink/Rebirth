@@ -21,7 +21,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
 
     if(fog == false) {
         engine -> screen.drawTile(11, 13, x, y, bgcolor);
-        drawOverlay(x, y);
+        drawOverlay(x, y, type, olcolor);
         if(v_actor.size() > 0) {
             c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[0]);
             //if(p_actor != engine -> game -> actorManager.getPlayer()) {
@@ -57,7 +57,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
             
             // Print tile with fog
             engine -> screen.drawTile(11, 13, x, y, bgcolor);
-            drawOverlay(x, y);
+            drawOverlay(x, y, type, olcolor);
             drawShadow(x, y);
 
             // Draw non-living actor
@@ -94,7 +94,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
         if(v_actor.size() == 1) {
             c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[0]);
             engine -> screen.drawTile(11, 13, x, y, bgcolor);
-            drawOverlay(x, y);
+            drawOverlay(x, y, type, olcolor);
             drawShadow(x, y);
             if(p_actor -> getShadow() == true) {
                 engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x + 1, y + 1, sf::Color::Black); 
@@ -112,7 +112,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
             // Draw living actor
             if(p_actor -> life) {
                 engine -> screen.drawTile(11, 13, x, y, bgcolor);
-                drawOverlay(x, y);
+                drawOverlay(x, y, type, olcolor);
                 drawShadow(x, y);
                 if(p_actor -> getShadow() == true) {
                     engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x + 1, y + 1, sf::Color::Black);
@@ -127,7 +127,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
         }
         //if(manyItems > 1) {
         engine -> screen.drawTile(11, 13, x, y, bgcolor);
-        drawOverlay(x, y);
+        drawOverlay(x, y, type, olcolor);
         engine -> screen.drawTile(15, 0, x, y, sf::Color::White);
         //} else {
         //    engine -> screen.drawTile(11, 13, x, y, bgcolor);
@@ -140,7 +140,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
 
     // Otherwise draw tile terrain
     engine -> screen.drawTile(11, 13, x, y, bgcolor);
-    drawOverlay(x, y);
+    drawOverlay(x, y, type, olcolor);
     engine -> screen.drawTile(tileX, tileY, x, y, color);
     drawShadow(x, y);
 
@@ -223,18 +223,18 @@ void c_tile::drawShadow(const int& x, const int& y) {
     }    
 }
 
-void c_tile::drawOverlay(const int& x, const int& y) {
+void c_tile::drawOverlay(const int& x, const int& y, const int& type, sf::Color color, const int& scale) {
     switch(type) {
         case tileType::wall: {
-            engine -> screen.drawTile(15, 15, x, y, olcolor);
+            engine -> screen.drawTile(15, 15, x, y, color, scale);
             break;
         }
         case tileType::floor: {
-            engine -> screen.drawTile(4, 17, x, y, olcolor);
+            engine -> screen.drawTile(4, 17, x, y, color, scale);
             break;
         }
         case tileType::water: {
-            engine -> screen.drawTile(5, 17, x, y, olcolor);
+            engine -> screen.drawTile(5, 17, x, y, color, scale);
             break;
         }
     } 
