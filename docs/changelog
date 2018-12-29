@@ -1,0 +1,33 @@
+0.1.3
+- Dungeon generation
+- Command history
+
+0.1.2.3
+- Gamelog fixed
+- Fullscreen mode added
+- 'showActorPosition' command added
+- 'showPlayerPosition' command added
+
+0.1.2.2
+- God mode
+
+0.2.1
+- Map scripts
+- Exe needs https://www.microsoft.com/en-us/download/details.aspx?id=26999! x86
+
+0.2.0
+- Actors cast shadows
+- Character panel
+- Melee combat calculations
+- Rules are established in the helper class
+
+0.1.9
+- Database refactored; now it uses a custom format instead of XML
+- Details panel
+- Inventory list
+- GUI revamped
+- Text wrapping (buggy)
+- Save system refactored
+- Added Lua command prompt
+- Random function refactored
+- Git reset

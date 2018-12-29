@@ -1,6 +1,3 @@
-// REBIRTH 0.7
-// 8/25/16
-
 #include <iomanip>
 #include <iostream>
 #include <fstream>
@@ -33,6 +30,7 @@ namespace global {
 	const int lightMult = 16;
 	const int mapSize = 64;
 	const int tileSize = 16;
+	const int maxRounds = 10000;
 };
 
 #include "tinyxml/tinyxml.h"

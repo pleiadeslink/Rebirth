@@ -28,6 +28,8 @@ class c_map : public TCODMap {
         std::string genWall1;
         std::string genWall2;
         std::string genWall3;
+        std::vector<s_coordinates> v_genWallStack;
+        void updateWallStack();
 
         // 3D Stuff
         double dirX, dirY;
@@ -52,9 +54,9 @@ class c_map : public TCODMap {
         void flood(const structTileAsset* asset, const int& x, const int& y);
         void floodAux(const structTileAsset* asset, const int& x, const int& y);
         void genClear(const int& tile = 0);
-        const bool& genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile = true);
-        const bool& genCastle(const int& rooms = 10);
-        void genDigCorridor();
+        const bool& genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile);
+        void genCleanCorridors();
+        const bool& genDungeon(const int& rooms = 10);
         const bool& genIsFloor(const int& x, const int& y);
         const bool& genIsWall(const int& x, const int& y);
         void setGenFloor1(std::string value) { genFloor1 = value; }

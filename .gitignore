@@ -11,14 +11,13 @@ Debug/zlib1.dll
 Debug/Rebirth.exe
 Debug/Rebirth.ilk
 Debug/Rebirth.v12.suo
-Debug/log.txt
+log.txt
 Debug/lua53.lib
 data/save
 data/map
 data/texture
 data/font
 Debug/screenshot.png
-docs/
 Rebirth/
 misc/
 Rebirth.sdf

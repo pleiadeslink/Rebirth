@@ -21,6 +21,7 @@ void c_helper::gameMessage(const std::string& text) {
 	std::cout << "Game: " << text << std::endl;
 }
 
+// Changes between window and fullscreen mode
 void c_helper::toggleFullScreen() {
 	if(engine -> screen.isFullScreen() == true) {
 		engine -> screen.start(false);
@@ -170,18 +171,26 @@ const int& c_helper::genClear(const int& value) {
 	return 0;
 }
 
-const bool& c_helper::genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction) {
+const bool& c_helper::genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile) {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
-	return engine -> game -> map -> genDigRoom(x0, y0, width, height, direction);
+	return engine -> game -> map -> genDigRoom(x0, y0, width, height, direction, digStartingTile);
 }
 
-const bool& c_helper::genCastle(const int& value) {
+const bool& c_helper::genDungeon(const int& value) {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
-	return engine -> game -> map -> genCastle(value);
+	gameMessage("Generating dungeon...");
+	for(int i = 0; i < 100; ++i) {
+		if(engine -> game -> map -> genDungeon(value) == true) {
+			c_helper::gameMessage("OK");
+			return true;
+		}
+	}
+	c_helper::gameMessage("FAIL");
+	return false;
 }
 
 const int& c_helper::setGenFloor1(std::string value) {
@@ -375,6 +384,7 @@ const bool& c_helper::isEnemy(const int& emitter, const int& target) {
 	return false;
 }
 
+// Shows actor's coordinates in the game console
 void c_helper::showActorPosition(const int& actor) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
 	if(!p_actor) {
@@ -385,6 +395,7 @@ void c_helper::showActorPosition(const int& actor) {
 	gameMessage(s.str());
 }
 
+// Shows player's coordinates in the game console
 void c_helper::showPlayerPosition() {
 	c_actor* p_actor = engine -> game -> actorManager.getPlayer();
 	if(!p_actor) {

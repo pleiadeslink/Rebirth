@@ -230,16 +230,19 @@ void c_map::genClear(const int& tile) {
 const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile) {
 
     // Check free (wall) space
-    for(int i = 0; i < rwidth; ++i) {
-        for(int j = 0; j < rheight; ++j) {
+    for(int i = -1; i < rwidth + 1; ++i) {
+        for(int j = -1; j < rheight + 1; ++j) {
             switch(direction) {
                 case direction::north: {
+                    // If even number
+                    //if(rwidth % 2 != 0) {
+                        
                     int x = x0 - ((rwidth - 1) / 2) + i;
                     int y = y0 - 1 - j;
-                    if(x < 1 or
-                       y < 1 or 
-                       x > width - 1 or
-                       y > height - 1 or
+                    if(x < 2 or
+                       y < 2 or 
+                       x > width - 2 or
+                       y > height - 2 or
                        genIsWall(x, y) == false) {
                         return false;
                     }
@@ -248,10 +251,10 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
                 case direction::south: {
                     int x = x0 - ((rwidth - 1) / 2) + i;
                     int y = y0 + 1 + j;
-                    if(x < 1 or
-                       y < 1 or 
-                       x > width - 1 or
-                       y > height - 1 or
+                    if(x < 2 or
+                       y < 2 or 
+                       x > width - 2 or
+                       y > height - 2 or
                        genIsWall(x, y) == false) {
                         return false;
                     }
@@ -260,10 +263,10 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
                 case direction::west: {
                     int x = x0 - 1 - i;
                     int y = y0 - ((rheight - 1) / 2) + j;
-                    if(x < 1 or
-                       y < 1 or 
-                       x > width - 1 or
-                       y > height - 1 or
+                    if(x < 2 or
+                       y < 2 or 
+                       x > width - 2 or
+                       y > height - 2 or
                        genIsWall(x, y) == false) {
                         return false;
                     }
@@ -272,10 +275,10 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
                 case direction::east: {
                     int x = x0 + 1 + i;
                     int y = y0 - ((rheight - 1) / 2) + j;
-                    if(x < 1 or
-                       y < 1 or 
-                       x > width - 1 or
-                       y > height - 1 or
+                    if(x < 2 or
+                       y < 2 or 
+                       x > width - 2 or
+                       y > height - 2 or
                        genIsWall(x, y) == false) {
                         return false;
                     }
@@ -314,44 +317,200 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
     return true;
 }
 
-const bool& c_map::genCastle(const int& rooms) {
+void c_map::updateWallStack() {
+	for(int i1 = 1; i1 < width - 1; ++i1) {
+		for(int i2 = 1; i2 < height - 1; ++i2) {
+			if((genIsWall(i1, i2) == false and 
+            genIsWall(i1 - 1, i2) == false and
+            genIsWall(i1 + 1, i2) == true and
+            genIsWall(i1, i2 - 1) == true and
+            genIsWall(i1, i2 + 1) == true) or
+            (genIsWall(i1, i2) == true and 
+            genIsWall(i1 - 1, i2) == true and
+            genIsWall(i1 + 1, i2) == false and
+            genIsWall(i1, i2 - 1) == true and
+            genIsWall(i1, i2 + 1) == true) or 
+            (genIsWall(i1, i2) == true and 
+            genIsWall(i1 - 1, i2) == true and
+            genIsWall(i1 + 1, i2) == true and
+            genIsWall(i1, i2 - 1) == false and
+            genIsWall(i1, i2 + 1) == true) or
+            (genIsWall(i1, i2) == true and 
+            genIsWall(i1 - 1, i2) == true and
+            genIsWall(i1 + 1, i2) == true and
+            genIsWall(i1, i2 - 1) == true and
+            genIsWall(i1, i2 + 1) == false)) {
+                s_coordinates coord;
+                coord.x = x;
+                coord.y = y;
+                v_genWallStack.push_back(coord);
+            }
+		}
+	}    
+}
 
-    c_helper::gameMessage("Generating castle map...");
-    
-    /*/ Pick up a random wall tile
-    int x = 0;
-    int y = 0;
-    bool wallFound = false;
-    while(wallFound == false) {
-        x = c_helper::random(0, width);
-        y = c_helper::random(0, height);
-        if(genIsWall(x, y) == true) {
-            wallFound = true;
+void c_map::genCleanCorridors() {
+    bool found = true;
+    while(found == true) {
+        found = false;
+        for(int i1 = 1; i1 < width - 1; ++i1) {
+            for(int i2 = 1; i2 < height - 1; ++i2) {
+                if((genIsWall(i1, i2) == false and 
+                genIsWall(i1 - 1, i2) == false and
+                genIsWall(i1 + 1, i2) == true and
+                genIsWall(i1, i2 - 1) == true and
+                genIsWall(i1, i2 + 1) == true) or
+                (genIsWall(i1, i2) == false and 
+                genIsWall(i1 - 1, i2) == true and
+                genIsWall(i1 + 1, i2) == false and
+                genIsWall(i1, i2 - 1) == true and
+                genIsWall(i1, i2 + 1) == true) or 
+                (genIsWall(i1, i2) == false and 
+                genIsWall(i1 - 1, i2) == true and
+                genIsWall(i1 + 1, i2) == true and
+                genIsWall(i1, i2 - 1) == false and
+                genIsWall(i1, i2 + 1) == true) or
+                (genIsWall(i1, i2) == false and 
+                genIsWall(i1 - 1, i2) == true and
+                genIsWall(i1 + 1, i2) == true and
+                genIsWall(i1, i2 - 1) == true and
+                genIsWall(i1, i2 + 1) == false)) {
+                    genMatrix[i1][i2].tile = genTile::wall1;
+                    genMatrix[i1][i2].actor = "";
+                    found = true;
+                }
+            }
         }
-    }*/
+    }
+}
+
+const bool& c_map::genDungeon(const int& rooms) {
+
+    // Clears tile stack (useful to store possible starting tiles for digging rooms)
+    v_genWallStack.clear();
+
+    // Fills whole map with wall
+    genClear(genTile::wall1);
 
     // Dig random initial room
-    genClear(genTile::wall1);
     genDigRoom(c_helper::random(1, width - 1), c_helper::random(1, height - 1), c_helper::random(7, 15), c_helper::random(7, 15), c_helper::random(1, 4), false);
+
+    // Update wall stack with new candidates from previous room
+    updateWallStack();
+    std::cout << v_genWallStack.size() << std::endl;
+    int rounds = 0;
+    std::vector<s_coordinates> v_doorTile;
 
     // Dig room and corridors
     for(int i = 0; i < rooms; ++i) {
         bool ok = false;
         while(ok == false) {
-            //ok = genDigRoom(, , , , );
-            int x = c_helper::random(1, width - 1);
-            int y = c_helper::random(1, height - 1);
-            int w = c_helper::random(3, 9);
-            int h = c_helper::random(3, 9);
-            int d = c_helper::random(1, 4);
-            if(genIsWall(x, y) == false) {
-                ok = genDigRoom(x, y, w, h, d);
+
+            // Check if max rounds has been reached
+            if(rounds > global::maxRounds) {
+                genClear(genTile::wall1);
+                return false;
             }
+
+            // Choose random tile
+            int x = c_helper::random(2, width - 2);
+            int y = c_helper::random(2, height - 2);
+            int w = 1;
+            int h = 1;
+
+            // Check if random tile is wall
+            if(genIsWall(x, y) == true) {
+        
+                // Choose room type (25% room, 75% corridor)
+                int roomType = 0;
+                if(c_helper::random(0, 100) > 25) {
+                    roomType = 1;
+                }
+                
+                // Square room
+                if(roomType == 0) {
+                    w = c_helper::random(3, 9);
+                    h = c_helper::random(3, 9);
+
+                // Corridor
+                } else if(roomType == 1) {
+
+                    // Choose direction
+                    int corridorDirection = c_helper::random(0, 1);
+                    if(corridorDirection == 0) {
+                        w = 1;
+                        h = c_helper::random(3, 9);
+                    } else {
+                        w = c_helper::random(3, 9);
+                        h = 1; 
+                    }                                         
+                }
+            
+                // * Dig room *
+
+                // North
+                if(genIsWall(x - 1, y - 1) == true and
+                genIsWall(x - 1, y) == true and
+                genIsWall(x - 1, y + 1) == false and
+                genIsWall(x, y - 1) == true and
+                genIsWall(x, y + 1) == false and
+                genIsWall(x + 1, y - 1) == true and
+                genIsWall(x + 1, y) == true and
+                genIsWall(x + 1, y + 1) == false) {
+                    ok = genDigRoom(x, y, w, h, direction::north, true);
+                }
+
+                // East
+                else if(genIsWall(x - 1, y - 1) == false and
+                genIsWall(x - 1, y) == false and
+                genIsWall(x - 1, y + 1) == false and
+                genIsWall(x, y - 1) == true and
+                genIsWall(x, y + 1) == true and
+                genIsWall(x + 1, y - 1) == true and
+                genIsWall(x + 1, y) == true and
+                genIsWall(x + 1, y + 1) == true) {
+                    ok = genDigRoom(x, y, w, h, direction::east, true);
+                }
+
+                // South
+                else if(genIsWall(x - 1, y - 1) == false and
+                genIsWall(x - 1, y) == true and
+                genIsWall(x - 1, y + 1) == true and
+                genIsWall(x, y - 1) == false and
+                genIsWall(x, y + 1) == true and
+                genIsWall(x + 1, y - 1) == false and
+                genIsWall(x + 1, y) == true and
+                genIsWall(x + 1, y + 1) == true) {
+                    ok = genDigRoom(x, y, w, h, direction::south, true);
+                }
+
+                // West
+                else if(genIsWall(x - 1, y - 1) == true and
+                genIsWall(x - 1, y) == true and
+                genIsWall(x - 1, y + 1) == true and
+                genIsWall(x, y - 1) == true and
+                genIsWall(x, y + 1) == true and
+                genIsWall(x + 1, y - 1) == false and
+                genIsWall(x + 1, y) == false and
+                genIsWall(x + 1, y + 1) == false) {
+                    ok = genDigRoom(x, y, w, h, direction::west, true);
+                }
+
+                // Add door (40% chance)
+                if(ok and c_helper::random(0, 100) > 60) {
+                    genMatrix[x][y].actor = "door";
+                }
+            }
+            ++rounds;
         }
     }
 
+    // Cleans dead-end corridors
+    genCleanCorridors();
+
+    // Renders gen map in real map
     build();
-    c_helper::gameMessage("Map 'castle' generated.");
+
     return true;
 }
 
@@ -379,7 +538,7 @@ void c_map::build() {
             // Delete previous actor, unless it's the actor
             matrix[x][y].removeActors(true);
 
-            // Applies generator tiles to the real matrix
+            // Applies generator map tiles to the real map
             switch(genMatrix[x][y].tile) {
                 case genTile::floor1: {
                     matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor1));
@@ -413,6 +572,11 @@ void c_map::build() {
                     matrix[x][y].setAsset(engine -> assetManager.getTileAsset("lava"));
                     break;
                 }
+            }
+
+            // Creates actors
+            if(genMatrix[x][y].actor != "") {
+                engine -> game -> actorManager.createActor(genMatrix[x][y].actor, x, y);
             }
         }
     }

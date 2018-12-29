@@ -3,6 +3,106 @@
 ---------
 Loading tiles...
 Loading maps...
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
 Actor 'avatar' created.
 Loading /texture/wallmark.png...
 Loading /texture/tileShadowFull.png...
@@ -15,10 +115,259 @@ Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
 Loading /texture/travelWest.png...
-Command run: genCastle(5)
-Loading /texture/selectedTile.png...
+Loading /texture/tileShadowBottomRight.png...
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Command run: genDungeon(100)
 Command run: god()
-Loading /texture/travelEast.png...
-Loading /texture/travelSouth.png...
-Loading /texture/travelNorth.png...
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Command run: genDungeon(100)
+Command run: god()
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Command run: genDungeon(100)
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Command run: genDungeon(100)
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Command run: genDungeon(100)
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Door deleted.
+Actor 'door' created.
+Actor 'door' created.
+Actor 'door' created.
+Door deleted.
+Door deleted.
+Door deleted.
+Command run: genDungeon(100)
 Goodbye!
