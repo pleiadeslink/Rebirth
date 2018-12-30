@@ -37,7 +37,8 @@ namespace actorType {
         door,
         container,
         misc,
-        trigger
+        trigger,
+        location
     };
 }
 

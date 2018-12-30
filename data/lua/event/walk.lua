@@ -41,8 +41,12 @@ if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), mapX, mapY) ~
 	return
 end
 
--- Is there an obstacle?
 if(isPlayer(emitter)) then
+	-- Is it a location? Then go there
+	if(isWorldMap() == true and travelToLocation(mapX, mapY) == true) then
+		return
+	end
+	-- Is there an obstacle?
 	if(isObstacle(mapX, mapY) and isPlayerGod() == false) then
 		return
 	end
@@ -50,54 +54,55 @@ elseif(isObstacle(mapX, mapY)) then
 	return
 end
 
--- Check conditions
+-- If out limits, travel to the world map
+if(isWorldMap() == false) then
+	if(getMapZ() == 0) then
+		if(mapX == 0) then
+			if(isPlayer(emitter) == true) then
+				worldMap(getMapX() - 1, getMapY())
+				message("You travel to the west.")
+			end
+			return
 
--- Go west
-if(mapX == 0) then
-	if(isPlayer(emitter) == true) then
-		worldMap(getMapX() - 1, getMapY())
-		message("You travel to the west.")
+		-- Go east
+		elseif(mapX == getMapWidth() - 1) then
+			if(isPlayer(emitter) == true) then
+				worldMap(getMapX() + 1, getMapY())
+				message("You travel to the east.")
+			end
+			return
+
+		-- Go north
+		elseif(mapY == 0) then
+			if(isPlayer(emitter) == true) then
+				worldMap(getMapX(), getMapY() - 1)
+				message("You travel to the north.")
+			end
+			return
+
+		-- Go south
+		elseif(mapY == getMapWidth() - 1) then
+			if(isPlayer(emitter) == true) then
+				worldMap(getMapX(), getMapY() + 1)
+				message("You travel to the south.")
+			end
+			return
+		end
 	end
-	return
 
--- Go east
-elseif(mapX == getMapWidth() - 1) then
-	if(isPlayer(emitter) == true) then
-		worldMap(getMapX() + 1, getMapY())
-		message("You travel to the east.")
-	end
-	return
-
--- Go north
-elseif(mapY == 0) then
-	if(isPlayer(emitter) == true) then
-		worldMap(getMapX(), getMapY() - 1)
-		message("You travel to the north.")
-	end
-	return
-
--- Go south
-elseif(mapY == getMapWidth() - 1) then
-	if(isPlayer(emitter) == true) then
-		worldMap(getMapX(), getMapY() + 1)
-		message("You travel to the south.")
-	end
-	return
-
--- Staircase
-else
+	-- Staircase
 	direction = findStaircase(mapX, mapY)
 	if(direction ~= 0) then
 		if(isPlayer(emitter) == true) then
 
 			-- Up
-			if(direction == 9) then
-				changeMap(9, mapX, mapY)
+			if(direction == 8) then
+				changeMap(getMapX(), getMapY(), getMapZ() - 1)
 				message("You travel up.")
 
 			-- Down
-			elseif(direction == 10) then
-				changeMap(10, mapX, mapY)
+			elseif(direction == 9) then
+				changeMap(getMapX(), getMapY(), getMapZ() + 1)
 				message("You travel down.")
 			end
 		else
@@ -105,15 +110,8 @@ else
 			-- If it's not player, we don't allow to move here
 			return
 		end
-		
-	-- Walk
-	else
-		teleportActor(emitter, mapX, mapY, true)
-
-		-- Check if there's an item on the new tile
-		--item = getFirstActorInTile(emitter, mapX, mapY)
-		--if(item ~= 0) then
-		--	message("You see a " .. getName(item) .. ".")
-		--end
 	end
 end
+
+-- Walk
+teleportActor(emitter, mapX, mapY, true)

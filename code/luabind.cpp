@@ -8,9 +8,11 @@ state["fullscreen"] = &c_helper::toggleFullScreen; // Changes between window and
 state["playAmbience"] = &c_helper::playAmbience;
 
 // Map
+state["info"] = &c_helper::showMapInfo; 
 state["saveMap"] = &c_helper::saveMap;
 state["changeMap"] = &c_helper::changeMap;
 state["worldMap"] = &c_helper::worldMap;
+state["isWorldMap"] = &c_helper::isWorldMap;
 state["resetMap"] = c_helper::resetMap;
 state["addScript"] = &c_helper::createMapScript;
 state["getMapSeed"] = &c_helper::getMapSeed;
@@ -18,6 +20,7 @@ state["getMapWidth"] = &c_helper::getMapWidth;
 state["getMapHeight"] = &c_helper::getMapHeight;
 state["getMapX"] = &c_helper::getMapX;
 state["getMapY"] = &c_helper::getMapY;
+state["getMapZ"] = &c_helper::getMapZ;
 state["clear"] = &c_helper::genClear;
 state["digRoom"] = &c_helper::genDigRoom;
 state["genDungeon"] = &c_helper::genDungeon;
@@ -65,3 +68,4 @@ state["getConstitution"] = &c_helper::getConstitution;
 state["getMeleeDamage"] = &c_helper::getMeleeDamage;
 state["god"] = &c_helper::toggleGodMode;
 state["isPlayerGod"] = &c_helper::isPlayerGod;
+state["travelToLocation"] = &c_helper::travelToLocation;

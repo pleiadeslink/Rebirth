@@ -19,7 +19,7 @@ class c_tile {
         bool visible; // *
         std::vector<int> v_actor;
         bool check;
-        void drawTransitionMark(const int& x, const int& y);
+        //void drawTransitionMark(const int& x, const int& y);
         void drawShadow(const int& x, const int& y);
         
     public:

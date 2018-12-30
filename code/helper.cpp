@@ -34,6 +34,15 @@ void c_helper::playAmbience(std::string track) {
 	engine -> sound.playAmbience(track);
 }
 
+void c_helper::showMapInfo() {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+	std::ostringstream s;
+	s << "Map x: " << engine -> game -> map -> getX() << " | Map x: " << engine -> game -> map -> getY() << " | Map z: " << engine -> game -> map -> getZ();
+	gameMessage(s.str());
+}
+
 void c_helper::loadMap(const int& x, const int& y, const int& z) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
@@ -77,7 +86,7 @@ void c_helper::saveMap(const bool& default) {
 	return;
 }
 
-void c_helper::changeMap(const int& x, const int& y, const int& z, const int& direction) {
+void c_helper::changeMap(const int& x, const int& y, const int& z) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
 	}
@@ -103,6 +112,16 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     loadMap(0, 0, 0);
     engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
+}
+
+const bool& c_helper::isWorldMap() {
+    if(!engine -> game or !engine -> game -> map) {
+        return false;
+    }
+	if(engine -> game -> map -> getX() == 0 and engine -> game -> map -> getY() == 0) {
+		return true;
+	}
+	return false;
 }
 
 void c_helper::resetMap() {
@@ -166,6 +185,13 @@ const int& c_helper::getMapY() {
     	return 0;
     }
     return engine -> game -> map -> getY();
+}
+
+const int& c_helper::getMapZ() {
+    if(!engine -> game or !engine -> game -> map) {
+    	return 0;
+    }
+    return engine -> game -> map -> getZ();
 }
 
 const int& c_helper::genClear(const int& value) {
@@ -687,4 +713,20 @@ const bool& c_helper::isPlayerGod() {
 		return false;
 	}
 	return engine -> game -> actorManager.getPlayer() -> isGod();
+}
+
+const bool& c_helper::travelToLocation(const int& x, const int& y) {
+	if(!engine -> game or !engine -> game -> map) {
+		return false;
+	}
+	// Check if there's a location there
+	std::vector<int> actorList = engine -> game -> map -> getTile(x, y) -> getActorList();
+	for(int i = 0; i < actorList.size(); ++i) {
+		
+		if(engine -> game -> actorManager.getActor(actorList[i]) -> getType() == actorType::location) {
+			c_helper::changeMap(x, y, engine -> game -> map -> getZ());
+			return true;
+		}
+	}
+	return false;
 }

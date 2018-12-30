@@ -213,7 +213,7 @@ color: sepia
 type: door
 name: Door
 desc: A solid, wooden door.
-texture: 11x2
+texture: 2x16
 color: dark sepia
 
 [fence]
@@ -262,7 +262,7 @@ type: staircase
 direction: down
 name: Staircase
 desc: These solid stairs allow you to travel one level down.
-texture: 1x1
+texture: 0x1
 color: grey
 canGet: 0
 
@@ -291,7 +291,6 @@ name: Tree
 desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
 texture: 5x0
 color: darker chartreuse
-canView: 0
 canMove: 0
 canGet: 0
 
@@ -314,5 +313,17 @@ mass: 2
 
 [trigger]
 type: trigger
+
+##########################################################################################
+##########################################################################################
+##   LOCATIONS                                                                          ##
+##########################################################################################
+##########################################################################################
+
+[sham]
+type: location
+name: Sham
+texture: 3x16
+color: light sepia
 
 [end]

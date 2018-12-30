@@ -7,3 +7,5 @@
 - c_winSidebar::update: copy v_tileAsset by reference instead of value to increase performance
 - c_winSidebar::update: assets don't need to be assigned to buttons every time, this should only be done once
 - Fade to black when going to world map
+! Bug: actor is not seen if another item is on the same tile in god mode
+- Map scrolling in edit mode

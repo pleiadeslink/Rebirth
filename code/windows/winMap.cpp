@@ -35,25 +35,29 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i m
             }
             case imode::edit: {
                 engine -> interface.selectTile(tile);
+
+                // Right click removes the actor
+                if(key == key::rclick) {
+                    tile -> removeActors();
+                    return 0;
+                }
+
                 switch(engine -> interface.getEmode()) {
                     case emode::tile: {
 
                         // Left click sets the tile terrain
                         if(key == key::lclick) {
                             tile -> setAsset(engine -> interface.getEditTile());;
+                            return 0;
                         }
                         break;
                     }
                     case emode::actor: {
 
-                        // Right click removes the actor
-                        if(key == key::rclick) {
-                            tile -> removeActors();
-                        }
-
                         // Left click adds the actor
-                        else if(key == key::lclick and !tile -> hasAnyActor()) {
+                        if(key == key::lclick and !tile -> hasAnyActor()) {
                             engine -> game -> actorManager.createActor(engine -> interface.getEditActor() -> id, tile -> getX(), tile -> getY());
+                            return 0;
                         }
 
                         break;

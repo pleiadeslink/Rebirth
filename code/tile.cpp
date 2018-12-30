@@ -37,7 +37,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
         }
 
         // Transition mark
-        drawTransitionMark(x, y);
+        //drawTransitionMark(x, y);
         //engine -> screen.drawTexture("fog-night", x, y);
         return;
     }
@@ -79,7 +79,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
             }
 
             // Transition mark
-            drawTransitionMark(x, y);
+            //drawTransitionMark(x, y);
         }
         //engine -> screen.drawTexture("fog-night", x, y);
         return;                
@@ -150,7 +150,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
     }
 
     // Transition mark
-    drawTransitionMark(x, y);
+    //drawTransitionMark(x, y);
 
     //engine -> screen.drawTexture("fog-night", x, y);
 }
@@ -268,7 +268,7 @@ void c_tile::explore() {
     updateObstacle();
 }
 
-void c_tile::drawTransitionMark(const int& x, const int& y) {
+/*void c_tile::drawTransitionMark(const int& x, const int& y) {
     if(this -> y == 0) {
         engine -> screen.drawTexture("travelNorth", x, y);
         return;
@@ -282,7 +282,7 @@ void c_tile::drawTransitionMark(const int& x, const int& y) {
         engine -> screen.drawTexture("travelWest", x, y);
         return;
     }    
-}
+}*/
 
 void c_tile::addActor(const int& actor) {
     v_actor.push_back(actor);

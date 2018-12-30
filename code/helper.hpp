@@ -14,10 +14,12 @@ class c_helper {
 		static void playAmbience(std::string track); // Plays a big audio file
 
 		// Map
+		static void showMapInfo();
 		static void loadMap(const int& x, const int& y, const int& z);
 		static void saveMap(const bool& default = false);
-		static void changeMap(const int& x, const int& y, const int& z, const int& direction);
+		static void changeMap(const int& x, const int& y, const int& z);
 		static void worldMap(const int& mapX, const int& mapY);
+		static const bool& isWorldMap();
 		static void resetMap();
 		static void createMapScript(std::string command, const bool& autodelete);
 		static const int& calculateDistance(const int& x1, const int& y1, const int& x2, const int& y2);
@@ -26,6 +28,7 @@ class c_helper {
 		static const int& getMapHeight();
 		static const int& getMapX();
 		static const int& getMapY();
+		static const int& getMapZ();
 		static const int& genClear(const int& value);
 		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile = false);
 		static const bool& genDungeon(const int& value);
@@ -79,6 +82,7 @@ class c_helper {
 		static void give(std::string item);
 		static void toggleGodMode();
 		static const bool& isPlayerGod();
+		static const bool& travelToLocation(const int& x, const int& y);
 };
 
 #endif
