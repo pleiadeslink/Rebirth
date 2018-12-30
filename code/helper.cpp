@@ -90,28 +90,36 @@ void c_helper::changeMap(const int& x, const int& y, const int& z) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
 	}
-
+	engine -> setLoading(true);
+	engine -> screen.clear();
+    engine -> interface.draw();
+    engine -> screen.display();
     saveMap(false);
     engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
     engine -> game -> actorManager.loadPlayer();
-	std::cout << "Change map: " << x << "." << y << "." << z << std::endl;
     c_helper::teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
+	engine -> setLoading(false);
 }
 
 void c_helper::worldMap(const int& mapX, const int& mapY) {
     if(!engine -> game or !engine -> game -> map) {
         return;
     }
-
+	engine -> setLoading(true);
+	engine -> screen.clear();
+    engine -> interface.draw();
+    engine -> screen.display();
     saveMap(false);
     engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(0, 0, 0);
     engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
+	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
+	engine -> setLoading(false);
 }
 
 const bool& c_helper::isWorldMap() {

@@ -19,29 +19,14 @@ Loading /texture/ribbon.png...
 Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
-Actor 'avatar' created.
 Loading /texture/selectedTile.png...
-Actor 'stairs_up' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'horse' created.
-Actor 'stairs_down' created.
+Command run: fullscreen()
+Staircase deleted.
+Loading /texture/targetbar.png...
+Loading /texture/sandglass.png...
+Actor 'sham' created.
+Actor 'sham' created.
 Actor 'avatar' created.
-Actor 'stairs_up' created.
-Actor 'avatar' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'horse' created.
-Actor 'stairs_down' created.
-Actor 'avatar' created.
+Loading /texture/background.png...
+Sham deleted.
 Goodbye!

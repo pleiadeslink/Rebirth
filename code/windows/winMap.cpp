@@ -116,7 +116,7 @@ void c_winMap::draw(const int& mapX0, const int& mapY0) {
             and mapY >= 0 and mapY < engine -> game -> map -> getHeight()) {
                 c_tile* tile = engine -> game -> map -> getTile(mapX0 + i1 - tileWidth / 2, mapY0 + i2 - tileHeight / 2 + yUIOffset);
                 tile -> draw(x + (i1 - 1) * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16, tile -> getInterior(), fog);
-                if(engine -> interface.getSelectedTile() == tile) {
+                if(engine -> interface.getSelectedTile() == tile and engine -> isLoading() == false) {
                     engine -> screen.drawTexture("selectedTile", x + (i1 - 1)  * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16);
                 }
             }

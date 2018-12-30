@@ -37,6 +37,7 @@ void c_engine::start() {
     while(f_quit == false) {
         
         key = input();
+        sound.update();
         key = interface.update(key);
         if(game and interface.getMode() == imode::game) {
             game -> update(key);

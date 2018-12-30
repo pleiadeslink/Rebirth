@@ -9,6 +9,7 @@ class c_engine {
         int commandIndex;
         bool commandPrompt;
         bool f_quit;
+        bool loading;
         
 	public:
         c_screen screen;
@@ -29,6 +30,8 @@ class c_engine {
         static void runScript(const std::string& path);
         static void runScript(const std::string& path, const structEventData& data);
         std::string getCommand() { return command; }
+        const bool& isLoading() { return loading; }
+        void setLoading(const bool& value) { loading = value; }
 };
 
 #endif

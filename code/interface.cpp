@@ -85,7 +85,11 @@ void c_interface::draw() {
     }
 
     // Draw mouse
-    engine -> screen.drawTexture("pointer", engine -> getMouse().x, engine -> getMouse().y);
+    if(engine -> isLoading()) {
+        engine -> screen.drawTexture("sandglass", engine -> getMouse().x, engine -> getMouse().y);
+    } else {
+        engine -> screen.drawTexture("pointer", engine -> getMouse().x, engine -> getMouse().y);
+    }
 }
 
 void c_interface::edit() {
@@ -99,6 +103,7 @@ void c_interface::edit() {
     }
     while(mode == imode::edit) {
         engine -> game -> gamelog.clear();
+        engine -> sound.update();
         update(engine -> input());
         engine -> game -> gamelog.update();
         engine -> screen.clear();
@@ -117,6 +122,7 @@ int c_interface::selectCloseTarget(const int& prevMode, const std::string& targe
     this -> targetText = targetText;
     while(sActor == 0) {
         engine -> game -> gamelog.clear();
+        engine -> sound.update();
         update(engine -> input());
         engine -> game -> gamelog.update();
         engine -> screen.clear();
