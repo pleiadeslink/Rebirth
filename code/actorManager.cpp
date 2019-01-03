@@ -1,10 +1,4 @@
 c_actorManager::c_actorManager() {
-    /*/ Null actor
-    c_actor* na = new c_actor(0);
-    v_all.push_back(icounter);
-    v_active.push_back(icounter);  
-    a_uid[icounter] = na;
-    ++icounter;*/
     for(int i = 0; i < 32766; ++i) {
         a_uid[i] = 0;
     }
@@ -33,8 +27,9 @@ void c_actorManager::savePlayer() {
             int equipped
             save actor
     */
+   
     player -> save(&zip);
-    int invSize = player -> life -> getInventorySize();
+/*    int invSize = player -> life -> getInventorySize();
     if(invSize > 0) {
         std::vector<s_invItem> inv = player -> life -> getInventory();
         zip.putInt(inv.size());
@@ -47,7 +42,7 @@ void c_actorManager::savePlayer() {
             }
             getActor(inv[i].uid) -> save(&zip);
         }
-    }
+    }*/
     std::string filename = "data/save/player.sav";
     zip.saveToFile(filename.c_str());
 }
@@ -63,6 +58,7 @@ void c_actorManager::loadPlayer() {
         c_actor* p_player = getActor(player);
         p_player -> load(&zip);
         /*int invSize = zip.getInt();
+        std::cout << invSize << std::endl;
         for(int i = 0; i < invSize; ++i) {
             s_invItem item;
             item.quantity = zip.getInt();
@@ -140,6 +136,7 @@ void c_actorManager::clear() {
     memset(a_uid, 0, sizeof(a_uid));
     v_all.clear();
     v_active.clear();
+    v_locations.clear();
 }
 
 void c_actorManager::timeUpdate() {
@@ -148,7 +145,6 @@ void c_actorManager::timeUpdate() {
         return;
     }
     for(int i = 0; i < size; ++i) {
-
         c_actor* actor = getActor(v_active[i]);
         if(actor != 0) {
             actor ->  timeUpdate();
@@ -193,6 +189,9 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         if(newActor -> AI) {
             v_active.push_back(icounter);    
         }
+        if(newActor -> getType() == actorType::location) {
+            v_locations.push_back(icounter);
+        }  
         a_uid[icounter] = newActor;
         ++icounter;
     }
@@ -226,6 +225,12 @@ void c_actorManager::deleteActor(const int& uid) {
     for(int i = 0; i < static_cast<int>(v_all.size()); ++i) {
         if(v_all[i] == uid) {
             v_all.erase(v_all.begin() + i);
+            break;
+        }
+    }
+    for(int i = 0; i < static_cast<int>(v_locations.size()); ++i) {
+        if(v_locations[i] == uid) {
+            v_locations.erase(v_locations.begin() + i);
             break;
         }
     }

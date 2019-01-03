@@ -38,10 +38,10 @@ void c_engine::start() {
         
         key = input();
         sound.update();
-        key = interface.update(key);
         if(game and interface.getMode() == imode::game) {
             game -> update(key);
         }
+        key = interface.update(key);
         screen.clear();
         interface.draw();
         screen.display();

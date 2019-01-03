@@ -224,20 +224,18 @@ void c_winSidebar::draw() {
 
 	} else {
 		drawTitle("Locations", 8);
-		std::vector<int> creatures = engine -> game -> actorManager.getActiveActors();
+		std::vector<int> locations = engine -> game -> actorManager.getLocations();
 				
-		if(creatures.size() > 0) {
+		if(locations.size() > 0) {
 			int counter = 0;
-			for(int i = 0; i < creatures.size(); ++i) {
+			for(int i = 0; i < locations.size(); ++i) {
 
-				// If the creature is on a visible tile, draw panel
-				c_actor* p_actor = engine -> game -> actorManager.getActor(creatures[i]);
+				// If the location is on a visible tile, draw panel
+				c_actor* p_actor = engine -> game -> actorManager.getActor(locations[i]);
 				if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
 							
-					// Health bar
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, (width - 2) * 16, 16, color("darkest red"));
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(),
-					16, color("darker red"));
+					// Bar
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, (width - 2) * 16, 16, color("dark sepia"));
 					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + counter) * 16);
 
 					// Symbol
@@ -252,7 +250,7 @@ void c_winSidebar::draw() {
 					++counter;
 				}
 			}
-		}		
+		}	
 	}
 
 	// << QUICK MENU >>

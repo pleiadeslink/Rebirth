@@ -63,6 +63,7 @@ void c_map::save(TCODZip* zip) {
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
             zip -> putString(matrix[i1][i2].getId().c_str());
+            zip -> putInt(matrix[i1][i2].getExplored());
         }
     }
 }
@@ -81,6 +82,13 @@ void c_map::load(TCODZip* zip) {
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
             matrix[i1][i2].setAsset(engine -> assetManager.getTileAsset(zip -> getString()));
+            bool explored = zip -> getInt();
+            if(explored == true) {
+                matrix[i1][i2].setExplored(true);
+                if(matrix[i1][i2].getType() != tileType::wall and matrix[i1][i2].getType() != tileType::obstacle) {
+                    setProperties(i1, i2, true, true);
+                }
+            }
         }
     }
 }
@@ -100,16 +108,14 @@ TCODPath* c_map::path(const int& x0, const int& y0, const int& x1, const int& y1
     TCODPath* path = new TCODPath(this); // Second value is the diagonal cost
 
     // The origin and destination tile is set as walkable temporarily for the path to compute
-    //setProperties(x0, y0, true, true);
     bool wasObstacle = false;
     if(matrix[x1][y1].isObstacle() == true) {
         setProperties(x1, y1, true, true);
-        wasObstacle = true;
+        wasObstacle = true; 
     }
 
     path -> compute(x0, y0, x1, y1);
 
-    //setProperties(x0, y0, false, false);
     if(wasObstacle == true) {
         setProperties(x1, y1, false, false);
     }

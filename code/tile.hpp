@@ -16,7 +16,7 @@ class c_tile {
         int script; // *
         bool interior; // *
         bool explored; // *
-        bool visible; // *
+        bool visible;
         std::vector<int> v_actor;
         bool check;
         //void drawTransitionMark(const int& x, const int& y);
@@ -28,6 +28,7 @@ class c_tile {
         void draw(const int& x, const int& y, const bool& playerIsInside, const bool& fog);
         bool playerAction(c_actor* p_player); // Returns true if successful
         bool isObstacle();
+        bool isLocation();
         void updateObstacle();
         void explore();
         static void drawOverlay(const int& x, const int& y, const int& type, sf::Color color, const int& scale = 1);
@@ -59,6 +60,7 @@ class c_tile {
         void wipe(const structTileAsset* asset);
         void setScript(const int& script) { this -> script = script; }
         void setInterior(const bool& interior) { this -> interior = interior; }
+        void setExplored(const bool& explored) { this -> explored = explored; }
         void setVisible(const bool& visible) { this -> visible = visible; }
         void setCheck(const bool& check) { this -> check = check; }
 };

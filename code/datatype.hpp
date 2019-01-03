@@ -73,6 +73,12 @@ struct structActorAsset {
     s_effect effect[4];
 };
 
+struct s_skillAsset {
+    std::string id;
+    std::string name;
+    int duration;
+};
+
 struct structTileAsset {
     std::string id;
     std::string name;

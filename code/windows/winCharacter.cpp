@@ -116,11 +116,11 @@ void c_winCharacter::draw() {
 	// << MENU >>
 
 	engine -> screen.drawText("INVENTORY", (x + 2 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
-	engine -> screen.drawText("ABILITIES", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
+	engine -> screen.drawText("SKILLS", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("CONDITION", (x + 23 + 4 + 1) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
-	engine -> screen.drawText("SKILLS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
-	engine -> screen.drawText("TALENTS", (x + 43 + 4 + 3) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
-	engine -> screen.drawText("QUESTS", (x + 53 + 4 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
+	engine -> screen.drawText("TALENTS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
+	engine -> screen.drawText("QUESTS", (x + 43 + 4 + 3) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
+	engine -> screen.drawText("SYSTEM", (x + 53 + 4 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 
 	// Title bar
 	engine -> screen.drawBox((x + 1) * 16, (y + 17) * 16, (width - 24) * 16, 16, color("darker sepia"));
@@ -243,7 +243,7 @@ void c_winCharacter::draw() {
 			break;
 		}
 		case charScreen::abilities: {
-			engine -> screen.drawText("ABILITIES", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
+			engine -> screen.drawText("SKILLS", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
 			//engine -> screen.drawTexture("menuCursor", (x + 13) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawTexture("menuCursor", (x + 13 + 7) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawCenteredText(">           <", (x + 13 + 4) * 16, (y + 12 + 1) * 16 + 4, sf::Color::White);
@@ -256,19 +256,19 @@ void c_winCharacter::draw() {
 			break;
 		}
 		case charScreen::skills: {
-			engine -> screen.drawText("SKILLS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
+			engine -> screen.drawText("TALENTS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
 			//engine -> screen.drawTexture("menuCursor", (x + 35) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawTexture("menuCursor", (x + 35 + 7) * 16, (y + 13 + 1) * 16 + 7);
 			break;
 		}
 		case charScreen::talents: {
-			engine -> screen.drawText("TALENTS", (x + 43 + 4 + 3) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
+			engine -> screen.drawText("QUESTS", (x + 43 + 4 + 3) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
 			//engine -> screen.drawTexture("menuCursor", (x + 46) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawTexture("menuCursor", (x + 46 + 7) * 16, (y + 13 + 1) * 16 + 7);
 			break;
 		}
 		case charScreen::questlog: {
-			engine -> screen.drawText("QUESTS", (x + 53 + 4 + 4) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
+			engine -> screen.drawText("SYSTEM", (x + 53 + 4 + 4) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
 			//engine -> screen.drawTexture("menuCursor", (x + 57) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawTexture("menuCursor", (x + 57 + 7) * 16, (y + 13 + 1) * 16 + 7);
 			break;

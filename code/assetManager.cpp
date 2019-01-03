@@ -251,21 +251,21 @@ void c_assetManager::loadActors() {
         file.close();
 	}
 }
-/*
-void c_assetManager::loadMaps() {
-	structMapAsset asset;
-	asset = clearActorAsset(asset);
+
+void c_assetManager::loadSkills() {
+	s_skillAsset asset;
+	asset = clearSkillAsset(asset);
 	std::string line;
 	std::string key;
 	bool n = true;
-	std::ifstream file("data/actor.dat");
+	std::ifstream file("data/skill.dat");
     while(getline(file, line)) {
 		if(line[0] == '[') {
 
 			// Save previous dump and clear asset
 			if(n == false) {
-				v_actorAsset.push_back(asset);
-				asset = clearActorAsset(asset);
+				v_skillAsset.push_back(asset);
+				asset = clearSkillAsset(asset);
 			}
 
 			// Get new id name
@@ -283,226 +283,22 @@ void c_assetManager::loadMaps() {
 			asset.id = id;
 		}
 
-		key = "type: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			if(line == "avatar") {
-				asset.type = actorType::avatar;
-			} else if(line == "creature") {
-				asset.type = actorType::creature;
-			} else if(line == "weapon") {
-				asset.type = actorType::weapon;
-			} else if(line == "armor") {
-				asset.type = actorType::armor;
-			} else if(line == "food") {
-				asset.type = actorType::food;
-			} else if(line == "potion") {
-				asset.type = actorType::potion;
-			} else if(line == "staircase") {
-				asset.type = actorType::staircase;
-			} else if(line == "door") {
-				asset.type = actorType::door;
-			} else if(line == "scroll") {
-				asset.type = actorType::scroll;
-			} else if(line == "contaner") {
-				asset.type = actorType::container;
-			} else if(line == "misc") {
-				asset.type = actorType::misc;
-			}
-		}
-
 		key = "name: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
 			asset.name = line;
 		}
-		
-		key = "plural: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.plural = line;
-		} else {
-			std::string str = asset.name;
-			str.append("s");
-			asset.plural = str;		
-		}
 
-		key = "desc: ";
+		key = "duration: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
-			asset.description = line;
-		}
-
-		key = "texture: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			bool digit = 0;
-			std::string n1 = "";
-			std::string n2 = "";
-			for(int i = 0; i < line.length(); ++i) {
-				if(line[i] == 'x') {
-					digit = 1;
-				} else if(digit == 0) {
-					n1 += line[i];
-				} else {
-					n2 += line[i];
-				}
-			}
- 			asset.tx = atof(n1.c_str());
-			asset.ty = atof(n2.c_str());
-		}
-
-		key = "color: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.color = color(line);
-		}
-
-		key = "shadow: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.shadow = atof(line.c_str());
-		}
-
-		key = "mass: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.mass = std::stof(line.c_str());
-		}
-
-		key = "canMove: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.canMove = atof(line.c_str());
-		}
-
-		key = "canView: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.canView = atof(line.c_str());
-		}
-
-		key = "canGet: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.canGet = atof(line.c_str());
-		}
-
-		key = "direction: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			if(line == "up") {
-				asset.direction = direction::up;
-			} else if(line == "down") {
-				asset.direction = direction::down;
-			}
-		}
-
-		key = "type_w: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			if(line == "one_handed") {
-				asset.wType = weaponType::oneHanded;
-			} else if(line == "two_handed") {
-				asset.wType = weaponType::twoHanded;
-			} else if(line == "ranged") {
-				asset.wType = weaponType::ranged;
-			}
-		}
-
-		key = "category_w: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			if(line == "sword") {
-				asset.wCategory = weaponCategory::sword;
-			} else if(line == "axe") {
-				asset.wCategory = weaponCategory::axe;
-			} else if(line == "bow") {
-				asset.wCategory = weaponCategory::bow;
-			}
-		}
-
-		key = "damage: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			bool digit = 0;
-			std::string n1 = "";
-			std::string n2 = "";
-			for(int i = 0; i < line.length(); ++i) {
-				if(line[i] == '-') {
-					digit = 1;
-				} else if(digit == 0) {
-					n1 += line[i];
-				} else {
-					n2 += line[i];
-				}
-			}
- 			asset.minDamage = atof(n1.c_str());
-			asset.maxDamage = atof(n2.c_str());
-		}
-
-		key = "speed: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.speed = atof(line.c_str());
-		}
-
-		key = "protection: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.protection = atof(line.c_str());
-		}
-
-		key = "slot: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.slot = atof(line.c_str());
-		}
-
-		key = "penalty: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.penalty = atof(line.c_str());
-		}
-
-		key = "attack_speed: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.attackSpeed = atof(line.c_str());
-		}
-
-		key = "accuracy: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.accuracy = atof(line.c_str());
-		}
-
-		key = "dodge: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.dodge = atof(line.c_str());
-		}
-
-		key = "exp: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.exp = atof(line.c_str());
-		}
-
-		key = "faction: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			if(line == "avatar") {
-				asset.faction = faction::avatar;
-			} else if(line == "animal") {
-				asset.faction = faction::animal;
-			}
+			asset.duration = atof(line.c_str());
 		}
     }
     if(file.is_open()) {
         file.close();
 	}
-}*/
+}
 
 structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.id = "default";
@@ -543,6 +339,13 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.effect[3].script = "";
 	asset.effect[3].value1 = 0;
 	asset.effect[3].string1 = "";
+	return asset;
+}
+
+s_skillAsset c_assetManager::clearSkillAsset(s_skillAsset asset) {
+	asset.id = "default";
+	asset.name = "Default";
+	asset.duration = 1;
 	return asset;
 }
 
@@ -689,88 +492,6 @@ void c_assetManager::load() {
         a_mapAsset[x][y][z] = newMap;
 		map = map -> NextSiblingElement("map");
     }    
-    
- 
-        /*/ Life
-		if(actor -> FirstChildElement("effect")) {
-			TiXmlElement* effect = actor -> FirstChildElement("effect");
-			int counter = 0;
-			while(effect) {
-				if(effect -> Attribute("script")) {
-					newActor.effect[counter].script = effect -> Attribute("script");
-				}
-				if(effect -> Attribute("value1")) {
-					newActor.effect[counter].value1 = atof(effect -> Attribute("value1"));
-				}
-				if(effect -> Attribute("string1")) {
-					newActor.effect[counter].string1 = effect -> Attribute("string1");
-				}
-				++counter;
-				effect = actor -> NextSiblingElement("effect");
-			}
-        }*/
-               
-
-    /*/ <<< LOAD ACTIONS >>>
-    engine -> message("Loading verbs...");
-	TiXmlDocument xmldocverb("data/verbs.xml");
-	if(!xmldocverb.LoadFile()) {
-		std::stringstream s;
-		s << xmldoctile.ErrorDesc() << ".";
-		engine -> message(s.str());
-		exit(1);
-	}
-	TiXmlElement* verb = xmldocverb.FirstChildElement("verb");
-	while(verb) {
-        
-        structVerbAsset newVerb;
-        newVerb.id = "default";
-        newVerb.name = "Default";
-        newVerb.duration = 0;
-		
-		if(verb -> FirstChildElement("id"))
-			newVerb.id = verb -> FirstChildElement("id") -> GetText();
-		if(verb -> FirstChildElement("name"))
-			newVerb.name = verb -> FirstChildElement("name") -> GetText();
-        if(verb -> Attribute("duration"))
-            newVerb.duration = atof(verb -> Attribute("duration"));
-            
-        // Save it
-        v_verbAsset.push_back(newVerb);
-		verb = verb -> NextSiblingElement("verb");
-    }*/
-
-
-    // <<< LOAD DIALOGUE >>>
-    /*engine -> message("Loading words...");
-	TiXmlDocument xmldocdialogue("data/dialogue.xml");
-	if(!xmldocdialogue.LoadFile()) {
-		std::stringstream s;
-		s << xmldocdialogue.ErrorDesc() << ".";
-		engine -> message(s.str());
-		exit(1);
-	}
-	TiXmlElement* topic = xmldocdialogue.FirstChildElement("topic");
-	while(topic) {
-        structTopicAsset newTopic;
-		if(topic -> FirstChildElement("name")) {
-			newTopic.name = topic -> FirstChildElement("name") -> GetText();
-        }
-	    TiXmlElement* entry = topic -> FirstChildElement("entry");
-	    while(entry) {
-	        structEntryAsset newEntry;
-	        if(entry -> FirstChildElement("text")) {
-				newEntry.text = entry -> FirstChildElement("text") -> GetText();
-			}
-	        if(entry -> FirstChildElement("isActor")) {
-				newEntry.isActor = entry -> FirstChildElement("isActor") -> GetText();
-			}
-			newTopic.v_entry.push_back(newEntry);
-			entry = entry -> NextSiblingElement("entry");
-	    }
-        v_topicAsset.push_back(newTopic);
-		topic = topic -> NextSiblingElement("topic");
-    } */ 
 }
 
 sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {
@@ -785,9 +506,9 @@ sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {
 	data -> loadFromFile("data/texture/" + id + ".png");
 
 	// Set attributes
-	//data -> setSmooth(true);
-	//if(id == water)
-	//data -> setRepeated(true);
+	data -> setSmooth(true);
+	if(id == "s_skillAssetwater")
+		data -> setRepeated(true);
 
 	// Console message
 	std::ostringstream s;

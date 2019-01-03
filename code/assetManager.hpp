@@ -13,6 +13,7 @@ class c_assetManager {
         sf::Texture tileset;
         std::vector<structTextureAsset> v_textureAsset;
         std::vector<structActorAsset> v_actorAsset;
+        std::vector<s_skillAsset> v_skillAsset;
         structMapAsset a_mapAsset[127][127][63];
         std::vector<structTileAsset> v_tileAsset;
         std::vector<structVerbAsset> v_verbAsset;
@@ -20,7 +21,9 @@ class c_assetManager {
         int indexTile;
         int indexActor;
         void loadActors();
+        void loadSkills();
         structActorAsset clearActorAsset(structActorAsset asset);
+        s_skillAsset clearSkillAsset(s_skillAsset asset);
         structMapAsset clearMapAsset(structMapAsset asset);
 	
     public:

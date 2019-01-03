@@ -94,12 +94,13 @@ void c_helper::changeMap(const int& x, const int& y, const int& z) {
 	engine -> screen.clear();
     engine -> interface.draw();
     engine -> screen.display();
+	engine -> interface.setTileDestination(0);
     saveMap(false);
     engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
     engine -> game -> actorManager.loadPlayer();
-    c_helper::teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
+    teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
 }
@@ -112,6 +113,7 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
 	engine -> screen.clear();
     engine -> interface.draw();
     engine -> screen.display();
+	engine -> interface.setTileDestination(0);
     saveMap(false);
     engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
@@ -358,9 +360,13 @@ void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY,
     p_actor -> setMapX(mapX);
     p_actor -> setMapY(mapY);
             
-    // Recalculate FOV
+    // Recalculate FOV (smaller range for world map)
     if(recalculateFOV == true and p_actor == engine -> game -> actorManager.getPlayer()) {
-        engine -> game -> map -> fov(mapX, mapY, p_actor -> life -> getViewRange(), true);
+		if(c_helper::isWorldMap() == true) {
+        	engine -> game -> map -> fov(mapX, mapY, 11, true);
+		} else {
+			engine -> game -> map -> fov(mapX, mapY, p_actor -> life -> getViewRange(), true);
+		}
     }
 
     // Remove from last position and add to the new one
@@ -490,7 +496,6 @@ std::string c_helper::getActorId(const int& actor) {
 }
 
 std::string c_helper::getName(const int& actor) {
-	std::cout << actor << std::endl;
 	c_actor* p_actor = engine->game->actorManager.getActor(actor);
 	return engine -> game -> actorManager.getActor(actor) -> getName();
 }

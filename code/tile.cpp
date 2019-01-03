@@ -255,6 +255,18 @@ bool c_tile::isObstacle() {
     return false;
 }
 
+bool c_tile::isLocation() {
+    if(v_actor.size() > 0) {
+        for(int i = 0; i < v_actor.size(); ++i) {
+            c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[i]);
+            if(p_actor -> getType() == actorType::location) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 void c_tile::updateObstacle() {
     if(isObstacle()) {
         engine -> game -> map -> setProperties(x, y, false, false);

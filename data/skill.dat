@@ -1,0 +1,7 @@
+-- ABILITIES --
+
+[walk]
+name: Walk
+duration: 1
+
+[end]
