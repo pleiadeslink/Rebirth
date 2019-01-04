@@ -107,16 +107,24 @@ void c_map::wipe(const int& x, const int& y, const int& z) {
 TCODPath* c_map::path(const int& x0, const int& y0, const int& x1, const int& y1) {
     TCODPath* path = new TCODPath(this); // Second value is the diagonal cost
 
-    // The origin and destination tile is set as walkable temporarily for the path to compute
-    bool wasObstacle = false;
-    if(matrix[x1][y1].isObstacle() == true) {
-        setProperties(x1, y1, true, true);
-        wasObstacle = true; 
+    // Origin and destination tile are set as walkable temporarily for the path to compute
+    bool originWasObstacle = false;
+    if(matrix[x0][y0].isObstacle() or matrix[x0][y0].isLocation()) {
+        setProperties(x0, y0, true, true);
+        originWasObstacle = true; 
     }
-
+    bool destWasObstacle = false;
+    if(matrix[x1][y1].isObstacle() or matrix[x1][y1].isLocation()) {
+        setProperties(x1, y1, true, true);
+        destWasObstacle = true; 
+    }
+    
     path -> compute(x0, y0, x1, y1);
 
-    if(wasObstacle == true) {
+    if(originWasObstacle == true) {
+        setProperties(x0, y0, false, false);
+    }
+    if(destWasObstacle == true) {
         setProperties(x1, y1, false, false);
     }
 
@@ -406,7 +414,6 @@ const bool& c_map::genDungeon(const int& rooms) {
 
     // Update wall stack with new candidates from previous room
     updateWallStack();
-    std::cout << v_genWallStack.size() << std::endl;
     int rounds = 0;
     std::vector<s_coordinates> v_doorTile;
 

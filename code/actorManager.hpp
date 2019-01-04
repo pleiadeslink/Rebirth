@@ -9,8 +9,9 @@ class c_actorManager {
         c_actor* player = 0;
         c_actor* a_uid[32766];
         std::vector<int> v_active;
-        std::vector<int> v_all;
+        std::vector<int> v_map;
         std::vector<int> v_locations;
+        std::vector<int> v_inventory;
         unsigned int icounter = 1;
 
     public:
@@ -29,6 +30,7 @@ class c_actorManager {
         std::vector<int> getActiveActors() { return v_active; }
         std::vector<int> getLocations() { return v_locations; }
         const bool& actorExists(const int& uid);
+        void actorGoesToInventory();
 };
 
 #endif

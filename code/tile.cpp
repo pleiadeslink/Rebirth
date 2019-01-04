@@ -268,7 +268,7 @@ bool c_tile::isLocation() {
 }
 
 void c_tile::updateObstacle() {
-    if(isObstacle()) {
+    if(isObstacle() or isLocation()) {
         engine -> game -> map -> setProperties(x, y, false, false);
     } else {
         engine -> game -> map -> setProperties(x, y, true, true);
@@ -299,7 +299,8 @@ void c_tile::explore() {
 void c_tile::addActor(const int& actor) {
     v_actor.push_back(actor);
     c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-    if(p_actor -> body and p_actor -> body -> getCanMove() == false) {
+    if((p_actor -> body and p_actor -> body -> getCanMove() == false)
+    or (p_actor -> getType() == actorType::location)) {
         engine -> game -> map -> setProperties(x, y, false, false);
     }
 }
@@ -308,7 +309,7 @@ const bool& c_tile::removeActor(const int& actor) {
     for(int i = 0; i < static_cast<int>(v_actor.size()); ++i) {
         if(v_actor[i] == actor) {
             v_actor.erase(v_actor.begin() + i);
-            if(isObstacle()) { //  or explored == false (removed after having actors using fov)
+            if(isObstacle() or isLocation()) { //  or explored == false (removed after having actors using fov)
                 engine -> game -> map -> setProperties(x, y, false, false);
             } else {
                 engine -> game -> map -> setProperties(x, y, true, true);

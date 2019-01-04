@@ -42,6 +42,7 @@ if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), mapX, mapY) ~
 end
 
 if(isPlayer(emitter)) then
+	
 	-- Is it a location? Then go there
 	if(isWorldMap() == true and travelToLocation(mapX, mapY) == true) then
 		return

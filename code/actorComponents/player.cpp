@@ -5,17 +5,36 @@ c_player::c_player(c_actor* father) {
 }
 
 bool c_player::channel(const int& key, const bool& worldMap) {
-
+    
     // Checks destination tile
+    engine -> setLoading(false);
     if(engine -> interface.getTileDestination()) {
-        if((engine -> interface.getTileDestination() -> getX() == father -> getMapX()
-        and engine -> interface.getTileDestination() -> getY() == father -> getMapY()) 
+        int destX = engine -> interface.getTileDestination() -> getX();
+        int destY = engine -> interface.getTileDestination() -> getY();
+        if((destX == father -> getMapX()
+        and destY == father -> getMapY()) 
         or engine -> interface.getTileDestination() -> isObstacle()) {
             engine -> interface.setTileDestination(0);
+
+        // If the distance is 1 and it's a location
+        // ! This is dirty as fuck and needs refactoring but hey man it works so good job bro
+        } if(c_helper::calculateDistance(father -> getMapX(), father -> getMapY(), destX, destY) == 1
+        and engine -> interface.getTileDestination() -> isLocation()) {
+            structEventData eventData;
+            eventData.type = "walk";
+            eventData.mapX = destX;
+            eventData.mapY = destY;
+            father -> action -> start(1, eventData); 
+            return true;
+
         } else {
-            TCODPath* path = engine -> game -> map -> path(
-            father -> getMapX(), father -> getMapY(),
-            engine -> interface.getTileDestination() -> getX(), engine -> interface.getTileDestination() -> getY());
+            bool destWasObstacle = false;
+            if(engine -> game -> map -> getTile(destX, destY) -> isObstacle()
+            or engine -> game -> map -> getTile(destX, destY) -> isLocation()) {
+                engine -> game -> map -> setProperties(destX, destY, true, true);
+                destWasObstacle = true; 
+            }
+            TCODPath* path = engine -> game -> map -> path(father -> getMapX(), father -> getMapY(), destX, destY);
             if(path -> size()) {
                 int dx = 0;
                 int dy = 0;
@@ -25,23 +44,16 @@ bool c_player::channel(const int& key, const bool& worldMap) {
                 eventData.mapX = dx;
                 eventData.mapY = dy;
                 father -> action -> start(1, eventData); 
+                engine -> setLoading(true);
+                return true;
             } else {
                 engine -> interface.setTileDestination(0);
+                
+            }
+            if(destWasObstacle == true) {
+                engine -> game -> map -> setProperties(destX, destY, false, false);
             }
             delete path;
-            /*c_tile* dest = engine -> game -> map -> path(father -> getMapX(), father -> getMapY(),
-            engine -> interface.getTileDestination() -> getX(), engine -> interface.getTileDestination() -> getY());
-            if(dest != 0) {
-                structEventData eventData;
-                eventData.type = event::walk;
-                eventData.mapX = dest -> getX();
-                eventData.mapY = dest -> getY();
-                father -> action -> start(1, eventData);
-                return true;               
-            } else {
-                engine -> interface.setTileDestination(0);
-                return false;
-            }*/
         }
     }
 

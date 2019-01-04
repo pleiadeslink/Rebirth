@@ -3,6 +3,7 @@
 ---------
 Loading tiles...
 Loading maps...
+Actor 'sham' created.
 Actor 'avatar' created.
 Loading /texture/fog.png...
 Loading /texture/selectedTile.png...
@@ -12,10 +13,35 @@ Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
 Loading /texture/sandglass.png...
-Actor 'avatar' created.
-Actor 'sham' created.
 Loading /texture/targetbar.png...
 Actor 'avatar' created.
-Actor 'sham' created.
-Actor 'avatar' created.
+Actor 'table' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'fence' created.
+Actor 'wheat' created.
+Actor 'wheat' created.
+Actor 'wheat' created.
+Actor 'wheat' created.
+Actor 'wheat' created.
+Actor 'wheat' created.
+Loading /texture/wallmark.png...
+Loading /texture/tileShadowBottom.png...
+Loading /texture/tileShadowRight.png...
+Loading /texture/tileShadowBottomRight.png...
+Loading /texture/tileShadowFull.png...
+Actor 'bed' created.
+Actor 'chest' created.
+Actor 'door' created.
+Actor 'door' created.
+Command run: fullscreen()
+Actor 'barrel' created.
+Actor 'urn' created.
+Urn deleted.
 Goodbye!

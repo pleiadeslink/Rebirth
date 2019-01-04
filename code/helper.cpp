@@ -658,6 +658,7 @@ const bool& c_helper::getItemFromFloor(const int& emitter, const int& target) {
 	    engine -> game -> map -> removeActorFromTile(target, p_target -> getMapX(), p_target -> getMapY());
 	    p_target -> setMapX(-1);
 	    p_target -> setMapY(-1);
+		
 	    return true;   
     }  
     return false;	
