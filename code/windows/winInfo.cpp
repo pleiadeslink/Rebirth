@@ -61,7 +61,7 @@ void c_winInfo::draw() {
             }
         }
         if(p_actor -> weapon) {
-            desc.append("/nWeapon type: ");
+            desc.append("\nWeapon type: ");
             switch(p_actor -> weapon -> getType()) {
                 case weaponType::oneHanded: {
                     desc.append("one-handed");
@@ -76,7 +76,7 @@ void c_winInfo::draw() {
                     break;
                 }
             }
-            desc.append("/nCategory: ");
+            desc.append("\nCategory: ");
             switch(p_actor -> weapon -> getCategory()) {
                 case weaponCategory::sword: {
                     desc.append("sword");
@@ -91,18 +91,18 @@ void c_winInfo::draw() {
                     break;
                 }
             }
-            desc.append("/nDamage: ");
+            desc.append("\nDamage: ");
             desc.append(std::to_string(p_actor -> weapon -> getMinDamage()));
             desc.append(" - ");
             desc.append(std::to_string(p_actor -> weapon -> getMinDamage()));
-            desc.append("/nSpeed: ");
+            desc.append("\nSpeed: ");
             desc.append(std::to_string(p_actor -> weapon -> getSpeed()));
         }
-        desc.append("/nMass: ");
+        desc.append("\nMass: ");
         desc.append(std::to_string(p_actor -> body -> getMass()));
-        desc.append("/n/n");
-        desc.append(p_actor -> getDescription());
-        engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
+        desc.append("\n\n");
+        desc.append(c_helper::justify(p_actor -> getDescription(), 37));
+        engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 36);
         drawTitle("[U]se, [D]rop", height - 2);
     }
 		

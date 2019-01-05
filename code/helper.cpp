@@ -13,6 +13,41 @@ int c_helper::random(const int& min, const int& max) {
     return ran -> getInt(min, max);
 }
 
+std::vector<std::string> c_helper::splitter(std::string in_pattern, std::string& content) {
+    std::vector<std::string> split_content;
+    std::regex pattern(in_pattern);
+    copy(std::sregex_token_iterator(content.begin(), content.end(), pattern, -1),
+    std::sregex_token_iterator(),back_inserter(split_content));  
+    return split_content;
+}
+
+/*std::string c_helper::justify(const std::string &in, const size_t every_n) {
+    std::string out;
+    out.reserve(in.size() + in.size() / every_n);
+    for(std::string::size_type i = 0; i < in.size(); i++) {
+        if(!(i % every_n) && i) {
+            out.push_back('\n');
+        }
+        out.push_back(in[i]);
+    }
+    return out;
+}*/
+
+std::string c_helper::justify(std::string string, const size_t size) {
+    int iterator = 0;
+	for(int i = 0; i < string.length(); ++i) {
+		if(string.at(i) == ' ' and iterator >= size) {
+			iterator = 0;
+			string.erase(i,1);
+			string.insert(i, "\n");
+		}
+		++iterator;
+	}
+    return string;
+}
+
+
+
 void c_helper::gameMessage(const std::string& text) {
 	if(!engine -> game) {
 		return;

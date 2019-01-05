@@ -16,6 +16,7 @@
 #include <memory>
 #include <cstdio>
 #include <queue>
+#include <regex>
 #include <time.h>
 #include <iso646.h>
 #include <SFML/Audio.hpp>

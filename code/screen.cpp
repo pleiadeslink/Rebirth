@@ -91,50 +91,11 @@ const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Co
             break;
         }
         case textAlign::justify: {
-            x = x - (text.getLocalBounds().width);
-            break;
-            std::vector<std::string> lines;
-            std::string nstr = "";
-            bool fin = false;
-            bool f = true;
-            int i = 0;
-            if(str.length() < 3) {
-                break;
-            }
-            while(fin == false) {
-                f = true;
-                if(i == str.length()) {
-                    lines.push_back(nstr);
-                    fin = true;
-                }
-                if(str[i] == '/' and str[i + 1] == 'n') {
-                    lines.push_back(nstr);
-                    nstr = "";
-                    str.erase(0, i + 2);
-                    i = 0;
-                    f = false;
-                }
-                if(i == width) {
-                    for(int k = 0; k < 20; ++k) {
-                        if(str[i - k] == ' ') {
-							std::string ostr;
-							for (int h = 0; h < i - k; ++h) {
-								ostr.push_back(str[h]);
-							}
-                            str.erase(0, i - k + 1);
-                            lines.push_back(ostr);
-                            nstr = "";
-                            i = 0;
-                        }
-                    }
-                }
-               
-                
-                if(f == true) {
-                    nstr.push_back(str[i]);
-                    ++i;
-                }
-            }
+
+            //x = x - (text.getLocalBounds().width);
+            
+            std::vector<std::string> lines = c_helper::splitter("\n", str);
+
             for(int j = 0; j < lines.size(); ++j) {
                 sfe::RichText ltext(*(engine -> assetManager.getFont()));
                 ltext << color << lines[j];

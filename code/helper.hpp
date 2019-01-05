@@ -7,6 +7,8 @@ class c_helper {
 		static void test() { std::cout << "test" << std::endl; }
 		static std::vector<std::string> split(const std::string& s, char delimiter);
 		static int random(const int& min, const int& max);
+		static std::vector<std::string> splitter(std::string in_pattern, std::string& content); // Splits a string in lines by '\n'
+		static std::string justify(std::string string, const size_t size);
 		static void gameMessage(const std::string& text);
 		static void toggleFullScreen(); // Changes between window and fullscreen mode
 
