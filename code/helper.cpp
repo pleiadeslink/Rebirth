@@ -63,7 +63,6 @@ void c_helper::loadMap(const int& x, const int& y, const int& z) {
         if(zip.loadFromFile(defaultFilename.c_str())) {
             engine -> game -> map -> load(&zip);
             engine -> game -> actorManager.loadActors(&zip);
-            //map -> create(x, y, z, engine -> assetManager.getMapAsset(x, y, z));
         }
     }
 }
@@ -96,10 +95,10 @@ void c_helper::changeMap(const int& x, const int& y, const int& z) {
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
     saveMap(false);
-    engine -> game -> actorManager.savePlayer();
+    //engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
-    engine -> game -> actorManager.loadPlayer();
+    //engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
@@ -115,10 +114,10 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
     saveMap(false);
-    engine -> game -> actorManager.savePlayer();
+    //engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(0, 0, 0);
-    engine -> game -> actorManager.loadPlayer();
+    //engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
@@ -374,10 +373,10 @@ void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY,
     engine -> game -> map -> addActorToTile(actor, mapX, mapY);
 
 	// If it's the player, check for a script
-	int script = engine -> game -> map -> getTile(mapX, mapY) -> getScript();
+	/*int script = engine -> game -> map -> getTile(mapX, mapY) -> getScript();
 	if(script != 0 ) {
 
-	}
+	}*/
 }
 
 const int& c_helper::createActor(std::string id, const int& x, const int& y) {
@@ -583,18 +582,28 @@ const int& c_helper::getMeleeDamage(const int& actor) {
 		return 0;
 	}
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-	if(p_actor and p_actor -> life) {
-		int minDamage = getMinMeleeDamage(actor);
-		int maxDamage = getMaxMeleeDamage(actor);
-		int baseDamage = c_helper::random(minDamage, maxDamage);
+	if(!p_actor or !p_actor -> life) {
+		return 0;
+	}
+
+	int minDamage = getMinMeleeDamage(actor);
+	int maxDamage = getMaxMeleeDamage(actor);
+	int baseDamage = c_helper::random(minDamage, maxDamage);
+
+	// If it's a creature
+	if(p_actor != engine -> game -> actorManager.getPlayer()) {
+		return baseDamage;
+
+	// If it's the player
+	} else {
 
 		// No weapon
-		if(p_actor -> life -> getEquippedItem(bodySlot::mainHand) == 0) {
+		if(p_actor -> player -> getEquippedItem(bodySlot::mainHand) == 0) {
 			return baseDamage;
 
 		// Has weapon
 		} else {
-			c_actor* p_weapon = engine -> game -> actorManager.getActor(p_actor -> life -> getEquippedItem(bodySlot::mainHand));
+			c_actor* p_weapon = engine -> game -> actorManager.getActor(p_actor -> player -> getEquippedItem(bodySlot::mainHand));
 			if(p_weapon -> weapon and (p_weapon -> weapon -> getType() == weaponType::oneHanded or p_weapon -> weapon -> getType() == weaponType::twoHanded)) {
 				int weaponDamage = c_helper::random(p_weapon -> weapon -> getMinDamage(), p_weapon -> weapon -> getMaxDamage());
 				return baseDamage + weaponDamage;
@@ -646,19 +655,22 @@ void c_helper::openCloseDoor(const int& emitter, const int& door) {
 const bool& c_helper::getItemFromFloor(const int& emitter, const int& target) {
 	c_actor* p_emitter = engine -> game -> actorManager.getActor(emitter);
 	c_actor* p_target = engine -> game -> actorManager.getActor(target);
-	if(!p_emitter -> life or p_target -> life) {
+	if(!p_emitter -> player or p_target -> life) {
 		return false;
 	}
 
     // If the same item already existed in the inventory, we remove this one (quantity increased in inventory)
-    if(p_emitter -> life -> addToInventory(target) == true) {
+    if(p_emitter -> player-> addToInventory(target) == true) {
         engine -> game -> actorManager.deleteActor(target);
         return true;
+
+	// The item did not exist
     } else {
 	    engine -> game -> map -> removeActorFromTile(target, p_target -> getMapX(), p_target -> getMapY());
 	    p_target -> setMapX(-1);
 	    p_target -> setMapY(-1);
-		
+		engine -> game -> actorManager.removeFromMap(target);
+		engine -> game -> actorManager.addToInventory(target);
 	    return true;   
     }  
     return false;	
@@ -667,11 +679,11 @@ const bool& c_helper::getItemFromFloor(const int& emitter, const int& target) {
 void c_helper::consume(const int& emitter, const int& target) {
 	c_actor* p_emitter = engine -> game -> actorManager.getActor(emitter);
 	c_actor* p_target = engine -> game -> actorManager.getActor(target);
-	if(!p_emitter -> life or !p_target -> consumable) {
+	if(!p_emitter -> player or !p_target -> consumable) {
 		return;
 	}
 	p_target -> consumable -> consume(emitter);
-	if(p_emitter -> life -> deleteFromInventory(target) == true) { // Returns true if it was the last item, therefore we delete it
+	if(p_emitter -> player -> deleteFromInventory(target) == true) { // Returns true if it was the last item, therefore we delete it
 		engine -> game -> actorManager.deleteActor(target);
 	}
 }
@@ -686,18 +698,18 @@ const int& c_helper::findStaircase(const int& x, const int& y) {
 
 const bool& c_helper::equipItem(const int& emitter, const int& item) {
 	c_actor* p_emitter = engine -> game -> actorManager.getActor(emitter);
-	if(!p_emitter -> life) {
+	if(!p_emitter -> player) {
 		return false;
 	}
-	return p_emitter -> life -> equipItem(item);
+	return p_emitter -> player -> equipItem(item);
 }
 
 const bool& c_helper::removeItem(const int& emitter, const int& item) {
 	c_actor* p_emitter = engine -> game -> actorManager.getActor(emitter);
-	if(!p_emitter -> life) {
+	if(!p_emitter -> player) {
 		return false;
 	}
-	return p_emitter -> life -> removeItem(item);
+	return p_emitter -> player -> removeItem(item);
 }
 
 void c_helper::give(std::string item) {
@@ -705,7 +717,7 @@ void c_helper::give(std::string item) {
 		return;
 	}
 	int actor = createActor(item, -1, -1);
-	if(actor != 0 and engine -> game -> actorManager.getPlayer() -> life -> addToInventory(actor) == true) {
+	if(actor != 0 and engine -> game -> actorManager.getPlayer() -> player -> addToInventory(actor) == true) {
 	        engine -> game -> actorManager.deleteActor(actor);
 	}
 }

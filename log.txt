@@ -6,42 +6,83 @@ Loading maps...
 Actor 'sham' created.
 Actor 'avatar' created.
 Loading /texture/fog.png...
-Loading /texture/selectedTile.png...
 Loading /texture/healthbar.png...
+Loading /texture/targetbar.png...
 Loading /texture/ribbon.png...
 Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
 Loading /texture/sandglass.png...
-Loading /texture/targetbar.png...
-Actor 'avatar' created.
-Actor 'table' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'fence' created.
-Actor 'wheat' created.
-Actor 'wheat' created.
-Actor 'wheat' created.
-Actor 'wheat' created.
-Actor 'wheat' created.
-Actor 'wheat' created.
-Loading /texture/wallmark.png...
-Loading /texture/tileShadowBottom.png...
-Loading /texture/tileShadowRight.png...
-Loading /texture/tileShadowBottomRight.png...
-Loading /texture/tileShadowFull.png...
-Actor 'bed' created.
-Actor 'chest' created.
-Actor 'door' created.
-Actor 'door' created.
-Command run: fullscreen()
-Actor 'barrel' created.
-Actor 'urn' created.
-Urn deleted.
+Actor 'stairs_up' created.
+Actor 'stairs_down' created.
+Actor 'stairs_up' created.
+Actor 'stairs_down' created.
+Actor 'stairs_up' created.
+Actor 'sham' created.
+Actor 'stairs_up' created.
+Loading /texture/background.png...
+Loading /texture/selectedTile.png...
+Actor 'health_potion' created.
+Actor 'sham' created.
+Loading /texture/detailsTitle.png...
+Loading /texture/listbar.png...
+Loading /texture/menuCursor.png...
+Actor 'stairs_up' created.
+Actor 'stairs_down' created.
+Actor 'stairs_up' created.
+Actor 'sham' created.
+Actor 'stairs_up' created.
+Actor 'sham' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Health potion deleted.
+Health potion deleted.
+Health potion deleted.
+Health potion deleted.
+Health potion deleted.
+Health potion deleted.
+Short sword deleted.
+Short sword deleted.
+Short sword deleted.
+Actor 'stairs_up' created.
+Actor 'sham' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'stairs_up' created.
+Actor 'stairs_down' created.
+Actor 'stairs_up' created.
+Actor 'sham' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
+Actor 'short_sword' created.
 Goodbye!

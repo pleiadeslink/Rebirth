@@ -8,8 +8,8 @@ class c_actorManager {
     private:
         c_actor* player = 0;
         c_actor* a_uid[32766];
-        std::vector<int> v_active;
         std::vector<int> v_map;
+        std::vector<int> v_active;
         std::vector<int> v_locations;
         std::vector<int> v_inventory;
         unsigned int icounter = 1;
@@ -20,6 +20,7 @@ class c_actorManager {
         void savePlayer();
         void loadPlayer();
         void saveMapActors(TCODZip* zip); // Saves actors which are not in the inventory
+        void saveInventoryActors(TCODZip* zip);
         void loadActors(TCODZip* zip);
         void clear();
         void timeUpdate();
@@ -30,7 +31,13 @@ class c_actorManager {
         std::vector<int> getActiveActors() { return v_active; }
         std::vector<int> getLocations() { return v_locations; }
         const bool& actorExists(const int& uid);
-        void actorGoesToInventory();
+        void addToMap(const int& uid);
+        void addToInventory(const int& uid);
+        const bool& removeFromMap(const int& uid);
+        const bool& removeFromActive(const int& uid);
+        const bool& removeFromLocations(const int& uid);
+        const bool& removeFromInventory(const int& uid);
+        //void updateInventory();
 };
 
 #endif

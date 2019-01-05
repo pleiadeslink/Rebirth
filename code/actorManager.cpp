@@ -18,29 +18,30 @@ void c_actorManager::savePlayer() {
 
     TCODZip zip;
 
-    player -> save(&zip);
-    int invSize = player -> life -> getInventorySize();
+    player -> save(&zip); // * Save actor (id, x, y + modules)
 
-    if(invSize > 0) {
+    //saveInventoryActors(&zip);
 
-        zip.putInt(1);
-
-        std::vector<s_invItem> inv = player -> life -> getInventory();
-        zip.putInt(inv.size());
-
+    /*/ Inventory
+    std::vector<s_invItem> inv = player -> life -> getInventory();
+    if(inv.size() > 0) {
+        zip.putInt(inv.size()); // * Save int inventory size
         for(int i = 0; i < inv.size(); ++i) {
-            zip.putInt(inv[i].quantity);
-            if(inv[i].equipped == true) {
+            zip.putInt(inv[i].quantity); // * Save int quantity
+            if(inv[i].equipped == true) { // * Save int equipped
                 zip.putInt(1);
             } else {
                 zip.putInt(0);
             }
-            getActor(inv[i].uid) -> save(&zip);
+            getActor(inv[i].uid) -> save(&zip); // * Save actor (id, x, y + modules)
         }
 
     } else {
-        zip.putInt(0);
-    }
+        zip.putInt(0); // * Save int inventory size (0)
+    }*/
+
+    
+
     std::string filename = "data/save/player.sav";
 
     zip.saveToFile(filename.c_str());
@@ -60,14 +61,24 @@ void c_actorManager::loadPlayer() {
         int player = createActor(id, x, y);
         c_actor* p_player = getActor(player);
 
-        p_player -> load(&zip);
+        p_player -> load(&zip); // * Load actor (id, x, y + modules)
 
-        if(zip.getInt() == 1) {
+        //loadActors(&zip, true);
 
-            int invSize = zip.getInt();
-
+        /*/ Inventory
+        int invSize = zip.getInt(); // * Load int inventory size
+        if(invSize != 0) {
             for(int i = 0; i < invSize; ++i) {
-                s_invItem item;
+
+                int quantity = zip.getInt(); // * Load int quantity
+                int equipped = zip.getInt(); // * Load int equipped
+
+                std::string id1 = zip.getString(); // * Load string id
+                int x1 = zip.getInt(); // * Load int x
+                int y1 = zip.getInt(); // * Load int y
+                int uid = createActor(id1, x1, y1, true);
+
+                /*s_invItem item;
                 item.quantity = zip.getInt();
                 int equipped = zip.getInt();
                 if(equipped == 0) {
@@ -75,9 +86,7 @@ void c_actorManager::loadPlayer() {
                 } else {
                     item.equipped = true;
                 }
-                std::string id1 = zip.getString();
-                int x1 = zip.getInt();
-                int y1 = zip.getInt();
+
                 item.uid = createActor(id1, x1, y1);
                 getActor(item.uid) -> load(&zip);
                 p_player -> life -> addToInventory(item.uid, item.quantity);
@@ -85,7 +94,7 @@ void c_actorManager::loadPlayer() {
                     p_player -> life -> equipItem(item.uid);
                 }
             }
-        }
+        }*/
     }
 }
 
@@ -98,16 +107,22 @@ void c_actorManager::saveMapActors(TCODZip* zip) {
     
     if(v_map.size() > 0) {
         int size = v_map.size();
-        for(int i = 0; i < v_map.size(); ++i) {
-            if(player -> life -> isInInventory(v_map[i])) {
-                --size;
-            }
-        }
         zip -> putInt(size);
         for(int i = 0; i < v_map.size(); ++i) {
-            if(!player -> life -> isInInventory(v_map[i])) {
-                getActor(v_map[i]) -> save(zip);
-            }
+            getActor(v_map[i]) -> save(zip);
+        }
+    } else {
+        zip -> putInt(0); // 0 size
+    }
+}
+
+void c_actorManager::saveInventoryActors(TCODZip* zip) {
+    
+    if(v_inventory.size() > 0) {
+        int size = v_inventory.size();
+        zip -> putInt(size);
+        for(int i = 0; i < v_inventory.size(); ++i) {
+            getActor(v_inventory[i]) -> save(zip);
         }
     } else {
         zip -> putInt(0); // 0 size
@@ -121,6 +136,7 @@ void c_actorManager::loadActors(TCODZip* zip) {
             std::string id = zip -> getString();
             int x = zip -> getInt();
             int y = zip -> getInt();
+            std::cout << id << std::endl;
             int actor = createActor(id, x, y);
             getActor(actor) -> load(zip);
         }
@@ -140,7 +156,7 @@ void c_actorManager::clear() {
         delete actor;
     }
 
-    memset(a_uid, 0, sizeof(a_uid));
+    //memset(a_uid, 0, sizeof(a_uid));
     v_map.clear();
     v_active.clear();
     v_locations.clear();
@@ -192,7 +208,11 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
     } else {
         newActor = new c_actor(icounter);
         newActor -> init(asset);
-        v_map.push_back(icounter);
+        //if(inventory == false) {
+            v_map.push_back(icounter);
+        //} else {
+            //v_inventory.push_back(icounter);
+        //}
         if(newActor -> AI) {
             v_active.push_back(icounter);    
         }
@@ -223,24 +243,11 @@ void c_actorManager::deleteActor(const int& uid) {
     }
 
     // Delete actor from lists
-    for(int i = 0; i < static_cast<int>(v_active.size()); ++i) {
-        if(v_active[i] == uid) {
-            v_active.erase(v_active.begin() + i);
-            break;
-        }
-    }
-    for(int i = 0; i < static_cast<int>(v_map.size()); ++i) {
-        if(v_map[i] == uid) {
-            v_map.erase(v_map.begin() + i);
-            break;
-        }
-    }
-    for(int i = 0; i < static_cast<int>(v_locations.size()); ++i) {
-        if(v_locations[i] == uid) {
-            v_locations.erase(v_locations.begin() + i);
-            break;
-        }
-    }
+    removeFromMap(uid);
+    removeFromActive(uid);
+    removeFromLocations(uid);
+    removeFromInventory(uid);
+
     a_uid[uid] = 0;
 
     // Update visible creatures
@@ -260,8 +267,60 @@ const bool& c_actorManager::actorExists(const int& uid) {
     return true;
 }
 
-void c_actorManager::actorGoesToInventory() {
-
-    // If the actor goees to inventory, it needs to be removed from 
-
+void c_actorManager::addToMap(const int& uid) {
+    v_map.push_back(uid);
 }
+
+void c_actorManager::addToInventory(const int& uid) {
+    v_inventory.push_back(uid);
+}
+
+const bool& c_actorManager::removeFromMap(const int& uid) {
+    for(int i = 0; i < static_cast<int>(v_map.size()); ++i) {
+        if(v_map[i] == uid) {
+            v_map.erase(v_map.begin() + i);
+            return true;
+        }
+    }
+    return false;
+}
+
+const bool& c_actorManager::removeFromActive(const int& uid) {
+    for(int i = 0; i < static_cast<int>(v_active.size()); ++i) {
+        if(v_active[i] == uid) {
+            v_active.erase(v_active.begin() + i);
+            return true;
+        }
+    }
+    return false;
+}
+
+const bool& c_actorManager::removeFromLocations(const int& uid) {
+    for(int i = 0; i < static_cast<int>(v_locations.size()); ++i) {
+        if(v_locations[i] == uid) {
+            v_locations.erase(v_locations.begin() + i);
+            return true;
+        }
+    }
+    return false;
+}
+
+const bool& c_actorManager::removeFromInventory(const int& uid) {
+    for(int i = 0; i < static_cast<int>(v_inventory.size()); ++i) {
+        if(v_inventory[i] == uid) {
+            v_inventory.erase(v_inventory.begin() + i);
+            return true;
+        }
+    }
+    return false;
+}
+
+/*void c_actorManager::updateInventory() {
+    int size = v_inventory.size();
+    if(size == 0) {
+        return;
+    }
+    for(int i = 0; i < size; ++i) {
+        player -> player -> addToInventory(v_inventory[i]);
+    }    
+}*/

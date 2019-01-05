@@ -221,7 +221,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
     } else if(weapon and fromWalk == false) {
 
         // If the item is equipped, remove, if not, equip
-        if(p_player -> life -> getEquippedItem(bodySlot::mainHand) == uid) {
+        if(p_player -> player -> getEquippedItem(bodySlot::mainHand) == uid) {
             structEventData eventData;
             eventData.type = "remove";
             eventData.target = uid;

@@ -36,7 +36,7 @@ int c_winCharacter::update(int key) {
 		case charScreen::inventory: {
 
 			// Update inventory list
-			inventory = engine -> game -> actorManager.getPlayer() -> life -> getInventory();
+			inventory = engine -> game -> actorManager.getPlayer() -> player -> getInventory();
 
 			if(inventory.size() > 0) {
 
