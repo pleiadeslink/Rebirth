@@ -763,6 +763,16 @@ const structFOVMap& c_map::computeFOV(const int& x, const int& y, const int& vie
     return FOVMap;    
 }
 
+// Forgets FOV
+void c_map::forget() {
+    for(int i1 = 0; i1 < width; ++i1) {
+        for(int i2 = 0; i2 < height; ++i2) {
+            matrix[i1][i2].setExplored(false);
+            setProperties(i1, i2, true, true);
+        }
+    }
+}
+
 
 // --- GETS ----
 

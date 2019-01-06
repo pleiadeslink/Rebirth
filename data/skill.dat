@@ -1,7 +1,15 @@
--- ABILITIES --
+-- SKILLS --
+
+[default]
+name: Default
+duration: 0
 
 [walk]
 name: Walk
+duration: 4
+
+[wait]
+name: Wait
 duration: 1
 
 [end]

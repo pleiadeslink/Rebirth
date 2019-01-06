@@ -351,8 +351,8 @@ s_skillAsset c_assetManager::clearSkillAsset(s_skillAsset asset) {
 
 void c_assetManager::load() {
 
-	// Load actor assets
 	loadActors();
+	loadSkills();
 
 	indexTile = 0;
 	indexActor = 0;
@@ -587,4 +587,17 @@ std::vector<std::string> c_assetManager::getActorIdList() {
         }
     }
 	return list;
+}
+
+s_skillAsset* c_assetManager::getSkillAsset(const std::string& id) {
+    int max = v_skillAsset.size();
+	if(max != 0) { 
+		for(int i = 0; i < max; ++i) {
+			if(v_skillAsset[i].id == id) {
+				return &v_skillAsset[i];
+            }
+        }
+    }
+    // Not found, default returned
+	return &v_skillAsset[0]; 
 }

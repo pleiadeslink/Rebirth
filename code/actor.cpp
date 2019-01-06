@@ -192,7 +192,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
         eventData.target = uid;
         eventData.mapX = mapX;
         eventData.mapY = mapY;
-        p_player -> action -> start(1, eventData);
+        p_player -> action -> start(eventData);
         return true;
                         
     // Door
@@ -201,7 +201,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
             structEventData eventData;
             eventData.type = "open";
             eventData.target = uid;
-            p_player -> action -> start(1, eventData);
+            p_player -> action -> start(eventData);
             return true;                               
         }
     
@@ -212,7 +212,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
                 structEventData eventData;
                 eventData.type = "drink";
                 eventData.target = uid;
-                p_player -> action -> start(1, eventData);
+                p_player -> action -> start(eventData);
                 return true;
             }
         }
@@ -225,16 +225,31 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
             structEventData eventData;
             eventData.type = "remove";
             eventData.target = uid;
-            p_player -> action -> start(1, eventData);
+            p_player -> action -> start(eventData);
             return true;       
         } else {
             structEventData eventData;
             eventData.type = "equip";
             eventData.target = uid;
-            p_player -> action -> start(1, eventData);
+            p_player -> action -> start(eventData);
             return true;  
         }
                
     }
     return false;
+}
+
+
+// Checks if the actor can perform the skill, returns how long it takes (if 0, cannot perform)
+const int& c_actor::checkSkill(s_skillAsset* skillAsset) {
+
+    // If player, does he know the skill?
+    if(type == actorType::avatar) {
+        if(player -> hasSkill(skillAsset -> id) == false) {
+            c_helper::gameMessage("You need to learn that skill first.");
+            return 0;
+        }
+    }
+
+    return skillAsset -> duration;
 }

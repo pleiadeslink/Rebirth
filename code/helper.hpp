@@ -42,6 +42,7 @@ class c_helper {
 		static const int& setGenWall3(std::string value);
 		static void setAmbience(std::string track);
 		static const int& build();
+		static void forgetMap();
 
 		// Actor
 		static const int& findActor(const int& x, const int&y, std::string type);
@@ -85,6 +86,7 @@ class c_helper {
 		static void toggleGodMode();
 		static const bool& isPlayerGod();
 		static const bool& travelToLocation(const int& x, const int& y);
+		static const bool& learn(std::string id); // Teaches the player a skill
 };
 
 #endif

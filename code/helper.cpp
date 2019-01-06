@@ -21,18 +21,6 @@ std::vector<std::string> c_helper::splitter(std::string in_pattern, std::string&
     return split_content;
 }
 
-/*std::string c_helper::justify(const std::string &in, const size_t every_n) {
-    std::string out;
-    out.reserve(in.size() + in.size() / every_n);
-    for(std::string::size_type i = 0; i < in.size(); i++) {
-        if(!(i % every_n) && i) {
-            out.push_back('\n');
-        }
-        out.push_back(in[i]);
-    }
-    return out;
-}*/
-
 std::string c_helper::justify(std::string string, const size_t size) {
     int iterator = 0;
 	for(int i = 0; i < string.length(); ++i) {
@@ -330,6 +318,14 @@ const int& c_helper::build() {
 	return 0;
 }
 
+void c_helper::forgetMap() {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+	engine -> game -> map -> forget();
+	gameMessage("You forget how you came here.");
+}
+
 const int& c_helper::findActor(const int& x, const int&y, std::string type) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;
@@ -425,7 +421,7 @@ void c_helper::startAction(const structEventData& eventData) {
 	if(!engine -> game or !engine -> game -> actorManager.getActor(eventData.emitter) -> action) {
 		return;
 	}
-	engine -> game -> actorManager.getActor(eventData.emitter) -> action -> start(1, eventData);
+	engine -> game -> actorManager.getActor(eventData.emitter) -> action -> start(eventData);
 }
 
 const int& c_helper::findEnemy(const int& actor) {
@@ -790,4 +786,12 @@ const bool& c_helper::travelToLocation(const int& x, const int& y) {
 		}
 	}
 	return false;
+}
+
+// Teaches the player a skill
+const bool& c_helper::learn(std::string id) {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return false;
+	}
+	return engine -> game -> actorManager.getPlayer() -> player -> learnSkill(id);
 }

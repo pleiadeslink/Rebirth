@@ -10,6 +10,10 @@ c_player::c_player(c_actor* father) {
 	equipment[4] = 0;
 	equipment[5] = 0;
 	equipment[6] = 0;
+
+    // Learns basic skills
+    learnSkill("walk");
+    learnSkill("wait");
 }
 
 bool c_player::channel(const int& key, const bool& worldMap) {
@@ -32,9 +36,7 @@ bool c_player::channel(const int& key, const bool& worldMap) {
             eventData.type = "walk";
             eventData.mapX = destX;
             eventData.mapY = destY;
-            father -> action -> start(1, eventData); 
-            return true;
-
+            return father -> action -> start(eventData); 
         } else {
             bool destWasObstacle = false;
             if(engine -> game -> map -> getTile(destX, destY) -> isObstacle()
@@ -51,7 +53,7 @@ bool c_player::channel(const int& key, const bool& worldMap) {
                 eventData.type = "walk";
                 eventData.mapX = dx;
                 eventData.mapY = dy;
-                father -> action -> start(1, eventData); 
+                father -> action -> start(eventData); 
                 engine -> setLoading(true);
                 return true;
             } else {
@@ -146,14 +148,14 @@ bool c_player::channel(const int& key, const bool& worldMap) {
                         structEventData eventData;
                         eventData.type = "talk";
                         eventData.target = creatureList[0];
-                        father -> action -> start(1, eventData);
+                        father -> action -> start(eventData);
                         return true;
                     // Several creatures
                     } else {
                         structEventData eventData;
                         eventData.type = "talk";
                         eventData.target = engine -> interface.selectCloseTarget(imode::game, "Talk to");
-                        father -> action -> start(1, eventData);
+                        father -> action -> start(eventData);
                         return true;
                     }
                 }
@@ -165,7 +167,7 @@ bool c_player::channel(const int& key, const bool& worldMap) {
             case key::period: {
                 structEventData eventData;
                 eventData.type = "wait";
-                father -> action -> start(1, eventData);
+                father -> action -> start(eventData);
                 return true;
             }
 
@@ -181,7 +183,7 @@ bool c_player::channel(const int& key, const bool& worldMap) {
                     structEventData eventData;
                     eventData.type = "get";
                     eventData.target = actorList[0];
-                    father -> action -> start(1, eventData);
+                    father -> action -> start(eventData);
                     return true;                
                 } else {
                     engine -> game -> gamelog.message("There is nothing to pick up.");
@@ -274,4 +276,30 @@ const bool& c_player::isInInventory(const int& item) {
 		}
 	}
 	return false;
+}
+
+// Adds the skill to the skill memory
+const bool& c_player::learnSkill(std::string id) {
+
+    // First checks if the skill exists
+    s_skillAsset* skill = engine -> assetManager.getSkillAsset(id);
+    if(skill -> duration == 0) {
+        c_helper::gameMessage("That skill does not exist!");
+        return false;
+    }
+
+    // Adds the skill to the skill memory
+    v_learnedSkills.push_back(id);
+
+    c_helper::gameMessage("You have learned '" + id + "'.");
+    return true;
+}
+
+const bool& c_player::hasSkill(std::string id) {
+    for(int i = 0; i < v_learnedSkills.size(); ++i) {
+        if(v_learnedSkills.at(i) == id) {
+            return true;
+        }
+    }
+    return false;
 }

@@ -7,13 +7,26 @@ bool c_action::isRunning() {
     return active;
 }
 
-bool c_action::start(const int& duration, const structEventData& eventData) {
+bool c_action::start(const structEventData& eventData) {
     if(active) {
         return false;
     }
-    this -> duration = duration;
+
     this -> eventData = eventData;
     this -> eventData.emitter = father -> getUid();
+    duration = 1;
+
+    // Checks if it's a skill
+    s_skillAsset* skillAsset = engine -> assetManager.getSkillAsset(eventData.type);
+    if(skillAsset -> duration != 0) {
+        
+        // Check if player can perform skill
+        duration = father -> checkSkill(skillAsset);
+        if(duration == 0) {
+            return false;
+        }
+    }
+
     energyLost = 1;
     active = true;
     return true;

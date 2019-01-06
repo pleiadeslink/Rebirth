@@ -18,6 +18,7 @@ void c_interface::init()     {
     mode = imode::game;
     sTile = 0;
     sActor = 0;
+    sSkill = "";
     targetText = "";
     inputText = "";
     pasteMode = false;
@@ -33,6 +34,7 @@ void c_interface::init()     {
 int c_interface::update(int key) {
     sTile = 0;
     sActor = 0;
+    sSkill = "";
     if(engine -> game -> actorManager.getPlayer()) {
         if(mode == imode::game or mode == imode::edit) {
             key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(), engine -> getMouse());
@@ -164,6 +166,7 @@ int c_interface::processInput(int key) {
                 // Change view
                 case key::space: {
                     mode = imode::character;
+                    character -> update(0);
                     return 0;
                 }
 

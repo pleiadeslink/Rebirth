@@ -77,6 +77,7 @@ class c_map : public TCODMap {
         // FOV
         std::vector<int> fov(const int& x, const int& y, const int& viewRange, const bool& isPlayer);
         const structFOVMap& computeFOV(const int& x, const int& y, const int& viewRange);
+        void forget(); // Forgets FOV
 
         // Get
         c_tile* getTile(const int& x, const int& y);

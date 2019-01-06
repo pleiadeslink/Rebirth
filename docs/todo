@@ -9,3 +9,5 @@
 - Map scrolling in edit mode
 ! Bug: ambience loading buggy
 - Inventory should have its own class
+- REFACTORING (pointers, etc)
+- Skills should have its own class

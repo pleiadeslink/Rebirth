@@ -45,6 +45,7 @@ class c_actor {
         void save(TCODZip* zip);
         void load(TCODZip* zip);
         bool playerAction(const bool& fromWalk, c_actor* p_player);
+        const int& checkSkill(s_skillAsset* skillAsset); // Checks if the actor can perform the skill, returns how long it takes (if 0, cannot perform)
         const bool& isGod() { if(player) return player -> isGod(); else return false; }
 
         const int& getUid() { return uid; }

@@ -36,6 +36,7 @@ class c_assetManager {
         std::vector<std::string> getTileIdList();
         structActorAsset* getActorAsset(const std::string& id);
         std::vector<std::string> getActorIdList();
+        s_skillAsset* getSkillAsset(const std::string& id);
         structVerbAsset* getVerbAsset(const std::string& id);
 };
 

@@ -15,7 +15,7 @@ class c_action
     public:
         c_action(c_actor* father);
         bool isRunning();
-        bool start(const int& duration, const structEventData& eventData);
+        bool start(const structEventData& eventData);
         void timeUpdate();
 };
 

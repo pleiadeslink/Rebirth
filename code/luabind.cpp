@@ -32,6 +32,7 @@ state["setWall2"] = &c_helper::setGenWall2;
 state["setWall3"] = &c_helper::setGenWall3;
 state["setAmbience"] = &c_helper::setAmbience;
 state["build"] = &c_helper::build;
+state["forgetMap"] = &c_helper::forgetMap;
 
 state["isObstacle"] = &c_helper::isObstacle;
 state["createActor"] = &c_helper::createActor;
@@ -69,3 +70,4 @@ state["getMeleeDamage"] = &c_helper::getMeleeDamage;
 state["god"] = &c_helper::toggleGodMode;
 state["isPlayerGod"] = &c_helper::isPlayerGod;
 state["travelToLocation"] = &c_helper::travelToLocation;
+state["learn"] = &c_helper::learn; // Teaches the player a skill

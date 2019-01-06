@@ -182,7 +182,7 @@ bool c_tile::playerAction(c_actor* p_player) {
     eventData.type = "walk";
     eventData.mapX = x;
     eventData.mapY = y;
-    p_player -> action -> start(1, eventData);
+    p_player -> action -> start(eventData);
     return true;
 }
 

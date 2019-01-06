@@ -1,5 +1,10 @@
 -- CREATURES --
 
+[default]
+type: default
+name: Default
+texture: 0x4
+
 [avatar]
 type: avatar
 name: Avatar

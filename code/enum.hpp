@@ -87,11 +87,11 @@ namespace emode {
 namespace charScreen {
     enum charScreens {
         inventory,
-        abilities,
-        condition,
         skills,
+        condition,
         talents,
-        questlog
+        quests,
+        system
     };
 }
 

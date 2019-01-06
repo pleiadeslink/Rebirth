@@ -10,6 +10,7 @@ class c_player
         std::vector<s_invItem> inventory;
         int equipment[7];
         int carried;
+        std::vector<std::string> v_learnedSkills;
         
 	public:
         c_player(c_actor* father);
@@ -19,13 +20,16 @@ class c_player
         const bool& isGod() { return god; }
 
         const bool& addToInventory(const int& uid, const int& quantity = 1); // Returns true if the item already existed
-        std::vector<s_invItem> getInventory() { return inventory; }
+        std::vector<s_invItem>* getInventory() { return &inventory; }
         const bool& deleteFromInventory(const int& item); // Returns true if it was the last item of its type that existed
         const int& getEquippedItem(const int& slot) { return equipment[slot]; }
         const bool& equipItem(const int& item); // Returns false if the item is not in inventory
         const bool& removeItem(const int& slot); // Returns false if the item is not in inventory
         const bool& isInInventory(const int& item); // Check if the item is in the inventory
         const int& getInventorySize() { return inventory.size(); }
+        const bool& learnSkill(std::string id); // Adds the skill to the skill memory
+        const bool& hasSkill(std::string id);
+        std::vector<std::string>* getSkills() { return &v_learnedSkills; }
 };
 
 #endif

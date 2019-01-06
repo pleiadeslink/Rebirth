@@ -101,8 +101,8 @@ void c_winInfo::draw() {
         desc.append("\nMass: ");
         desc.append(std::to_string(p_actor -> body -> getMass()));
         desc.append("\n\n");
-        desc.append(c_helper::justify(p_actor -> getDescription(), 37));
-        engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 36);
+        desc.append(c_helper::justify(p_actor -> getDescription(), 34));
+        engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
         drawTitle("[U]se, [D]rop", height - 2);
     }
 		
