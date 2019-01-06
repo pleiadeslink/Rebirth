@@ -9,6 +9,7 @@ texture: 0x4
 type: avatar
 name: Avatar
 texture: 0x4
+faction: avatar
 
 [abomination]
 type: creature
@@ -39,6 +40,7 @@ faction: animal
 type: creature
 name: Dog
 desc: This four-legged creature has a rought coat and wagging tail. Dogs make popular companions among other humans.
+texture: 4x6
 color: light sepia
 speed: 1
 speed_a: 1

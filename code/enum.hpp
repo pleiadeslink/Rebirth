@@ -44,6 +44,7 @@ namespace actorType {
 
 namespace direction {
     enum directions {
+        none,
         north,
         east,
         south,
@@ -53,7 +54,8 @@ namespace direction {
         southwest,
         northwest,
         up,
-        down
+        down,
+        random
     };
 }
 

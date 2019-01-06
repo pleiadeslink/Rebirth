@@ -122,7 +122,7 @@ void c_helper::changeMap(const int& x, const int& y, const int& z) {
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
     //engine -> game -> actorManager.loadPlayer();
-    teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
+    //teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
 }
@@ -144,6 +144,23 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
+}
+
+const bool& c_helper::travelToLocation(const int& x, const int& y) {
+	if(!engine -> game or !engine -> game -> map) {
+		return false;
+	}
+	// Check if there's a location there
+	std::vector<int> actorList = engine -> game -> map -> getTile(x, y) -> getActorList();
+	for(int i = 0; i < actorList.size(); ++i) {
+		
+		if(engine -> game -> actorManager.getActor(actorList[i]) -> getType() == actorType::location) {
+			c_helper::changeMap(x, y, engine -> game -> map -> getZ());
+			teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
+			return true;
+		}
+	}
+	return false;
 }
 
 const bool& c_helper::isWorldMap() {
@@ -429,19 +446,20 @@ const int& c_helper::findEnemy(const int& actor) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;
 	}
-
+	
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
 
 	// Get actor list
 	std::vector<int> actorList = engine -> game -> map -> fov(p_actor -> getMapX(), p_actor -> getMapY(), p_actor -> life -> getViewRange(), false);
+	
 	if(actorList.size() != 0) {
 		for(int i = 0; i < actorList.size(); ++i) {
-			if(isEnemy(actor, actorList[i]) == true) {
+			if(isEnemy(actor, actorList.at(i)) == true) {
 
 				// Sets enemy as target
 
 
-				return actorList[i];
+				return actorList.at(i);
 			}
 		}
 	}
@@ -455,7 +473,9 @@ const bool& c_helper::isEnemy(const int& emitter, const int& target) {
 
 		// ANIMAL
 		case faction::animal: {
+			
 			if(fac == faction::avatar) {
+				std::cout << "test" << std::endl;
 				return true;
 			}
 			break;
@@ -770,22 +790,6 @@ const bool& c_helper::isPlayerGod() {
 		return false;
 	}
 	return engine -> game -> actorManager.getPlayer() -> isGod();
-}
-
-const bool& c_helper::travelToLocation(const int& x, const int& y) {
-	if(!engine -> game or !engine -> game -> map) {
-		return false;
-	}
-	// Check if there's a location there
-	std::vector<int> actorList = engine -> game -> map -> getTile(x, y) -> getActorList();
-	for(int i = 0; i < actorList.size(); ++i) {
-		
-		if(engine -> game -> actorManager.getActor(actorList[i]) -> getType() == actorType::location) {
-			c_helper::changeMap(x, y, engine -> game -> map -> getZ());
-			return true;
-		}
-	}
-	return false;
 }
 
 // Teaches the player a skill

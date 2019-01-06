@@ -16,7 +16,7 @@ bool c_action::start(const structEventData& eventData) {
     this -> eventData.emitter = father -> getUid();
     duration = 1;
 
-    // Checks if it's a skill
+    /*/ Checks if it's a skill
     s_skillAsset* skillAsset = engine -> assetManager.getSkillAsset(eventData.type);
     if(skillAsset -> duration != 0) {
         
@@ -25,7 +25,7 @@ bool c_action::start(const structEventData& eventData) {
         if(duration == 0) {
             return false;
         }
-    }
+    }*/
 
     energyLost = 1;
     active = true;

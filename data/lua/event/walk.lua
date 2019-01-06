@@ -3,27 +3,27 @@ if(value1 == 1) then
 	mapX = getActorMapX(emitter)
 	mapY = getActorMapY(emitter) - 1
 -- NE
-elseif(value1 == 2) then
+elseif(value1 == 5) then
 	mapX = getActorMapX(emitter) + 1
 	mapY = getActorMapY(emitter) - 1
 -- E
-elseif(value1 == 3) then
+elseif(value1 == 2) then
 	mapX = getActorMapX(emitter) + 1
 	mapY = getActorMapY(emitter)
 -- SE
-elseif(value1 == 4) then
+elseif(value1 == 6) then
 	mapX = getActorMapX(emitter) + 1
 	mapY = getActorMapY(emitter) + 1
 -- S
-elseif(value1 == 5) then
+elseif(value1 == 3) then
 	mapX = getActorMapX(emitter)
 	mapY = getActorMapY(emitter) + 1
 -- SW
-elseif(value1 == 6) then
+elseif(value1 == 7) then
 	mapX = getActorMapX(emitter) - 1
 	mapY = getActorMapY(emitter) + 1
 -- W
-elseif(value1 == 7) then
+elseif(value1 == 4) then
 	mapX = getActorMapX(emitter) - 1
 	mapY = getActorMapY(emitter)
 -- NW
@@ -31,7 +31,7 @@ elseif(value1 == 8) then
 	mapX = getActorMapX(emitter) - 1
 	mapY = getActorMapY(emitter) - 1
 -- Random
-elseif(value1 == 9) then
+elseif(value1 == 11) then
 	mapX = getActorMapX(emitter) + math.random(-1, 1)
 	mapY = getActorMapY(emitter) + math.random(-1, 1)
 end
@@ -97,14 +97,18 @@ if(isWorldMap() == false) then
 		if(isPlayer(emitter) == true) then
 
 			-- Up
-			if(direction == 8) then
+			if(direction == 9) then
 				changeMap(getMapX(), getMapY(), getMapZ() - 1)
+				teleportActor(emitter, mapX, mapY, true)
 				message("You travel up.")
+				return
 
 			-- Down
-			elseif(direction == 9) then
+			elseif(direction == 10) then
 				changeMap(getMapX(), getMapY(), getMapZ() + 1)
+				teleportActor(emitter, mapX, mapY, true)
 				message("You travel down.")
+				return
 			end
 		else
 

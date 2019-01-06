@@ -11,7 +11,7 @@ while true do
 			state = wander
 			break
 		end
-
+		
 		-- Check if there are visible enemies
 		enemyFound = findEnemy(emitter)
 		if(enemyFound ~= 0) then
@@ -26,11 +26,11 @@ while true do
 				
 				return	
 			else
-
 				-- Move to target
 				data = s_data.new()
 				data:setEmitter(emitter)
 				data:setValue1(getDirectionToActor(emitter, enemyFound))
+				message(getDirectionToActor(emitter, enemyFound))
 				data:setType("walk")
 				startAction(data)
 				return
@@ -45,7 +45,7 @@ while true do
 		if(math.random(0, 3) == 0) then
 			data = s_data.new()
 			data:setEmitter(emitter)
-			data:setValue1(9)
+			data:setValue1(11)
 			data:setType("walk")
 			startAction(data)
 			return

@@ -21,6 +21,7 @@ class c_helper {
 		static void saveMap(const bool& default = false);
 		static void changeMap(const int& x, const int& y, const int& z);
 		static void worldMap(const int& mapX, const int& mapY);
+		static const bool& travelToLocation(const int& x, const int& y);
 		static const bool& isWorldMap();
 		static void resetMap();
 		static void createMapScript(std::string command, const bool& autodelete);
@@ -85,7 +86,6 @@ class c_helper {
 		static void give(std::string item);
 		static void toggleGodMode();
 		static const bool& isPlayerGod();
-		static const bool& travelToLocation(const int& x, const int& y);
 		static const bool& learn(std::string id); // Teaches the player a skill
 };
 

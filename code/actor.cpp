@@ -142,24 +142,11 @@ void c_actor::save(TCODZip* zip) {
         zip -> putInt(1);
         zip -> putInt(life -> getHealth());
         zip -> putInt(life -> getEnergy());
-
-        /*/ Inventory
-        int invSize = life -> getInventorySize();
-        if(invSize == 0) {
-            zip -> putInt(0);
-        } else {
-            zip -> putInt(invSize);
-            std::vector<s_invItem> inv = life -> getInventory();
-            for(int i = 0; i < inv.size(); ++i) {
-                    zip -> putInt(inv[i].quantity);
-                    if(inv[i].equipped == true) {
-                        zip -> putInt(1);
-                    } else {
-                        zip -> putInt(0);
-                    }
-                    engine -> game -> actorManager.getActor(inv[i].uid) -> save(zip);
-                }
-        }*/
+    } else {
+        zip -> putInt(0);
+    }
+    if(door and door -> isClosed() == false) {
+        zip -> putInt(1);
     } else {
         zip -> putInt(0);
     }
@@ -170,12 +157,10 @@ void c_actor::load(TCODZip* zip) {
     if(hasLife == 1) {
         life -> setHealth(zip -> getInt());
         life -> setEnergy(zip -> getInt());
-        
-        // Inventory
-        /*int invSize = zip -> getInt();
-        if(invSize != 0) {
-            
-        }*/
+    }
+    int openedDoor = zip -> getInt();
+    if(openedDoor == 1) {
+        door -> toggleOpen();
     }
 }
 

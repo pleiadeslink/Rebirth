@@ -6,10 +6,12 @@ duration: 0
 
 [walk]
 name: Walk
+desc: Move to a nearby position.
 duration: 4
 
 [wait]
 name: Wait
+desc: You stand for a moment
 duration: 1
 
 [end]

@@ -136,7 +136,6 @@ void c_actorManager::loadActors(TCODZip* zip) {
             std::string id = zip -> getString();
             int x = zip -> getInt();
             int y = zip -> getInt();
-            std::cout << id << std::endl;
             int actor = createActor(id, x, y);
             getActor(actor) -> load(zip);
         }

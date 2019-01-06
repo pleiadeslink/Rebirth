@@ -709,6 +709,7 @@ std::vector<int> c_map::fov(const int& x, const int& y, const int& viewRange, co
 			}
         }
     }
+    
     return visibleActors;
 }
 
