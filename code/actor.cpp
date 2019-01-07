@@ -141,7 +141,6 @@ void c_actor::save(TCODZip* zip) {
     if(life) {
         zip -> putInt(1);
         zip -> putInt(life -> getHealth());
-        zip -> putInt(life -> getEnergy());
     } else {
         zip -> putInt(0);
     }
@@ -156,7 +155,6 @@ void c_actor::load(TCODZip* zip) {
     int hasLife = zip -> getInt();
     if(hasLife == 1) {
         life -> setHealth(zip -> getInt());
-        life -> setEnergy(zip -> getInt());
     }
     int openedDoor = zip -> getInt();
     if(openedDoor == 1) {

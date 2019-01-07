@@ -4,14 +4,29 @@
 name: Default
 duration: 0
 
+[attack]
+name: Attack
+desc: Attack a target using a physical weapon or your bare hands.
+duration: 3
+
+[get]
+name: Get
+desc: Get an item from the ground.
+duration: 2
+
+[drop]
+name: drop
+desc: Drop an item from your inventory to the ground.
+duration: 1
+
+[wait]
+name: Wait
+desc: Contemplate the moment.
+duration: 1
+
 [walk]
 name: Walk
 desc: Move to a nearby position.
 duration: 4
-
-[wait]
-name: Wait
-desc: You stand for a moment
-duration: 1
 
 [end]

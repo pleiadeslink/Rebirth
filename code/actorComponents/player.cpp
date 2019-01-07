@@ -2,6 +2,10 @@ c_player::c_player(c_actor* father) {
     this -> father = father;
     key = 0;
     god = false;
+    constitution = 1;
+    agility = 1;
+    spirit = 1;
+    luck = 1;
     carried = 0;
 	equipment[0] = 0;
 	equipment[1] = 0;
@@ -193,6 +197,17 @@ bool c_player::channel(const int& key, const bool& worldMap) {
         }
     }     
     return false;    
+}
+
+const int& c_player::getMaxEnergy() {
+	return (constitution + agility + spirit) * 10;
+}
+
+void c_player::consumeEnergy(const int& points) {
+    energy -= points;
+    if(energy < 0) {
+        energy = 0;
+    }
 }
 
 const bool& c_player::addToInventory(const int& uid, const int& quantity) {

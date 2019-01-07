@@ -71,9 +71,9 @@ class c_helper {
 		static const int& getConstitution(const int& actor); // Returns the actor's constitution
 		static const int& getMaxHealth(const int& actor); // Returns the actor's max health
 		static const int& getViewRange(const int& actor); // Returns the actor's view range
-		static const int& getMinMeleeDamage(const int& actor);
-		static const int& getMaxMeleeDamage(const int& actor);
-		static const int& getMeleeDamage(const int& actor); // How much damage does the actor deal?
+		//static const int& getMinMeleeDamage(const int& actor);
+		//static const int& getMaxMeleeDamage(const int& actor);
+		//static const int& getMeleeDamage(const int& actor); // How much damage does the actor deal?
 		static void restoreHealth(const int& actor, const int& points); // Restore 
 		static void damage(const int& actor, const int& value);
 		static void kill(const int& actor);

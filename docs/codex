@@ -9,16 +9,15 @@
 - Hell
 
 * ATTRIBUTES *
-- Constitution (CONS)
-- Switftness (SWIF)
-- Perception (PERC)
-- Willpower (WILL)
-- Luck (LUCK)
+- Constitution
+- Agility
+- Spirit
+- Luck
 
 * STATS *
 - Health
 - Stamina
-- Mana
+- Nuru
 - Attack
 - Armor
 - Dodge

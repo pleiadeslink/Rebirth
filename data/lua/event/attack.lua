@@ -6,7 +6,11 @@ if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), getActorMapX(
 	return false;
 end
 
-damage = getMeleeDamage(emitter)
+-- Calculate damage
+damage = getConstitution(emitter) / 4
+
+-- Round to integrer
+damage = math.floor(damage+0.5)
 
 if(isPlayer(emitter)) then
 	message("You hit the " .. getName(target):lower() .. " (" .. damage .. " damage).")

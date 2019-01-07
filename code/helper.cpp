@@ -568,10 +568,10 @@ const int& c_helper::getHealth(const int& actor) {
 
 const int& c_helper::getConstitution(const int& actor) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-	if(!p_actor and !p_actor -> life) {
+	if(!p_actor and !p_actor -> player) {
 		return 0;
 	} 
-	return p_actor -> life -> getConstitution();
+	return p_actor -> player -> getConstitution();
 }
 
 const int& c_helper::getMaxHealth(const int& actor) {
@@ -609,7 +609,7 @@ const bool& c_helper::isPlayer(const int& actor) {
 	}
 }
 
-// -20% MaxMeleeDamage
+/*/ -20% MaxMeleeDamage
 const int& c_helper::getMinMeleeDamage(const int& actor) {
 	int damage = getMaxMeleeDamage(actor);
 	return damage - (damage * 20 / 100);
@@ -663,7 +663,7 @@ const int& c_helper::getMeleeDamage(const int& actor) {
 		}
 	}
 	return 0;
-}
+}*/
 
 void c_helper::restoreHealth(const int& actor, const int& points) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);

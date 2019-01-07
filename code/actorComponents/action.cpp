@@ -41,8 +41,8 @@ void c_action::timeUpdate() {
     
     // If the action has finished
     if(duration <= 0) {
-        if(engine -> game -> actorManager.getActor(eventData.emitter) and engine -> game -> actorManager.getActor(eventData.emitter) -> life) {
-            engine -> game -> actorManager.getActor(eventData.emitter) -> life -> consumeEnergy(energyLost);
+        if(engine -> game -> actorManager.getActor(eventData.emitter) and engine -> game -> actorManager.getActor(eventData.emitter) -> player) {
+            engine -> game -> actorManager.getActor(eventData.emitter) -> player -> consumeEnergy(energyLost);
         }
         engine -> game -> runEvent(eventData);
         active = false;

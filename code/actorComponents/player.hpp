@@ -3,21 +3,39 @@
 
 class c_player
 {
-	private:
+    private:
         c_actor* father;
         int key;
         bool god;
+        
+        // Attributes
+        int constitution;
+        int agility;
+        int spirit;
+        int luck;
+        int energy;
+
         std::vector<s_invItem> inventory;
         int equipment[7];
         int carried;
         std::vector<std::string> v_learnedSkills;
         
-	public:
+    public:
         c_player(c_actor* father);
         bool channel(const int& key, const bool& worldMap); // Follows human input
         void setKey(const int& key) { this -> key = key; }
         const bool& toggleGodMode() { if(god == true) god = false; else god = true; return god; }
         const bool& isGod() { return god; }
+
+        // Attributes
+        const int& getConstitution() { return constitution; }
+        const int& getAgility() { return agility; }
+        const int& getSpirit() { return spirit; }
+        const int& getLuck() { return luck; }
+        const int& getEnergy() { return energy; }
+        const int& getMaxEnergy();
+        void consumeEnergy(const int& points);
+        void setEnergy(const int& value) { energy = value; }
 
         const bool& addToInventory(const int& uid, const int& quantity = 1); // Returns true if the item already existed
         std::vector<s_invItem>* getInventory() { return &inventory; }
