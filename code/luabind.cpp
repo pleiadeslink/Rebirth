@@ -66,6 +66,7 @@ state["equipItem"] = &c_helper::equipItem;
 state["removeItem"] = &c_helper::removeItem;   
 state["give"] = &c_helper::give;   
 state["getConstitution"] = &c_helper::getConstitution;
+state["setAttributes"] = &c_helper::setAttributes;
 state["god"] = &c_helper::toggleGodMode;
 state["isPlayerGod"] = &c_helper::isPlayerGod;
 state["travelToLocation"] = &c_helper::travelToLocation;

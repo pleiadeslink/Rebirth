@@ -12,10 +12,13 @@ class c_helper {
 		static void gameMessage(const std::string& text);
 		static void toggleFullScreen(); // Changes between window and fullscreen mode
 
-		// Sound
+		// * Sound
+
 		static void playAmbience(std::string track); // Plays a big audio file
 
-		// Map
+
+		// * Map
+
 		static void showMapInfo();
 		static void loadMap(const int& x, const int& y, const int& z);
 		static void saveMap(const bool& default = false);
@@ -45,7 +48,9 @@ class c_helper {
 		static const int& build();
 		static void forgetMap();
 
-		// Actor
+
+		// * Actor
+
 		static const int& findActor(const int& x, const int&y, std::string type);
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getCreatureFromTile(const int& x, const int& y);
@@ -60,6 +65,7 @@ class c_helper {
 		static void showActorPosition(const int& actor); // Shows actor's coordinates in the game console
 		static void showPlayerPosition(); // Shows player's coordinates in the game console
 		static const int& getDirectionToActor(const int& emitter, const int& target);
+
 		static std::string getActorId(const int& actor); // Returns the actor's id
 		static std::string getName(const int& actor); // Returns the actor's name
 		static std::string getPlayerName(); // Returns the actor's name
@@ -67,10 +73,21 @@ class c_helper {
 		static const bool& isPlayer(const int& actor); // Check if the actor is the player
 		static const int& getActorMapX(const int& actor); // Returns the actor's map Y
 		static const int& getActorMapY(const int& actor); // Returns the actor's map X
+		static const int& getConstitution(); // Returns avatar's constitution
+		static const int& getAgility(); // Returns avatar's agility
+		static const int& getSpirit(); // Returns avatar's spirit
+		static const int& getLuck(); // Returns avatar's luck
 		static const int& getHealth(const int& actor); // Returns the actor's health
-		static const int& getConstitution(const int& actor); // Returns the actor's constitution
 		static const int& getMaxHealth(const int& actor); // Returns the actor's max health
 		static const int& getViewRange(const int& actor); // Returns the actor's view range
+
+		static void setConstitution(const int& value); // Returns avatar's constitution
+		static void setAgility(const int& value); // Returns avatar's agility
+		static void setSpirit(const int& value); // Returns avatar's spirit
+		static void setLuck(const int& value); // Returns avatar's luck
+		static void setAttributes(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry);
+		static void calculateAttributes();
+
 		//static const int& getMinMeleeDamage(const int& actor);
 		//static const int& getMaxMeleeDamage(const int& actor);
 		//static const int& getMeleeDamage(const int& actor); // How much damage does the actor deal?

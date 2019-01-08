@@ -1,11 +1,27 @@
-c_life::c_life(c_actor* father)
+c_life::c_life(c_actor* father, const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry, const int& exp)
 : father(father),
-  health(1),
-  maxHealth(1) {
+  health(maxHealth),
+  maxHealth(maxHealth),
+  minDamage(minDamage),
+  maxDamage(maxDamage),
+  speed(speed),
+  attackSpeed(attackSpeed),
+  accuracy(accuracy),
+  dodge(dodge),
+  parry(parry),
+  exp(exp) {
 }
 
-void c_life::init() {
-	//health = getMaxHealth();
+void c_life::set(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry) {
+    this -> maxHealth = maxHealth;
+    this -> health = maxHealth;
+    this -> minDamage = minDamage;
+    this -> maxDamage = maxDamage;
+    this -> speed = speed;
+    this -> attackSpeed = attackSpeed;
+    this -> accuracy = accuracy;
+    this -> dodge = dodge;
+    this -> parry = parry;
 }
 
 void c_life::restoreHealth(const int& points) {
@@ -22,4 +38,3 @@ void c_life::damageHealth(const int& points) {
 		health = 0;
 	}
 }
-

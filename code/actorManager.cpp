@@ -201,11 +201,12 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
     c_actor* newActor;
     if(id == "avatar") {
         newActor = new c_actor(1);
-        newActor -> init(asset);
-        player = newActor;
         a_uid[1] = newActor;
+        player = newActor;
+        newActor -> init(asset);
     } else {
         newActor = new c_actor(icounter);
+        a_uid[icounter] = newActor;
         newActor -> init(asset);
         //if(inventory == false) {
             v_map.push_back(icounter);
@@ -218,7 +219,6 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         if(newActor -> getType() == actorType::location) {
             v_locations.push_back(icounter);
         }  
-        a_uid[icounter] = newActor;
         ++icounter;
     }
 

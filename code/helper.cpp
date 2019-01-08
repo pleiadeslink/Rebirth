@@ -558,20 +558,68 @@ const int& c_helper::getActorMapY(const int& actor) {
 	return engine -> game -> actorManager.getActor(actor) -> getMapY();
 }
 
+const int& c_helper::getConstitution() {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return 0;
+	} 
+	return engine -> game -> actorManager.getPlayer() -> player -> getConstitution();
+}
+
+const int& c_helper::getAgility() {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return 0;
+	} 
+	return engine -> game -> actorManager.getPlayer() -> player -> getAgility();
+}
+
+const int& c_helper::getSpirit() {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return 0;
+	} 
+	return engine -> game -> actorManager.getPlayer() -> player -> getSpirit();
+}
+
+const int& c_helper::getLuck() {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return 0;
+	} 
+	return engine -> game -> actorManager.getPlayer() -> player -> getLuck();
+}
+
+void c_helper::setConstitution(const int& value) {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	} 
+	engine -> game -> actorManager.getPlayer() -> player -> setConstitution(value);
+}
+
+void c_helper::setAgility(const int& value) {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	} 
+	engine -> game -> actorManager.getPlayer() -> player -> setAgility(value);
+}
+
+void c_helper::setSpirit(const int& value) {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	} 
+	engine -> game -> actorManager.getPlayer() -> player -> setSpirit(value);
+}
+
+void c_helper::setLuck(const int& value) {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	} 
+	engine -> game -> actorManager.getPlayer() -> player -> setLuck(value);
+}
+
 const int& c_helper::getHealth(const int& actor) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
 	if(!p_actor -> life) {
 		return 0;
 	} 
 	return p_actor -> life -> getHealth();
-}
-
-const int& c_helper::getConstitution(const int& actor) {
-	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-	if(!p_actor and !p_actor -> player) {
-		return 0;
-	} 
-	return p_actor -> player -> getConstitution();
 }
 
 const int& c_helper::getMaxHealth(const int& actor) {
@@ -664,6 +712,24 @@ const int& c_helper::getMeleeDamage(const int& actor) {
 	}
 	return 0;
 }*/
+
+void c_helper::setAttributes(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry) {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	} 
+	engine -> game -> actorManager.getPlayer() -> life -> set(maxHealth, minDamage, maxDamage, speed, attackSpeed, accuracy, dodge, parry);
+}
+
+void c_helper::calculateAttributes() {
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	}
+	    
+	structEventData eventData;
+	eventData.type = "calculateAttributes";
+	eventData.emitter = engine -> game -> actorManager.getPlayer() -> getUid();
+	engine -> game -> runScript(eventData);
+}
 
 void c_helper::restoreHealth(const int& actor, const int& points) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);

@@ -63,16 +63,15 @@ void c_actor::init(structActorAsset* asset) {
             action = new c_action(this);
             player = new c_player(this);
             body = new c_body(this, false, true, false, asset -> mass);
-            life = new c_life(this);
-            life -> init();
+            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attackSpeed, asset -> accuracy, asset -> dodge, asset -> parry, asset -> exp);
+            c_helper::calculateAttributes();
             break;
         }
         case actorType::creature: {
             action = new c_action(this);
             AI = new c_AI(this);
             body = new c_body(this, false, true, false, asset -> mass);
-            life = new c_life(this);
-            life -> init();
+            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attackSpeed, asset -> accuracy, asset -> dodge, asset -> parry, asset -> exp);
             break;
         }
         case actorType::weapon: {

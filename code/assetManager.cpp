@@ -170,6 +170,12 @@ void c_assetManager::loadActors() {
 			}
 		}
 
+		key = "health: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.health = atof(line.c_str());
+		}
+
 		key = "damage: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
@@ -195,25 +201,7 @@ void c_assetManager::loadActors() {
 			asset.speed = atof(line.c_str());
 		}
 
-		key = "protection: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.protection = atof(line.c_str());
-		}
-
-		key = "slot: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.slot = atof(line.c_str());
-		}
-
-		key = "penalty: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.penalty = atof(line.c_str());
-		}
-
-		key = "attack_speed: ";
+		key = "speed_a: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
 			asset.attackSpeed = atof(line.c_str());
@@ -231,10 +219,34 @@ void c_assetManager::loadActors() {
 			asset.dodge = atof(line.c_str());
 		}
 
+		key = "parry: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.parry = atof(line.c_str());
+		}
+
 		key = "exp: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
 			asset.exp = atof(line.c_str());
+		}
+
+		key = "protection: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.protection = atof(line.c_str());
+		}
+
+		key = "slot: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.slot = atof(line.c_str());
+		}
+
+		key = "penalty: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.penalty = atof(line.c_str());
 		}
 
 		key = "faction: ";
@@ -317,15 +329,17 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.direction = 0;
 	asset.wType = 0;
 	asset.wCategory = 0;
-	asset.minDamage = 0;
-	asset.maxDamage = 0;
-	asset.speed = 0;
-	asset.protection = 0;
-	asset.slot = 0;
-	asset.attackSpeed = 0;
+	asset.health= 1;
+	asset.minDamage = 1;
+	asset.maxDamage = 1;
+	asset.speed = 1;
+	asset.attackSpeed = 1;
 	asset.accuracy = 0;
 	asset.dodge = 0;
+	asset.parry = 0;
 	asset.exp = 0;
+	asset.protection = 0;
+	asset.slot = 0;
 	asset.faction = 0;
 	asset.effect[0].script = "";
 	asset.effect[0].value1 = 0;

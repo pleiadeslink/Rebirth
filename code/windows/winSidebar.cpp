@@ -162,7 +162,7 @@ void c_winSidebar::draw() {
 	// << HEALTH BARS >>
 
 	// Health bar
-	str = "H:" + std::to_string(p_player -> life -> getHealth()) + "/" + std::to_string(p_player -> life -> getMaxHealth());
+	str = std::to_string(p_player -> life -> getHealth()) + "/" + std::to_string(p_player -> life -> getMaxHealth());
 	engine -> screen.drawBox(x * 16, (y + 1) * 16, width * 16, 32, color("darkest red"));
 	engine -> screen.drawBox(x * 16, (y + 1) * 16, (width * 16) * p_player -> life -> getHealth() / p_player -> life -> getMaxHealth() , 32, color("darker red"));
 	engine -> screen.drawTexture("healthbar", x * 16 + 2, (y + 1) * 16);
@@ -170,7 +170,7 @@ void c_winSidebar::draw() {
 	engine -> screen.drawText(str, x * 16 + ((width * 16) / 2), (y + 1) * 16 + 4, sf::Color::White, textAlign::center);
 
 	// Stamina bar
-	str = "S:" + std::to_string(p_player -> life -> getHealth()) + "/" + std::to_string(p_player -> life -> getMaxHealth());
+	str = std::to_string(p_player -> life -> getHealth()) + "/" + std::to_string(p_player -> life -> getMaxHealth());
 	engine -> screen.drawBox(x * 16, (y + 3) * 16, width * 16, 32, color("darkest amber"));
 	engine -> screen.drawBox(x * 16, (y + 3) * 16, (width * 16) * p_player -> life -> getHealth() / p_player -> life -> getMaxHealth() , 32, color("darker amber"));
 	engine -> screen.drawTexture("healthbar", x * 16 + 2, (y + 3) * 16);
@@ -178,7 +178,7 @@ void c_winSidebar::draw() {
 	engine -> screen.drawText(str, x * 16 + ((width * 16) / 2), (y + 3) * 16 + 4, sf::Color::White, textAlign::center);
 
 	// Mana bar
-	str = "M:" + std::to_string(p_player -> life -> getHealth()) + "/" + std::to_string(p_player -> life -> getMaxHealth());
+	str = std::to_string(p_player -> life -> getHealth()) + "/" + std::to_string(p_player -> life -> getMaxHealth());
 	engine -> screen.drawBox(x * 16, (y + 5) * 16, width * 16, 32, color("darkest azure"));
 	engine -> screen.drawBox(x * 16, (y + 5) * 16, (width * 16) * p_player -> life -> getHealth() / p_player -> life -> getMaxHealth() , 32, color("darker azure"));
 	engine -> screen.drawTexture("healthbar", x * 16 + 2, (y + 5) * 16);

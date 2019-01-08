@@ -108,6 +108,10 @@ int c_winCharacter::update(int key) {
 
 void c_winCharacter::draw() {
 
+	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
+		return;
+	}
+
 	engine -> screen.drawTexture("background", (x + 1) * 16, (y + 1) * 16);
 
 	engine -> screen.drawText("@", (x + 3) * 16 - 4, (y + 3) * 16 + 12, sf::Color::White, 0, 0, 128);
@@ -118,18 +122,24 @@ void c_winCharacter::draw() {
 		engine -> screen.drawText("SEIKKEN", (x + 8) * 16, (y + 8) * 16 + 4, sf::Color::White);
 		engine -> screen.drawText("the novice", (x + 8) * 16, (y + 9) * 16 + 4, sf::Color::White);
 
-		engine -> screen.drawText("Health:      27/60", (x + 16) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Mana:        24/24", (x + 16) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Stamina:   100/100", (x + 16) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Level:           1", (x + 16) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Health:", (x + 16) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getHealth()) + "/" + std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMaxHealth()), (x + 16 + 9) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Stamina:", (x + 16) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Spirit:", (x + 16) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Level:", (x + 16) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLevel()), (x + 16 + 9) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White, textAlign::left);
 		engine -> screen.drawText("Exp:           356", (x + 16) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
 		engine -> screen.drawText("Next level:  sleep", (x + 16) * 16, (y + 10 + 1) * 16 + 4, sf::Color::White);
 
-		engine -> screen.drawText("Constitution:   30", (x + 16 + 10) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Swiftness:      24", (x + 16 + 10) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Perception:     18", (x + 16 + 10) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Willpower:       8", (x + 16 + 10) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Luck:            0", (x + 16 + 10) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Constitution:", (x + 16 + 10) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()), (x + 16 + 19) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Agility:", (x + 16 + 10) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()), (x + 16 + 19) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Spirit:", (x + 16 + 10) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()), (x + 16 + 19) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Luck:", (x + 16 + 10) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()), (x + 16 + 19) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White, textAlign::left);
+		//engine -> screen.drawText("Luck:            0", (x + 16 + 10) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
 
 		engine -> screen.drawText("Damage:      13-15", (x + 16 + 10 * 2) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
 		engine -> screen.drawText("Melee:         30%", (x + 16 + 10 * 2) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);

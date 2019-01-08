@@ -1,6 +1,7 @@
 .vs/
 Debug/Rebirth.pdb
 Debug/libtcod-VS.dll
+Debug/openal32.dll
 Debug/SDL.dll
 Debug/sfml-audio-2.dll
 Debug/sfml-audio-d-2.dll

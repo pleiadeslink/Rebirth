@@ -52,6 +52,12 @@ void c_game::update(const int& key) {
     gamelog.update();
 }
 
+bool c_game::runScript(structEventData& data) {  
+    std::string path = data.type + ".lua";
+    c_engine::runScript(path, data);
+    return false;
+}
+
 bool c_game::runEvent(structEventData& data) {  
     if(!engine -> game -> map) {
         return false;

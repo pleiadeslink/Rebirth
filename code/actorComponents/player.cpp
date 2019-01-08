@@ -2,10 +2,12 @@ c_player::c_player(c_actor* father) {
     this -> father = father;
     key = 0;
     god = false;
-    constitution = 1;
-    agility = 1;
-    spirit = 1;
-    luck = 1;
+    constitution = 5;
+    agility = 5;
+    spirit = 5;
+    luck = 3;
+    energy = 100;
+    level = 1;
     carried = 0;
 	equipment[0] = 0;
 	equipment[1] = 0;
@@ -18,11 +20,15 @@ c_player::c_player(c_actor* father) {
     // Learns basic skills
     learnSkill("walk");
     learnSkill("wait");
+    learnSkill("drop");
+    learnSkill("get");
+    learnSkill("attack");
 }
 
 bool c_player::channel(const int& key, const bool& worldMap) {
     
-    // Checks destination tile
+    // * Pathfinding
+
     engine -> setLoading(false);
     if(engine -> interface.getTileDestination()) {
         int destX = engine -> interface.getTileDestination() -> getX();

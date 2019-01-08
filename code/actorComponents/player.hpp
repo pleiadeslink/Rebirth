@@ -7,13 +7,14 @@ class c_player
         c_actor* father;
         int key;
         bool god;
-        
-        // Attributes
+
         int constitution;
         int agility;
         int spirit;
         int luck;
+
         int energy;
+        int level;
 
         std::vector<s_invItem> inventory;
         int equipment[7];
@@ -27,15 +28,22 @@ class c_player
         const bool& toggleGodMode() { if(god == true) god = false; else god = true; return god; }
         const bool& isGod() { return god; }
 
-        // Attributes
         const int& getConstitution() { return constitution; }
         const int& getAgility() { return agility; }
         const int& getSpirit() { return spirit; }
         const int& getLuck() { return luck; }
+        void setConstitution(const int& value) { constitution = value; }
+        void setAgility(const int& value) { agility = value; }
+        void setSpirit(const int& value) { spirit = value; }
+        void setLuck(const int& value) { luck = value; }
+
+        void consumeEnergy(const int& points);
         const int& getEnergy() { return energy; }
         const int& getMaxEnergy();
-        void consumeEnergy(const int& points);
         void setEnergy(const int& value) { energy = value; }
+        
+        const int& getLevel() { return level; }
+        void setLevel(const int& value) { level = value; }
 
         const bool& addToInventory(const int& uid, const int& quantity = 1); // Returns true if the item already existed
         std::vector<s_invItem>* getInventory() { return &inventory; }

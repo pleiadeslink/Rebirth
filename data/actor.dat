@@ -17,6 +17,7 @@ name: Abomination
 desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
 texture: 15x8
 color: dark sepia
+health: 100
 damage: 30-40
 speed: 3
 speed_a: 2
@@ -29,6 +30,8 @@ name: Bear
 desc: A large, powerful omnivore that inhabits many of Terra's forested hills. Equally happy consuming nuts, berries, fish, or small mammals, the bear is nonetheless fiercely territorial, and will chase off—or, failing that, kill and eat—any intruders it views as competition.
 texture: 2x6
 color: light sepia
+health: 100
+damage: 10-20
 speed: 1
 speed_a: 2
 accuracy: 50
@@ -106,18 +109,20 @@ dodge: 60
 exp: 3000
 
 [skeleton_warrior]
+faction: animal
 type: creature
 name: Skeleton Warrior
 desc: Clad in corroded armour, their lifeless hands gripping swords, spears and shields these mindless automatons take up their blades when the clarion call of battle sounds, ready once more to fight for their king.
 texture: 3x7
 color: white
-speed: 2
+damage: 80
 damage: 3-6
+speed: 2
 speed_a: 1
+accuracy: 50
+dodge: 5
+parry: 10
 protection: 10
-accuracy: 60
-dodge: 30
-parry: 20
 resist: pierce|blunt
 exp: 40
 loot: 50.weapon_physical_1|100.skeleton_corpse|20.shield_1

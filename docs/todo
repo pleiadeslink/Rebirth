@@ -11,3 +11,4 @@
 - Inventory should have its own class
 - REFACTORING (pointers, etc)
 - Skills should have its own class
+- Cambiar evento data type por algo más descriptivo
