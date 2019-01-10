@@ -30,7 +30,6 @@ while true do
 				data = s_data.new()
 				data:setEmitter(emitter)
 				data:setValue1(getDirectionToActor(emitter, enemyFound))
-				message(getDirectionToActor(emitter, enemyFound))
 				data:setType("walk")
 				startAction(data)
 				return

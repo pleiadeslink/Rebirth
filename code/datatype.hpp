@@ -78,6 +78,7 @@ struct structActorAsset {
 struct s_skillAsset {
     std::string id;
     std::string name;
+    std::string description;
     int duration;
 };
 

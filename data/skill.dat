@@ -5,8 +5,8 @@ name: Default
 duration: 0
 
 [attack]
-name: Attack
-desc: Attack a target using a physical weapon or your bare hands.
+name: Physical attack
+desc: Attack a target using your fists or any equipped melee weapon.
 duration: 3
 
 [get]
@@ -15,7 +15,7 @@ desc: Get an item from the ground.
 duration: 2
 
 [drop]
-name: drop
+name: Drop
 desc: Drop an item from your inventory to the ground.
 duration: 1
 
@@ -26,7 +26,7 @@ duration: 1
 
 [walk]
 name: Walk
-desc: Move to a nearby position.
+desc: Move in any two-dimensional direction to an unoccupied nearby position.
 duration: 4
 
 [end]

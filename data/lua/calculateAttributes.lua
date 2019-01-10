@@ -1,10 +1,10 @@
 -- CALCULATES ATTRIBUTES FOR PLAYER
 
-maxHealth = 10
+maxHealth = getConstitution() * 20
 
-minDamage = 2
+minDamage = 20
 
-maxDamage = 4
+maxDamage = 28
 
 speed = 1
 

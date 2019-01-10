@@ -79,6 +79,10 @@ class c_helper {
 		static const int& getLuck(); // Returns avatar's luck
 		static const int& getHealth(const int& actor); // Returns the actor's health
 		static const int& getMaxHealth(const int& actor); // Returns the actor's max health
+		static const int& getMinDamage(const int& actor);
+		static const int& getMaxDamage(const int& actor);
+		static const int& getAccuracy(const int& actor);
+		static const int& getDodge(const int& actor);
 		static const int& getViewRange(const int& actor); // Returns the actor's view range
 
 		static void setConstitution(const int& value); // Returns avatar's constitution

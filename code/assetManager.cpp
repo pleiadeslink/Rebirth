@@ -301,6 +301,12 @@ void c_assetManager::loadSkills() {
 			asset.name = line;
 		}
 
+		key = "desc: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.description = line;
+		}
+
 		key = "duration: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());

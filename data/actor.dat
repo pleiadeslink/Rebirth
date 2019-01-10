@@ -111,10 +111,11 @@ exp: 3000
 [skeleton_warrior]
 faction: animal
 type: creature
-name: Skeleton Warrior
+name: skeleton warrior
 desc: Clad in corroded armour, their lifeless hands gripping swords, spears and shields these mindless automatons take up their blades when the clarion call of battle sounds, ready once more to fight for their king.
 texture: 3x7
 color: white
+health: 80
 damage: 80
 damage: 3-6
 speed: 2

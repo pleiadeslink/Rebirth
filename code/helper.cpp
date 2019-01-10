@@ -473,9 +473,7 @@ const bool& c_helper::isEnemy(const int& emitter, const int& target) {
 
 		// ANIMAL
 		case faction::animal: {
-			
 			if(fac == faction::avatar) {
-				std::cout << "test" << std::endl;
 				return true;
 			}
 			break;
@@ -628,6 +626,38 @@ const int& c_helper::getMaxHealth(const int& actor) {
 		return 0;
 	} 
 	return p_actor -> life -> getMaxHealth();
+}
+
+const int& c_helper::getMinDamage(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getMinDamage();
+}
+
+const int& c_helper::getMaxDamage(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getMaxDamage();
+}
+
+const int& c_helper::getAccuracy(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getAccuracy();
+}
+
+const int& c_helper::getDodge(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getDodge();
 }
 
 const int& c_helper::getViewRange(const int& actor) {

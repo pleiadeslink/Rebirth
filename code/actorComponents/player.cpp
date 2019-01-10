@@ -18,11 +18,11 @@ c_player::c_player(c_actor* father) {
 	equipment[6] = 0;
 
     // Learns basic skills
-    learnSkill("walk");
-    learnSkill("wait");
-    learnSkill("drop");
-    learnSkill("get");
     learnSkill("attack");
+    learnSkill("get");
+    learnSkill("drop");
+    learnSkill("wait");
+    learnSkill("walk");
 }
 
 bool c_player::channel(const int& key, const bool& worldMap) {
@@ -305,14 +305,14 @@ const bool& c_player::learnSkill(std::string id) {
     // First checks if the skill exists
     s_skillAsset* skill = engine -> assetManager.getSkillAsset(id);
     if(skill -> duration == 0) {
-        c_helper::gameMessage("That skill does not exist!");
+        c_helper::gameMessage("That word does not exist!");
         return false;
     }
 
     // Adds the skill to the skill memory
     v_learnedSkills.push_back(id);
 
-    c_helper::gameMessage("You have learned '" + id + "'.");
+    c_helper::gameMessage("You have learned the word '" + id + "'.");
     return true;
 }
 
