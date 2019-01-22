@@ -151,8 +151,8 @@ void c_actorManager::clear() {
             if(engine -> game -> map) {
                 engine -> game -> map -> removeActorFromTile(v_map[i], actor -> getMapX(), actor -> getMapY());
             }
-        }     
-        delete actor;
+            delete actor;
+        }         
     }
 
     //memset(a_uid, 0, sizeof(a_uid));

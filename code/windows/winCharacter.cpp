@@ -22,7 +22,7 @@ int c_winCharacter::update(int key) {
 	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
 		return 0;
 	}
-
+ 
 	inventory = 0;
 	v_skills = 0;
 
@@ -76,6 +76,14 @@ int c_winCharacter::update(int key) {
 					case key::d: {
                         structEventData eventData;
                         eventData.type = "drop";
+                        eventData.target = inventory -> at(inventoryPos).uid;
+                        engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
+						engine -> interface.setMode(imode::game);
+                        return true;						
+					}
+					case key::c: {
+                        structEventData eventData;
+                        eventData.type = "drink";
                         eventData.target = inventory -> at(inventoryPos).uid;
                         engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
 						engine -> interface.setMode(imode::game);

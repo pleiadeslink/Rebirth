@@ -95,23 +95,83 @@ int c_engine::input() {
         // Normal
         } else if(event.type == sf::Event::KeyPressed) {
             switch(event.key.code) {
+                case sf::Keyboard::A: {
+                    return key::a;
+                }
+                case sf::Keyboard::B: {
+                    return key::b;
+                }
+                case sf::Keyboard::C: {
+                    return key::c;
+                }
                 case sf::Keyboard::D: {
                     return key::d;
+                }
+                case sf::Keyboard::E: {
+                    return key::e;
                 }
                 case sf::Keyboard::F: {
                     return key::f;
                 }
+                case sf::Keyboard::G: {
+                    return key::g;
+                }
+                case sf::Keyboard::H: {
+                    return key::h;
+                }
+                case sf::Keyboard::I: {
+                    return key::i;
+                }
+                case sf::Keyboard::J: {
+                    return key::j;
+                }
+                case sf::Keyboard::K: {
+                    return key::k;
+                }
+                case sf::Keyboard::L: {
+                    return key::l;
+                }
+                case sf::Keyboard::M: {
+                    return key::m;
+                }
+                case sf::Keyboard::N: {
+                    return key::n;
+                }
+                case sf::Keyboard::O: {
+                    return key::o;
+                }
                 case sf::Keyboard::P: {
                     return key::p;
                 }
+                case sf::Keyboard::Q: {
+                    return key::q;
+                }
+                case sf::Keyboard::R: {
+                    return key::r;
+                }
+                case sf::Keyboard::S: {
+                    return key::s;
+                }
                 case sf::Keyboard::T: {
                     return key::t;
+                }
+                case sf::Keyboard::U: {
+                    return key::u;
                 }
                 case sf::Keyboard::V: {
                     return key::v;
                 }
                 case sf::Keyboard::W: {
                     return key::w;
+                }
+                case sf::Keyboard::X: {
+                    return key::x;
+                }
+                case sf::Keyboard::Y: {
+                    return key::y;
+                }
+                case sf::Keyboard::Z: {
+                    return key::z;
                 }
                 case sf::Keyboard::Num0: {
                     return key::num0;

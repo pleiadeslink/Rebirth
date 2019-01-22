@@ -111,7 +111,7 @@ void c_winInfo::draw() {
             std::string commands = "";
             switch(p_actor -> getType()) {
                 case actorType::potion: {
-                    commands.append("[D]rink, ");
+                    commands.append("[C]onsume, ");
                     break;
                 }
             }

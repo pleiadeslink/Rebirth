@@ -136,9 +136,12 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
+	std::cout << "prewtf" << std::endl;
     saveMap(false);
     //engine -> game -> actorManager.savePlayer();
+	
     engine -> game -> actorManager.clear();
+	std::cout << "wtf" << std::endl;
     loadMap(0, 0, 0);
     //engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
@@ -832,12 +835,14 @@ const bool& c_helper::dropItemFromInventory(const int& target) {
 
     // If there is > 1 item in inventory, we create a new actor on ground)
     if(p_emitter -> player-> deleteFromInventory(target) == false) {
-		engine -> game -> actorManager.createActor(p_target -> getId(), p_target -> getMapX(), p_target -> getMapY());
-        return true;
+        engine -> game -> actorManager.createActor(p_target -> getId(), p_emitter -> getMapX(), p_emitter -> getMapY());
+		return true;
 
 	// If it was the last item in inventory
     } else {
-		teleportActor(target, p_target -> getMapX(), p_target -> getMapY(), false);
+		teleportActor(target, p_emitter -> getMapX(), p_emitter -> getMapY(), false);
+		engine -> game -> actorManager.removeFromInventory(target);
+		engine -> game -> actorManager.addToMap(target);
 	    return true;   
     }  
     return false;	

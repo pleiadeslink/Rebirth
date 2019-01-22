@@ -13,12 +13,13 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i m
     }
 
     int yUIOffset = 0;
-    int mapX = mapX0 + mousePos.x / global::tileSize - tileWidth / 2;
-    int mapY = mapY0 + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset;
+    int mapX = mapX0 + (x * 16) + mousePos.x / global::tileSize - tileWidth / 2;
+    int mapY = mapY0 + (y * 16) + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset;
 
     if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
     and mapY >= 0 and mapY < engine -> game -> map -> getHeight()
-    and mousePos.y < tileHeight * 16) {
+    and mousePos.x > x * 16 and mousePos.x < (x + tileWidth) * 16
+    and mousePos.y > y * 16 and mousePos.y < (y + tileHeight) * 16) {
         c_tile* tile = engine -> game -> map -> getTile(mapX, mapY);
         switch(engine -> interface.getMode()) {
             case imode::game: {
