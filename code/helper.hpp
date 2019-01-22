@@ -99,7 +99,8 @@ class c_helper {
 		static void damage(const int& actor, const int& value);
 		static void kill(const int& actor);
 		static void openCloseDoor(const int& emitter, const int& door);
-		static const bool& getItemFromFloor(const int& emitter, const int& target);
+		static const bool& getItemFromFloor(const int& target);
+		static const bool& dropItemFromInventory(const int& target);
 		static void consume(const int& emitter, const int& target);
 		static const int& findStaircase(const int& x, const int& y); // Returns direction if found
 		static const bool& equipItem(const int& emitter, const int& item);

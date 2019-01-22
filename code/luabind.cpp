@@ -64,6 +64,7 @@ state["damage"] = &c_helper::damage;
 state["kill"] = &c_helper::kill;
 state["openCloseDoor"] = &c_helper::openCloseDoor;
 state["getItemFromFloor"] = &c_helper::getItemFromFloor;
+state["dropItemFromInventory"] = &c_helper::dropItemFromInventory;
 state["consume"] = &c_helper::consume;
 state["findStaircase"] = &c_helper::findStaircase;
 state["equipItem"] = &c_helper::equipItem;

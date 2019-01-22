@@ -17,7 +17,7 @@ class c_interface {
         c_winSidebar* sidebar;
         c_winMap* map;
         c_winInfo* info;
-        int mode;
+        int mode; // Game, character screen, etc.
         int emode; // Editor
         c_tile* sTile;
         int sActor;
@@ -48,6 +48,7 @@ class c_interface {
         void setEditTile(structTileAsset* tile) { editTile = tile; }
         void setEditActor(structActorAsset* actor) { editActor = actor; }
         void setEditScript(int script) { editScript = script; }
+        void setMode(const int& value) { mode = value; }
         void setEmode(const int& value) { emode = value; }
         structTileAsset* getEditTile() { return editTile; }
         structActorAsset* getEditActor() { return editActor; }

@@ -4,6 +4,7 @@
 class c_winCharacter : public c_window
 {
 	private:
+		c_winMap* map;
 		int screen;
 		int inventoryPos;
 		int skillsPos;
@@ -15,8 +16,9 @@ class c_winCharacter : public c_window
 		std::vector<std::string>* v_skills;
 
 	public:
-		c_winCharacter(const int& x, const int& y, const int& width, const int&height);
+		c_winCharacter(const int& x, const int& y, const int& width, const int& height);
 		~c_winCharacter() { }
+		void init();
 		int update(int key);
         void draw();
 };

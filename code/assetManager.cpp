@@ -5,6 +5,7 @@ void c_assetManager::loadActors() {
 	std::string key;
 	bool n = true;
 	std::ifstream file("data/actor.dat");
+	int effectIndex = 0;
     while(getline(file, line)) {
 		if(line[0] == '[') {
 
@@ -257,6 +258,30 @@ void c_assetManager::loadActors() {
 			} else if(line == "animal") {
 				asset.faction = faction::animal;
 			}
+		}
+		
+		key = "effect: ";
+		if(line.find(key) != std::string::npos and effectIndex < 5) {
+			line.erase(0, key.length());
+			bool a = 0;
+			std::string a1 = "";
+			std::string a2 = "";
+			std::string a3 = "";
+			for(int i = 0; i < line.length(); ++i) {
+				if(line[i] == '|') {
+					++a;
+				} else if(a == 0) {
+					a1 += line[i];
+				} else if(a == 1)  {
+					a2 += line[i];
+				} else {
+					a3 += line[i];
+				}
+			}
+			asset.effect[effectIndex].script = a1.c_str();
+			asset.effect[effectIndex].value1 = atof(a2.c_str());
+			asset.effect[effectIndex].string1 = a3.c_str();
+			++effectIndex;
 		}
     }
     if(file.is_open()) {

@@ -20,6 +20,7 @@ class c_window
 	    //std::vector<c_slot*> v_slot;
         void drawFrame();
         void drawHBar(const int& hpos);
+        void drawHLine(const int& x, const int& y, const int& size);
         void drawVLine(const int& x, const int& y, const int& size);
         void drawTitle(const std::string text, const int& hpos);
 

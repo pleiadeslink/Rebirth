@@ -95,6 +95,9 @@ int c_engine::input() {
         // Normal
         } else if(event.type == sf::Event::KeyPressed) {
             switch(event.key.code) {
+                case sf::Keyboard::D: {
+                    return key::d;
+                }
                 case sf::Keyboard::F: {
                     return key::f;
                 }

@@ -27,6 +27,7 @@ void c_interface::init()     {
     gamelog = new c_winGamelog(0, 35, 80, 10);
     //sidebar = new c_winSidebar("sidebar", 0, 43, 80, 2);
     character = new c_winCharacter(0, 0, 67, 41);
+    character -> init();
     sidebar = new c_winSidebar(67, 0, 13, 45);
     sidebar -> init();
 }

@@ -14,6 +14,10 @@ c_winCharacter::c_winCharacter(const int& x, const int& y, const int& width, con
 	v_skills = 0;
 }
 
+void c_winCharacter::init()     {
+    map = new c_winMap(34, 0, 33, 13);
+}
+
 int c_winCharacter::update(int key) {
 	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
 		return 0;
@@ -21,6 +25,8 @@ int c_winCharacter::update(int key) {
 
 	inventory = 0;
 	v_skills = 0;
+
+	key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(), engine -> getMouse());
 	
 	// Change screen
 	if(key == key::left) {
@@ -47,6 +53,9 @@ int c_winCharacter::update(int key) {
 
 			if(inventory -> size() > 0) {
 
+				// Item selection
+				engine -> interface.selectActor(inventory -> at(inventoryPos).uid);
+
 				// Cursor
 				switch(key) {
 					case key::up: {
@@ -54,18 +63,27 @@ int c_winCharacter::update(int key) {
 						if(inventoryPos < 0) {
 							inventoryPos = 0;
 						}
+						engine -> interface.selectActor(inventory -> at(inventoryPos).uid);
 						return 0;
 					}
 					case key::down: {
 						if(inventoryPos < inventory -> size() - 1) {
 							++inventoryPos;
 						}
+						engine -> interface.selectActor(inventory -> at(inventoryPos).uid);
 						return 0;
+					}
+					case key::d: {
+                        structEventData eventData;
+                        eventData.type = "drop";
+                        eventData.target = inventory -> at(inventoryPos).uid;
+                        engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
+						engine -> interface.setMode(imode::game);
+                        return true;						
 					}
 				}
 
-				// Item selection
-				engine -> interface.selectActor(inventory -> at(inventoryPos).uid);
+
 
 			}
 			break;
@@ -86,12 +104,14 @@ int c_winCharacter::update(int key) {
 						if(skillsPos < 0) {
 							skillsPos = 0;
 						}
+						engine -> interface.selectSkill(v_skills -> at(skillsPos));
 						return 0;
 					}
 					case key::down: {
 						if(skillsPos < v_skills -> size() - 1) {
 							++skillsPos;
 						}
+						engine -> interface.selectSkill(v_skills -> at(skillsPos));
 						return 0;
 					}
 				}
@@ -112,54 +132,45 @@ void c_winCharacter::draw() {
 		return;
 	}
 
-	engine -> screen.drawTexture("background", (x + 1) * 16, (y + 1) * 16);
-
-	engine -> screen.drawText("@", (x + 3) * 16 - 4, (y + 3) * 16 + 12, sf::Color::White, 0, 0, 128);
-
 	// << STATS >>
 	c_actor* player = engine -> game -> actorManager.getPlayer();
 	if(player) {
-		engine -> screen.drawText("SEIKKEN", (x + 8) * 16, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("the novice", (x + 8) * 16, (y + 9) * 16 + 4, sf::Color::White);
+		//engine -> screen.drawTexture("statsBackground", (x + 1) * 16, (y + 1) * 16);
+		engine -> screen.drawTexture("statsTitle", (x + 1) * 16, (y + 1) * 16);
+		engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 1) * 16 + 8 + 1, (y + 1) * 16 + 4 + 1, sf::Color::Black);
+		engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 1) * 16 + 8, (y + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Health:", (x + 1) * 16 + 8, (y + 3) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getHealth()) + "/" + std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMaxHealth()), (x + 1 + 9) * 16 + 8, (y + 3) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Stamina:", (x + 1) * 16 + 8, (y + 4) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Mana:", (x + 1) * 16 + 8, (y + 5) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Constitution:", (x + 1) * 16 + 8, (y + 6) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()), (x + 1 + 9) * 16 + 8, (y + 6) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Agility:", (x + 1) * 16 + 8, (y + 7) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()), (x + 1 + 9) * 16 + 8, (y + 7) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Spirit:", (x + 1) * 16 + 8, (y + 8) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()), (x + 1 + 9) * 16 + 8, (y + 8) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Luck:", (x + 1) * 16 + 8, (y + 9) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()), (x + 1 + 9) * 16 + 8, (y + 9) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Exp:            356", (x + 1) * 16 + 8, (y + 10) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Next level:   sleep", (x + 1) * 16 + 8, (y + 11) * 16 + 4, sf::Color::White);
 
-		engine -> screen.drawText("Health:", (x + 16) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getHealth()) + "/" + std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMaxHealth()), (x + 16 + 9) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Stamina:", (x + 16) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Spirit:", (x + 16) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Level:", (x + 16) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLevel()), (x + 16 + 9) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Exp:           356", (x + 16) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Next level:  sleep", (x + 16) * 16, (y + 10 + 1) * 16 + 4, sf::Color::White);
 
-		engine -> screen.drawText("Constitution:", (x + 16 + 10) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()), (x + 16 + 19) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Agility:", (x + 16 + 10) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()), (x + 16 + 19) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Spirit:", (x + 16 + 10) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()), (x + 16 + 19) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Luck:", (x + 16 + 10) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()), (x + 16 + 19) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White, textAlign::left);
-		//engine -> screen.drawText("Luck:            0", (x + 16 + 10) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Melee:          30%", (x + 1 + 11) * 16, (y + 3) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Projectile:     24%", (x + 1 + 11) * 16, (y + 4) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Dodge:          18%", (x + 1 + 11) * 16, (y + 5) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Parry:           8%", (x + 1 + 11) * 16, (y + 6) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Block:          14%", (x + 1 + 11) * 16, (y + 7) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Invocation:     20%", (x + 1 + 11) * 16, (y + 8) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Evocation:      15%", (x + 1 + 11) * 16, (y + 9) * 16 + 4, sf::Color::White);
 
-		engine -> screen.drawText("Damage:      13-15", (x + 16 + 10 * 2) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Melee:         30%", (x + 16 + 10 * 2) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Projectile:    24%", (x + 16 + 10 * 2) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Dodge:         18%", (x + 16 + 10 * 2) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Parry:          8%", (x + 16 + 10 * 2) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Block:         14%", (x + 16 + 10 * 2) * 16, (y + 10 + 1) * 16 + 4, sf::Color::White);
-
-		engine -> screen.drawText("Armor:          27", (x + 16 + 10 * 3) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist heat:    24", (x + 16 + 10 * 3) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist cold:     0", (x + 16 + 10 * 3) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist poison:   8", (x + 16 + 10 * 3) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Temple:          0", (x + 16 + 10 * 3) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
-
-		engine -> screen.drawText("Spell power:    10", (x + 16 + 10 * 4) * 16, (y + 5 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Frequency:    high", (x + 16 + 10 * 4) * 16, (y + 6 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Appearance:      0", (x + 16 + 10 * 4) * 16, (y + 7 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Fame:            1", (x + 16 + 10 * 4) * 16, (y + 8 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Bounty:          0", (x + 16 + 10 * 4) * 16, (y + 9 + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Gold:          146", (x + 16 + 10 * 4) * 16, (y + 10 + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Damage:       13-15", (x + 1 + 22) * 16 - 8, (y + 3) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Spell power:     10", (x + 1 + 22) * 16 - 8, (y + 4) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Armor:           27", (x + 1 + 22) * 16 - 8, (y + 5) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Resist heat:     24", (x + 1 + 22) * 16 - 8, (y + 6) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Resist cold:      0", (x + 1 + 22) * 16 - 8, (y + 7) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Resist poison:    8", (x + 1 + 22) * 16 - 8, (y + 8) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Temple:           0", (x + 1 + 22) * 16 - 8, (y + 9) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Frequency:     high", (x + 1 + 22) * 16 - 8, (y + 10) * 16 + 4, sf::Color::White);
 	}
 
 
@@ -434,20 +445,28 @@ void c_winCharacter::draw() {
 
 	// << FRAME >>
 
-	drawFrame();
+	//drawFrame();
+	drawVLine(0, 0, 41);
+	drawHLine(0, 0, 34);
+	drawHBar(40);
 
 	// Menu
-	drawHBar(5);
+	//drawHBar(5);
 	drawHBar(13);
 	drawHBar(16);
 	drawVLine(11, 13, 4);
 	drawVLine(22, 13, 4);
 	drawVLine(33, 13, 4);
+	drawVLine(33, 0, 14);
 	drawVLine(44, 13, 4);
 	drawVLine(55, 13, 4);
 	drawVLine(66, 13, 4);
 
 	// Abajo
 	drawVLine(44, 16, height - 16);
+
+	// Map
+	map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
+
 	return;
 }

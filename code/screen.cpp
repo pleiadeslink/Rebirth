@@ -83,7 +83,7 @@ const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Co
 
     switch(align) {
         case textAlign::left: {
-            x = x - (text.getLocalBounds().width);
+            x = x - (text.getLocalBounds().width) + 6;
             break;
         }
         case textAlign::center: {

@@ -799,8 +799,8 @@ void c_helper::openCloseDoor(const int& emitter, const int& door) {
     }
 }
 
-const bool& c_helper::getItemFromFloor(const int& emitter, const int& target) {
-	c_actor* p_emitter = engine -> game -> actorManager.getActor(emitter);
+const bool& c_helper::getItemFromFloor(const int& target) {
+	c_actor* p_emitter = engine -> game -> actorManager.getPlayer();
 	c_actor* p_target = engine -> game -> actorManager.getActor(target);
 	if(!p_emitter -> player or p_target -> life) {
 		return false;
@@ -818,6 +818,26 @@ const bool& c_helper::getItemFromFloor(const int& emitter, const int& target) {
 	    p_target -> setMapY(-1);
 		engine -> game -> actorManager.removeFromMap(target);
 		engine -> game -> actorManager.addToInventory(target);
+	    return true;   
+    }  
+    return false;	
+}
+
+const bool& c_helper::dropItemFromInventory(const int& target) {
+	c_actor* p_emitter = engine -> game -> actorManager.getPlayer();
+	c_actor* p_target = engine -> game -> actorManager.getActor(target);
+	if(!p_emitter -> player or p_target -> life) {
+		return false;
+	}
+
+    // If there is > 1 item in inventory, we create a new actor on ground)
+    if(p_emitter -> player-> deleteFromInventory(target) == false) {
+		engine -> game -> actorManager.createActor(p_target -> getId(), p_target -> getMapX(), p_target -> getMapY());
+        return true;
+
+	// If it was the last item in inventory
+    } else {
+		teleportActor(target, p_target -> getMapX(), p_target -> getMapY(), false);
 	    return true;   
     }  
     return false;	

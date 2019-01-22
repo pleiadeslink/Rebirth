@@ -19,6 +19,11 @@ name: Drop
 desc: Drop an item from your inventory to the ground.
 duration: 1
 
+[drink]
+name: Drink
+desc: Drink a potion from your inventory.
+duration: 1
+
 [wait]
 name: Wait
 desc: Contemplate the moment.

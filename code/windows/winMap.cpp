@@ -12,7 +12,7 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i m
         return key;
     }
 
-    int yUIOffset = 2;
+    int yUIOffset = 0;
     int mapX = mapX0 + mousePos.x / global::tileSize - tileWidth / 2;
     int mapY = mapY0 + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset;
 
@@ -104,7 +104,7 @@ void c_winMap::draw(const int& mapX0, const int& mapY0) {
     if(p_player and p_player -> isGod() or engine -> interface.getMode() == imode::edit) {
         fog = false;
     }
-    int yUIOffset = 2;
+    int yUIOffset = 0;
     for(int i1 = 0; i1 < tileWidth; ++i1) {
         for(int i2 = 0; i2 < tileHeight; ++i2) {
 
@@ -115,7 +115,7 @@ void c_winMap::draw(const int& mapX0, const int& mapY0) {
             if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
             and mapY >= 0 and mapY < engine -> game -> map -> getHeight()) {
                 c_tile* tile = engine -> game -> map -> getTile(mapX0 + i1 - tileWidth / 2, mapY0 + i2 - tileHeight / 2 + yUIOffset);
-                tile -> draw(x + (i1 - 1) * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16, tile -> getInterior(), fog);
+                tile -> draw((x + i1 - 1) * global::tileSize + 16, (y + i2 - 1) * global::tileSize + 16, tile -> getInterior(), fog);
                 if(engine -> interface.getSelectedTile() == tile and engine -> isLoading() == false) {
                     engine -> screen.drawTexture("selectedTile", x + (i1 - 1)  * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16);
                 }

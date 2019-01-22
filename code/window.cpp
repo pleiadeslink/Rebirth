@@ -92,6 +92,14 @@ void c_window::drawHBar(const int& hpos) {
     }
 }
 
+void c_window::drawHLine(const int& x, const int& y, const int& size) {
+    engine -> screen.drawTexture("ribbon", x * 16, y * 16);
+    engine -> screen.drawTexture("ribbon", (x + size - 1) * 16, y * 16);   
+    for(int i = 1; i < size - 1; ++i) {
+        engine -> screen.drawTexture("hbar", (x + i) * 16, y * 16);
+    }    
+}
+
 void c_window::drawVLine(const int& x, const int& y, const int& size) {
     engine -> screen.drawTexture("ribbon", x * 16, y * 16);
     engine -> screen.drawTexture("ribbon", x * 16, (y + size - 1) * 16);   

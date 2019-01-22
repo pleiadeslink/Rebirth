@@ -19,6 +19,7 @@ c_player::c_player(c_actor* father) {
 
     // Learns basic skills
     learnSkill("attack");
+    learnSkill("drink");
     learnSkill("get");
     learnSkill("drop");
     learnSkill("wait");
