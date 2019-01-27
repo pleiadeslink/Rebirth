@@ -34,15 +34,7 @@ void c_game::update(const int& key) {
 
     // If the player is doing something, update time till he finishes
     if(actorManager.getPlayer() -> action -> isRunning()) {
-        do {
-            
-            // Update player
-            actorManager.getPlayer() -> timeUpdate();
-            
-            // Update active actors
-            actorManager.timeUpdate();
-
-        } while(actorManager.getPlayer() -> action -> isRunning());
+        turn();
 
     // If he's not, check if he can channel the human player
     } else {
@@ -50,6 +42,22 @@ void c_game::update(const int& key) {
     }
 
     gamelog.update();
+}
+
+// Runs turns till the player finishes his action
+void c_game::turn() {
+    if(!actorManager.getPlayer() -> action -> isRunning()) {
+        return;
+    }
+
+    do {
+        // Update player
+        actorManager.getPlayer() -> timeUpdate();
+        
+        // Update active actors
+        actorManager.timeUpdate();
+
+    } while(actorManager.getPlayer() -> action -> isRunning());
 }
 
 bool c_game::runScript(structEventData& data) {  

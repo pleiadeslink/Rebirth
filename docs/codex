@@ -97,8 +97,10 @@
 - [] 
 
 * DIALOGUE OPTIONS *
-- Chat
 - Quest
-- Learn
 - Trade
+- Learn
+- Chat
+- Advice
+- Background
 - Bye

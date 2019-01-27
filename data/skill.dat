@@ -14,15 +14,30 @@ name: Get
 desc: Get an item from the ground.
 duration: 2
 
+[equip]
+name: Equip
+desc: Equip a weapon or armor.
+duration: 1
+
+[remove]
+name: Remove
+desc: Remove a weapon or armor that is currently equipped.
+duration: 1
+
 [drop]
 name: Drop
 desc: Drop an item from your inventory to the ground.
 duration: 1
 
-[drink]
-name: Drink
-desc: Drink a potion from your inventory.
+[consume]
+name: Consume
+desc: Oral ingestion of food and brewages from your inventory.
 duration: 1
+
+[talk]
+name: Talk
+desc: Sound-based information exchange with other intelligent beings. Different sounds are combined together into "words" to be imbued with meaning.
+duration: 4
 
 [wait]
 name: Wait

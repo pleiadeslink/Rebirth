@@ -245,7 +245,7 @@ desc: This magic elixir restores its user's health.
 texture: 13x10
 color: red
 mass: 0.3
-effect: restore|50
+effect: restore|50|health
 
 [magic_scroll]
 type: scroll

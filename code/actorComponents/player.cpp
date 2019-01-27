@@ -19,7 +19,10 @@ c_player::c_player(c_actor* father) {
 
     // Learns basic skills
     learnSkill("attack");
-    learnSkill("drink");
+    learnSkill("talk");
+    learnSkill("consume");
+    learnSkill("equip");
+    learnSkill("remove");
     learnSkill("get");
     learnSkill("drop");
     learnSkill("wait");
@@ -247,6 +250,7 @@ const bool& c_player::addToInventory(const int& uid, const int& quantity) {
 	return false;
 }
 
+// Returns true if it was the last item of its type that existed
 const bool& c_player::deleteFromInventory(const int& item) {
 	c_actor* p_item = engine -> game -> actorManager.getActor(item);
 	for(int i = 0; i < inventory.size(); ++i) {

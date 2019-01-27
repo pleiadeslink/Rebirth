@@ -108,14 +108,26 @@ void c_winInfo::draw() {
             engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
 
             // Print commands
+
             std::string commands = "";
-            switch(p_actor -> getType()) {
-                case actorType::potion: {
-                    commands.append("[C]onsume, ");
-                    break;
+            if(p_actor -> consumable) {
+                commands.append("[C]onsume, ");
+            }
+            if(p_actor -> weapon) {
+                if(engine -> game -> actorManager.getPlayer() -> player -> getEquippedItem(bodySlot::mainHand) == p_actor -> getUid()) {
+                    commands.append("[R]emove, ");
+                } else {
+                    commands.append("[E]quip, ");
+                }
+            } else if(p_actor -> armor) {
+                if(engine -> game -> actorManager.getPlayer() -> player -> getEquippedItem(p_actor -> armor -> getSlot()) == p_actor -> getUid()) {
+                    commands.append("[R]emove, ");
+                } else {
+                    commands.append("[E]quip, ");
                 }
             }
             commands.append("[D]rop");
+
             drawTitle(commands, height - 2);
         }
 

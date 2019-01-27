@@ -111,5 +111,6 @@ void c_window::drawVLine(const int& x, const int& y, const int& size) {
 void c_window::drawTitle(const std::string text, const int& hpos) {
     engine -> screen.drawBox(x * 16, (y + hpos) * 16, width * 16, 16, color("darker sepia"));
     engine -> screen.drawBox(x * 16, (y + hpos) * 16 + 16 - 2, width * 16, 2, color("darkest sepia"));
+    //engine -> screen.drawText(text, (x + 1) * 16 + 4 + 1, (y + hpos) * 16 - 4 + 1, sf::Color::Black);
     engine -> screen.drawText(text, (x + 1) * 16 + 4, (y + hpos) * 16 - 4, color("lighter sepia"));
 }

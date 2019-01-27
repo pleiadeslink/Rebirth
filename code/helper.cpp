@@ -36,11 +36,17 @@ std::string c_helper::justify(std::string string, const size_t size) {
 
 
 
-void c_helper::gameMessage(const std::string& text) {
+void c_helper::gameMessage(const std::string& text, const bool& unique) {
 	if(!engine -> game) {
 		return;
 	}
-	engine -> game -> gamelog.message(text);
+	if(unique == true) {
+		engine -> game -> gamelog.clear();
+		engine -> game -> gamelog.message(text);
+		engine -> game -> gamelog.update();
+	} else {
+		engine -> game -> gamelog.message(text);
+	}
 	std::cout << "Game: " << text << std::endl;
 }
 

@@ -263,7 +263,7 @@ void c_assetManager::loadActors() {
 		key = "effect: ";
 		if(line.find(key) != std::string::npos and effectIndex < 5) {
 			line.erase(0, key.length());
-			bool a = 0;
+			int a = 0;
 			std::string a1 = "";
 			std::string a2 = "";
 			std::string a3 = "";
@@ -272,9 +272,9 @@ void c_assetManager::loadActors() {
 					++a;
 				} else if(a == 0) {
 					a1 += line[i];
-				} else if(a == 1)  {
+				} else if(a == 1)  {	
 					a2 += line[i];
-				} else {
+				} else if(a == 2){
 					a3 += line[i];
 				}
 			}

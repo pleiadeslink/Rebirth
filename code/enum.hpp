@@ -19,7 +19,8 @@ namespace key {
         add,
         subtract,
         comma,
-        period
+        period,
+        enter
     };
 }
 

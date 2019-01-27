@@ -52,6 +52,7 @@ state["getPlayer"] = &c_helper::getPlayer; // Returns the player actor uid
 state["getActorMapX"] = &c_helper::getActorMapX;
 state["getActorMapY"] = &c_helper::getActorMapY;
 state["getHealth"] = &c_helper::getHealth;
+state["getMaxHealth"] = &c_helper::getMaxHealth;
 state["getMinDamage"] = &c_helper::getMinDamage;
 state["getMaxDamage"] = &c_helper::getMaxDamage;
 state["getAccuracy"] = &c_helper::getAccuracy;

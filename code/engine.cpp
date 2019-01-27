@@ -224,6 +224,9 @@ int c_engine::input() {
                 case sf::Keyboard::Escape: {
                     return key::escape;
                 }
+                case sf::Keyboard::Return: {
+                    return key::enter;
+                }
                 case sf::Keyboard::LControl: {
                     return key::lcontrol;
                 }

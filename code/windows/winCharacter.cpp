@@ -15,7 +15,7 @@ c_winCharacter::c_winCharacter(const int& x, const int& y, const int& width, con
 }
 
 void c_winCharacter::init()     {
-    map = new c_winMap(34, 0, 33, 13);
+    map = new c_winMap(0, 0, 33, 13);
 }
 
 int c_winCharacter::update(int key) {
@@ -50,11 +50,16 @@ int c_winCharacter::update(int key) {
 
 			// Update inventory list
 			inventory = engine -> game -> actorManager.getPlayer() -> player -> getInventory();
+			if(inventoryPos > inventory -> size() - 1) {
+				inventoryPos = inventory -> size() - 1;
+			} 
 
 			if(inventory -> size() > 0) {
 
 				// Item selection
 				engine -> interface.selectActor(inventory -> at(inventoryPos).uid);
+				c_actor* player = engine -> game -> actorManager.getPlayer();
+				c_actor* item = engine -> game -> actorManager.getActor(inventory -> at(inventoryPos).uid);
 
 				// Cursor
 				switch(key) {
@@ -74,20 +79,81 @@ int c_winCharacter::update(int key) {
 						return 0;
 					}
 					case key::d: {
+						if((item -> weapon and player -> player -> getEquippedItem(bodySlot::mainHand) == item -> getUid())
+						or (item -> armor and player -> player -> getEquippedItem(item -> armor -> getSlot()) == item -> getUid())) {
+							c_helper::gameMessage("You need to remove it first.", true);
+							return 0;
+						}
                         structEventData eventData;
                         eventData.type = "drop";
                         eventData.target = inventory -> at(inventoryPos).uid;
                         engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
-						engine -> interface.setMode(imode::game);
-                        return true;						
+						engine -> game -> update(0);
+                        return 0;						
 					}
 					case key::c: {
+						if(!engine -> game -> actorManager.getActor(inventory -> at(inventoryPos).uid) -> consumable) {
+							return 0;
+						}
                         structEventData eventData;
-                        eventData.type = "drink";
+                        eventData.type = "consume";
                         eventData.target = inventory -> at(inventoryPos).uid;
                         engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
-						engine -> interface.setMode(imode::game);
-                        return true;						
+						engine -> game -> update(0);
+                        return 0;						
+					}
+					case key::e: {
+						if(item -> weapon) {
+							if(player -> player -> getEquippedItem(bodySlot::mainHand) == item -> getUid()) {
+								c_helper::gameMessage("It is already equipped.", true);
+								return 0;
+							}
+							if(item -> weapon -> getType() == weaponType::oneHanded) {
+								if(player -> player -> getEquippedItem(bodySlot::mainHand)) {
+									c_helper::gameMessage("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::mainHand)) -> getName() + " first.", true);
+									return 0;
+								}
+							} else if(item -> weapon -> getType() == weaponType::twoHanded) {
+								if(player -> player -> getEquippedItem(bodySlot::mainHand)) {
+									c_helper::gameMessage("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::mainHand)) -> getName() + " first.", true);
+									return 0;
+								} else if(player -> player -> getEquippedItem(bodySlot::offHand)) {
+									c_helper::gameMessage("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::offHand)) -> getName() + " first.", true);
+									return 0;
+								}
+							}
+						} else if(item -> armor) {
+							if(player -> player -> getEquippedItem(item -> armor -> getSlot()) == item -> getUid()) {
+								c_helper::gameMessage("It is already equipped.", true);
+								return 0;
+							}
+						} else {
+							return 0;
+						}
+                        structEventData eventData;
+                        eventData.type = "equip";
+                        eventData.target = item -> getUid();
+                        engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
+						engine -> game -> update(0);
+                        return 0;						
+					}
+					case key::r: {
+						if(item -> weapon and player -> player -> getEquippedItem(bodySlot::mainHand) == item -> getUid())  {
+							structEventData eventData;
+							eventData.type = "remove";
+							eventData.target = item -> getUid();
+							engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
+							engine -> game -> update(0);
+							return 0;
+						} else if(item -> armor and player -> player -> getEquippedItem(item -> armor -> getSlot()) == item -> getUid())  {
+							structEventData eventData;
+							eventData.type = "remove";
+							eventData.target = item -> getUid();
+							engine -> game -> actorManager.getPlayer() -> action -> start(eventData);
+							engine -> game -> update(0);
+							return 0;
+						}
+						return 0;
 					}
 				}
 
@@ -144,41 +210,39 @@ void c_winCharacter::draw() {
 	c_actor* player = engine -> game -> actorManager.getPlayer();
 	if(player) {
 		//engine -> screen.drawTexture("statsBackground", (x + 1) * 16, (y + 1) * 16);
-		engine -> screen.drawTexture("statsTitle", (x + 1) * 16, (y + 1) * 16);
-		engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 1) * 16 + 8 + 1, (y + 1) * 16 + 4 + 1, sf::Color::Black);
-		engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 1) * 16 + 8, (y + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Health:", (x + 1) * 16 + 8, (y + 3) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getHealth()) + "/" + std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMaxHealth()), (x + 1 + 9) * 16 + 8, (y + 3) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Stamina:", (x + 1) * 16 + 8, (y + 4) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Mana:", (x + 1) * 16 + 8, (y + 5) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Constitution:", (x + 1) * 16 + 8, (y + 6) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()), (x + 1 + 9) * 16 + 8, (y + 6) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Agility:", (x + 1) * 16 + 8, (y + 7) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()), (x + 1 + 9) * 16 + 8, (y + 7) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Spirit:", (x + 1) * 16 + 8, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()), (x + 1 + 9) * 16 + 8, (y + 8) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Luck:", (x + 1) * 16 + 8, (y + 9) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()), (x + 1 + 9) * 16 + 8, (y + 9) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Exp:            356", (x + 1) * 16 + 8, (y + 10) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Next level:   sleep", (x + 1) * 16 + 8, (y + 11) * 16 + 4, sf::Color::White);
+		//engine -> screen.drawTexture("statsTitle", (x + 34) * 16, (y + 1) * 16);
+		//engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 35) * 16 + 8 + 1, (y + 1) * 16 + 4 + 1, sf::Color::Black);
+		//engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 35) * 16 + 8, (y + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Constitution:", (x + 35) * 16, (y + 3) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()), (x + 35 + 9) * 16, (y + 3) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Agility:", (x + 35) * 16, (y + 4) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()), (x + 35 + 9) * 16, (y + 4) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Willpower:", (x + 35) * 16, (y + 5) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()), (x + 35 + 9) * 16, (y + 5) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Luck:", (x + 35) * 16, (y + 6) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()), (x + 35 + 9) * 16, (y + 6) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Level:            1", (x + 35) * 16, (y + 8) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Exp:            356", (x + 35) * 16, (y + 9) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Next level:   sleep", (x + 35) * 16, (y + 10) * 16 + 4, sf::Color::White);
 
+		engine -> screen.drawText("Dagger:         30%", (x + 35 + 11) * 16, (y + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Sword:          12%", (x + 35 + 11) * 16, (y + 2) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Axe:            12%", (x + 35 + 11) * 16, (y + 3) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Mace:           12%", (x + 35 + 11) * 16, (y + 4) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Bow:            24%", (x + 35 + 11) * 16, (y + 5) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Dodge:          18%", (x + 35 + 11) * 16, (y + 6) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Parry:           8%", (x + 35 + 11) * 16, (y + 7) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Block:          14%", (x + 35 + 11) * 16, (y + 8) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Invocation:     20%", (x + 35 + 11) * 16, (y + 9) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Evocation:      15%", (x + 35 + 11) * 16, (y + 10) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Sneak:          32%", (x + 35 + 11) * 16, (y + 11) * 16 + 4, sf::Color::White);
 
-		engine -> screen.drawText("Melee:          30%", (x + 1 + 11) * 16, (y + 3) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Projectile:     24%", (x + 1 + 11) * 16, (y + 4) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Dodge:          18%", (x + 1 + 11) * 16, (y + 5) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Parry:           8%", (x + 1 + 11) * 16, (y + 6) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Block:          14%", (x + 1 + 11) * 16, (y + 7) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Invocation:     20%", (x + 1 + 11) * 16, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Evocation:      15%", (x + 1 + 11) * 16, (y + 9) * 16 + 4, sf::Color::White);
-
-		engine -> screen.drawText("Damage:       13-15", (x + 1 + 22) * 16 - 8, (y + 3) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Spell power:     10", (x + 1 + 22) * 16 - 8, (y + 4) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Armor:           27", (x + 1 + 22) * 16 - 8, (y + 5) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist heat:     24", (x + 1 + 22) * 16 - 8, (y + 6) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist cold:      0", (x + 1 + 22) * 16 - 8, (y + 7) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist poison:    8", (x + 1 + 22) * 16 - 8, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Temple:           0", (x + 1 + 22) * 16 - 8, (y + 9) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Frequency:     high", (x + 1 + 22) * 16 - 8, (y + 10) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Damage:       13-15", (x + 35 + 22) * 16 - 8, (y + 3) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Armor:           27", (x + 35 + 22) * 16 - 8, (y + 5) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Resist heat:     24", (x + 35 + 22) * 16 - 8, (y + 6) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Resist cold:      0", (x + 35 + 22) * 16 - 8, (y + 7) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Resist poison:    8", (x + 35 + 22) * 16 - 8, (y + 8) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Frequency:     high", (x + 35 + 22) * 16 - 8, (y + 10) * 16 + 4, sf::Color::White);
 	}
 
 
@@ -222,9 +286,23 @@ void c_winCharacter::draw() {
 						// Icon
 						engine -> screen.drawTile(p_item -> getTileX(), p_item -> getTileY(), (x + 2) * 16 + 12, (y + 18 + i) * 16 + (4 * i), p_item -> getColor());
 
-						// Name
+						// Name (brackets if equipped)
 						engine -> screen.drawText("Name", (x + 4) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
-						engine -> screen.drawText(p_item -> getName(), (x + 4) * 16 + 4, ypos, sf::Color::White);
+						if(p_item -> weapon) {
+							if(engine -> game -> actorManager.getPlayer() -> player -> getEquippedItem(bodySlot::mainHand) == p_item -> getUid()) {
+								engine -> screen.drawText("[" + p_item -> getName() + "]", (x + 4) * 16 + 4, ypos, sf::Color::White);
+							} else {
+								engine -> screen.drawText(p_item -> getName(), (x + 4) * 16 + 4, ypos, sf::Color::White);
+							}
+						} else if(p_item -> armor) {
+							if(engine -> game -> actorManager.getPlayer() -> player -> getEquippedItem(p_item -> armor -> getSlot()) == p_item -> getUid()) {
+								engine -> screen.drawText("[" + p_item -> getName() + "]", (x + 4) * 16 + 4, ypos, sf::Color::White);
+							} else {
+								engine -> screen.drawText(p_item -> getName(), (x + 4) * 16 + 4, ypos, sf::Color::White);
+							}							
+						} else {
+							engine -> screen.drawText(p_item -> getName(), (x + 4) * 16 + 4, ypos, sf::Color::White);
+						}
 
 						// Quantity
 						engine -> screen.drawText("Qty.", (x + 20) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
@@ -337,12 +415,12 @@ void c_winCharacter::draw() {
 						//engine -> screen.drawTile(p_item -> getTileX(), p_item -> getTileY(), (x + 2) * 16 + 12, (y + 18 + i) * 16 + (4 * i), p_item -> getColor());
 
 						// Name
-						engine -> screen.drawText("Name", (x + 4) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
-						engine -> screen.drawText(skill -> name, (x + 4) * 16 + 4, ypos, sf::Color::White);
+						engine -> screen.drawText("Name", (x + 3) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
+						engine -> screen.drawText(skill -> name, (x + 3) * 16 + 4, ypos, sf::Color::White);
 
-						// Quantity
-						//engine -> screen.drawText("Qty.", (x + 20) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
-						//engine -> screen.drawText(std::to_string(inventory -> at(i).quantity), (x + 20) * 16 + 4, ypos, color("lighter grey"));
+						// Duration
+						engine -> screen.drawText("Time", (x + 20) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
+						engine -> screen.drawText(std::to_string(skill -> duration) + "s", (x + 20) * 16 + 4, ypos, color("lighter grey"));
 
 						// Type
 						/*offset += 5;
@@ -453,10 +531,11 @@ void c_winCharacter::draw() {
 
 	// << FRAME >>
 
-	//drawFrame();
-	drawVLine(0, 0, 41);
-	drawHLine(0, 0, 34);
-	drawHBar(40);
+	drawFrame();
+	//drawVLine(0, 13, 28);
+	//drawVLine(60, 0, 28);
+	//drawHLine(33, 0, 34);
+	//drawHBar(40);
 
 	// Menu
 	//drawHBar(5);

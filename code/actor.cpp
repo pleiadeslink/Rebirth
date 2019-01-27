@@ -90,6 +90,7 @@ void c_actor::init(structActorAsset* asset) {
         }
         case actorType::potion: {
             body = new c_body(this, true, true, true, asset -> mass);
+            consumable = new c_consumable(this, asset -> effect[0], asset -> effect[1], asset -> effect[2], asset -> effect[3]);
             break;
         }
         case actorType::scroll: {
@@ -188,7 +189,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
         }
     
     // Consumable
-    } else if(consumable and fromWalk == false) {
+    }/* else if(consumable and fromWalk == false) {
         switch(consumable -> getAction()) {
             case event::drink: {
                 structEventData eventData;
@@ -217,7 +218,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
             return true;  
         }
                
-    }
+    }*/
     return false;
 }
 
