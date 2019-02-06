@@ -11,6 +11,7 @@ class c_helper {
 		static std::string justify(std::string string, const size_t size);
 		static void gameMessage(const std::string& text, const bool& unique = false);
 		static void toggleFullScreen(); // Changes between window and fullscreen mode
+		static void talk(const int& actor);
 
 		// * Sound
 

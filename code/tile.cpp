@@ -62,11 +62,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
 
             // Draw non-living actor
             if(v_actor.size() > 0 and !engine -> game -> actorManager.getActor(v_actor[0]) -> life) {
-                c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[0]);
-                if(p_actor -> getShadow() == true) {
-                    engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x + 1, y + 1, sf::Color::Black);
-                }
-                engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x, y, p_actor -> getColor());
+                engine -> game -> actorManager.getActor(v_actor[0]) -> draw(x, y);
             } else {
                 engine -> screen.drawTile(tileX, tileY, x, y, color);
             }
@@ -92,14 +88,10 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
         drawShadow(x, y);
 
         if(v_actor.size() == 1) {
-            c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[0]);
             engine -> screen.drawTile(11, 13, x, y, bgcolor);
             drawOverlay(x, y, type, olcolor);
             drawShadow(x, y);
-            if(p_actor -> getShadow() == true) {
-                engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x + 1, y + 1, sf::Color::Black); 
-            }
-            engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x, y, p_actor -> getColor());
+            engine -> game -> actorManager.getActor(v_actor[0]) -> draw(x, y);
             //engine -> screen.drawTexture("fog-night", x, y);
             return;
         }
@@ -114,10 +106,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
                 engine -> screen.drawTile(11, 13, x, y, bgcolor);
                 drawOverlay(x, y, type, olcolor);
                 drawShadow(x, y);
-                if(p_actor -> getShadow() == true) {
-                    engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x + 1, y + 1, sf::Color::Black);
-                }
-                engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x, y, p_actor -> getColor());
+                p_actor -> draw(x, y);
                 //engine -> screen.drawTexture("fog-night", x, y);
                 return;
             } else {

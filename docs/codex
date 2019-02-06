@@ -17,7 +17,7 @@
 * STATS *
 - Health
 - Stamina
-- Nuru
+- Mana
 - Attack
 - Armor
 - Dodge
@@ -51,12 +51,7 @@
 - Bow
 - Evocation
 - Invocation
-- Sneak
-- Steal
-- Light armor
-- Heavy armor
-- Force mechanism
-- Detect traps
+- Stealth
 
 * TALENTS*
 - Alertness
@@ -101,6 +96,5 @@
 - Trade
 - Learn
 - Chat
-- Advice
 - Background
 - Bye

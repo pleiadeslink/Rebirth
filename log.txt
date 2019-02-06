@@ -17,17 +17,17 @@ Actor 'skeleton_warrior' created.
 Actor 'skeleton_warrior' created.
 Actor 'skeleton_warrior' created.
 Actor 'skeleton_warrior' created.
+Actor 'health_potion' created.
 Actor 'avatar' created.
 Loading /texture/fog.png...
+Loading /texture/mage.png...
+Loading /texture/actor/skeleton.png...
 Loading /texture/healthbar.png...
 Loading /texture/targetbar.png...
 Loading /texture/ribbon.png...
 Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
-Loading /texture/detailsTitle.png...
-Loading /texture/listbar.png...
-Loading /texture/menuCursor.png...
 Loading /texture/sandglass.png...
 Actor 'coin' created.
 Actor 'coin' created.
@@ -63,8 +63,6 @@ Actor 'coin' created.
 Actor 'coin' created.
 Actor 'coin' created.
 Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
 Actor 'tree' created.
 Actor 'tree' created.
 Actor 'tree' created.
@@ -109,81 +107,6 @@ Actor 'health_potion' created.
 Actor 'health_potion' created.
 Actor 'health_potion' created.
 Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
 Actor 'coin' created.
 Actor 'coin' created.
 Actor 'coin' created.
@@ -214,8 +137,6 @@ Actor 'short_sword' created.
 Actor 'short_sword' created.
 Actor 'short_sword' created.
 Actor 'short_sword' created.
-Actor 'short_sword' created.
-Actor 'short_sword' created.
 Actor 'coin' created.
 Actor 'coin' created.
 Actor 'health_potion' created.
@@ -223,17 +144,42 @@ Actor 'health_potion' created.
 Actor 'health_potion' created.
 Actor 'health_potion' created.
 Actor 'short_sword' created.
+Actor 'coin' created.
+Actor 'coin' created.
+Actor 'coin' created.
+Actor 'coin' created.
+Actor 'coin' created.
+Actor 'coin' created.
+Actor 'coin' created.
 Actor 'short_sword' created.
 Actor 'coin' created.
 Actor 'coin' created.
 Actor 'coin' created.
 Actor 'coin' created.
 Actor 'coin' created.
+Actor 'skeleton_warrior' created.
 Actor 'coin' created.
 Actor 'coin' created.
-Actor 'coin' created.
-Actor 'short_sword' created.
-Actor 'short_sword' created.
 Loading /texture/wallmark.png...
 Loading /texture/tileShadowRight.png...
+Loading /texture/actor/tree.png...
+Loading /texture/tileShadowBottom.png...
+Loading /texture/tileShadowFull.png...
+Loading /texture/tileShadowBottomRight.png...
+Actor 'sham' created.
+Actor 'sham' created.
+Actor 'health_potion' created.
+Actor 'health_potion' created.
+Actor 'coin' created.
+Actor 'sham' created.
+Actor 'sham' created.
+Actor 'sham' created.
+Actor 'skeleton_warrior' created.
+Actor 'skeleton_warrior' created.
+Actor 'skeleton_warrior' created.
+Actor 'skeleton_warrior' created.
+Actor 'skeleton_warrior' created.
+Actor 'skeleton_warrior' created.
+Actor 'health_potion' created.
+Loading /texture/selectedTile.png...
 Goodbye!

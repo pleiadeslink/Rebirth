@@ -3,19 +3,20 @@
 [default]
 type: default
 name: Default
-texture: 0x4
+symbol: 0x4
 
 [avatar]
 type: avatar
 name: Avatar
-texture: 0x4
+texture: mage
+symbol: 0x4
 faction: avatar
 
 [abomination]
 type: creature
 name: Abomination
 desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
-texture: 15x8
+symbol: 15x8
 color: dark sepia
 health: 100
 damage: 30-40
@@ -28,7 +29,7 @@ exp: 100
 type: creature
 name: Bear
 desc: A large, powerful omnivore that inhabits many of Terra's forested hills. Equally happy consuming nuts, berries, fish, or small mammals, the bear is nonetheless fiercely territorial, and will chase off—or, failing that, kill and eat—any intruders it views as competition.
-texture: 2x6
+symbol: 2x6
 color: light sepia
 health: 100
 damage: 10-20
@@ -43,7 +44,7 @@ faction: animal
 type: creature
 name: Dog
 desc: This four-legged creature has a rought coat and wagging tail. Dogs make popular companions among other humans.
-texture: 4x6
+symbol: 4x6
 color: light sepia
 speed: 1
 speed_a: 1
@@ -56,7 +57,7 @@ faction: animal
 type: creature
 name: Horse
 desc: A proud and noble animal that thunders across the grassy plain with fluid grace, wind tugging at its loose-fitting barding.
-texture: 8x6
+symbol: 8x6
 color: white
 damage: 4-10
 speed: 1
@@ -68,7 +69,7 @@ exp: 10
 type: creature
 name: Hyena
 desc: Pack hunters infamous for their cunning and their unnerving, laughter-like vocalizations. They are largely scavengers, but aren't above supplementing their diet of carrion with fresh prey.
-texture: 8x6
+symbol: 8x6
 color: brass
 speed: 1
 damage: 8-14
@@ -82,7 +83,7 @@ exp: 30
 type: creature
 name: Dire rat
 desc: This filthy vermin is the size of a small dog. It has a coat of coarse fur, a long and scabby tail, and two glittering eyes.
-texture: 2x7
+symbol: 2x7
 color: dark grey
 speed: 2
 damage: 2-4
@@ -98,7 +99,7 @@ loot: 100.rat_corpse
 type: creature
 name: Serpopard
 desc: A beast with the body of a great cat topped with a long and serpentine neck that ends in a draconic head filled with savage teeth.
-texture: 3x5
+symbol: 3x5
 color: amber
 speed: 2
 damage: 30-50
@@ -113,7 +114,8 @@ faction: animal
 type: creature
 name: skeleton warrior
 desc: Clad in corroded armour, their lifeless hands gripping swords, spears and shields these mindless automatons take up their blades when the clarion call of battle sounds, ready once more to fight for their king.
-texture: 3x7
+texture: actor/skeleton
+symbol: 3x7
 color: white
 health: 80
 damage: 80
@@ -131,7 +133,8 @@ loot: 50.weapon_physical_1|100.skeleton_corpse|20.shield_1
 [skeleton_sorcerer]
 type: creature
 name: Skeleton Sorcerer
-texture: 3x7
+texture: actor/skeletonSorcerer
+symbol: 3x7
 color: azure
 damage: 2-2
 spell: curse
@@ -145,7 +148,7 @@ loot: 100.skeleton_corpse
 type: creature
 name: Snake
 desc: Countless species of these poisonous serpents dwell in the wild, their bites capable of bringing down creatures much larger than themselves.
-texture: 3x7
+symbol: 3x7
 color: green
 speed: 1
 damage: 5-10
@@ -164,7 +167,7 @@ exp: 15
 type: weapon
 name: Short sword
 desc: A small, sharp blade made of steel held by a grip wrapped in leather.
-texture: 3x17
+symbol: 3x17
 color: grey
 type_w: one_handed
 category_w: sword
@@ -193,7 +196,8 @@ desc: A small shield gripped in the fist with a central handle behind the boss.
 type: misc
 name: Barrel
 desc: A cylindrical container made of wood, commonly used to store water and supplies.
-texture: 0x17
+texture: actor/barrel
+symbol: 0x17
 color: sepia
 canMove: 0
 canGet: 0
@@ -202,7 +206,7 @@ canGet: 0
 type: misc
 name: Bed
 desc: A pile of straw lying on top of a wooden platform raised off the ground to avoid pests. Used as a place to sleep or relax.
-texture: 1x16
+symbol: 1x16
 color: lighter grey
 canMove: 0
 canGet: 0
@@ -211,7 +215,7 @@ canGet: 0
 type: misc
 name: Gold coin
 desc: A coin made of gold used as a currency to trade with goods and services.
-texture: 7x0
+symbol: 7x0
 color: gold
 mass: 0.01
 
@@ -219,21 +223,21 @@ mass: 0.01
 type: container
 name: Chest
 desc: Chests are popular among adventureres because of the treasures that are often stored inside.
-texture: 12x13
+symbol: 12x13
 color: sepia
 
 [door]
 type: door
 name: Door
 desc: A solid, wooden door.
-texture: 2x16
+symbol: 2x16
 color: dark sepia
 
 [fence]
 type: misc
 name: Fence
 desc: This structure is constructed from posts connected by wood boards and is commonly used to enclose livestock.
-texture: 1x13
+symbol: 1x13
 color: sepia
 canMove: 0
 canGet: 0
@@ -242,7 +246,7 @@ canGet: 0
 type: potion
 name: Health potion
 desc: This magic elixir restores its user's health.
-texture: 13x10
+symbol: 13x10
 color: red
 mass: 0.3
 effect: restore|50|health
@@ -250,14 +254,14 @@ effect: restore|50|health
 [magic_scroll]
 type: scroll
 name: Magic Scroll
-texture: 0x0
+symbol: 0x0
 mass: 0.2
 
 [shrub]
 type: misc
 name: Shrub
 desc: A short, woody plant.
-texture: 10x2
+symbol: 10x2
 color: darker chartreuse
 canMove: 0
 canGet: 0
@@ -266,7 +270,7 @@ canGet: 0
 type: misc
 name: Singpost
 desc: A wooden signpost, its indications are most helpful to wandering travelers.
-texture: 0x2
+symbol: 0x2
 color: dark sepia
 canMove: 0
 canGet: 0
@@ -276,7 +280,7 @@ type: staircase
 direction: down
 name: Staircase
 desc: These solid stairs allow you to travel one level down.
-texture: 0x1
+symbol: 0x1
 color: grey
 canGet: 0
 
@@ -285,7 +289,7 @@ type: staircase
 direction: up
 name: Staircase
 desc: These solid stairs allow you to travel one level up.
-texture: 1x1
+symbol: 1x1
 color: grey
 canView: 0
 canGet: 0
@@ -294,7 +298,7 @@ canGet: 0
 type: misc
 name: Table
 desc: A wooden table.
-texture: 2x13
+symbol: 2x13
 color: sepia
 canMove: 0
 canGet: 0
@@ -303,7 +307,8 @@ canGet: 0
 type: misc
 name: Tree
 desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
-texture: 5x0
+texture: actor/tree
+symbol: 5x0
 color: darker chartreuse
 canMove: 0
 canGet: 0
@@ -312,7 +317,7 @@ canGet: 0
 type: misc
 name: Urn
 desc: A tall, rounded vase carved with numerous geometric patterns.
-texture: 8x14
+symbol: 8x14
 color: darker amber
 canMove: 0
 canGet: 0
@@ -321,7 +326,7 @@ canGet: 0
 type: misc
 name: Wheat
 desc: A cereal grain that yields a fine white flour used chiefly in breads and baked goods.
-texture: 15x10
+symbol: 15x10
 color: light amber
 mass: 2
 
@@ -337,7 +342,7 @@ type: trigger
 [sham]
 type: location
 name: Sham
-texture: 3x16
+symbol: 3x16
 color: light sepia
 
 [end]

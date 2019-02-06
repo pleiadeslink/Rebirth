@@ -48,6 +48,7 @@ struct structActorAsset {
     std::string name;
     std::string plural;
     std::string description;
+    std::string texture;
     int tx;
     int ty;
     sf::Color color;

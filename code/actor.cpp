@@ -52,6 +52,7 @@ void c_actor::init(structActorAsset* asset) {
     name = asset -> name;
     plural = asset -> plural;
     description = asset -> description;
+    texture = asset -> texture;
     tileX = asset -> tx;
     tileY = asset -> ty;
     color = asset -> color;
@@ -112,6 +113,20 @@ void c_actor::init(structActorAsset* asset) {
             break;
         }
     }    
+}
+
+void c_actor::draw(const int& x, const int& y) {
+    if(texture != "") {
+        /*if(shadow == true) {
+            engine -> screen.drawTexture(texture, x + 1, y + 1, 0); 
+        }*/
+        engine -> screen.drawTexture(texture, x, y); 
+        return;
+    }
+    /*if(shadow == true) {
+        engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black); 
+    }*/
+    engine -> screen.drawTile(tileX, tileY, x, y, color);
 }
 
 void c_actor::timeUpdate() {

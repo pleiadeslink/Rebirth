@@ -228,14 +228,15 @@ void c_winCharacter::draw() {
 		engine -> screen.drawText("Dagger:         30%", (x + 35 + 11) * 16, (y + 1) * 16 + 4, sf::Color::White);
 		engine -> screen.drawText("Sword:          12%", (x + 35 + 11) * 16, (y + 2) * 16 + 4, sf::Color::White);
 		engine -> screen.drawText("Axe:            12%", (x + 35 + 11) * 16, (y + 3) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Mace:           12%", (x + 35 + 11) * 16, (y + 4) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Bow:            24%", (x + 35 + 11) * 16, (y + 5) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Dodge:          18%", (x + 35 + 11) * 16, (y + 6) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Parry:           8%", (x + 35 + 11) * 16, (y + 7) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Block:          14%", (x + 35 + 11) * 16, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Invocation:     20%", (x + 35 + 11) * 16, (y + 9) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Evocation:      15%", (x + 35 + 11) * 16, (y + 10) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Sneak:          32%", (x + 35 + 11) * 16, (y + 11) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Staff:          12%", (x + 35 + 11) * 16, (y + 4) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Mace:           12%", (x + 35 + 11) * 16, (y + 5) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Bow:            24%", (x + 35 + 11) * 16, (y + 6) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Dodge:          18%", (x + 35 + 11) * 16, (y + 7) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Parry:           8%", (x + 35 + 11) * 16, (y + 8) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Block:          14%", (x + 35 + 11) * 16, (y + 9) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Invocation:     20%", (x + 35 + 11) * 16, (y + 10) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Evocation:      15%", (x + 35 + 11) * 16, (y + 11) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Stealth:          32%", (x + 35 + 11) * 16, (y + 12) * 16 + 4, sf::Color::White);
 
 		engine -> screen.drawText("Damage:       13-15", (x + 35 + 22) * 16 - 8, (y + 3) * 16 + 4, sf::Color::White);
 		engine -> screen.drawText("Armor:           27", (x + 35 + 22) * 16 - 8, (y + 5) * 16 + 4, sf::Color::White);
@@ -385,7 +386,7 @@ void c_winCharacter::draw() {
 						}
 					}
 				}
-				engine -> screen.drawTexture("menuCursor", (x + 1) * 16 + 4, (y + 18 + inventoryPos) * 16 + (inventoryPos) * 4);
+				engine -> screen.drawTexture("gui/cursor", (x + 1) * 16 + 4, (y + 18 + inventoryPos) * 16 + (inventoryPos) * 4);
 			}
 			break;
 		}
@@ -499,7 +500,7 @@ void c_winCharacter::draw() {
 						}*/
 					}
 				}
-				engine -> screen.drawTexture("menuCursor", (x + 1) * 16 + 4, (y + 18 + skillsPos) * 16 + (skillsPos) * 4);
+				engine -> screen.drawTexture("gui/cursor", (x + 1) * 16 + 4, (y + 18 + skillsPos) * 16 + (skillsPos) * 4);
 			}
 			break;
 		}

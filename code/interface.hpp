@@ -41,6 +41,7 @@ class c_interface {
 
         int getMode() { return mode; }
         void edit();
+        void talk(const int& actor); // Opens a talk window in the interface with several dialogue options
         void selectTile(c_tile* tile) { sTile = tile; }
         void selectActor(const int& actor) { sActor = actor; }
         void selectSkill(std::string skill) { sSkill = skill; }

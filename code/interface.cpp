@@ -116,6 +116,16 @@ void c_interface::edit() {
     this -> mode = imode::game;
 }
 
+// Opens a talk window in the interface with several dialogue options
+void c_interface::talk(const int& actor) {
+    std::string path = "data/dialogue/" + engine -> game -> actorManager.getActor(actor) -> getId() + ".dat";
+    if(!TCODSystem::fileExists(path.c_str())) {
+        engine -> message(path + " does not exist.");
+        return;
+    }
+    
+}
+
 int c_interface::selectCloseTarget(const int& prevMode, const std::string& targetText) {
     if(!engine -> game or !engine -> game -> map or !engine -> game -> actorManager.getPlayer()) {
         return 0;

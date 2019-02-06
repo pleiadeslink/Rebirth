@@ -16,6 +16,7 @@ class c_actor {
         std::string name;
         std::string plural;
         std::string description;
+        std::string texture;
         int tileX;
         int tileY;
         bool shadow;
@@ -41,6 +42,7 @@ class c_actor {
         c_actor(const int& uid);
         ~c_actor();
         void init(structActorAsset* asset);
+        void draw(const int& x, const int& y);
         void timeUpdate();
         void save(TCODZip* zip);
         void load(TCODZip* zip);

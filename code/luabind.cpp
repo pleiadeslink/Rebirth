@@ -3,6 +3,7 @@ state["random"] = &c_helper::random;
 state["test"] = &c_helper::test;
 state["message"] = &c_helper::gameMessage;
 state["fullscreen"] = &c_helper::toggleFullScreen; // Changes between window and fullscreen mode
+state["talk"] = &c_helper::talk; // Opens a talk window in the interface with several dialogue options
 
 // Sound
 state["playAmbience"] = &c_helper::playAmbience;

@@ -85,6 +85,12 @@ void c_assetManager::loadActors() {
 		key = "texture: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
+			asset.texture = line;
+		}
+
+		key = "symbol: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
 			bool digit = 0;
 			std::string n1 = "";
 			std::string n2 = "";
@@ -349,6 +355,7 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.name = "Default";
 	asset.plural = "defaults";
 	asset.description = "Default description";
+	asset.texture = "";
 	asset.tx = 1;
 	asset.ty = 0;
 	asset.color = sf::Color::White;

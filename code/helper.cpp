@@ -59,6 +59,10 @@ void c_helper::toggleFullScreen() {
 	}
 }
 
+void c_helper::talk(const int& actor) {
+	engine -> interface.talk(actor);
+}
+
 void c_helper::playAmbience(std::string track) {
 	engine -> sound.playAmbience(track);
 }
