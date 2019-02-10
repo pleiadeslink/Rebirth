@@ -8,7 +8,7 @@ symbol: 0x4
 [avatar]
 type: avatar
 name: Avatar
-texture: mage
+texture: reysimio
 symbol: 0x4
 faction: avatar
 
@@ -40,6 +40,11 @@ protection: 5
 exp: 15
 faction: animal
 
+[direWolf]
+type: creature
+name: Dire wolf
+desc:  These swift and cunning canines seldom fall for the same trick twice which makes them difficult to deal with.
+
 [dog]
 type: creature
 name: Dog
@@ -52,6 +57,21 @@ accuracy: 70
 protection: 2
 exp: 8
 faction: animal
+
+[dragon]
+type: creature
+name: Dragon
+desc: Capable of levelling villages and reducing a fully armoured knight to cinders in an instant, the fiery breath of these huge creatures is widely feared.
+
+[dryad]
+type: creature
+name: Dryad
+desc: Dryads are capricious female nature spirits that dwell exclusively within deep forests. Be not fooled by their beautiful guises, nor their attempts to cloak themselves in the trappings of the natural world to throw off suspicion as to their true evil nature.
+
+[giantSpider]
+type: creature
+name: Giant spider
+desc: Closely resembling ordinary spiders, but with a body the length of a man’s and unnaturally long legs, giant spiders are horrifically mutated versions of their lesser counterparts, swollen to a monstrous size by the forces of Chaos. Their heads are surmounted by up to eight large eyes and an even larger pair of mandibles.
 
 [horse]
 type: creature
@@ -79,10 +99,20 @@ accuracy: 60
 dodge: 40
 exp: 30
 
+[mummy]
+type: creature
+name: Mummy
+desc: An undead creature whose corpse has been mummified and animated, often through the power of an evil god. Mummies are often found in ancient burial mounds.
+
+[ogre]
+type:creature
+name: Ogre
+desc: Ogres are big, ugly, brutish monsters that excel at two things: eating and fighting. Their grayish, flabby skin conceals tough muscle and alarming endurance. Amongst most folk, this combined with their bristle-like hair and poor personal hygiene is enough reason to shun these crude beasts.
+
 [rat]
 type: creature
 name: Dire rat
-desc: This filthy vermin is the size of a small dog. It has a coat of coarse fur, a long and scabby tail, and two glittering eyes.
+desc: Giant rats are usually around five to six feet long, with dirty, matted fur and sharp teeth. They’re frequently disease carriers and the wounds they inflict have a good chance of becoming infected.
 symbol: 2x7
 color: dark grey
 speed: 2
@@ -99,7 +129,6 @@ loot: 100.rat_corpse
 type: creature
 name: Serpopard
 desc: A beast with the body of a great cat topped with a long and serpentine neck that ends in a draconic head filled with savage teeth.
-symbol: 3x5
 color: amber
 speed: 2
 damage: 30-50
@@ -109,13 +138,12 @@ accuracy: 120
 dodge: 60
 exp: 3000
 
-[skeleton_warrior]
+[skeletonWarrior]
 faction: animal
 type: creature
 name: skeleton warrior
-desc: Clad in corroded armour, their lifeless hands gripping swords, spears and shields these mindless automatons take up their blades when the clarion call of battle sounds, ready once more to fight for their king.
-texture: actor/skeleton
-symbol: 3x7
+desc: An undead warrior clad in corroded armor. Skeletons are animated by powerful necromantic sorcery. Unlike the more powerful corporeal undead such as wights and mummies, skeletons do not retain any trace of the spirit or essence of their former owners. They are kept animate purely by sorcery.
+texture: reaper
 color: white
 health: 80
 damage: 80
@@ -130,11 +158,10 @@ resist: pierce|blunt
 exp: 40
 loot: 50.weapon_physical_1|100.skeleton_corpse|20.shield_1
 
-[skeleton_sorcerer]
+[skeletonSorcerer]
 type: creature
 name: Skeleton Sorcerer
-texture: actor/skeletonSorcerer
-symbol: 3x7
+texture: reaper
 color: azure
 damage: 2-2
 spell: curse
@@ -148,7 +175,6 @@ loot: 100.skeleton_corpse
 type: creature
 name: Snake
 desc: Countless species of these poisonous serpents dwell in the wild, their bites capable of bringing down creatures much larger than themselves.
-symbol: 3x7
 color: green
 speed: 1
 damage: 5-10
@@ -157,17 +183,32 @@ accuracy: 80
 dodge: 60
 exp: 15
 
+[vampire]
+type: creature
+name: Vampire
+desc: Vampires are notorious for their urge to drink the blood of the living, which they must do regularly if they are to continue in their undead existence. For most vampires, this frenzied desire for blood is their main concern.
+
+[wyvern]
+desc: Wyverns are black, scaled saurials whose mouth are filled with sharp teeth. It has only hind legs, using them the same way a hunting bird would.
+
+[zombie]
+type: creature
+name: Zombie
+desc: Zombies are created by much the same process as are skeletons, but if anything Zombies are even less effective. Their rotten flesh is a hindrance to their movement, and there is nothing quite so lacking in agility as a Zombie. However, they are slightly easier to create than skeletons, and so are often used in incredible numbers as servitors and soldiers for undead lords and necromancers.
+
 ##########################################################################################
 ##########################################################################################
 ##   WEAPONS                                                                            ##
 ##########################################################################################
 ##########################################################################################
 
-[short_sword]
+[dagger]
+desc: A small, fast weapon that can be useful in various situations.
+
+[shortSword]
 type: weapon
 name: Short sword
-desc: A small, sharp blade made of steel held by a grip wrapped in leather.
-symbol: 3x17
+desc: A small, sharp blade made of steel.
 color: grey
 type_w: one_handed
 category_w: sword
@@ -175,16 +216,80 @@ damage: 3-6
 speed: 1
 mass: 5
 
+[gladius]
+type: weapon
+name: Gladius
+desc: The gladius is the favorite short sword of gladiators, with a heavier blade than the standard short sword. It serves well as a slashing weapon.
+color: grey
+type_w: one_handed
+category_w: sword
+damage: 9-14
+speed: 1
+mass: 5
+
+[claymore]
+desc: This larger type of greatsword is normally wielded with two hands due to its weight.
+
+[scimitar]
+desc: A small curved sword of Eyropea origin.
+
+[falcata]
+
+[machete]
+
+[club]
+type: weapon
+name: Club
+desc: This weapon is just a shaped piece of wood.
+color: grey
+type_w: one_handed
+category_w: sword
+damage: 9-14
+speed: 1
+mass: 5
+
+[shortBow]
+desc: Standard projectile weapon.
+
+[longBow]
+desc: A popular projectile weapon among experienced hunters.
+
+[compositeBow]
+
 ##########################################################################################
 ##########################################################################################
 ##   ARMOR                                                                              ##
 ##########################################################################################
 ##########################################################################################
 
+[leatherArmor]
+desc: Leather armor is made up of multiple overlapping pieces of leather, boiled to increase their natural toughness and then deliberately stitched together. Although not as sturdy as metal armor, the flexibility it allows wearers makes it among the most widely used types of armor.
+
+[studdedLeatherArmor]
+desc: An improved form of leather armor, studded leather armor is covered with dozens of metal protuberances.
+
+[scaleMail]
+desc: Scale mail is made up of dozens of small, overlapping metal plates. Similar to both splint mail and banded mail, scalemail has a flexible arrangement of scales in an attempt to avoid hindering the wearer’s mobility, but at the expense of omitting additional protective layers of armor. A suit of scale mail includes gauntlets.
+
+[breastPlate]
+desc: A breastplate protects a wearer’s torso with a single piece of sculpted metal, similar to the core piece of a suit of full plate. Despite its sturdiness, its inflexibility and open back make it inferior to complete suits of metal armor, but still an improvement over most non-metal armors.
+
+[fullPlate]
+desc: This metal suit comprises multiple pieces of interconnected and overlaying metal plates, incorporating the benefits of numerous types of lesser armor.
+
 [buckler]
 type: armor
 name: Buckler
-desc: A small shield gripped in the fist with a central handle behind the boss.
+desc: Very small round metal shield.
+
+[leatherShield]
+desc: Round leather-covered shield.
+
+[woodShield]
+desc: Wooden shield lighter than metal shields, but more fragile too.
+
+[towerShield]
+desc: This thick plate of iron is heavily defensive but ultra heavy.
 
 ##########################################################################################
 ##########################################################################################
@@ -197,7 +302,6 @@ type: misc
 name: Barrel
 desc: A cylindrical container made of wood, commonly used to store water and supplies.
 texture: actor/barrel
-symbol: 0x17
 color: sepia
 canMove: 0
 canGet: 0
@@ -206,7 +310,6 @@ canGet: 0
 type: misc
 name: Bed
 desc: A pile of straw lying on top of a wooden platform raised off the ground to avoid pests. Used as a place to sleep or relax.
-symbol: 1x16
 color: lighter grey
 canMove: 0
 canGet: 0
@@ -215,7 +318,7 @@ canGet: 0
 type: misc
 name: Gold coin
 desc: A coin made of gold used as a currency to trade with goods and services.
-symbol: 7x0
+texture: coin
 color: gold
 mass: 0.01
 
@@ -223,21 +326,18 @@ mass: 0.01
 type: container
 name: Chest
 desc: Chests are popular among adventureres because of the treasures that are often stored inside.
-symbol: 12x13
 color: sepia
 
 [door]
 type: door
 name: Door
 desc: A solid, wooden door.
-symbol: 2x16
 color: dark sepia
 
 [fence]
 type: misc
 name: Fence
 desc: This structure is constructed from posts connected by wood boards and is commonly used to enclose livestock.
-symbol: 1x13
 color: sepia
 canMove: 0
 canGet: 0
@@ -246,7 +346,7 @@ canGet: 0
 type: potion
 name: Health potion
 desc: This magic elixir restores its user's health.
-symbol: 13x10
+texture: red_potion
 color: red
 mass: 0.3
 effect: restore|50|health
@@ -254,14 +354,12 @@ effect: restore|50|health
 [magic_scroll]
 type: scroll
 name: Magic Scroll
-symbol: 0x0
 mass: 0.2
 
 [shrub]
 type: misc
 name: Shrub
 desc: A short, woody plant.
-symbol: 10x2
 color: darker chartreuse
 canMove: 0
 canGet: 0
@@ -270,7 +368,6 @@ canGet: 0
 type: misc
 name: Singpost
 desc: A wooden signpost, its indications are most helpful to wandering travelers.
-symbol: 0x2
 color: dark sepia
 canMove: 0
 canGet: 0
@@ -280,7 +377,6 @@ type: staircase
 direction: down
 name: Staircase
 desc: These solid stairs allow you to travel one level down.
-symbol: 0x1
 color: grey
 canGet: 0
 
@@ -289,7 +385,6 @@ type: staircase
 direction: up
 name: Staircase
 desc: These solid stairs allow you to travel one level up.
-symbol: 1x1
 color: grey
 canView: 0
 canGet: 0
@@ -298,7 +393,6 @@ canGet: 0
 type: misc
 name: Table
 desc: A wooden table.
-symbol: 2x13
 color: sepia
 canMove: 0
 canGet: 0
@@ -307,17 +401,16 @@ canGet: 0
 type: misc
 name: Tree
 desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
-texture: actor/tree
-symbol: 5x0
+texture: tree
 color: darker chartreuse
 canMove: 0
 canGet: 0
+TALL
 
 [urn]
 type: misc
 name: Urn
 desc: A tall, rounded vase carved with numerous geometric patterns.
-symbol: 8x14
 color: darker amber
 canMove: 0
 canGet: 0
@@ -326,7 +419,6 @@ canGet: 0
 type: misc
 name: Wheat
 desc: A cereal grain that yields a fine white flour used chiefly in breads and baked goods.
-symbol: 15x10
 color: light amber
 mass: 2
 
@@ -342,7 +434,6 @@ type: trigger
 [sham]
 type: location
 name: Sham
-symbol: 3x16
 color: light sepia
 
 [end]

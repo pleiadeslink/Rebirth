@@ -5,11 +5,10 @@
 - c_winSidebar::update: copy v_tileAsset by reference instead of value to increase performance
 - c_winSidebar::update: assets don't need to be assigned to buttons every time, this should only be done once
 - Fade to black when going to world map
-! Bug: actor is not seen if another item is on the same tile in god mode
 - Map scrolling in edit mode
-! Bug: ambience loading buggy
 - Inventory should have its own class
 - REFACTORING (pointers, etc)
 - Skills should have its own class
 - Cambiar evento data type por algo más descriptivo
 - Refactorizar c_winCharacter::draw() para que los títulos no se muestren en cada iteracion
+- Hacer para que los actores que viven no se vean en el fog

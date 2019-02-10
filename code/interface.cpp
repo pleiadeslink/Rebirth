@@ -22,13 +22,13 @@ void c_interface::init()     {
     targetText = "";
     inputText = "";
     pasteMode = false;
-    info = new c_winInfo(44, 16, 23, 25);
-    map = new c_winMap(0, 0, 67, 41);
+    info = new c_winInfo(44, 16, 23, 23);
+    map = new c_winMap(0, 0, 34, 20);
     gamelog = new c_winGamelog(0, 35, 80, 10);
     //sidebar = new c_winSidebar("sidebar", 0, 43, 80, 2);
-    character = new c_winCharacter(0, 0, 67, 41);
+    character = new c_winCharacter(0, 0, 67, 39);
     character -> init();
-    sidebar = new c_winSidebar(67, 0, 13, 45);
+    sidebar = new c_winSidebar(66, 0, 14, 45);
     sidebar -> init();
 }
 

@@ -51,11 +51,14 @@ void c_screen::drawTile(const int& charX, const int& charY, const int& x, const 
     window.draw(sprite);
 }
 
-void c_screen::drawTexture(const std::string& id, const int& x, const int& y, const sf::Uint8& light) {
+void c_screen::drawTexture(const std::string& id, const int& x, const int& y, const float& scale, const sf::Uint8& light) {
 
 	sf::Sprite sprite;
 	sprite.setTexture(*(engine -> assetManager.getTextureAsset(id)));
 	sprite.setPosition(x, y);
+    if(scale != 1) {
+        sprite.setScale(scale, scale);
+    }
     window.draw(sprite);
 }
 
@@ -112,4 +115,11 @@ const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Co
     return 1;
 }
 
-
+void c_screen::drawPLine(const int& x1, const int& y1, const int& x2, const int& y2, const sf::Color color) {
+    sf::VertexArray lines(sf::LinesStrip, 2);;
+    lines[0].position = sf::Vector2f(x1, y1);
+    lines[0].color = color;
+    lines[1].position = sf::Vector2f(x2, y2);
+    lines[1].color = color;
+    window.draw(lines);
+}

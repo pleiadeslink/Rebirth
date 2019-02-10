@@ -285,7 +285,7 @@ void c_winCharacter::draw() {
 						engine -> screen.drawTexture("listbar", (x + 1) * 16, (y + 18 + i) * 16 + (4 * i));
 
 						// Icon
-						engine -> screen.drawTile(p_item -> getTileX(), p_item -> getTileY(), (x + 2) * 16 + 12, (y + 18 + i) * 16 + (4 * i), p_item -> getColor());
+						engine -> screen.drawTexture(p_item -> getTexture(), (x + 2) * 16 + 12, (y + 18 + i) * 16 + (4 * i), 0.5);
 
 						// Name (brackets if equipped)
 						engine -> screen.drawText("Name", (x + 4) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
@@ -554,7 +554,7 @@ void c_winCharacter::draw() {
 	drawVLine(44, 16, height - 16);
 
 	// Map
-	map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
+	//map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
 
 	return;
 }

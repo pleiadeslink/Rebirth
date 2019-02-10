@@ -1,185 +1,46 @@
 ---------
  REBIRTH 
 ---------
-Loading tiles...
 Loading maps...
-Actor 'sham' created.
-Actor 'sham' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'coin' created.
-Actor 'sham' created.
-Actor 'sham' created.
-Actor 'sham' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'health_potion' created.
+Actor 'barrel' created.
+Actor 'barrel' created.
+Actor 'barrel' created.
+Actor 'barrel' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
+Actor 'tree' created.
 Actor 'avatar' created.
+Loading /texture/tile/floor_grass.png...
 Loading /texture/fog.png...
-Loading /texture/mage.png...
-Loading /texture/actor/skeleton.png...
+Loading /texture/actor/tree.png...
+Loading /texture/tile/wall_brownRock.png...
+Loading /texture/tileShadowBottom.png...
+Loading /texture/tileShadowFull.png...
+Loading /texture/tileShadowRight.png...
+Loading /texture/tile/wall_wood.png...
+Loading /texture/tile/floor_tiled.png...
+Loading /texture/tileShadowBottomRight.png...
+Loading /texture/actor/player/base.png...
+Loading /texture/tile/wall_snake.png...
+Loading /texture/actor/actor/barrel.png...
 Loading /texture/healthbar.png...
-Loading /texture/targetbar.png...
 Loading /texture/ribbon.png...
 Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
-Loading /texture/sandglass.png...
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'short_sword' created.
-Actor 'short_sword' created.
-Actor 'short_sword' created.
-Actor 'short_sword' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'short_sword' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'short_sword' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Actor 'skeleton_warrior' created.
-Actor 'coin' created.
-Actor 'coin' created.
-Loading /texture/wallmark.png...
-Loading /texture/tileShadowRight.png...
-Loading /texture/actor/tree.png...
-Loading /texture/tileShadowBottom.png...
-Loading /texture/tileShadowFull.png...
-Loading /texture/tileShadowBottomRight.png...
-Actor 'sham' created.
-Actor 'sham' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'coin' created.
-Actor 'sham' created.
-Actor 'sham' created.
-Actor 'sham' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'skeleton_warrior' created.
-Actor 'health_potion' created.
 Loading /texture/selectedTile.png...
+Loading /texture/detailsTitle.png...
+Loading /texture/listbar.png...
+Loading /texture/gui/cursor.png...
 Goodbye!

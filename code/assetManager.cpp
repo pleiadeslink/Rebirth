@@ -1,3 +1,70 @@
+void c_assetManager::loadTiles() {
+	structTileAsset asset;
+	asset = clearTileAsset(asset);
+	std::string line;
+	std::string key;
+	bool n = true;
+	std::ifstream file("data/tile.dat");
+    while(getline(file, line)) {
+		if(line[0] == '[') {
+
+			// Save previous dump and clear asset
+			if(n == false) {
+				v_tileAsset.push_back(asset);
+				asset = clearTileAsset(asset);
+			}
+
+			// Get new id name
+			bool found = false;
+			int i = 1;
+			std::string id;
+			while(found == false) {
+				id.push_back(line[i]);
+				if(line[i + 1] == ']') {
+					found = true;
+				}
+				++i;
+			}
+			n = false;
+			asset.id = id;
+		}
+
+		key = "name: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.name = line;
+		}
+
+		key = "type: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			if(line == "floor") {
+				asset.type = tileType::floor;
+			} else if(line == "wall") {
+				asset.type = tileType::wall;
+			} else if(line == "obstacle") {
+				asset.type = tileType::obstacle;
+			} else if(line == "water") {
+				asset.type = tileType::water;
+			} else if(line == "deepWater") {
+				asset.type = tileType::deepWater;
+			} else if(line == "lava") {
+				asset.type = tileType::lava;
+			}
+		}
+
+		key = "texture: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.texture = "tile/";
+			asset.texture.append(line);
+		}
+    }
+    if(file.is_open()) {
+        file.close();
+	}
+}
+
 void c_assetManager::loadActors() {
 	structActorAsset asset;
 	asset = clearActorAsset(asset);
@@ -85,7 +152,13 @@ void c_assetManager::loadActors() {
 		key = "texture: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
-			asset.texture = line;
+			asset.texture = "actor/";
+			asset.texture.append(line);
+		}
+
+		key = "TALL";
+		if(line.find(key) != std::string::npos) {
+			asset.tall = true;
 		}
 
 		key = "symbol: ";
@@ -349,6 +422,14 @@ void c_assetManager::loadSkills() {
 	}
 }
 
+structTileAsset c_assetManager::clearTileAsset(structTileAsset asset) {
+    asset.id = "default";
+    asset.name = "default";
+    asset.type = tileType::floor;
+    asset.texture = "default";
+	return asset;
+}
+
 structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.id = "default";
 	asset.type = 0;
@@ -356,6 +437,7 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.plural = "defaults";
 	asset.description = "Default description";
 	asset.texture = "";
+	asset.tall = false;
 	asset.tx = 1;
 	asset.ty = 0;
 	asset.color = sf::Color::White;
@@ -403,6 +485,7 @@ s_skillAsset c_assetManager::clearSkillAsset(s_skillAsset asset) {
 
 void c_assetManager::load() {
 
+	loadTiles();
 	loadActors();
 	loadSkills();
 
@@ -417,77 +500,6 @@ void c_assetManager::load() {
 	// <<< LOAD TILESET >>>
 	tileset.loadFromFile("data/texture/terminal.png");
 
-    // <<< LOAD TILES >>>
-	engine -> message("Loading tiles...");
-	TiXmlDocument xmldoctile("data/tiles.xml");
-	if(!xmldoctile.LoadFile()) {
-		std::stringstream s;
-		s << xmldoctile.ErrorDesc() << ".";
-		engine -> message(s.str());
-		exit(1);
-	}
-	TiXmlElement* tile = xmldoctile.FirstChildElement("tile");
-	while(tile) {
-
-        structTileAsset newTile;
-
-	    newTile.id;
-	    newTile.name;
-	    newTile.tileX = 0;
-	    newTile.tileY = 0;
-	    newTile.color = sf::Color::White;
-	    newTile.bgcolor = sf::Color::Black;
-	    newTile.olcolor = sf::Color::White;
-	    newTile.description;
-	    newTile.type;
-		
-		if(tile -> FirstChildElement("id")) {
-			newTile.id = tile -> FirstChildElement("id") -> GetText();
-        }
-		if(tile -> FirstChildElement("name")) {
-			newTile.name = tile -> FirstChildElement("name") -> GetText();
-        }
-		if(tile -> FirstChildElement("tileX")) {
-			newTile.tileX = atof(tile -> FirstChildElement("tileX") -> GetText());
-		}
-		if(tile -> FirstChildElement("tileY")) {
-			newTile.tileY = atof(tile -> FirstChildElement("tileY") -> GetText());
-		}
-		if(tile -> FirstChildElement("color")) {
-			newTile.color = color(tile -> FirstChildElement("color") -> GetText());
-		}
-		if(tile -> FirstChildElement("bgcolor")) {
-			newTile.bgcolor = color(tile -> FirstChildElement("bgcolor") -> GetText());
-		}
-		if(tile -> FirstChildElement("olcolor")) {
-			newTile.olcolor = color(tile -> FirstChildElement("olcolor") -> GetText());
-		}
-		if(tile -> FirstChildElement("description")) {
-			newTile.description = tile -> FirstChildElement("description") -> GetText();
-        }
-        if(tile -> FirstChildElement("type")) {
-            std::string type = tile -> FirstChildElement("type") -> GetText();
-            if(type == "floor") {
-                newTile.type = tileType::floor;
-            }
-            else if(type == "wall") {
-                newTile.type = tileType::wall;
-            }
-            else if(type == "water") {
-                newTile.type = tileType::water;
-            }
-            else if(type == "deepWater") {
-                newTile.type = tileType::deepWater;
-            }
-            else if(type == "lava") {
-                newTile.type = tileType::lava;
-            }
-        }
-                
-        v_tileAsset.push_back(newTile);
-		tile = tile -> NextSiblingElement("tile");
-    }    
-    
     
     // <<< LOAD MAPS >>>
     engine -> message("Loading maps...");

@@ -1,0 +1,83 @@
+-- SKILLS --
+
+[floorGrass]
+name: Grass
+type: floor
+texture: floor_grass
+
+[floorTallGrass]
+name: Tall grass
+type: floor
+texture: floor_tallGrass
+
+[floorDirt]
+name: Dirt
+type: floor
+texture: floor_dirt
+
+[floorSand]
+name: Sand
+type: floor
+texture: floor_sand
+
+[floorStone]
+name: Stone floor
+type: floor
+texture: floor_stone
+
+[floorTiled]
+name: Tiled floor
+type: floor
+texture: floor_tiled
+
+[water]
+name: Water
+type: water
+texture: water
+
+[wallStone]
+name: Stone wall
+type: wall
+texture: wall_Stone
+
+[wallBrownRock]
+name: Rock wall
+type: wall
+texture: wall_brownRock
+
+[wallGreyRock]
+name: Rock wall
+type: wall
+texture: wall_greyRock
+
+[wallWood]
+name: Wooden wall
+type: wall
+texture: wall_wood
+
+[wallHell]
+name: Hell wall
+type: wall
+texture: wall_hell
+
+[wallMarble]
+name: Marble wall
+type: wall
+texture: wall_marble
+
+[wallSnake]
+name: Brick wall
+type: wall
+texture: wall_snake
+
+[wallBrick]
+name: Brick wall
+type: wall
+texture: wall_brick
+
+[wallCatacomb]
+name: Brick wall
+type: wall
+texture: wall_catacomb
+
+[end]

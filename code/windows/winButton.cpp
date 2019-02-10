@@ -17,9 +17,9 @@ void c_winButton::init(const int& x, const int& y, const int& width, const int& 
 }
 
 int c_winButton::update(int key, sf::Vector2i mousePos) {
-    int xf = x * global::tileSize;
-    int yf = y * global::tileSize;
-    
+    int xf = x * global::tileSize / 2;
+    int yf = y * global::tileSize / 2;
+
     // If mouse is inside button area
     selected = false;
     if(mousePos.x > xf and mousePos.x < xf + width
@@ -49,24 +49,23 @@ void c_winButton::draw() {
 
     if(id != "") {
 
-        int xf = x * global::tileSize;
-        int yf = y * global::tileSize;
-
+        int xf = x * global::tileSize / 2;
+        int yf = y * global::tileSize / 2;
+        
         switch(type) {
 
             // Draw tile
             case buttonType::tile: {
                 structTileAsset* asset = engine -> assetManager.getTileAsset(id);
-                engine -> screen.drawTile(11, 13, xf, yf, asset -> bgcolor);
-                c_tile::drawOverlay(xf, yf, asset -> type, asset -> olcolor);
-                engine -> screen.drawTile(asset -> tileX, asset -> tileY, xf, yf, asset -> color);
+                engine -> screen.drawTexture(asset -> texture, xf, yf);
+                //c_tile::drawOverlay(xf, yf, asset -> type, asset -> olcolor);
                 break;
             }
 
             // Draw actor
             case buttonType::actor: {
                 structActorAsset* asset = engine -> assetManager.getActorAsset(id);
-                engine -> screen.drawTile(asset -> tx, asset -> ty, xf, yf, asset -> color);
+                engine -> screen.drawTexture(asset -> texture, xf, yf);
                 break;
             }
         }

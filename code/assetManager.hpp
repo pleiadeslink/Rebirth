@@ -1,12 +1,6 @@
 #ifndef c_assetManager_hpp
 #define c_assetManager_hpp
 
-struct structActorAsset;
-struct structMapAsset;
-struct structTileAsset;
-struct structTextureAsset;
-struct structVerbAsset;
-
 class c_assetManager {
 	private:
         sf::Font font;
@@ -20,8 +14,10 @@ class c_assetManager {
         //std::vector<structTopicAsset> v_topicAsset;
         int indexTile;
         int indexActor;
+        void loadTiles();
         void loadActors();
         void loadSkills();
+        structTileAsset clearTileAsset(structTileAsset asset);
         structActorAsset clearActorAsset(structActorAsset asset);
         s_skillAsset clearSkillAsset(s_skillAsset asset);
         structMapAsset clearMapAsset(structMapAsset asset);

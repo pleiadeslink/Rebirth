@@ -1,5 +1,7 @@
 c_actor::c_actor(const int& uid)
 :	uid(uid),
+    texture(""),
+    tall(false),
     action(0),
 	player(0),
 	AI(0),
@@ -53,6 +55,7 @@ void c_actor::init(structActorAsset* asset) {
     plural = asset -> plural;
     description = asset -> description;
     texture = asset -> texture;
+    tall = asset -> tall;
     tileX = asset -> tx;
     tileY = asset -> ty;
     color = asset -> color;
@@ -115,18 +118,18 @@ void c_actor::init(structActorAsset* asset) {
     }    
 }
 
-void c_actor::draw(const int& x, const int& y) {
+void c_actor::draw(const int& x, int y) {
+    if(tall) {
+        y = y - global::tileSize;
+    }
+    if(player) {
+        engine -> screen.drawTexture("actor/player/base", x, y); 
+        return;
+    }
     if(texture != "") {
-        /*if(shadow == true) {
-            engine -> screen.drawTexture(texture, x + 1, y + 1, 0); 
-        }*/
         engine -> screen.drawTexture(texture, x, y); 
         return;
     }
-    /*if(shadow == true) {
-        engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black); 
-    }*/
-    engine -> screen.drawTile(tileX, tileY, x, y, color);
 }
 
 void c_actor::timeUpdate() {

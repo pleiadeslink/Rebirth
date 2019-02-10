@@ -17,6 +17,7 @@ class c_actor {
         std::string plural;
         std::string description;
         std::string texture;
+        bool tall;
         int tileX;
         int tileY;
         bool shadow;
@@ -42,7 +43,7 @@ class c_actor {
         c_actor(const int& uid);
         ~c_actor();
         void init(structActorAsset* asset);
-        void draw(const int& x, const int& y);
+        void draw(const int& x, int y);
         void timeUpdate();
         void save(TCODZip* zip);
         void load(TCODZip* zip);
@@ -56,6 +57,7 @@ class c_actor {
         std::string getName() { return name; }
         std::string getPlural() { return plural; }
         std::string getDescription() { return description; }
+        std::string getTexture() { return texture; }
         const int& getMapX() { return mapX; }
         const int& getMapY()  { return mapY; }
         const int& getTileX() { return tileX; }

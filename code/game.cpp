@@ -10,7 +10,7 @@ const bool& c_game::newGame() {
 
     map = new c_map();
     map -> init();
-    c_helper::loadMap(0, 0, 0);
+    c_helper::loadMap(64, 64, 0);
     actorManager.createActor("avatar", 24, 24);
     c_helper::teleportActor(actorManager.getPlayer() -> getUid(), 24, 24, true);
     engine -> sound.playAmbience(engine -> game -> map -> getAmbience());

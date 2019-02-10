@@ -13,13 +13,13 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i m
     }
 
     int yUIOffset = 0;
-    int mapX = mapX0 + (x * 16) + mousePos.x / global::tileSize - tileWidth / 2;
-    int mapY = mapY0 + (y * 16) + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset;
+    int mapX = mapX0 + (x * 32) + mousePos.x / global::tileSize - tileWidth / 2 + 1;
+    int mapY = mapY0 + (y * 32) + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset + 1;
 
     if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
     and mapY >= 0 and mapY < engine -> game -> map -> getHeight()
-    and mousePos.x > x * 16 and mousePos.x < (x + tileWidth) * 16
-    and mousePos.y > y * 16 and mousePos.y < (y + tileHeight) * 16) {
+    and mousePos.x > x * 32 and mousePos.x < (x + tileWidth) * 32
+    and mousePos.y > y * 32 and mousePos.y < (y + tileHeight) * 32) {
         c_tile* tile = engine -> game -> map -> getTile(mapX, mapY);
         switch(engine -> interface.getMode()) {
             case imode::game: {
@@ -116,9 +116,9 @@ void c_winMap::draw(const int& mapX0, const int& mapY0) {
             if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
             and mapY >= 0 and mapY < engine -> game -> map -> getHeight()) {
                 c_tile* tile = engine -> game -> map -> getTile(mapX0 + i1 - tileWidth / 2, mapY0 + i2 - tileHeight / 2 + yUIOffset);
-                tile -> draw((x + i1 - 1) * global::tileSize + 16, (y + i2 - 1) * global::tileSize + 16, tile -> getInterior(), fog);
+                tile -> draw((x + i1 - 1) * global::tileSize, (y + i2 - 1) * global::tileSize, tile -> getInterior(), fog);
                 if(engine -> interface.getSelectedTile() == tile and engine -> isLoading() == false) {
-                    engine -> screen.drawTexture("selectedTile", x + (i1 - 1)  * global::tileSize + 16, y + (i2 - 1) * global::tileSize + 16);
+                    engine -> screen.drawTexture("selectedTile", x + (i1 - 1)  * global::tileSize, y + (i2 - 1) * global::tileSize);
                 }
             }
         }

@@ -3,9 +3,9 @@ c_winSidebar::c_winSidebar(const int& x, const int& y, const int& width, const i
 	this -> y = y;
 	this -> width = width;
 	this -> height = height;
-	this -> tileButtonWidth = 11;
+	this -> tileButtonWidth = 6;
 	this -> tileButtonHeight = 8;
-	this -> actorButtonWidth = 11;
+	this -> actorButtonWidth = 6;
 	this -> actorButtonHeight = 8;
 }
 
@@ -18,7 +18,7 @@ void c_winSidebar::init() {
 	}
     for(int i1 = 0; i1 < tileButtonWidth; ++i1) {
         for(int i2 = 0; i2 < tileButtonHeight; ++i2) {
-            m_tileButtons[i1][i2].init(x + i1 + 1, y + i2 + 9, global::tileSize, global::tileSize, buttonType::tile);
+            m_tileButtons[i1][i2].init(x + (i1 * 2) + 1, y + (i2 * 2) + 9, global::tileSize, global::tileSize, buttonType::tile);
         }
     }
 
@@ -29,7 +29,7 @@ void c_winSidebar::init() {
 	}
     for(int i1 = 0; i1 < actorButtonWidth; ++i1) {
         for(int i2 = 0; i2 < actorButtonHeight; ++i2) {
-            m_actorButtons[i1][i2].init(x + i1 + 1, y + i2 + 13, global::tileSize, global::tileSize, buttonType::actor);
+            m_actorButtons[i1][i2].init(x + (i1 * 2) + 1, y + (i2 * 2) + 20, global::tileSize, global::tileSize, buttonType::actor);
         }
     }
 }
@@ -55,8 +55,8 @@ int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 						++index;
 
 						// If mouse is inside the area, check input
-						if(mousePos.x > x * global::tileSize and mousePos.y > y * global::tileSize
-						and mousePos.x < (x + width) * global::tileSize and mousePos.y < (y + height) * global::tileSize) {
+						if(mousePos.x > x * 16 and mousePos.y > y * 16
+						and mousePos.x < (x + width) * 16 and mousePos.y < (y + height) * 16) {
 							key = m_tileButtons[i1][i2].update(key, mousePos);
 						}
 					}
@@ -77,8 +77,8 @@ int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 						++index;
 
 						// If mouse is inside the area, check input
-						if(mousePos.x > x * global::tileSize and mousePos.y > y * global::tileSize
-						and mousePos.x < (x + width) * global::tileSize and mousePos.y < (y + height) * global::tileSize) {
+						if(mousePos.x > x * 16 and mousePos.y > y * 16
+						and mousePos.x < (x + width) * 16 and mousePos.y < (y + height) * 16) {
 							key = m_actorButtons[i1][i2].update(key, mousePos);
 						}
 					}
@@ -109,9 +109,8 @@ void c_winSidebar::draw() {
 				if(p_tile != 0) {
 					int xf = x * 16 + ((width * 16) / 2) - 16;
 					int yf = (y + 3) * 16 + 4;
-					engine -> screen.drawTile(11, 13, xf, yf, p_tile -> bgcolor, 2);
-                	c_tile::drawOverlay(xf, yf, p_tile -> type, p_tile -> olcolor, 2);
-                	engine -> screen.drawTile(p_tile -> tileX, p_tile -> tileY, xf, yf, p_tile -> color, 2);
+					engine -> screen.drawTexture(p_tile -> texture, xf, yf);
+                	//p_tile -> drawOverlay(xf, yf, p_tile -> type, p_tile -> olcolor, 2);
 					engine -> screen.drawText(p_tile -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
 				}
 				break;
@@ -121,7 +120,7 @@ void c_winSidebar::draw() {
 				if(p_actor != 0) {
 					int xf = x * 16 + ((width * 16) / 2) - 16;
 					int yf = (y + 3) * 16 + 4;
-					engine -> screen.drawTile(p_actor -> tx, p_actor -> ty, xf, yf, p_actor -> color, 2);
+					engine -> screen.drawTexture(p_actor -> texture, xf, yf);
 					engine -> screen.drawText(p_actor -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
 				}
 				break;
@@ -201,19 +200,17 @@ void c_winSidebar::draw() {
 				if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
 							
 					// Health bar
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, (width - 2) * 16, 16, color("darkest red"));
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(),
-					16, color("darker red"));
-					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + counter) * 16);
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + (counter * 2)) * 16, (width - 2) * 16, 32, color("darkest red"));
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + (counter * 2)) * 16, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(),
+					32, color("darker red"));
+					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + (counter * 2)) * 16);
 
-					// Symbol
-					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 1, (y + 9 + counter) * 16 + 1, sf::Color::Black);
-					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16, (y + 9 + counter) * 16, p_actor -> getColor());
+					// Texture
+					engine -> screen.drawTexture(p_actor -> getTexture(), (x + 1) * 16 + 1, (y + 9 + (counter * 2)) * 16 + 1);
 							
-
 					// Name
-					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 9 + counter) * 16 - 3 + 1, sf::Color::Black);
-					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 9 + counter) * 16 - 3, sf::Color::White);
+					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 + 1 - 8, (y + 10 + (counter * 2)) * 16 - 6 + 1, sf::Color::Black);
+					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 - 8, (y + 10 + (counter * 2)) * 16 - 6, sf::Color::White);
 
 					++counter;
 				}
@@ -235,17 +232,16 @@ void c_winSidebar::draw() {
 				if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
 							
 					// Bar
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + counter) * 16, (width - 2) * 16, 16, color("dark sepia"));
-					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + counter) * 16);
+					engine -> screen.drawBox((x + 1) * 16, (y + 9 + (counter * 2)) * 16, (width - 2) * 16, 16, color("dark sepia"));
+					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + (counter * 2)) * 16);
 
 					// Symbol
-					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 1, (y + 9 + counter) * 16 + 1, sf::Color::Black);
-					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16, (y + 9 + counter) * 16, p_actor -> getColor());
+					engine -> screen.drawTexture(p_actor -> getTexture(), (x + 1) * 16 + 1, (y + 9 + (counter * 2)) * 16 + 1);
 							
 
 					// Name
-					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 9 + counter) * 16 - 3 + 1, sf::Color::Black);
-					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 9 + counter) * 16 - 3, sf::Color::White);
+					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 + 1 - 8, (y + 10 + (counter * 2)) * 16 - 6 + 1, sf::Color::Black);
+					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 - 8, (y + 10 + (counter * 2)) * 16 - 6, sf::Color::White);
 
 					++counter;
 				}
