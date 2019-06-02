@@ -49,6 +49,7 @@ struct structActorAsset {
     std::string plural;
     std::string description;
     std::string texture;
+    std::string playerTex;
     bool tall;
     int tx;
     int ty;
@@ -87,14 +88,13 @@ struct s_skillAsset {
 struct structTileAsset {
     std::string id;
     std::string name;
-    std::string texture;
-    int tileX;
-    int tileY;
+    std::string description;
+    int type;
+    int tx;
+    int ty;
     sf::Color color;
     sf::Color bgcolor;
     sf::Color olcolor;
-    std::string description;
-    int type;
     int script;
 };
 

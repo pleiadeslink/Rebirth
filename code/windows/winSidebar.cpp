@@ -3,9 +3,9 @@ c_winSidebar::c_winSidebar(const int& x, const int& y, const int& width, const i
 	this -> y = y;
 	this -> width = width;
 	this -> height = height;
-	this -> tileButtonWidth = 6;
+	this -> tileButtonWidth = 11;
 	this -> tileButtonHeight = 8;
-	this -> actorButtonWidth = 6;
+	this -> actorButtonWidth = 11;
 	this -> actorButtonHeight = 8;
 }
 
@@ -18,7 +18,7 @@ void c_winSidebar::init() {
 	}
     for(int i1 = 0; i1 < tileButtonWidth; ++i1) {
         for(int i2 = 0; i2 < tileButtonHeight; ++i2) {
-            m_tileButtons[i1][i2].init(x + (i1 * 2) + 1, y + (i2 * 2) + 9, global::tileSize, global::tileSize, buttonType::tile);
+            m_tileButtons[i1][i2].init(x + i1 + 1, y + i2 + 9, global::tileSize, global::tileSize, buttonType::tile);
         }
     }
 
@@ -29,7 +29,7 @@ void c_winSidebar::init() {
 	}
     for(int i1 = 0; i1 < actorButtonWidth; ++i1) {
         for(int i2 = 0; i2 < actorButtonHeight; ++i2) {
-            m_actorButtons[i1][i2].init(x + (i1 * 2) + 1, y + (i2 * 2) + 20, global::tileSize, global::tileSize, buttonType::actor);
+            m_actorButtons[i1][i2].init(x + i1 + 1, y + i2 + 13, global::tileSize, global::tileSize, buttonType::actor);
         }
     }
 }
@@ -88,6 +88,11 @@ int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 			break;
 		}
 	}
+
+	// Deletes input before returning if cursor is inside area
+	if(mousePos.x > x * 16 and mousePos.y > y * 16 and mousePos.x < (x + width) * 16 and mousePos.y < (y + height) * 16) {
+		key = 0;
+	}
 	return key;
 }
 
@@ -109,7 +114,7 @@ void c_winSidebar::draw() {
 				if(p_tile != 0) {
 					int xf = x * 16 + ((width * 16) / 2) - 16;
 					int yf = (y + 3) * 16 + 4;
-					engine -> screen.drawTexture(p_tile -> texture, xf, yf);
+					//engine -> screen.drawTexture(p_tile -> texture, xf, yf);
                 	//p_tile -> drawOverlay(xf, yf, p_tile -> type, p_tile -> olcolor, 2);
 					engine -> screen.drawText(p_tile -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
 				}
@@ -120,7 +125,7 @@ void c_winSidebar::draw() {
 				if(p_actor != 0) {
 					int xf = x * 16 + ((width * 16) / 2) - 16;
 					int yf = (y + 3) * 16 + 4;
-					engine -> screen.drawTexture(p_actor -> texture, xf, yf);
+					//engine -> screen.drawTexture(p_actor -> texture, xf, yf);
 					engine -> screen.drawText(p_actor -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
 				}
 				break;
@@ -143,10 +148,10 @@ void c_winSidebar::draw() {
 
 		// Draw external frame
 		drawTitle("Tiles", 8);
-		drawTitle("Actors", 12);
+		drawTitle("Actors", 19);
 		drawFrame();
 		drawHBar(7);
-		drawHBar(11);
+		drawHBar(18);
 		return;
 	}
 
@@ -249,24 +254,9 @@ void c_winSidebar::draw() {
 		}	
 	}
 
-	// << QUICK MENU >>
-
-	drawTitle("Quick menu", 32);
-	engine -> screen.drawText("1: empty", (x + 2) * 16, (y + 33) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("2: empty", (x + 2) * 16, (y + 34) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("3: empty", (x + 2) * 16, (y + 35) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("4: empty", (x + 2) * 16, (y + 36) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("5: empty", (x + 2) * 16, (y + 37) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("6: empty", (x + 2) * 16, (y + 38) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("7: empty", (x + 2) * 16, (y + 39) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("8: empty", (x + 2) * 16, (y + 40) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("9: empty", (x + 2) * 16, (y + 41) * 16 + 4, sf::Color::White);
-	engine -> screen.drawText("0: empty", (x + 2) * 16, (y + 42) * 16 + 4, sf::Color::White);
-
 	// << FRAME >>
 
 	drawFrame();
 	drawHBar(7);
-	drawHBar(31);
 	return;
 }

@@ -9,7 +9,6 @@ class c_tile {
         std::string name;
         int tileX;
         int tileY;
-        std::string texture;
         sf::Color color;
         sf::Color bgcolor;
         sf::Color olcolor;
@@ -32,8 +31,7 @@ class c_tile {
         bool isLocation();
         void updateObstacle();
         void explore();
-        void drawOverlay(const int& x, const int& y);
-        void drawActors(const int& x, const int& y);
+        static void drawOverlay(const int& x, const int& y, const int& type, sf::Color color, const int& scale = 1);
 
         // Actor
         void addActor(const int& actor);

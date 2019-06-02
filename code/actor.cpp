@@ -54,8 +54,6 @@ void c_actor::init(structActorAsset* asset) {
     name = asset -> name;
     plural = asset -> plural;
     description = asset -> description;
-    texture = asset -> texture;
-    tall = asset -> tall;
     tileX = asset -> tx;
     tileY = asset -> ty;
     color = asset -> color;
@@ -119,17 +117,8 @@ void c_actor::init(structActorAsset* asset) {
 }
 
 void c_actor::draw(const int& x, int y) {
-    if(tall) {
-        y = y - global::tileSize;
-    }
-    if(player) {
-        engine -> screen.drawTexture("actor/player/base", x, y); 
-        return;
-    }
-    if(texture != "") {
-        engine -> screen.drawTexture(texture, x, y); 
-        return;
-    }
+    engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
+    engine -> screen.drawTile(tileX, tileY, x, y, color);
 }
 
 void c_actor::timeUpdate() {

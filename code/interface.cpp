@@ -23,7 +23,7 @@ void c_interface::init()     {
     inputText = "";
     pasteMode = false;
     info = new c_winInfo(44, 16, 23, 23);
-    map = new c_winMap(0, 0, 34, 20);
+    map = new c_winMap(0, 0, 67, 41);
     gamelog = new c_winGamelog(0, 35, 80, 10);
     //sidebar = new c_winSidebar("sidebar", 0, 43, 80, 2);
     character = new c_winCharacter(0, 0, 67, 39);
@@ -37,12 +37,12 @@ int c_interface::update(int key) {
     sActor = 0;
     sSkill = "";
     if(engine -> game -> actorManager.getPlayer()) {
+        key = sidebar -> update(key, engine -> getMouse());
         if(mode == imode::game or mode == imode::edit) {
             key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(), engine -> getMouse());
         } else if(mode == imode::character) {
             key = character -> update(key);
         }
-        key = sidebar -> update(key, engine -> getMouse());
     }
     key = processInput(key);
     return key;

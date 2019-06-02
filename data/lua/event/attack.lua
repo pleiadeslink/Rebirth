@@ -41,7 +41,7 @@ if(math.random(0, 100) > getDodge(target)) then
 end
 
 if(isPlayer(emitter)) then
-	message("You hit the " .. getName(target) .. " [-" .. damage .. "HP]")
+	message("You hit the " .. getName(target) .. ". [-" .. damage .. "HP]")
 elseif(isPlayer(target)) then
 	message("The " .. getName(emitter) .. " hits you! [-" .. damage .. "HP]")
 else

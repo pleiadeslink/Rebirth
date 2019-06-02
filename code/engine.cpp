@@ -30,7 +30,9 @@ void c_engine::start() {
     game = new c_game();
     game -> newGame();
     interface.init();
-
+    //sf::Vector2f v(0, 0);
+    //c_fire fire(4,320,180,v);
+    //fire.setFireSourceStrength(36);
     // Main loop
     f_quit = false;
     int key = 0;
@@ -42,8 +44,10 @@ void c_engine::start() {
             game -> update(key);
         }
         key = interface.update(key);
+        //fire.update();
         screen.clear();
         interface.draw();
+        //fire.render(*screen.getWindow());
         screen.display();
     }
 

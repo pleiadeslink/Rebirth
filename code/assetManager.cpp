@@ -53,11 +53,41 @@ void c_assetManager::loadTiles() {
 			}
 		}
 
-		key = "texture: ";
+		key = "symbol: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
-			asset.texture = "tile/";
-			asset.texture.append(line);
+			bool digit = 0;
+			std::string n1 = "";
+			std::string n2 = "";
+			for(int i = 0; i < line.length(); ++i) {
+				if(line[i] == 'x') {
+					digit = 1;
+				} else if(digit == 0) {
+					n1 += line[i];
+				} else {
+					n2 += line[i];
+				}
+			}
+ 			asset.tx = atof(n1.c_str());
+			asset.ty = atof(n2.c_str());
+		}
+
+		key = "color: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.color = color(line);
+		}
+		key = "colorbg: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			std::cout << line << std::endl;
+			asset.bgcolor = color(line);
+		}
+		key = "colorol: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			std::cout << line << std::endl;
+			asset.olcolor = color(line);
 		}
     }
     if(file.is_open()) {
@@ -154,6 +184,13 @@ void c_assetManager::loadActors() {
 			line.erase(0, key.length());
 			asset.texture = "actor/";
 			asset.texture.append(line);
+		}
+
+		key = "player_tex: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.playerTex = "actor/player/";
+			asset.playerTex.append(line);
 		}
 
 		key = "TALL";
@@ -426,7 +463,8 @@ structTileAsset c_assetManager::clearTileAsset(structTileAsset asset) {
     asset.id = "default";
     asset.name = "default";
     asset.type = tileType::floor;
-    asset.texture = "default";
+	asset.tx = 0;
+	asset.ty = 0;
 	return asset;
 }
 
@@ -437,6 +475,7 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.plural = "defaults";
 	asset.description = "Default description";
 	asset.texture = "";
+	asset.playerTex = "";
 	asset.tall = false;
 	asset.tx = 1;
 	asset.ty = 0;

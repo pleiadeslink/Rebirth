@@ -26,11 +26,11 @@
 #include "kaguya/kaguya.hpp"
 
 namespace global {
-	const int maxFOVRange = 20;
+	const int maxFOVRange = 36;
 	const int maxLight = 255;
 	const int lightMult = 16;
 	const int mapSize = 64;
-	const int tileSize = 32;
+	const int tileSize = 16;
 	const int maxRounds = 10000;
 };
 
@@ -50,6 +50,7 @@ namespace global {
 #include "windows/winCharacter.hpp"
 #include "windows/winGamelog.hpp"
 #include "windows/winSidebar.hpp"
+#include "fire.hpp"
 #include "actorComponents/action.hpp"
 #include "actorComponents/player.hpp"
 #include "actorComponents/AI.hpp"
@@ -92,6 +93,7 @@ int main(int argc, char *argv[]) {
 #include "windows/winCharacter.cpp"
 #include "windows/winGamelog.cpp"
 #include "windows/winSidebar.cpp"
+#include "fire.cpp"
 #include "tinyXML/tinyxml.cpp"
 #include "tinyXML/tinystr.cpp"
 #include "tinyXML/tinyxmlerror.cpp"

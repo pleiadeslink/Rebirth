@@ -1,0 +1,161 @@
+The goal is to retrieve the Amulet of Thot.
+The amulet is located deep beneath the Ancient Caverns.
+Areas are composed of 5 floors that share the same setting (cavern, forest, etc).
+Floors within the same area are connected by stairs.
+Areas are connected by portals.
+Portals can only used downwards unless the amulet is equipped.
+Portals are custodiated by bosses.
+There's a monster that drains your health in real time.
+
+Main dungeon:
+1-5     Cavern
+6-10    Forest
+11-15   Maze
+16-20   Dungeon
+21-25   Molten cave
+26      
+
+Optional dungeons:
+Maggots' lair
+Temple
+
+
+World features:
+- Violent, harsh, lawless
+- City-states are the remains of old empires, they are corrupt, violence is rampart in and outside.
+- Self-serving
+- No direct manifestations of the divine
+- Polytheistic religion
+- Wrathful, non-benevolent gods
+- Magic is rare, powerful, mysterious and not completely understood
+
+
+
+
+Nebium: The strongest and one of the rarest metals.
+It is dead-black, silk-smooth and very dense. The se-
+cret of its manufacture has been lost in Thongor’s
+day, but Alchemists continue to search
+
+ancient forest realm of Athel
+Loren, a fell place of mist and shadow that stretches over
+hundreds of miles, dominating much of the western edge of
+the Grey Mountains. While Athel Loren is nominally a part
+of Bretonnia, no Lord of that realm has ever seen fit to claim
+the place and with good reason. It is the kingdom of the Forrest
+Elves, estranged kin of the folk of Ulthuan who keep their own
+counsel under the leafy canopy.
+
+Black Ones are black and naked, madelike men, but the shortest of them areheads and shoulders above a tall human.They are rangy, rather than massive, butare finely formed, with no suggestion ofdeformity or abnormality, save as theirgreat height is abnormal. But one cansense the basic diabolism of their features;every line, each feature is stamped withevil — evil transcending the evil of human-ity. Under their ebon skin long, roundedmuscles ripple, and the monsters can rendan ordinary man limb from limb. The nailsof the fingers are grown like the talons of awild beast. Their eyes are tawny, a vibrantgold that glows and glitters. They arenaked and hairless.Black Ones do not speak — vocally.  Theynod and gesture, but are strangely silent.They find pleasure in dragging to light theabysmal secrets that sleep in theunfathomed darkness of the human soul.They worship dark gods and live forever,save for violence or accident.
+
+This world is filled with death and decay. Vengeful hordes wash across the land. Ancient empires have been reduced to city-states run by petty warlords who fight among them­selves like ravenous dogs. Disease runs rampant. Illiterate city-folk and simple farmers dread that which lurks in the dark.
+
+This golden bow is imbued with powerful magic
+
+A strange helm from the ancient land of Zena,
+birthplace of the curious dealer Domhnall.
+
+The two horns are believed to symbolize
+wisdom.
+
+Ash-colored stone encasing a skull.
+Secret treasure of Arstor, the Earl of Carim.
+Reduces curse build-up and breaks curse.
+
+Humans are helpless against curses,
+and can only redirect their influence.
+The Purging Stone does not dispel curses,
+but receives them as a surrogate. The stone
+itself was once a person or some other being.
+
+// These distinctive suits of armor are a special type of masterwork full plate that grant additional effects
+Mossy round greatshield used by the guardian
+of the Darkroot Garden, the Stone Knight.
+The Stone Knight is a creation of ancient
+magic, and this shield is imbued with the
+same power, but is also extremely heavy.
+Greatshield with an eagle design. Lightest
+and easiest greatshield to handle.
+Greatshields are very stable, and deflect
+attacks. But one cannot parry, and instead
+bashes with the shield.
+
+The Skaven are commanded by the insidious Lords of Decay, a
+collection of aged and terrible beings that sit upon the Council
+of Thirteen, the ruling body of the Skaven race. Their capital
+city, Skavenblight, is an ancient ruin that supposedly resides
+near the centre of the cursed marshes that lie on the western
+borders of Tilea. From the mouldering halls of Skavenblight,
+the Lords of Decay conspire to expand their influence and
+power, usually by seizing the underground kingdoms of the
+Dwarfs and Goblins
+
+The Skaven are divided into a series of clans, all of which
+constantly jostle for position and influence with the Council of
+Thirteen. The bulk of their clans consist of warriors and slaves
+they’ve captured from rivals that they’ve eliminated; however, all
+of the greatest clans among them have developed specialties that
+set them apart, allowing each to carve out their own niche which
+they ruthlessly cling to, destroying any threats to their position.
+The Warlock Engineers of Clan Skryre presently have the most
+power and thus, the most influence with the Lords of Decay.
+They specialise in the creation and utilization of strange sorcerous
+machines powered by a variety of Warpstone based devices, some
+of which they’ve taken from other races for “modification” others
+being entirely original to them. Ultimately, all of their machines
+are designed to kill others and occasionally, their wielders.
+
+Skaven are usually fairly cunning and always malicious, but
+they’re prone to cowardice. They are confident only in large
+numbers, when they greatly outnumber their opponents. They’re
+obsequious to those they consider stronger than themselves,
+though they will seldom hesitate to plant a dagger in the back of
+a superior if they think they can get away with it. Assassination
+is a commonplace and accepted way to advance one’s fortunes in
+Skaven society. The Lords of Decay believe infighting makes
+the Skaven race stronger as a whole. Conveniently enough, it
+also means most of their inferiors don’t have time to plot against
+them. Skaven workmanship is fairly shoddy by Human standards,
+and reprehensible to dwarfs, but it is usually crudely effective.
+The majority of Skaven have a lifespan of a mere thirty years,
+with few indeed getting to die of natural causes. However,
+repeated exposure to Warpstone can have a large variety of effects
+on the Skaven, not least of which is a greatly extended lifespan.
+Several of the Lords of Decay are supposedly well over a thousand
+years old. When Skaven communicate, they use a great deal
+more than words to convey meaning. Their gestures and more
+importantly, their smell, helps to accurately convey their mood
+to other Skaven. A furious Skaven smells of heated iron, whereas
+the acrid stench of the musk of fear commonly shrouds a rat-man
+who expects to die.
+
+The Skaven worship an entity known as the Horned Rat, a
+malevolent being served by the Grey Seers, a group of powerful
+wizards and prophets who preach the ascension of the Skaven.
+While they are nominally subject to the dictates of the Council
+of Thirteen, their personal power makes individual Grey Seers
+a constant wild card in Skaven politics. Grey Seers frequently
+consume Warpstone to fuel their sorcery, a practice that
+does little good for their sanity and other Skaven rightfully
+fear them. The Horned Rat’s symbol, which has effectively
+become the defining mark of the Skaven race, consists of three
+overlapping lines roughly sketched in a vaguely triangular
+pattern.
+
+From the distant Land of Chill
+come raiders to the shores of the
+Old World, depraved warriors
+bent on slavery and conquest.
+Little is known of them in the
+Empire and the few Elven envoys
+that come from Ulthuan are loath to
+speak about them, ever preferring
+to avoid the subject when they
+can or answer tersely when they
+cannot.
+
+Clad in corroded armor, their lifeless hands gripping swords, spears and shields these mindless automatons take up their blades when the clarion call of battle sounds, ready once more to fight for their king.
+
+Dotted around the untamed regions are the ancient ruins of temples, cities, tombs and palaces toppled and cracked, choked with weeds and undergrowth, lying untouched and awaiting discovery for the vast treasures that remain within their shadowed halls and empty corridors.
+
+A small, double-edged blade with a short grip. 

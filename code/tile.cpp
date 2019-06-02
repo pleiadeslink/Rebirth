@@ -5,7 +5,6 @@ c_tile::c_tile()
     name("Void"),
     tileX(0),
     tileY(0),
-    texture("default"),
     type(tileType::floor),
     script(0),
     interior(false),
@@ -21,8 +20,25 @@ c_tile::~c_tile() {
 void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const bool& fog) {
 
     if(fog == false) {
-        engine -> screen.drawTexture(texture, x, y);
-        drawActors(x, y);
+        engine -> screen.drawTile(11, 13, x, y, bgcolor);
+        drawOverlay(x, y, type, olcolor);
+        if(v_actor.size() > 0) {
+            c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[0]);
+            //if(p_actor != engine -> game -> actorManager.getPlayer()) {
+                drawShadow(x, y);
+                engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x, y, p_actor -> getColor());
+            //}
+        } else {
+            drawShadow(x, y);
+            engine -> screen.drawTile(tileX, tileY, x, y, color);
+        }
+        if(type == tileType::wall) {
+            engine -> screen.drawTexture("wallmark", x, y);
+        }
+
+        // Transition mark
+        //drawTransitionMark(x, y);
+        //engine -> screen.drawTexture("fog-night", x, y);
         return;
     }
     
@@ -33,30 +49,106 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
             if(interior == true
             and type != tileType::wall
             and (interior == false and playerIsInside == true) or (interior == true and playerIsInside == false)) {
+
+                //engine -> screen.drawTexture("background_main", x, y, finalLight);
+                //engine -> screen.drawTexture("fog-night", x, y);
                 return;
             }
-
-            engine -> screen.drawTexture(texture, x, y);
-            drawOverlay(x, y);
+            
+            // Print tile with fog
+            engine -> screen.drawTile(11, 13, x, y, bgcolor);
+            drawOverlay(x, y, type, olcolor);
             drawShadow(x, y);
-            drawActors(x, y);
+
+            // Draw non-living actor
+            if(v_actor.size() > 0 and !engine -> game -> actorManager.getActor(v_actor[0]) -> life) {
+                engine -> game -> actorManager.getActor(v_actor[0]) -> draw(x, y);
+            } else {
+                engine -> screen.drawTile(tileX, tileY, x, y, color);
+            }
+
             engine -> screen.drawTexture("fog", x, y);
+
+            // Wall mark
+            if(type == tileType::wall) {
+                engine -> screen.drawTexture("wallmark", x, y);
+            }
+
+            // Transition mark
+            //drawTransitionMark(x, y);
         }
+        //engine -> screen.drawTexture("fog-night", x, y);
         return;                
     }
 
-    engine -> screen.drawTexture(texture, x, y);
-    drawOverlay(x, y);
-    drawActors(x, y);
+    // Draw actor
+    if(v_actor.size() > 0) {
+
+        // Draw shadow
+        drawShadow(x, y);
+
+        if(v_actor.size() == 1) {
+            engine -> screen.drawTile(11, 13, x, y, bgcolor);
+            drawOverlay(x, y, type, olcolor);
+            drawShadow(x, y);
+            engine -> game -> actorManager.getActor(v_actor[0]) -> draw(x, y);
+            //engine -> screen.drawTexture("fog-night", x, y);
+            return;
+        }
+        int manyItems = 0;
+        int itemPosition = 0;
+        for(int i = 0; i < v_actor.size(); ++i) {
+
+            c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[i]);
+
+            // Draw living actor
+            if(p_actor -> life) {
+                engine -> screen.drawTile(11, 13, x, y, bgcolor);
+                drawOverlay(x, y, type, olcolor);
+                drawShadow(x, y);
+                p_actor -> draw(x, y);
+                //engine -> screen.drawTexture("fog-night", x, y);
+                return;
+            } else {
+                itemPosition = i;
+                ++manyItems;
+            }
+        }
+        //if(manyItems > 1) {
+        engine -> screen.drawTile(11, 13, x, y, bgcolor);
+        drawOverlay(x, y, type, olcolor);
+        engine -> screen.drawTile(15, 0, x, y, sf::Color::White);
+        //} else {
+        //    engine -> screen.drawTile(11, 13, x, y, bgcolor);
+        //    engine -> screen.drawTile(engine -> game -> actorManager.getActor(v_actor[itemPosition]) -> getTileX(),
+        //    engine -> game -> actorManager.getActor(v_actor[itemPosition]) -> getTileY(), x, y, engine -> game -> actorManager.getActor(v_actor[itemPosition]) -> getColor());
+        //}
+        //engine -> screen.drawTexture("fog-night", x, y);
+        return;
+    }
+
+    // Otherwise draw tile terrain
+    engine -> screen.drawTile(11, 13, x, y, bgcolor);
+    drawOverlay(x, y, type, olcolor);
+    engine -> screen.drawTile(tileX, tileY, x, y, color);
     drawShadow(x, y);
 
+    // Wall mark
+    if(type == tileType::wall) {
+        engine -> screen.drawTexture("wallmark", x, y);
+    }
+
+    // Transition mark
+    //drawTransitionMark(x, y);
+
+    //engine -> screen.drawTexture("fog-night", x, y);
 }
 
-void c_tile::drawActors(const int& x, const int& y) {
+/*void c_tile::drawActors(const int& x, const int& y) {
     if(v_actor.size() > 0) {
         engine -> game -> actorManager.getActor(v_actor[0]) -> draw(x, y);
     }
-}
+}*/
 
 bool c_tile::playerAction(c_actor* p_player) {
 
@@ -126,21 +218,18 @@ void c_tile::drawShadow(const int& x, const int& y) {
     }    
 }
 
-void c_tile::drawOverlay(const int& x, const int& y) {
+void c_tile::drawOverlay(const int& x, const int& y, const int& type, sf::Color color, const int& scale) {
     switch(type) {
         case tileType::wall: {
-            if(engine -> game -> map -> getTile(this -> x - 1, this -> y) -> getType() != tileType::wall) {
-                engine -> screen.drawPLine(x, y, x, y + global::tileSize, sf::Color::Black);
-            }
-            if(engine -> game -> map -> getTile(this -> x + 1, this -> y) -> getType() != tileType::wall) {
-                engine -> screen.drawPLine(x + global::tileSize, y, x + global::tileSize, y + global::tileSize, sf::Color::Black);
-            }
-            if(engine -> game -> map -> getTile(this -> x, this -> y - 1) -> getType() != tileType::wall) {
-                engine -> screen.drawPLine(x, y, x + global::tileSize, y, sf::Color::Black);
-            }
-            if(engine -> game -> map -> getTile(this -> x, this -> y + 1) -> getType() != tileType::wall) {
-                engine -> screen.drawPLine(x, y + global::tileSize, x + global::tileSize, y + global::tileSize, sf::Color::Black);
-            }
+            engine -> screen.drawTile(15, 15, x, y, color, scale);
+            break;
+        }
+        case tileType::floor: {
+            engine -> screen.drawTile(4, 17, x, y, color, scale);
+            break;
+        }
+        case tileType::water: {
+            engine -> screen.drawTile(5, 17, x, y, color, scale);
             break;
         }
     } 
@@ -260,9 +349,8 @@ const bool& c_tile::hasActorType(std::string actType) {
 void c_tile::setAsset(const structTileAsset* asset) {
     id = asset -> id;
     name = asset -> name;
-    texture = asset -> texture;
-    tileX = asset -> tileX;
-    tileY = asset -> tileY;
+    tileX = asset -> tx;
+    tileY = asset -> ty;
     color = asset -> color;
     bgcolor = asset -> bgcolor;
     olcolor = asset -> olcolor;
@@ -272,11 +360,11 @@ void c_tile::setAsset(const structTileAsset* asset) {
 void c_tile::wipe(const structTileAsset* asset) {
     id = asset -> id;
     name = asset -> name;
-    texture = asset -> texture;
-    tileX = asset -> tileX;
-    tileY = asset -> tileY;
+    tileX = asset -> tx;
+    tileY = asset -> ty;
     color = asset -> color;
     bgcolor = asset -> bgcolor;
+    olcolor = asset -> olcolor;
     type = asset -> type;
     script = 0;
     interior = 0;

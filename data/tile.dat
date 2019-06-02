@@ -1,83 +1,54 @@
--- SKILLS --
+-- TILES --
 
 [floorGrass]
 name: Grass
 type: floor
-texture: floor_grass
+colorbg: darkest green
+colorol: darker green	
 
 [floorTallGrass]
 name: Tall grass
 type: floor
-texture: floor_tallGrass
+symbol: 2x2
+color: darker chartreuse
+colorbg: darkest green
+colorol: darker green	
 
 [floorDirt]
 name: Dirt
 type: floor
-texture: floor_dirt
+colorbg: darker sepia
+colorol: dark sepia	
 
 [floorSand]
 name: Sand
 type: floor
-texture: floor_sand
+colorbg: light sepia	
+colorol: lighter sepia
 
 [floorStone]
 name: Stone floor
 type: floor
-texture: floor_stone
-
-[floorTiled]
-name: Tiled floor
-type: floor
-texture: floor_tiled
+colorbg: darker grey
+colorol: dark grey
 
 [water]
 name: Water
 type: water
-texture: water
+symbol: 0x0
+colorbg: dark azure
+colorol: lightest azure
 
 [wallStone]
 name: Stone wall
 type: wall
-texture: wall_Stone
+colorbg: darker grey
+colorol: dark grey
 
 [wallBrownRock]
 name: Rock wall
 type: wall
-texture: wall_brownRock
-
-[wallGreyRock]
-name: Rock wall
-type: wall
-texture: wall_greyRock
-
-[wallWood]
-name: Wooden wall
-type: wall
-texture: wall_wood
-
-[wallHell]
-name: Hell wall
-type: wall
-texture: wall_hell
-
-[wallMarble]
-name: Marble wall
-type: wall
-texture: wall_marble
-
-[wallSnake]
-name: Brick wall
-type: wall
-texture: wall_snake
-
-[wallBrick]
-name: Brick wall
-type: wall
-texture: wall_brick
-
-[wallCatacomb]
-name: Brick wall
-type: wall
-texture: wall_catacomb
+colorbg: dark sepia
+colorol: darkest sepia
 
 [end]
