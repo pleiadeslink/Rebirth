@@ -53,7 +53,7 @@ class c_player
         const bool& removeItem(const int& slot); // Returns false if the item is not in inventory
         const bool& isInInventory(const int& item); // Check if the item is in the inventory
         const int& getInventorySize() { return inventory.size(); }
-        const bool& learnSkill(std::string id); // Adds the skill to the skill memory
+        const bool& learnSkill(std::string id, const bool& verbose = false); // Adds the skill to the skill memory
         const bool& hasSkill(std::string id);
         std::vector<std::string>* getSkills() { return &v_learnedSkills; }
 };

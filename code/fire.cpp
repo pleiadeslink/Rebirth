@@ -80,7 +80,7 @@ void c_fire::render(sf::RenderWindow& window) {
         for (unsigned int j=0; j < m_width; j++) {
             if (!m_values[i][j] == 0) {
                 currentPixel.setPosition(0 + j * m_pixelSize,
-                                        0 + i * m_pixelSize);
+                                        120 + i * m_pixelSize);
                 currentPixel.setFillColor(colorPalette[m_values[i][j]]);
                 window.draw(currentPixel);
             }

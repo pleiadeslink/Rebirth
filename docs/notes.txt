@@ -1,3 +1,65 @@
+The world is composed of fixed maps connected through wilderness maps.
+When the player is in a wilderness map, he can Travel, which takes him to the world map.
+While in the world map, the only available commands are Explore and Look. 
+When a player moves to a fixed map in the world map (like a town), he is automatically transported to the local map.
+Wilderness maps are generated randomly choosing from different biomes.
+Wilderness maps include random monsters, plants and NPCs.
+When travelling across the world map, the player can get an ? or ! symbol.
+?: optional encounter with a friendly NPC
+!: mandatory encounter with an enemy
+Tents can be built in wilderness and allow to rest, restoring all your health and mana.
+The same effect is reached by sleeping in inns.
+Sleeping is a word that can only be casted to a nearby bed or tent.
+When hit, a wound is created. Some HPs are lost permantly, while others can be recovered as soon as the wound is cured.
+Wounds can be cured with plants, potions and magic.
+Wounds are cured automatically over time. While recovering, more energy is consumed.
+Mercenaries can be recruited at inns.
+Mercenaries are procedurally generated from a series of classes and character traits.
+Mercenaries say random comments regarding the current situation at random times.
+There are ancient portals scattered across the world that allows to travel through them once properly activated.
+
+Wilderness maps:
+- Plains
+- Desert
+- Forest
+- Coast
+- Road
+- River
+
+It
+is thoroughly devoted to the worship of Tiamat,
+the dragon-queen of chaos, with all other deities
+being relegated to minor status. Babylon is ruled
+by the blue-bearded priests of Tiamat, who in turn
+serve the kingpriest, mightiest of all rulers in the
+Fertile Crescent.
+
+Farther east, a handful of impregnable for-
+tress-cities are situated along the river-valleys
+of the interior Zagros Mountains. These cities
+are home to exiled warlords, tyrannical princes,
+and strange cults. Among the latter are the
+veiled monks of Ong, a monastic order of yel-
+low-robed mystics of whom little is known but
+much is speculated. No foreigner has ever been
+inside their forbidden monastery on the frigid
+plateau of Ong.
+
+A northeastern offshoot of the Sumerian swamp-
+delta, close to the great river Tigris, the loathsome
+marshland known as the Black Marshes of Nammat
+is avoided by most travelers, who prefer to follow
+the longer trade routes to the southeast.
+
+The cold and hostile mountains might be
+avoided by civilized men were it not for the
+fact that the verdant mountain slopes abound
+with rare and wondrous herbs, such as the Blue
+Lotus, which induces deep trances and strange
+visions, and the K'lamtra herb, which is fa-
+vored by black magicians for its usefulness in
+death rituals.
+
 The goal is to retrieve the Amulet of Thot.
 The amulet is located deep beneath the Ancient Caverns.
 Areas are composed of 5 floors that share the same setting (cavern, forest, etc).

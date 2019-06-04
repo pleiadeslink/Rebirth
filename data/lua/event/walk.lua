@@ -60,7 +60,7 @@ if(isWorldMap() == false) then
 	if(getMapZ() == 0) then
 		if(mapX == 0) then
 			if(isPlayer(emitter) == true) then
-				worldMap(getMapX() - 1, getMapY())
+				changeMap(getMapX() - 1, getMapY(), getMapZ(), getMapWidth() - 2, getActorMapY(emitter))
 				message("You travel to the west.")
 			end
 			return
@@ -68,7 +68,7 @@ if(isWorldMap() == false) then
 		-- Go east
 		elseif(mapX == getMapWidth() - 1) then
 			if(isPlayer(emitter) == true) then
-				worldMap(getMapX() + 1, getMapY())
+				changeMap(getMapX() + 1, getMapY(), getMapZ(), 1, getActorMapY(emitter))
 				message("You travel to the east.")
 			end
 			return
@@ -76,7 +76,7 @@ if(isWorldMap() == false) then
 		-- Go north
 		elseif(mapY == 0) then
 			if(isPlayer(emitter) == true) then
-				worldMap(getMapX(), getMapY() - 1)
+				changeMap(getMapX(), getMapY() - 1, getMapZ(), getActorMapX(emitter), getMapHeight() - 2)
 				message("You travel to the north.")
 			end
 			return
@@ -84,7 +84,7 @@ if(isWorldMap() == false) then
 		-- Go south
 		elseif(mapY == getMapWidth() - 1) then
 			if(isPlayer(emitter) == true) then
-				worldMap(getMapX(), getMapY() + 1)
+				changeMap(getMapX(), getMapY() + 1, getMapZ(), mapX, 1)
 				message("You travel to the south.")
 			end
 			return
@@ -98,15 +98,13 @@ if(isWorldMap() == false) then
 
 			-- Up
 			if(direction == 9) then
-				changeMap(getMapX(), getMapY(), getMapZ() - 1)
-				teleportActor(emitter, mapX, mapY, true)
+				changeMap(getMapX(), getMapY(), getMapZ() - 1, getActorMapX(emitter), getActorMapY(emitter))
 				message("You travel up.")
 				return
 
 			-- Down
 			elseif(direction == 10) then
-				changeMap(getMapX(), getMapY(), getMapZ() + 1)
-				teleportActor(emitter, mapX, mapY, true)
+				changeMap(getMapX(), getMapY(), getMapZ() + 1, getActorMapX(emitter), getActorMapY(emitter))
 				message("You travel down.")
 				return
 			end

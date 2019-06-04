@@ -305,7 +305,7 @@ const bool& c_player::isInInventory(const int& item) {
 }
 
 // Adds the skill to the skill memory
-const bool& c_player::learnSkill(std::string id) {
+const bool& c_player::learnSkill(std::string id, const bool& verbose) {
 
     // First checks if the skill exists
     s_skillAsset* skill = engine -> assetManager.getSkillAsset(id);
@@ -316,8 +316,9 @@ const bool& c_player::learnSkill(std::string id) {
 
     // Adds the skill to the skill memory
     v_learnedSkills.push_back(id);
-
-    c_helper::gameMessage("You have learned the word '" + id + "'.");
+    if(verbose == true) {
+        c_helper::gameMessage("You have learned the word '" + id + "'.");
+    }
     return true;
 }
 

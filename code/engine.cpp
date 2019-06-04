@@ -31,8 +31,8 @@ void c_engine::start() {
     game -> newGame();
     interface.init();
     //sf::Vector2f v(0, 0);
-    //c_fire fire(4,320,180,v);
-    //fire.setFireSourceStrength(36);
+    //c_fire fire(8,160,90,v);
+    //fire.setFireSourceStrength(10);
     // Main loop
     f_quit = false;
     int key = 0;

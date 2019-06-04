@@ -2,180 +2,31 @@
  REBIRTH 
 ---------
 Loading maps...
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'tree' created.
-Actor 'dog' created.
-Actor 'dog' created.
-Actor 'dog' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
-Actor 'health_potion' created.
 Actor 'avatar' created.
 Loading /texture/fog.png...
 Loading /texture/selectedTile.png...
-Loading /texture/wallmark.png...
-Loading /texture/tileShadowBottom.png...
-Loading /texture/tileShadowFull.png...
-Loading /texture/tileShadowRight.png...
-Loading /texture/tileShadowBottomRight.png...
 Loading /texture/healthbar.png...
 Loading /texture/ribbon.png...
 Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
 Loading /texture/sandglass.png...
-Loading /texture/targetbar.png...
-Loading /texture/.png...
-Dog deleted.
-Loading /texture/detailsTitle.png...
-Loading /texture/listbar.png...
-Loading /texture/gui/cursor.png...
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Loading /texture/wallmark.png...
+Loading /texture/tileShadowBottom.png...
+Loading /texture/tileShadowRight.png...
+Loading /texture/tileShadowBottomRight.png...
+Loading /texture/tileShadowFull.png...
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
+Actor 'avatar' created.
 Goodbye!

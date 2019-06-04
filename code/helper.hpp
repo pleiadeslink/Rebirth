@@ -23,7 +23,7 @@ class c_helper {
 		static void showMapInfo();
 		static void loadMap(const int& x, const int& y, const int& z);
 		static void saveMap(const bool& default = false);
-		static void changeMap(const int& x, const int& y, const int& z);
+		static void changeMap(const int& x, const int& y, const int& z, const int& playerX, const int& playerY);
 		static void worldMap(const int& mapX, const int& mapY);
 		static const bool& travelToLocation(const int& x, const int& y);
 		static const bool& isWorldMap();

@@ -118,7 +118,7 @@ void c_helper::saveMap(const bool& default) {
 	return;
 }
 
-void c_helper::changeMap(const int& x, const int& y, const int& z) {
+void c_helper::changeMap(const int& x, const int& y, const int& z, const int& playerX, const int& playerY) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
 	}
@@ -128,13 +128,14 @@ void c_helper::changeMap(const int& x, const int& y, const int& z) {
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
     saveMap(false);
-    //engine -> game -> actorManager.savePlayer();
+    engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
-    //engine -> game -> actorManager.loadPlayer();
-    //teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
+    engine -> game -> actorManager.loadPlayer();
+	teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), playerX, playerY, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
+
 }
 
 void c_helper::worldMap(const int& mapX, const int& mapY) {
@@ -168,7 +169,8 @@ const bool& c_helper::travelToLocation(const int& x, const int& y) {
 	for(int i = 0; i < actorList.size(); ++i) {
 		
 		if(engine -> game -> actorManager.getActor(actorList[i]) -> getType() == actorType::location) {
-			c_helper::changeMap(x, y, engine -> game -> map -> getZ());
+			// You need to change it to enter the area in the correct direction
+			c_helper::changeMap(x, y, engine -> game -> map -> getZ(), 10, 10);
 			teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
 			return true;
 		}
