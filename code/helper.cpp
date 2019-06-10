@@ -288,6 +288,21 @@ const bool& c_helper::genDungeon(const int& value) {
 	return false;
 }
 
+const bool& c_helper::genCave(const int& iterations) {
+	if(!engine -> game or !engine -> game -> map) {
+		return false;
+	}
+	gameMessage("Generating cave...");
+	for(int i = 0; i < 100; ++i) {
+		if(engine -> game -> map -> genCave(iterations) == true) {
+			c_helper::gameMessage("OK");
+			return true;
+		}
+	}
+	c_helper::gameMessage("FAIL");
+	return false;
+}
+
 const int& c_helper::setGenFloor1(std::string value) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;

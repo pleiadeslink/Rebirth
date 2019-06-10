@@ -524,77 +524,15 @@ s_skillAsset c_assetManager::clearSkillAsset(s_skillAsset asset) {
 
 void c_assetManager::load() {
 
-	loadTiles();
-	loadActors();
-	loadSkills();
-
 	indexTile = 0;
 	indexActor = 0;
-
-	// <<< LOAD FONTS >>>
 	if(!font.loadFromFile("data/font/ibm.ttf")) {
 		throw std::invalid_argument( "The font file could not be found! :/" );
 	}
-
-	// <<< LOAD TILESET >>>
 	tileset.loadFromFile("data/texture/terminal.png");
-
-    
-    // <<< LOAD MAPS >>>
-    engine -> message("Loading maps...");
-	TiXmlDocument xmldocmap("data/maps.xml");
-	if(!xmldocmap.LoadFile()) {
-		std::stringstream s;
-		s << xmldocmap.ErrorDesc() << ".";
-		engine -> message(s.str());
-		exit(1);
-	}
-
-	structMapAsset defMap;
-    defMap.name = "New";
-    defMap.width = 64;
-    defMap.height = 64;
-    for(int i1 = 0; i1 < 127; ++i1) {
-    	for(int i2 = 0; i2 < 127; ++i2) {
-    	    for(int i3 = 0; i3 < 63; ++i3) {
-    			a_mapAsset[i1][i2][i3] = defMap;
-    		}
-    	}
-    }
-
-	TiXmlElement* map = xmldocmap.FirstChildElement("map");
-	while(map) {
-        
-        int x = 0;
-        int y = 0;
-        int z = 0;
-        structMapAsset newMap;
-        newMap.name = "New";
-        newMap.width = 64;
-        newMap.height = 64;
-
-		if(map -> FirstChildElement("name")) {
-			newMap.name = map -> FirstChildElement("name") -> GetText();
-        }
-		if(map -> FirstChildElement("x")) {
-			x = atof(map -> FirstChildElement("x") -> GetText());
-        }
-		if(map -> FirstChildElement("y")) {
-			y = atof(map -> FirstChildElement("y") -> GetText());
-        }
-		if(map -> FirstChildElement("z")) {
-			z = atof(map -> FirstChildElement("z") -> GetText());
-        }
-		if(map -> FirstChildElement("width")) {
-			newMap.width = atof(map -> FirstChildElement("width") -> GetText());
-        }
-		if(map -> FirstChildElement("height")) {
-			newMap.height = atof(map -> FirstChildElement("height") -> GetText());
-        }
-            
-        a_mapAsset[x][y][z] = newMap;
-		map = map -> NextSiblingElement("map");
-    }    
+	loadTiles();
+	loadActors();
+	loadSkills();
 }
 
 sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {

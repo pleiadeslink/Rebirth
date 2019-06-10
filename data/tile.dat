@@ -1,12 +1,12 @@
 -- TILES --
 
-[floorGrass]
+[floor_grass]
 name: Grass
 type: floor
 colorbg: darkest green
 colorol: darker green	
 
-[floorTallGrass]
+[floor_tallGrass]
 name: Tall grass
 type: floor
 symbol: 2x2
@@ -14,19 +14,19 @@ color: darker chartreuse
 colorbg: darkest green
 colorol: darker green	
 
-[floorDirt]
+[floor_dirt]
 name: Dirt
 type: floor
 colorbg: darker sepia
 colorol: dark sepia	
 
-[floorSand]
+[floor_sand]
 name: Sand
 type: floor
 colorbg: light sepia	
 colorol: lighter sepia
 
-[floorStone]
+[floor_stone]
 name: Stone floor
 type: floor
 colorbg: darker grey
@@ -39,13 +39,13 @@ symbol: 0x0
 colorbg: dark azure
 colorol: lightest azure
 
-[wallStone]
+[wall_stone]
 name: Stone wall
 type: wall
 colorbg: darker grey
 colorol: dark grey
 
-[wallBrownRock]
+[wall_rock]
 name: Rock wall
 type: wall
 colorbg: dark sepia

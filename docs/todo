@@ -11,4 +11,3 @@
 - Skills should have its own class
 - Cambiar evento data type por algo más descriptivo
 - Refactorizar c_winCharacter::draw() para que los títulos no se muestren en cada iteracion
-- Hacer para que los actores que viven no se vean en el fog

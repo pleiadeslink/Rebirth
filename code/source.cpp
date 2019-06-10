@@ -25,6 +25,8 @@
 #include "libtcod.hpp"
 #include "kaguya/kaguya.hpp"
 
+#define MAPSIZE 64
+
 namespace global {
 	const int maxFOVRange = 36;
 	const int maxLight = 255;

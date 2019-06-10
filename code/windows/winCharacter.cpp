@@ -213,37 +213,34 @@ void c_winCharacter::draw() {
 		//engine -> screen.drawTexture("statsTitle", (x + 34) * 16, (y + 1) * 16);
 		//engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 35) * 16 + 8 + 1, (y + 1) * 16 + 4 + 1, sf::Color::Black);
 		//engine -> screen.drawText("SEIKKEN the novice (level 1)", (x + 35) * 16 + 8, (y + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Constitution:", (x + 35) * 16, (y + 3) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()), (x + 35 + 9) * 16, (y + 3) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Agility:", (x + 35) * 16, (y + 4) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()), (x + 35 + 9) * 16, (y + 4) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Willpower:", (x + 35) * 16, (y + 5) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()), (x + 35 + 9) * 16, (y + 5) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Luck:", (x + 35) * 16, (y + 6) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()), (x + 35 + 9) * 16, (y + 6) * 16 + 4, sf::Color::White, textAlign::left);
-		engine -> screen.drawText("Level:            1", (x + 35) * 16, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Exp:            356", (x + 35) * 16, (y + 9) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Next level:   sleep", (x + 35) * 16, (y + 10) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText(engine -> game -> actorManager.getPlayer() -> getName(), (x + 46) * 16 - 8, (y + 1) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("the novice", (x + 46) * 16 - 8, (y + 2) * 16 + 4, color("light grey"));
 
-		engine -> screen.drawText("Dagger:         30%", (x + 35 + 11) * 16, (y + 1) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Sword:          12%", (x + 35 + 11) * 16, (y + 2) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Axe:            12%", (x + 35 + 11) * 16, (y + 3) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Staff:          12%", (x + 35 + 11) * 16, (y + 4) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Mace:           12%", (x + 35 + 11) * 16, (y + 5) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Bow:            24%", (x + 35 + 11) * 16, (y + 6) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Dodge:          18%", (x + 35 + 11) * 16, (y + 7) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Parry:           8%", (x + 35 + 11) * 16, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Block:          14%", (x + 35 + 11) * 16, (y + 9) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Invocation:     20%", (x + 35 + 11) * 16, (y + 10) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Evocation:      15%", (x + 35 + 11) * 16, (y + 11) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Stealth:          32%", (x + 35 + 11) * 16, (y + 12) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Level:            1", (x + 46) * 16 - 8, (y + 4) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Exp:            356", (x + 46) * 16 - 8, (y + 5) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Next level:   sleep", (x + 46) * 16 - 8, (y + 6) * 16 + 4, color("light grey"));
+		
+		engine -> screen.drawText("Strength:", (x + 46) * 16 - 8, (y + 8) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()), (x + 46 + 9) * 16 - 8, (y + 8) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Agility:", (x + 46) * 16 - 8, (y + 9) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()), (x + 46 + 9) * 16 - 8, (y + 9) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Willpower:", (x + 46) * 16 - 8, (y + 10) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()), (x + 46 + 9) * 16 - 8, (y + 10) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Luck:", (x + 46) * 16 - 8, (y + 11) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()), (x + 46 + 9) * 16 - 8, (y + 11) * 16 + 4, sf::Color::White, textAlign::left);
+		
+		
+		
 
-		engine -> screen.drawText("Damage:       13-15", (x + 35 + 22) * 16 - 8, (y + 3) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Armor:           27", (x + 35 + 22) * 16 - 8, (y + 5) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist heat:     24", (x + 35 + 22) * 16 - 8, (y + 6) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist cold:      0", (x + 35 + 22) * 16 - 8, (y + 7) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Resist poison:    8", (x + 35 + 22) * 16 - 8, (y + 8) * 16 + 4, sf::Color::White);
-		engine -> screen.drawText("Frequency:     high", (x + 35 + 22) * 16 - 8, (y + 10) * 16 + 4, sf::Color::White);
+		engine -> screen.drawText("Damage:       13-15", (x + 34 + 22) * 16, (y + 1) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("            (melee)", (x + 34 + 22) * 16, (y + 2) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Attack:          27", (x + 34 + 22) * 16, (y + 3) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Defense:         14", (x + 34 + 22) * 16, (y + 4) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Protection:       3", (x + 34 + 22) * 16, (y + 5) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Resist heat:      8", (x + 34 + 22) * 16, (y + 7) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Resist cold:      8", (x + 34 + 22) * 16, (y + 8) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Resist poison:    8", (x + 34 + 22) * 16, (y + 9) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Weight:       13/50", (x + 34 + 22) * 16, (y + 11) * 16 + 4, color("light grey"));
 	}
 
 
@@ -252,7 +249,7 @@ void c_winCharacter::draw() {
 	engine -> screen.drawText("INVENTORY", (x + 2 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("WORDS", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("CONDITION", (x + 23 + 4 + 1) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
-	engine -> screen.drawText("TALENTS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
+	engine -> screen.drawText("SKILLS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("QUESTS", (x + 43 + 4 + 3) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("SYSTEM", (x + 53 + 4 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 
@@ -400,7 +397,7 @@ void c_winCharacter::draw() {
 
 			// Skill list
 			if(!v_skills or v_skills -> size() == 0) {
-				engine -> screen.drawText("You don't know any skills.", (x + 2) * 16 + 4, (y + 19) * 16 - 4, sf::Color::White);
+				engine -> screen.drawText("You don't know any words.", (x + 2) * 16 + 4, (y + 19) * 16 - 4, sf::Color::White);
 			} else {
 				for(int i = 0; i < v_skills -> size(); ++i) {
 					int offset = 0;
@@ -511,7 +508,7 @@ void c_winCharacter::draw() {
 			break;
 		}
 		case charScreen::talents: {
-			engine -> screen.drawText("TALENTS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
+			engine -> screen.drawText("SKILLS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
 			//engine -> screen.drawTexture("menuCursor", (x + 35) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawTexture("menuCursor", (x + 35 + 7) * 16, (y + 13 + 1) * 16 + 7);
 			break;
@@ -545,7 +542,7 @@ void c_winCharacter::draw() {
 	drawVLine(11, 13, 4);
 	drawVLine(22, 13, 4);
 	drawVLine(33, 13, 4);
-	drawVLine(33, 0, 14);
+	drawVLine(44, 0, 14);
 	drawVLine(44, 13, 4);
 	drawVLine(55, 13, 4);
 	drawVLine(66, 13, 4);

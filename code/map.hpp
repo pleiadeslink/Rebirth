@@ -31,6 +31,9 @@ class c_map : public TCODMap {
         std::string genWall3;
         std::vector<s_coordinates> v_genWallStack;
         void updateWallStack();
+        static s_map getCellularMap(const int& iterations, const bool& connected); // Returns a cellular automata generated map with 0s and 1s
+        static s_map cellularIteration(s_map oldMap); // Conway's Game of Life rules
+        static int countNeighbours(s_map map, const int& x, const int& y); // Used in cellular automata generation
 
         // 3D Stuff
         double dirX, dirY;
@@ -57,7 +60,8 @@ class c_map : public TCODMap {
         void genClear(const int& tile = 0);
         const bool& genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile);
         void genCleanCorridors();
-        const bool& genDungeon(const int& rooms = 10);
+        const bool& genDungeon(const int& rooms = 10); // Generates a dungeon map
+        const bool& genCave(const int& iterations); // Generates a cave map
         const bool& genIsFloor(const int& x, const int& y);
         const bool& genIsWall(const int& x, const int& y);
         void setGenFloor1(std::string value) { genFloor1 = value; }
@@ -67,7 +71,7 @@ class c_map : public TCODMap {
         void setGenWall2(std::string value) { genWall2 = value; }
         void setGenWall3(std::string value) { genWall3 = value; }
         void setAmbience(std::string track) { ambience = track; }
-        void build(); // Returns true if current instance is the world map (x=0 y=0 z=0)
+        void build();
 
         // Actor management
         const bool& addActorToTile(const int& actor, const int& x, const int& y);

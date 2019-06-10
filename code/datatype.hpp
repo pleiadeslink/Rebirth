@@ -2,7 +2,7 @@ class c_actor;
 
 // GENERAL
 
-struct structEventData {
+typedef struct structEventData {
     structEventData():emitter(0),target(0),type("none"),mapX(0),mapY(0),value1(0),string1("") { }
     void setEmitter(const int& val) { emitter = val; }
     void setTarget(const int& val) { target = val; }
@@ -20,29 +20,34 @@ struct structEventData {
     std::string string1;
 };
 
-struct s_coordinates {
+typedef struct s_coordinates {
     int x;
     int y;
 };
 
-struct structFOVMap {
+typedef struct s_map {
+    bool tile[MAPSIZE][MAPSIZE];
+};
+
+typedef struct structFOVMap {
     bool val[global::maxFOVRange][global::maxFOVRange];
 };
 
+
 // ASSET
 
-struct structTextureAsset {
+typedef struct structTextureAsset {
     std::string id;
     sf::Texture* data;
 };
 
-struct s_effect {
+typedef struct s_effect {
     std::string script;
     int value1;
     std::string string1;
 };
 
-struct structActorAsset {
+typedef struct structActorAsset {
     std::string id;
     int type;
     std::string name;
@@ -78,14 +83,14 @@ struct structActorAsset {
     s_effect effect[4];
 };
 
-struct s_skillAsset {
+typedef struct s_skillAsset {
     std::string id;
     std::string name;
     std::string description;
     int duration;
 };
 
-struct structTileAsset {
+typedef struct structTileAsset {
     std::string id;
     std::string name;
     std::string description;
@@ -98,40 +103,40 @@ struct structTileAsset {
     int script;
 };
 
-struct s_genTile {
+typedef struct s_genTile {
     int tile;
     std::string actor;
     bool flag;
 };
 
-struct structMapAsset {
+typedef struct structMapAsset {
     std::string name;
     int width;
     int height;
 };
 
-struct s_gamelogMessage {
+typedef struct s_gamelogMessage {
     std::string message;
     bool old;
 };
 
-struct structVerbAsset {
+typedef struct structVerbAsset {
     std::string id;
     std::string name;
     int duration;
 };
 
-struct structEntryAsset {
+typedef struct structEntryAsset {
     std::string text;
     std::string isActor;
 };
 
-struct structTopicAsset {
+typedef struct structTopicAsset {
     std::string name;
     std::vector<structEntryAsset> v_entry;
 };
 
-struct s_invItem {
+typedef struct s_invItem {
     int uid;
     int quantity;
     bool equipped;
