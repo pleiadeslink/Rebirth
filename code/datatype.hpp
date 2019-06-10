@@ -142,7 +142,7 @@ typedef struct s_invItem {
     bool equipped;
 };
 
-struct s_script {
+typedef struct s_script {
     int uid;
     std::string command;
     bool autodelete;

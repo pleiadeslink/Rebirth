@@ -278,7 +278,7 @@ desc: Zombies are created by much the same process as are skeletons, but if anyt
 type: weapon
 name: dagger
 desc: A pointy dagger made for close quarter combat.
-texture: dagger
+symbol: 1x18
 player_tex: dagger
 type_w: one_handed
 category_w: dagger
@@ -290,6 +290,7 @@ mass: 5
 type: weapon
 name: Short sword
 desc: A short raw iron sword with some dents and notches, easy to wield in one hand.
+symbol: 0x18
 type_w: one_handed
 category_w: sword
 damage: 3-6
@@ -300,6 +301,7 @@ mass: 5
 type: weapon
 name: Gladius
 desc: The gladius is the favorite short sword of gladiators, with a heavier blade than the standard short sword. It serves well as a slashing weapon.
+symbol: 0x18
 color: grey
 type_w: one_handed
 category_w: sword
@@ -311,42 +313,51 @@ mass: 5
 type: weapon
 name: Rapier
 desc: A slender, sharply pointed sword, with a uncommonly elegant design.
+symbol: 1x18
 
 [falchion]
 type: weapon
 name: Falchion
 desc: A long, single-edged sword with a slightly curved blade.
+symbol: 0x18
 
 [longSword]
 type: weapon
 name: Long sword
-desc:A long two-handed blade that makes for a versatile weapon.
+desc: A long two-handed blade that makes for a versatile weapon.
+symbol: 0x18
 
 [claymore]
 desc: This larger type of greatsword is normally wielded with two hands due to its weight.
+symbol: 0x18
 
 [scimitar]
 desc: A long curved sword of Eyropea origin.
+symbol: 0x18
 
 [doubleSword]
 type: weapon
 name: Double sword
 desc: A deadly weapon with twin razor-sharp blades.
+symbol: 0x18
 
 [greatSword]
 type: weapon
 name: Great sword
 desc: A sword with a very long, heavy blade and a long handle. A long two-handed blade as good for crushing as for cutting.
+symbol: 0x18
 
 [tripleSword]
 type: weapon
 name: Triple sword
 desc: A huge weapon with three great razor-sharp blades, excellent for slicing through enemies of all sorts.
+symbol: 0x18
 
 [ancientSword]
 type: weapon
 name: Ancient sword
 desc: A straight sword of ancient origin. The grip is covered with strange ornamentations.
+symbol: 0x18
 
 [falcata]
 
@@ -356,6 +367,7 @@ desc: A straight sword of ancient origin. The grip is covered with strange ornam
 type: weapon
 name: Club
 desc: This weapon is just a shaped piece of wood.
+symbol: 2x18
 color: grey
 type_w: one_handed
 category_w: sword
@@ -367,14 +379,17 @@ mass: 5
 type: weapon
 name: Morning Star
 desc: A wooden shaft with a spiked metal head used to deliver a combination of blunt-force and puncturing blows.
+symbol: 2x18
 
-[shortBow]
-desc: Standard projectile weapon.
-
-[longBow]
-desc: A popular projectile weapon among experienced hunters.
+[bow]
+type: weapon
+name: Bow
+desc: A popular projectile weapon among hunters.
+symbol: 4x18
 
 [compositeBow]
+type: weapon
+symbol: 4x18
 
 ##########################################################################################
 ##########################################################################################
@@ -424,7 +439,7 @@ desc: A massive metal shield that is almost impossible to destroy but very heavy
 type: misc
 name: Barrel
 desc: A cylindrical container made of wood, commonly used to store water and supplies.
-texture: actor/barrel
+symbol: 0x17
 color: sepia
 canMove: 0
 canGet: 0
@@ -433,6 +448,7 @@ canGet: 0
 type: misc
 name: Bed
 desc: A pile of straw lying on top of a wooden platform raised off the ground to avoid pests. Used as a place to sleep or relax.
+symbol: 1x16
 color: lighter grey
 canMove: 0
 canGet: 0
@@ -441,6 +457,7 @@ canGet: 0
 type: misc
 name: Gold coin
 desc: A coin made of gold used as a currency to trade with goods and services.
+symbol: 4x2
 texture: coin
 color: gold
 mass: 0.01
@@ -449,6 +466,7 @@ mass: 0.01
 type: container
 name: Chest
 desc: Chests are popular among adventureres because of the treasures that are often stored inside.
+symbol: 12x13
 color: sepia
 
 [door]
@@ -461,6 +479,7 @@ color: dark sepia
 type: misc
 name: Fence
 desc: This structure is constructed from posts connected by wood boards and is commonly used to enclose livestock.
+symbol: 1x13
 color: sepia
 canMove: 0
 canGet: 0
@@ -469,7 +488,7 @@ canGet: 0
 type: potion
 name: Health potion
 desc: This magic elixir restores its user's health.
-texture: red_potion
+symbol: 13x10
 color: red
 mass: 0.3
 effect: restore|50|health
@@ -477,6 +496,7 @@ effect: restore|50|health
 [magic_scroll]
 type: scroll
 name: Magic Scroll
+symbol: 1x2
 mass: 0.2
 
 [shrub]
@@ -491,6 +511,7 @@ canGet: 0
 type: misc
 name: Singpost
 desc: A wooden signpost, its indications are most helpful to wandering travelers.
+symbol: 0x2
 color: dark sepia
 canMove: 0
 canGet: 0
@@ -500,6 +521,7 @@ type: staircase
 direction: down
 name: Staircase
 desc: These solid stairs allow you to travel one level down.
+symbol: 0x1
 color: grey
 canGet: 0
 
@@ -508,6 +530,7 @@ type: staircase
 direction: up
 name: Staircase
 desc: These solid stairs allow you to travel one level up.
+symbol: 1x1
 color: grey
 canView: 0
 canGet: 0
@@ -516,6 +539,7 @@ canGet: 0
 type: misc
 name: Table
 desc: A wooden table.
+symbol: 2x13
 color: sepia
 canMove: 0
 canGet: 0
@@ -527,8 +551,8 @@ desc: These photosynthetic organisms function as Terra's organic antennas, used 
 symbol: 5x0
 color: darker chartreuse
 canMove: 0
+canView: 0
 canGet: 0
-TALL
 
 [urn]
 type: misc

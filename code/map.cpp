@@ -1,11 +1,11 @@
 c_map::c_map() 
-: TCODMap(global::mapSize, global::mapSize),
+: TCODMap(MAPSIZE, MAPSIZE),
   name("The Void"),
   x(0),
   y(0),
   z(0),
-  width(global::mapSize),
-  height(global::mapSize),
+  width(MAPSIZE),
+  height(MAPSIZE),
   oldXFOV(0),
   oldYFOV(0),
   selectedTileX(0),
@@ -28,15 +28,15 @@ void c_map::init() {
     this -> y = 0;
     this -> z = 0;
     this -> name = "the wilderness";
-    this -> width = global::mapSize;
-    this -> height = global::mapSize;
+    this -> width = MAPSIZE;
+    this -> height = MAPSIZE;
     this -> oldXFOV = 0;
     this -> oldYFOV = 0;
     selectedTileX = 0;
     selectedTileY = 0;
     genFloor1 = "floor_stone";
     genFloor2 = "floor_grass";
-    genFloor3 = "floor_grass";
+    genFloor3 = "floor_tallGrass";
     genWall1 = "wall_stone";
     genWall2 = "wall_rock";
     genWall3 = "wall_rock";
@@ -334,7 +334,7 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
 }
 
 // Returns a cellular automata generated map with 0s and 1s
-s_map c_map::getCellularMap(const int& iterations, const bool& connected) {
+s_map c_map::getCellularMap(const int& iterations, const int& birthLimit, const int& deathLimit, const bool& connected) {
 
     int chanceToStartAlive = 45;
 
@@ -352,17 +352,14 @@ s_map c_map::getCellularMap(const int& iterations, const bool& connected) {
     
     // Conway's Game of Life
     for(int i = 0; i < iterations; ++i) {
-        map = cellularIteration(map);
+        map = cellularIteration(map, birthLimit, deathLimit);
     }
 
     return map;
 }
 
 // Conway's Game of Life rules
-s_map c_map::cellularIteration(s_map oldMap) {
-
-    int birthLimit = 4;
-    int deathLimit = 4;
+s_map c_map::cellularIteration(s_map oldMap, const int& birthLimit, const int& deathLimit) {
     
     // Create new map
     s_map newMap;
@@ -624,13 +621,11 @@ const bool& c_map::genDungeon(const int& rooms) {
 }
 
 // Generates a cave map
-const bool& c_map::genCave(const int& iterations) {
+const bool& c_map::genCave() {
 
     // Gets cellular map
-    s_map celMap = getCellularMap(iterations, false);
-    
-    // Clears gen map with wall
     genClear(genTile::wall1);
+    s_map celMap = getCellularMap(5, 2, 2, false);
 
     for(int i = 0; i < MAPSIZE; ++i) {
         for(int j = 0; j < MAPSIZE; ++j) {
@@ -644,6 +639,70 @@ const bool& c_map::genCave(const int& iterations) {
 
     build();
 
+    return true;
+}
+
+// Generates a plains map
+const bool& c_map::genPlains() {
+
+    // Makes tall grass patches with cellular automata
+    genClear(genTile::floor2);
+    s_map celMap = getCellularMap(5, 4, 3, false);
+    for(int i = 0; i < MAPSIZE; ++i) {
+        for(int j = 0; j < MAPSIZE; ++j) {
+            if(celMap.tile[i][j] == false) {
+                genMatrix[i][j].tile = genTile::floor3;
+            } else {
+                genMatrix[i][j].tile = genTile::floor2;
+            }
+        }
+    }
+    
+
+    // Places trees (more chance to grow in tall grass)
+    int trees = 0;
+    int maxTrees = MAPSIZE * 2;
+    int x = 0;
+    int y = 0;
+    while(trees != maxTrees) {
+        
+        // Gets random position
+        x = c_helper::random(1, MAPSIZE - 2); 
+        y = c_helper::random(1, MAPSIZE - 2);
+        
+        // Checks if the location is empty and there are no adjacent trees
+        if(genMatrix[x][y].actor == ""
+           and genMatrix[x][y - 1].actor != "tree"
+           and genMatrix[x + 1][y - 1].actor != "tree"
+           and genMatrix[x + 1][y].actor != "tree"
+           and genMatrix[x + 1][y + 1].actor != "tree"
+           and genMatrix[x][y + 1].actor != "tree"
+           and genMatrix[x - 1][y + 1].actor != "tree"
+           and genMatrix[x - 1][y].actor != "tree"
+           and genMatrix[x - 1][y - 1].actor != "tree") {
+
+            // More chance to grow if it's between tall grass patches
+            if(genMatrix[x][y].tile == genTile::floor3
+               and genMatrix[x][y - 1].tile == genTile::floor3
+               and genMatrix[x + 1][y - 1].tile == genTile::floor3
+               and genMatrix[x + 1][y].tile == genTile::floor3
+               and genMatrix[x + 1][y + 1].tile == genTile::floor3
+               and genMatrix[x][y + 1].tile == genTile::floor3
+               and genMatrix[x - 1][y + 1].tile == genTile::floor3
+               and genMatrix[x - 1][y].tile == genTile::floor3
+               and genMatrix[x - 1][y].tile == genTile::floor3) {
+                genMatrix[x][y].actor = "tree";
+                ++trees;
+            } else {
+                if(c_helper::random(0, 100) < 5) {
+                    genMatrix[x][y].actor = "tree";
+                    ++trees;
+                }
+            }
+        }
+    }
+
+    build();
     return true;
 }
 

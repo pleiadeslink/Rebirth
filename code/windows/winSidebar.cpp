@@ -147,11 +147,11 @@ void c_winSidebar::draw() {
 		}
 
 		// Draw external frame
-		drawTitle("Tiles", 8);
-		drawTitle("Actors", 19);
-		drawFrame();
 		drawHBar(7);
-		drawHBar(18);
+		drawTitle("Tiles", 8);
+		drawHBar(11);
+		drawTitle("Actors", 12);
+		drawFrame();
 		return;
 	}
 

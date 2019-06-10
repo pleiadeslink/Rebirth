@@ -39,7 +39,8 @@ class c_helper {
 		static const int& genClear(const int& value);
 		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile = false);
 		static const bool& genDungeon(const int& value);
-		static const bool& genCave(const int& iterations);
+		static const bool& genCave();
+		static const bool& genPlains();
 		static const int& setGenFloor1(std::string value);
 		static const int& setGenFloor2(std::string value);
 		static const int& setGenFloor3(std::string value);

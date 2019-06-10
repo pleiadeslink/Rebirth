@@ -31,7 +31,6 @@ namespace global {
 	const int maxFOVRange = 36;
 	const int maxLight = 255;
 	const int lightMult = 16;
-	const int mapSize = 64;
 	const int tileSize = 16;
 	const int maxRounds = 10000;
 };

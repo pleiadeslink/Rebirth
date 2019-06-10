@@ -26,6 +26,7 @@ state["clear"] = &c_helper::genClear;
 state["digRoom"] = &c_helper::genDigRoom;
 state["genDungeon"] = &c_helper::genDungeon;
 state["genCave"] = &c_helper::genCave;
+state["genPlains"] = &c_helper::genPlains;
 state["setFloor1"] = &c_helper::setGenFloor1;
 state["setFloor2"] = &c_helper::setGenFloor2;
 state["setFloor3"] = &c_helper::setGenFloor3;

@@ -31,8 +31,8 @@ class c_map : public TCODMap {
         std::string genWall3;
         std::vector<s_coordinates> v_genWallStack;
         void updateWallStack();
-        static s_map getCellularMap(const int& iterations, const bool& connected); // Returns a cellular automata generated map with 0s and 1s
-        static s_map cellularIteration(s_map oldMap); // Conway's Game of Life rules
+        static s_map getCellularMap(const int& iterations, const int& birthLimit, const int& deathLimit, const bool& connected); // Returns a cellular automata generated map with 0s and 1s
+        static s_map cellularIteration(s_map oldMap, const int& birthLimit, const int& deathLimit); // Conway's Game of Life rules
         static int countNeighbours(s_map map, const int& x, const int& y); // Used in cellular automata generation
 
         // 3D Stuff
@@ -61,7 +61,8 @@ class c_map : public TCODMap {
         const bool& genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile);
         void genCleanCorridors();
         const bool& genDungeon(const int& rooms = 10); // Generates a dungeon map
-        const bool& genCave(const int& iterations); // Generates a cave map
+        const bool& genCave(); // Generates a cave map
+        const bool& genPlains(); // Generates a cave map
         const bool& genIsFloor(const int& x, const int& y);
         const bool& genIsWall(const int& x, const int& y);
         void setGenFloor1(std::string value) { genFloor1 = value; }
