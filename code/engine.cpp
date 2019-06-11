@@ -38,7 +38,10 @@ void c_engine::start() {
     int key = 0;
     while(f_quit == false) {
         
-        key = input();
+        // We don't receive input if the engine is "loading"
+        if(!isLoading()) {
+            key = input();
+        }
         sound.update();
         if(game and interface.getMode() == imode::game) {
             game -> update(key);

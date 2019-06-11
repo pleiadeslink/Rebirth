@@ -34,8 +34,8 @@ name: Consume
 desc: Oral ingestion of food and brewages from your inventory.
 duration: 1
 
-[talk]
-name: Talk
+[speak]
+name: Speak
 desc: Sound-based information exchange with other intelligent beings. Different sounds are combined together into "words" to be imbued with meaning.
 duration: 4
 

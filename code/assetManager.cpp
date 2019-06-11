@@ -80,14 +80,7 @@ void c_assetManager::loadTiles() {
 		key = "colorbg: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
-			std::cout << line << std::endl;
 			asset.bgcolor = color(line);
-		}
-		key = "colorol: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			std::cout << line << std::endl;
-			asset.olcolor = color(line);
 		}
     }
     if(file.is_open()) {
@@ -221,12 +214,6 @@ void c_assetManager::loadActors() {
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
 			asset.color = color(line);
-		}
-
-		key = "shadow: ";
-		if(line.find(key) != std::string::npos) {
-			line.erase(0, key.length());
-			asset.shadow = atof(line.c_str());
 		}
 
 		key = "mass: ";
@@ -399,6 +386,14 @@ void c_assetManager::loadActors() {
 			asset.effect[effectIndex].string1 = a3.c_str();
 			++effectIndex;
 		}
+
+		// Flags
+
+		key = "NOSHADOW";
+		if(line.find(key) != std::string::npos) {
+			asset.f_noshadow = true;
+		}
+
     }
     if(file.is_open()) {
         file.close();
@@ -480,7 +475,6 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.tx = 1;
 	asset.ty = 0;
 	asset.color = sf::Color::White;
-	asset.shadow = true;
 	asset.mass = 0;
 	asset.canMove = true;
 	asset.canView = true;
@@ -512,6 +506,7 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.effect[3].script = "";
 	asset.effect[3].value1 = 0;
 	asset.effect[3].string1 = "";
+	asset.f_noshadow = false;
 	return asset;
 }
 

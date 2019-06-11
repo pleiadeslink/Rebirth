@@ -26,7 +26,7 @@ typedef struct s_coordinates {
 };
 
 typedef struct s_map {
-    bool tile[MAPSIZE][MAPSIZE];
+    double tile[MAPSIZE][MAPSIZE];
 };
 
 typedef struct structFOVMap {
@@ -59,7 +59,6 @@ typedef struct structActorAsset {
     int tx;
     int ty;
     sf::Color color;
-    bool shadow;
     float mass;
     bool canMove;
     bool canView;
@@ -81,6 +80,7 @@ typedef struct structActorAsset {
     int penalty;
     int faction;
     s_effect effect[4];
+    bool f_noshadow;
 };
 
 typedef struct s_skillAsset {

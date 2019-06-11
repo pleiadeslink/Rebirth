@@ -1,6 +1,11 @@
 sf::Color color(const std::string& str) {
     sf::Color color = sf::Color::White;
-    if(str == "desaturated red") {
+    if(str == "white") {
+        color.r = 255;
+        color.g = 255;
+        color.b = 255;
+        return color;
+    } if(str == "desaturated red") {
         color.r = 128;
         color.g = 64;
         color.b = 64;
@@ -55,13 +60,13 @@ sf::Color color(const std::string& str) {
         color.b = 0;
         return color;
     } if(str == "light flame") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 255;
+        color.g = 149;
+        color.b = 155;
         return color;
     } if(str == "flame") {
-        color.r = 0;
-        color.g = 0;
+        color.r = 255;
+        color.g = 63;
         color.b = 0;
         return color;
     } if(str == "dark flame") {

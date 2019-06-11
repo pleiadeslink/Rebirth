@@ -16,6 +16,7 @@ class c_game {
         const bool& newGame();
         const bool& saveGame();
         const bool& loadGame();
+        void updateWorld(); // Updates world from map 0.0.0
         void update(const int& key);
         void turn(); // Runs turns till the player finishes his action
         static bool runScript(structEventData& data);

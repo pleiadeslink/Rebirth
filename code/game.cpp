@@ -10,7 +10,7 @@ const bool& c_game::newGame() {
 
     map = new c_map();
     map -> init();
-    c_helper::loadMap(64, 64, 0);
+    c_helper::loadMap(0, 0, 0);
     actorManager.createActor("avatar", 24, 24);
     c_helper::teleportActor(actorManager.getPlayer() -> getUid(), 24, 24, true);
     engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
@@ -23,6 +23,29 @@ const bool& c_game::saveGame() {
 
 const bool& c_game::loadGame() {
     return true;
+}
+
+// Updates world from map 0.0.0
+void updateWorld() {
+
+    TCODZip zip;
+    std::string defaultFilename = "data/map/0.0.0.map";
+    if(zip.loadFromFile(defaultFilename.c_str())) {
+
+        // Load dimension
+        int width = zip.getInt();;
+        int height = zip.getInt();
+
+        // Load map tiles 
+        for(int i1 = 0; i1 < width; ++i1) {
+            for(int i2 = 0; i2 < height; ++i2) {
+                zip.getString();
+                zip.getInt(); // Explored flag
+            }
+        }
+    } else {
+        engine -> message("World update failed because map 0.0.0 was not found.");
+    }
 }
 
 void c_game::update(const int& key) {
@@ -38,7 +61,7 @@ void c_game::update(const int& key) {
 
     // If he's not, check if he can channel the human player
     } else {
-        actorManager.getPlayer() -> player -> channel(key, map -> isWorldMap());
+        actorManager.getPlayer() -> player -> channel(key);
     }
 
     gamelog.update();

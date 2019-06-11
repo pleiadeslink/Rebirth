@@ -6,7 +6,7 @@ c_door::c_door(c_actor* father)
 void c_door::toggleOpen() {
 	if(closed == true) {
 		closed = false;
-		father -> setTile(12, 5);
+		father -> setTile(4, 16);
 		if(father -> body) {
 			father -> body -> setCanMove(true);
 			father -> body -> setCanView(true);
@@ -14,7 +14,7 @@ void c_door::toggleOpen() {
 		}
 	} else {
 		closed = true;
-		father -> setTile(11, 2);
+		father -> setTile(3, 16);
 		if(father -> body) {
 			father -> body -> setCanMove(false);
 			father -> body -> setCanView(false);

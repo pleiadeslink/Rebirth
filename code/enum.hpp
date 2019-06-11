@@ -43,6 +43,22 @@ namespace actorType {
     };
 }
 
+namespace wildernessType {
+    enum wildernessTypes {
+        plains,
+        forest,
+        desert,
+        beach_n,
+        beach_s,
+        beach_e,
+        beach_w,
+        beach_ne,
+        beach_nw,
+        beach_se,
+        beach_sw
+    };
+}
+
 namespace direction {
     enum directions {
         none,
@@ -125,10 +141,12 @@ namespace event {
         attack, // 2
         damage, // 3
         death, // 4
-        talk,
+        speak,
         eat,
         read,
-        drink // 5
+        drink, // 5
+        travel, // Only available in wilderness maps
+        explore // Only available in world map
     };
 }
 

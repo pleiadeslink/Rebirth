@@ -1,5 +1,3 @@
-- Wilderness generator
-- Cave generator
 - Mountain generator
 - Game saving
 - c_winSidebar::update: copy v_tileAsset by reference instead of value to increase performance
@@ -11,3 +9,4 @@
 - Skills should have its own class
 - Cambiar evento data type por algo más descriptivo
 - Refactorizar c_winCharacter::draw() para que los títulos no se muestren en cada iteracion
+- Refactor color to use define en lugar de función

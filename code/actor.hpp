@@ -20,12 +20,14 @@ class c_actor {
         bool tall;
         int tileX;
         int tileY;
-        bool shadow;
         int faction;
         sf::Color color;
         int mapX;
         int mapY;
         int target; // not used 
+
+        // Flags
+        bool f_noshadow;
         
     public:
         // Components
@@ -62,7 +64,6 @@ class c_actor {
         const int& getMapY()  { return mapY; }
         const int& getTileX() { return tileX; }
         const int& getTileY() { return tileY; }
-        const bool& getShadow() { return shadow; }
         const int& getFaction() { return faction; }
         const sf::Color& getColor() { return color; }
         const int& getTarget() { return target; }

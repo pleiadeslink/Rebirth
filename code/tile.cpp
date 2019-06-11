@@ -21,7 +21,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
 
     if(fog == false) {
         engine -> screen.drawTile(11, 13, x, y, bgcolor);
-        drawOverlay(x, y, type, olcolor);
+        //drawOverlay(x, y, type, olcolor);
         if(v_actor.size() > 0) {
             c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[0]);
             //if(p_actor != engine -> game -> actorManager.getPlayer()) {
@@ -57,7 +57,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
             
             // Print tile with fog
             engine -> screen.drawTile(11, 13, x, y, bgcolor);
-            drawOverlay(x, y, type, olcolor);
+            //drawOverlay(x, y, type, olcolor);
             drawShadow(x, y);
 
             // Draw non-living actor
@@ -89,7 +89,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
 
         if(v_actor.size() == 1) {
             engine -> screen.drawTile(11, 13, x, y, bgcolor);
-            drawOverlay(x, y, type, olcolor);
+            //drawOverlay(x, y, type, olcolor);
             drawShadow(x, y);
             engine -> game -> actorManager.getActor(v_actor[0]) -> draw(x, y);
             //engine -> screen.drawTexture("fog-night", x, y);
@@ -104,7 +104,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
             // Draw living actor
             if(p_actor -> life) {
                 engine -> screen.drawTile(11, 13, x, y, bgcolor);
-                drawOverlay(x, y, type, olcolor);
+                //drawOverlay(x, y, type, olcolor);
                 drawShadow(x, y);
                 p_actor -> draw(x, y);
                 //engine -> screen.drawTexture("fog-night", x, y);
@@ -116,7 +116,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
         }
         //if(manyItems > 1) {
         engine -> screen.drawTile(11, 13, x, y, bgcolor);
-        drawOverlay(x, y, type, olcolor);
+        //drawOverlay(x, y, type, olcolor);
         engine -> screen.drawTile(15, 0, x, y, sf::Color::White);
         //} else {
         //    engine -> screen.drawTile(11, 13, x, y, bgcolor);
@@ -129,7 +129,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
 
     // Otherwise draw tile terrain
     engine -> screen.drawTile(11, 13, x, y, bgcolor);
-    drawOverlay(x, y, type, olcolor);
+    //drawOverlay(x, y, type, olcolor);
     engine -> screen.drawTile(tileX, tileY, x, y, color);
     drawShadow(x, y);
 
@@ -184,7 +184,7 @@ bool c_tile::playerAction(c_actor* p_player) {
 void c_tile::drawShadow(const int& x, const int& y) {
     
     if(type != tileType::wall and this -> x > 0 and this -> y > 0 and this -> x < engine -> game -> map -> getWidth() and this -> y < engine -> game -> map -> getHeight()) {
-        if(type == tileType::water) {
+        /* if(type == tileType::water) {
             if(engine -> game -> map -> getTile(this -> x, this -> y - 1) -> getType() != tileType::water) {
                 if(engine -> game -> map -> getTile(this -> x - 1, this -> y) -> getType() != tileType::water) {
                     engine -> screen.drawTexture("tileShadowFull", x, y);
@@ -200,7 +200,7 @@ void c_tile::drawShadow(const int& x, const int& y) {
                     }
                 }
             }
-        } else if(engine -> game -> map -> getTile(this -> x, this -> y - 1) -> getType() == tileType::wall) {
+        } else*/ if(engine -> game -> map -> getTile(this -> x, this -> y - 1) -> getType() == tileType::wall) {
             if(engine -> game -> map -> getTile(this -> x - 1, this -> y) -> getType() == tileType::wall) {
                 engine -> screen.drawTexture("tileShadowFull", x, y);
             } else {
@@ -232,7 +232,7 @@ void c_tile::drawOverlay(const int& x, const int& y, const int& type, sf::Color 
             engine -> screen.drawTile(5, 17, x, y, color, scale);
             break;
         }
-    } 
+    }
 }
 
 bool c_tile::isObstacle() {

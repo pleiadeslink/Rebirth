@@ -81,8 +81,8 @@ void c_helper::loadMap(const int& x, const int& y, const int& z) {
 		return;
 	}
 
+	TCODZip zip;
     engine -> game -> map -> wipe(x, y, z);
-    TCODZip zip;
 
     // Load saved
     std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
@@ -100,6 +100,7 @@ void c_helper::loadMap(const int& x, const int& y, const int& z) {
     }
 }
 
+// Saves as default map if parameter is true
 void c_helper::saveMap(const bool& default) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
@@ -118,7 +119,7 @@ void c_helper::saveMap(const bool& default) {
 	return;
 }
 
-void c_helper::changeMap(const int& x, const int& y, const int& z, const int& playerX, const int& playerY) {
+void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, int startY) {
 	if(!engine -> game or !engine -> game -> map) {
 		return;
 	}
@@ -131,8 +132,12 @@ void c_helper::changeMap(const int& x, const int& y, const int& z, const int& pl
     engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
-    engine -> game -> actorManager.loadPlayer();
-	teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), playerX, playerY, true);
+	engine -> game -> actorManager.loadPlayer();
+	if(startX == 0 and startY == 0) { // If starting position tile is empty, we teleport to the middle of the map
+		startX = engine -> game -> map -> getWidth() / 2;
+		startY = engine -> game -> map -> getHeight() / 2;
+	}
+	teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), startX, startY, true);
 	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
 
@@ -147,12 +152,12 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
-	std::cout << "prewtf" << std::endl;
+
     saveMap(false);
     //engine -> game -> actorManager.savePlayer();
 	
     engine -> game -> actorManager.clear();
-	std::cout << "wtf" << std::endl;
+
     loadMap(0, 0, 0);
     //engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
@@ -160,7 +165,8 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
 	engine -> setLoading(false);
 }
 
-const bool& c_helper::travelToLocation(const int& x, const int& y) {
+// Returns true if it finds a location actor in the tile
+const bool& c_helper::isLocation(const int& x, const int& y) {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
@@ -169,9 +175,6 @@ const bool& c_helper::travelToLocation(const int& x, const int& y) {
 	for(int i = 0; i < actorList.size(); ++i) {
 		
 		if(engine -> game -> actorManager.getActor(actorList[i]) -> getType() == actorType::location) {
-			// You need to change it to enter the area in the correct direction
-			c_helper::changeMap(x, y, engine -> game -> map -> getZ(), 10, 10);
-			teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), 10, 10, true);
 			return true;
 		}
 	}
@@ -303,13 +306,28 @@ const bool& c_helper::genCave() {
 	return false;
 }
 
-const bool& c_helper::genPlains() {
+const bool& c_helper::genWild(const int& type) {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
-	gameMessage("Generating plains...");
+	gameMessage("Generating wilderness...");
 	for(int i = 0; i < 100; ++i) {
-		if(engine -> game -> map -> genPlains() == true) {
+		if(engine -> game -> map -> genWild(type) == true) {
+			c_helper::gameMessage("OK");
+			return true;
+		}
+	}
+	c_helper::gameMessage("FAIL");
+	return false;
+}
+
+const bool& c_helper::genWorld() {
+	if(!engine -> game or !engine -> game -> map) {
+		return false;
+	}
+	gameMessage("Generating world map...");
+	for(int i = 0; i < 100; ++i) {
+		if(engine -> game -> map -> genWorld() == true) {
 			c_helper::gameMessage("OK");
 			return true;
 		}

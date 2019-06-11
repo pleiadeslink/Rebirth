@@ -3,52 +3,90 @@
 [floor_grass]
 name: Grass
 type: floor
+symbol: 10x15
+color: darker chartreuse
 colorbg: darkest green
-colorol: darker green	
 
 [floor_tallGrass]
 name: Tall grass
 type: floor
-symbol: 2x2
+symbol: 2x19
 color: darker chartreuse
 colorbg: darkest green
-colorol: darker green	
 
 [floor_dirt]
 name: Dirt
 type: floor
+symbol: 10x15
+color: dark sepia
 colorbg: darker sepia
-colorol: dark sepia	
 
 [floor_sand]
 name: Sand
 type: floor
-colorbg: light sepia	
-colorol: lighter sepia
+symbol: 10x15
+color: light sepia	
+colorbg: lighter sepia
 
 [floor_stone]
 name: Stone floor
 type: floor
+symbol: 10x15
+color: dark grey
 colorbg: darker grey
-colorol: dark grey
 
 [water]
 name: Water
 type: water
-symbol: 0x0
+symbol: 14x7
+color: azure
 colorbg: dark azure
-colorol: lightest azure
 
 [wall_stone]
 name: Stone wall
 type: wall
 colorbg: darker grey
-colorol: dark grey
 
 [wall_rock]
 name: Rock wall
 type: wall
 colorbg: dark sepia
-colorol: darkest sepia
+
+-- World map tiles
+
+[world_plains]
+name: Plains
+type: floor
+symbol: 10x15
+color: darker chartreuse
+colorbg: darkest green
+
+[world_forest]
+name: Forest
+type: floor
+symbol: 0x19
+color: darker chartreuse
+colorbg: darkest green
+
+[world_desert]
+name: Desert
+type: floor
+symbol: 10x15
+color: light sepia	
+colorbg: lighter sepia
+
+[world_water]
+name: Water
+type: water
+symbol: 14x7
+color: azure
+colorbg: dark azure
+
+[world_snow]
+name: Snow
+type: floor
+symbol: 10x15
+color: light grey
+colorbg: lightest grey
 
 [end]

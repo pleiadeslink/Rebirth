@@ -19,7 +19,7 @@ c_player::c_player(c_actor* father) {
 
     // Learns basic skills
     learnSkill("attack");
-    learnSkill("talk");
+    learnSkill("speak");
     learnSkill("consume");
     learnSkill("equip");
     learnSkill("remove");
@@ -29,7 +29,7 @@ c_player::c_player(c_actor* father) {
     learnSkill("walk");
 }
 
-bool c_player::channel(const int& key, const bool& worldMap) {
+bool c_player::channel(const int& key) {
     
     // * Pathfinding
 
@@ -79,12 +79,13 @@ bool c_player::channel(const int& key, const bool& worldMap) {
             }
             delete path;
         }
+        return false;
     }
 
     // Reads input
 	if(key) {
 
-        // World map input
+        // Walk (possible in regular and world map)
         switch(key) {
 
             case key::up: {
@@ -142,8 +143,26 @@ bool c_player::channel(const int& key, const bool& worldMap) {
 
                 return engine -> game -> map -> getTile(x - 1, y) -> playerAction(father);
             }
+        }
+    }     
 
-            case key::t: {
+    // World map input
+    if(c_helper::isWorldMap()) {
+        switch(key) {  
+
+            // Explore current tile in local map
+            case key::e: {
+                c_helper::changeMap(father -> getMapX(), father -> getMapY(), 0);
+                return true;
+            }            
+        }
+    
+    // Regular map input
+    } else {
+        switch(key) {  
+
+            // Speak
+            case key::s: {
 
                 std::vector<int> actorList = engine -> game -> map -> countActorsAround(father -> getMapX(), father -> getMapY());
                 std::vector<int> creatureList;
@@ -160,31 +179,39 @@ bool c_player::channel(const int& key, const bool& worldMap) {
                     // Only one creature
                     if(creatureList.size() == 1) {
                         structEventData eventData;
-                        eventData.type = "talk";
+                        eventData.type = "speak";
                         eventData.target = creatureList[0];
                         father -> action -> start(eventData);
                         return true;
                     // Several creatures
                     } else {
                         structEventData eventData;
-                        eventData.type = "talk";
-                        eventData.target = engine -> interface.selectCloseTarget(imode::game, "Talk to");
+                        eventData.type = "speak";
+                        eventData.target = engine -> interface.selectCloseTarget(imode::game, "Speak with");
                         father -> action -> start(eventData);
                         return true;
                     }
                 }
 
-                engine -> game -> gamelog.message("There is nobody you can talk to.");
+                engine -> game -> gamelog.message("There is nobody you can speak with.");
                 return false;
             }
 
+            // Travel (go to the world map)
+            case key::t: {
+                c_helper::changeMap(0, 0, 0, c_helper::getMapX(), c_helper::getMapY());
+                return true;
+            }  
+
+            // Wait
             case key::period: {
                 structEventData eventData;
                 eventData.type = "wait";
                 father -> action -> start(eventData);
                 return true;
-            }
+            }         
 
+            // Get
             case key::comma: {
                 std::vector<int> actorList = engine -> game -> map -> getTile(father -> getMapX(), father -> getMapY()) -> getActorList();
                 bool actor = false;
@@ -205,7 +232,7 @@ bool c_player::channel(const int& key, const bool& worldMap) {
                 }
             }
         }
-    }     
+    }
     return false;    
 }
 

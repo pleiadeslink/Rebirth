@@ -24,8 +24,9 @@
 #include "richText.hpp"
 #include "libtcod.hpp"
 #include "kaguya/kaguya.hpp"
+#include "fastNoise.hpp"
 
-#define MAPSIZE 64
+#define MAPSIZE 128
 
 namespace global {
 	const int maxFOVRange = 36;
@@ -35,8 +36,6 @@ namespace global {
 	const int maxRounds = 10000;
 };
 
-#include "tinyxml/tinyxml.h"
-#include "tinyxml/tinystr.h"
 #include "colors.hpp"
 #include "enum.hpp"
 #include "datatype.hpp"
@@ -83,6 +82,7 @@ int main(int argc, char *argv[]) {
 }
 
 #include "richText.cpp"
+#include "fastNoise.cpp"
 #include "screen.cpp"
 #include "sound.cpp"
 #include "interface.cpp"
@@ -95,10 +95,6 @@ int main(int argc, char *argv[]) {
 #include "windows/winGamelog.cpp"
 #include "windows/winSidebar.cpp"
 #include "fire.cpp"
-#include "tinyXML/tinyxml.cpp"
-#include "tinyXML/tinystr.cpp"
-#include "tinyXML/tinyxmlerror.cpp"
-#include "tinyXML/tinyxmlparser.cpp"
 #include "actorComponents/action.cpp"
 #include "actorComponents/player.cpp"
 #include "actorComponents/AI.cpp"

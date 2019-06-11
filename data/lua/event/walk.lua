@@ -44,7 +44,8 @@ end
 if(isPlayer(emitter)) then
 	
 	-- Is it a location? Then go there
-	if(isWorldMap() == true and travelToLocation(mapX, mapY) == true) then
+	if(isWorldMap() == true and isLocation(mapX, mapY) == true) then
+		changeMap(mapX, mapY, getMapZ())
 		return
 	end
 	-- Is there an obstacle?

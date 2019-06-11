@@ -58,7 +58,7 @@ void c_actor::init(structActorAsset* asset) {
     tileY = asset -> ty;
     color = asset -> color;
     faction = asset -> faction;
-    shadow = asset -> shadow;
+    f_noshadow = asset -> f_noshadow;
 
     switch(type) {
         case actorType::avatar: {
@@ -117,7 +117,9 @@ void c_actor::init(structActorAsset* asset) {
 }
 
 void c_actor::draw(const int& x, int y) {
-    engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
+    if(f_noshadow == false) {
+        engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
+    }
     engine -> screen.drawTile(tileX, tileY, x, y, color);
 }
 

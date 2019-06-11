@@ -21,10 +21,14 @@ There are ancient portals scattered across the world that allows to travel throu
 Wilderness maps:
 - Plains
 - Desert
-- Forest
+- Warm/Hot Forest
+- Jungle
 - Coast
 - Road
 - River
+- Savannah
+- Swamp
+- Tundra
 
 It
 is thoroughly devoted to the worship of Tiamat,

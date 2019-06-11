@@ -49,14 +49,9 @@ void c_map::init() {
 
 void c_map::save(TCODZip* zip) {
 
-    // Save map info
-    zip -> putString(name.c_str());
-    zip -> putInt(x);
-    zip -> putInt(y);
-    zip -> putInt(z);
+    // Save dimension
     zip -> putInt(width);
     zip -> putInt(height);
-    zip -> putString(ambience.c_str());
 
     // Save map tiles 
     for(int i1 = 0; i1 < width; ++i1) {
@@ -65,17 +60,22 @@ void c_map::save(TCODZip* zip) {
             zip -> putInt(matrix[i1][i2].getExplored());
         }
     }
+
+    // Save coords
+    zip -> putInt(x);
+    zip -> putInt(y);
+    zip -> putInt(z);
+
+    // Save map info
+    zip -> putString(name.c_str());
+    zip -> putString(ambience.c_str());
 }
 
 void c_map::load(TCODZip* zip) {
 
-    name = zip -> getString();
-    x = zip -> getInt();
-    y = zip -> getInt();
-    z = zip -> getInt();
+    // Load dimension
     width = zip -> getInt();;
     height = zip -> getInt();
-    ambience = zip -> getString();
 
     // Load map tiles 
     for(int i1 = 0; i1 < width; ++i1) {
@@ -90,6 +90,15 @@ void c_map::load(TCODZip* zip) {
             }
         }
     }
+
+    // Load coords
+    x = zip -> getInt();
+    y = zip -> getInt();
+    z = zip -> getInt();
+
+    // Load map info
+    name = zip -> getString();
+    ambience = zip -> getString();
 }
 
 void c_map::wipe(const int& x, const int& y, const int& z) {
@@ -625,7 +634,7 @@ const bool& c_map::genCave() {
 
     // Gets cellular map
     genClear(genTile::wall1);
-    s_map celMap = getCellularMap(5, 2, 2, false);
+    s_map celMap = getCellularMap(5, 4, 3, false);
 
     for(int i = 0; i < MAPSIZE; ++i) {
         for(int j = 0; j < MAPSIZE; ++j) {
@@ -643,17 +652,20 @@ const bool& c_map::genCave() {
 }
 
 // Generates a plains map
-const bool& c_map::genPlains() {
+const bool& c_map::genWild(const int& type) {
+
+    genClear(genTile::floor2);
 
     // Makes tall grass patches with cellular automata
-    genClear(genTile::floor2);
-    s_map celMap = getCellularMap(5, 4, 3, false);
-    for(int i = 0; i < MAPSIZE; ++i) {
-        for(int j = 0; j < MAPSIZE; ++j) {
-            if(celMap.tile[i][j] == false) {
-                genMatrix[i][j].tile = genTile::floor3;
-            } else {
-                genMatrix[i][j].tile = genTile::floor2;
+    if(type != wildernessType::desert) {
+        s_map celMap = getCellularMap(5, 4, 3, false);
+        for(int i = 0; i < MAPSIZE; ++i) {
+            for(int j = 0; j < MAPSIZE; ++j) {
+                if(celMap.tile[i][j] == false) {
+                    genMatrix[i][j].tile = genTile::floor3;
+                } else {
+                    genMatrix[i][j].tile = genTile::floor2;
+                }
             }
         }
     }
@@ -704,6 +716,42 @@ const bool& c_map::genPlains() {
 
     build();
     return true;
+}
+
+// Generates world map
+const bool& c_map::genWorld() {
+
+    s_map elevationMap;
+
+    // Generates noise
+    FastNoise noise;
+    noise.SetNoiseType(FastNoise::SimplexFractal);
+    noise.SetFrequency(0.03);
+
+    float exponent = 1.60;
+
+    for (int x = 0; x < MAPSIZE; ++x) {
+        for (int y = 0; y < MAPSIZE; ++y) {      
+                                                    // Rescale from -1.0:+1.0 to 0.0:1.0
+            elevationMap.tile[x][y] = pow(noise.GetNoise(x, y) / 2.0 + 0.5, exponent);
+
+            // Sets biomes
+            if (elevationMap.tile[x][y] < 0.1) matrix[x][y].setAsset(engine -> assetManager.getTileAsset("world_water"));
+            else if (elevationMap.tile[x][y] < 0.2) matrix[x][y].setAsset(engine -> assetManager.getTileAsset("world_desert"));
+            else if (elevationMap.tile[x][y] < 0.3) matrix[x][y].setAsset(engine -> assetManager.getTileAsset("world_plains"));
+            else if (elevationMap.tile[x][y] < 0.6) matrix[x][y].setAsset(engine -> assetManager.getTileAsset("world_forest"));
+            else if (elevationMap.tile[x][y] < 0.8) matrix[x][y].setAsset(engine -> assetManager.getTileAsset("world_desert"));
+            else matrix[x][y].setAsset(engine -> assetManager.getTileAsset("world_snow"));
+        }
+    }
+
+    return true;
+}
+
+// Returns noise in specific location
+double c_map::getNoise(double nx, double ny, TCODNoise* noise) {
+    float p[2] = {nx, ny};
+    return noise -> getFbm(p, 32.0f) / 2.0 + 0.5; // Rescale from -1.0:+1.0 to 0.0:1.0
 }
 
 const bool& c_map::genIsFloor(const int& x, const int& y) {

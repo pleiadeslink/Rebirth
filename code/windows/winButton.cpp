@@ -58,7 +58,7 @@ void c_winButton::draw() {
             case buttonType::tile: {
                 structTileAsset* asset = engine -> assetManager.getTileAsset(id);
                 engine -> screen.drawTile(11, 13, xf, yf, asset -> bgcolor);
-                c_tile::drawOverlay(xf, yf, asset -> type, asset -> olcolor);
+                //c_tile::drawOverlay(xf, yf, asset -> type, asset -> olcolor);
                 engine -> screen.drawTile(asset -> tx, asset -> ty, xf, yf, asset -> color);
                 break;
             }

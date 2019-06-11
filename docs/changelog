@@ -1,5 +1,10 @@
+0.2.5
+- Travel system implemented
+- tinyXML library removed
+
 0.2.4
 - Plains generation
+- fastnoise library added
 
 0.2.3
 - Fire effect

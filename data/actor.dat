@@ -453,6 +453,16 @@ color: lighter grey
 canMove: 0
 canGet: 0
 
+[bookShelf]
+type: misc
+name: Book shelf
+desc: A wooden furniture with horizontal shelves used to store books.
+symbol: 0x16
+color: dark sepia
+canMove: 0
+canGet: 0
+canView: 0
+
 [coin]
 type: misc
 name: Gold coin
@@ -473,6 +483,7 @@ color: sepia
 type: door
 name: Door
 desc: A solid, wooden door.
+symbol: 3x16
 color: dark sepia
 
 [fence]
@@ -484,7 +495,16 @@ color: sepia
 canMove: 0
 canGet: 0
 
-[health_potion]
+[flowers]
+type: misc
+name: Flowers
+symbol: 5x19
+color: lighter azure
+canMove: 1
+canGet: 1
+NOSHADOW
+
+[healthPotion]
 type: potion
 name: Health potion
 desc: This magic elixir restores its user's health.
@@ -493,11 +513,29 @@ color: red
 mass: 0.3
 effect: restore|50|health
 
-[magic_scroll]
+[magicScroll]
 type: scroll
 name: Magic Scroll
 symbol: 1x2
 mass: 0.2
+
+[palmTree]
+type: misc
+name: Palm Tree
+desc: These funky trees remind of sandy, white beaches, sunshine and the sound of ocean waves crashing against the shore.
+symbol: 1x19
+color: darker chartreuse
+canMove: 0
+canView: 0
+canGet: 0
+
+[rock]
+type: misc
+name: Rock vein
+symbol: 3x19
+color: grey
+canMove: 0
+canGet: 0
 
 [shrub]
 type: misc
@@ -511,7 +549,7 @@ canGet: 0
 type: misc
 name: Singpost
 desc: A wooden signpost, its indications are most helpful to wandering travelers.
-symbol: 0x2
+symbol: 7x16
 color: dark sepia
 canMove: 0
 canGet: 0
@@ -539,8 +577,17 @@ canGet: 0
 type: misc
 name: Table
 desc: A wooden table.
-symbol: 2x13
+symbol: 6x16
 color: sepia
+canMove: 0
+canGet: 0
+
+[torch]
+type: misc
+name: Torch
+desc: This torch burns indefinitely on top of a stone stand.
+symbol: 5x16
+color: orange
 canMove: 0
 canGet: 0
 
@@ -548,7 +595,7 @@ canGet: 0
 type: misc
 name: Tree
 desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
-symbol: 5x0
+symbol: 0x19
 color: darker chartreuse
 canMove: 0
 canView: 0

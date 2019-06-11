@@ -22,10 +22,10 @@ class c_helper {
 
 		static void showMapInfo();
 		static void loadMap(const int& x, const int& y, const int& z);
-		static void saveMap(const bool& default = false);
-		static void changeMap(const int& x, const int& y, const int& z, const int& playerX, const int& playerY);
+		static void saveMap(const bool& default = false); // Saves as default map if parameter is true
+		static void changeMap(const int& x, const int& y, const int& z, int startX = 0, int startY = 0);
 		static void worldMap(const int& mapX, const int& mapY);
-		static const bool& travelToLocation(const int& x, const int& y);
+		static const bool& isLocation(const int& x, const int& y); // Returns true if it finds a location actor in the tile
 		static const bool& isWorldMap();
 		static void resetMap();
 		static void createMapScript(std::string command, const bool& autodelete);
@@ -40,7 +40,8 @@ class c_helper {
 		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile = false);
 		static const bool& genDungeon(const int& value);
 		static const bool& genCave();
-		static const bool& genPlains();
+		static const bool& genWild(const int& type);
+		static const bool& genWorld();
 		static const int& setGenFloor1(std::string value);
 		static const int& setGenFloor2(std::string value);
 		static const int& setGenFloor3(std::string value);

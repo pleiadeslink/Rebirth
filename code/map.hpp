@@ -34,6 +34,7 @@ class c_map : public TCODMap {
         static s_map getCellularMap(const int& iterations, const int& birthLimit, const int& deathLimit, const bool& connected); // Returns a cellular automata generated map with 0s and 1s
         static s_map cellularIteration(s_map oldMap, const int& birthLimit, const int& deathLimit); // Conway's Game of Life rules
         static int countNeighbours(s_map map, const int& x, const int& y); // Used in cellular automata generation
+        double getNoise(double nx, double ny, TCODNoise* noise); // Returns noise in specific location
 
         // 3D Stuff
         double dirX, dirY;
@@ -62,7 +63,8 @@ class c_map : public TCODMap {
         void genCleanCorridors();
         const bool& genDungeon(const int& rooms = 10); // Generates a dungeon map
         const bool& genCave(); // Generates a cave map
-        const bool& genPlains(); // Generates a cave map
+        const bool& genWild(const int& type); // Generates wilderness areas
+        const bool& genWorld(); // Generates world map
         const bool& genIsFloor(const int& x, const int& y);
         const bool& genIsWall(const int& x, const int& y);
         void setGenFloor1(std::string value) { genFloor1 = value; }
