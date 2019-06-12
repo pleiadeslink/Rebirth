@@ -71,6 +71,7 @@ void c_map::save(TCODZip* zip) {
     zip -> putString(ambience.c_str());
 }
 
+// ! If you fuck with these functions, you'll have to sodomize updateWorld() too
 void c_map::load(TCODZip* zip) {
 
     // Load dimension

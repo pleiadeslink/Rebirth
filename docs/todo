@@ -6,7 +6,7 @@
 - Map scrolling in edit mode
 - Inventory should have its own class
 - REFACTORING (pointers, etc)
-- Skills should have its own class
+- Abilities should have its own class
 - Cambiar evento data type por algo más descriptivo
 - Refactorizar c_winCharacter::draw() para que los títulos no se muestren en cada iteracion
-- Refactor color to use define en lugar de función
+- Refactor color to use define en lugar de función?

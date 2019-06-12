@@ -4,7 +4,11 @@
 class c_actor;
 class c_map;
 
+// ! World es creado a través de defines MAPSIZE
+
 class c_game {
+    private:
+        s_worldTile** world;
 
     public:
         c_actorManager actorManager;

@@ -129,6 +129,7 @@ void c_actorManager::saveInventoryActors(TCODZip* zip) {
     }
 }
 
+// ! If you fuck with this, you'll have to sodomize updateWorld() too
 void c_actorManager::loadActors(TCODZip* zip) {
     int size = zip -> getInt();
     if(size > 0) {

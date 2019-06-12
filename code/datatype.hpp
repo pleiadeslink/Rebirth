@@ -34,6 +34,14 @@ typedef struct structFOVMap {
 };
 
 
+// MAP
+
+typedef struct s_worldTile {
+    int biome; 
+    int danger;
+};
+
+
 // ASSET
 
 typedef struct structTextureAsset {
@@ -83,7 +91,7 @@ typedef struct structActorAsset {
     bool f_noshadow;
 };
 
-typedef struct s_skillAsset {
+typedef struct s_abilityAsset {
     std::string id;
     std::string name;
     std::string description;

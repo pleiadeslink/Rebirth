@@ -400,20 +400,20 @@ void c_assetManager::loadActors() {
 	}
 }
 
-void c_assetManager::loadSkills() {
-	s_skillAsset asset;
-	asset = clearSkillAsset(asset);
+void c_assetManager::loadAbilities() {
+	s_abilityAsset asset;
+	asset = clearAbilityAsset(asset);
 	std::string line;
 	std::string key;
 	bool n = true;
-	std::ifstream file("data/skill.dat");
+	std::ifstream file("data/ability.dat");
     while(getline(file, line)) {
 		if(line[0] == '[') {
 
 			// Save previous dump and clear asset
 			if(n == false) {
-				v_skillAsset.push_back(asset);
-				asset = clearSkillAsset(asset);
+				v_abilityAsset.push_back(asset);
+				asset = clearAbilityAsset(asset);
 			}
 
 			// Get new id name
@@ -510,7 +510,7 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	return asset;
 }
 
-s_skillAsset c_assetManager::clearSkillAsset(s_skillAsset asset) {
+s_abilityAsset c_assetManager::clearAbilityAsset(s_abilityAsset asset) {
 	asset.id = "default";
 	asset.name = "Default";
 	asset.duration = 1;
@@ -527,7 +527,7 @@ void c_assetManager::load() {
 	tileset.loadFromFile("data/texture/terminal.png");
 	loadTiles();
 	loadActors();
-	loadSkills();
+	loadAbilities();
 }
 
 sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {
@@ -543,7 +543,7 @@ sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {
 
 	// Set attributes
 	data -> setSmooth(true);
-	if(id == "s_skillAssetwater")
+	if(id == "s_abilityAssetwater")
 		data -> setRepeated(true);
 
 	// Console message
@@ -625,15 +625,15 @@ std::vector<std::string> c_assetManager::getActorIdList() {
 	return list;
 }
 
-s_skillAsset* c_assetManager::getSkillAsset(const std::string& id) {
-    int max = v_skillAsset.size();
+s_abilityAsset* c_assetManager::getAbilityAsset(const std::string& id) {
+    int max = v_abilityAsset.size();
 	if(max != 0) { 
 		for(int i = 0; i < max; ++i) {
-			if(v_skillAsset[i].id == id) {
-				return &v_skillAsset[i];
+			if(v_abilityAsset[i].id == id) {
+				return &v_abilityAsset[i];
             }
         }
     }
     // Not found, default returned
-	return &v_skillAsset[0]; 
+	return &v_abilityAsset[0]; 
 }

@@ -106,7 +106,7 @@ namespace emode {
 namespace charScreen {
     enum charScreens {
         inventory,
-        skills,
+        abilities,
         condition,
         talents,
         quests,
@@ -190,6 +190,20 @@ namespace genTile {
         wall3,
         water,
         lava
+    };
+}
+
+namespace biome {
+    enum biomes {
+        grassland,
+        desert,
+        temperateForest,
+        borealForest,
+        jungle,
+        coast,
+        savannah,
+        marsh,
+        tundra
     };
 }
 

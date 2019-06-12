@@ -232,16 +232,16 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
 }
 
 
-// Checks if the actor can perform the skill, returns how long it takes (if 0, cannot perform)
-const int& c_actor::checkSkill(s_skillAsset* skillAsset) {
+// Checks if the actor can perform the ability, returns how long it takes (if 0, cannot perform)
+const int& c_actor::checkAbility(s_abilityAsset* abilityAsset) {
 
-    // If player, does he know the skill?
+    // If player, does he know the ability?
     if(type == actorType::avatar) {
-        if(player -> hasSkill(skillAsset -> id) == false) {
-            c_helper::gameMessage("You need to learn that skill first.");
+        if(player -> hasAbility(abilityAsset -> id) == false) {
+            c_helper::gameMessage("You need to learn that ability first.");
             return 0;
         }
     }
 
-    return skillAsset -> duration;
+    return abilityAsset -> duration;
 }

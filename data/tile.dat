@@ -61,13 +61,6 @@ symbol: 10x15
 color: darker chartreuse
 colorbg: darkest green
 
-[world_forest]
-name: Forest
-type: floor
-symbol: 0x19
-color: darker chartreuse
-colorbg: darkest green
-
 [world_desert]
 name: Desert
 type: floor

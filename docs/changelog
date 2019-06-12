@@ -1,3 +1,9 @@
+0.2.7
+- World map biomes are calculated from 0.0.0 stored map
+
+0.2.6
+- Skills are now named abilities (skills are reserved for learning skills, while abilities are actions the character can do)
+
 0.2.5
 - Travel system implemented
 - tinyXML library removed

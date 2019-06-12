@@ -19,7 +19,7 @@ class c_player
         std::vector<s_invItem> inventory;
         int equipment[7];
         int carried;
-        std::vector<std::string> v_learnedSkills;
+        std::vector<std::string> v_learnedAbilitys;
         
     public:
         c_player(c_actor* father);
@@ -53,9 +53,9 @@ class c_player
         const bool& removeItem(const int& slot); // Returns false if the item is not in inventory
         const bool& isInInventory(const int& item); // Check if the item is in the inventory
         const int& getInventorySize() { return inventory.size(); }
-        const bool& learnSkill(std::string id, const bool& verbose = false); // Adds the skill to the skill memory
-        const bool& hasSkill(std::string id);
-        std::vector<std::string>* getSkills() { return &v_learnedSkills; }
+        const bool& learnAbility(std::string id, const bool& verbose = false); // Adds the ability to the ability memory
+        const bool& hasAbility(std::string id);
+        std::vector<std::string>* getAbilities() { return &v_learnedAbilitys; }
 };
 
 #endif

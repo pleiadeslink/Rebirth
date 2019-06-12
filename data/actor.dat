@@ -435,6 +435,23 @@ desc: A massive metal shield that is almost impossible to destroy but very heavy
 ##########################################################################################
 ##########################################################################################
 
+[altar]
+type: misc
+name: Altar
+desc: An elevated place or structure before which religious ceremonies may be enacted or upon which sacrifices may be offered.
+symbol: 6x18
+color: white
+canMove: 0
+canGet: 0
+
+[anvil]
+type: misc
+name: Anvil
+symbol: 10x16
+color: grey
+canMove: 0
+canGet: 0
+
 [barrel]
 type: misc
 name: Barrel
@@ -453,6 +470,20 @@ color: lighter grey
 canMove: 0
 canGet: 0
 
+[boat]
+type: misc
+name: Boat
+symbol: 14x16
+color: lightest orange
+
+[bonfire]
+type: misc
+name: Bonfire
+symbol: 13x16
+color: orange
+canMove: 0
+canGet: 0
+
 [bookShelf]
 type: misc
 name: Book shelf
@@ -462,6 +493,14 @@ color: dark sepia
 canMove: 0
 canGet: 0
 canView: 0
+
+[carpet]
+type: misc
+name: Carpet
+symbol: 12x16
+color: light azure
+canMove: 1
+canGet: 0
 
 [coin]
 type: misc
@@ -479,12 +518,22 @@ desc: Chests are popular among adventureres because of the treasures that are of
 symbol: 12x13
 color: sepia
 
+[deadTree]
+type: misc
+name: Dead tree
+desc: These are the remains of a tree that died long ago.
+symbol: 6x19
+color: sepia
+canMove: 0
+canView: 0
+canGet: 0
+
 [door]
 type: door
 name: Door
 desc: A solid, wooden door.
 symbol: 3x16
-color: dark sepia
+color: sepia
 
 [fence]
 type: misc
@@ -504,12 +553,20 @@ canMove: 1
 canGet: 1
 NOSHADOW
 
+[gong]
+type: misc
+name: Gong
+symbol: 11x16
+color: amber
+canMove: 0
+canGet: 0
+
 [healthPotion]
 type: potion
 name: Health potion
 desc: This magic elixir restores its user's health.
-symbol: 13x10
-color: red
+symbol: 5x18
+color: light azure
 mass: 0.3
 effect: restore|50|health
 
@@ -518,6 +575,16 @@ type: scroll
 name: Magic Scroll
 symbol: 1x2
 mass: 0.2
+
+[mountain]
+type: misc
+name: Mountain
+desc: A large natural elevation of Terra's surface rising abruptly from the surrounding level preventing travellers from passing through.
+symbol: 8x19
+color: grey
+canMove: 0
+canView: 0
+canGet: 0
 
 [palmTree]
 type: misc
@@ -537,6 +604,15 @@ color: grey
 canMove: 0
 canGet: 0
 
+[round table]
+type: misc
+name: Table
+desc: A wooden round table.
+symbol: 2x16
+color: sepia
+canMove: 0
+canGet: 0
+
 [shrub]
 type: misc
 name: Shrub
@@ -552,6 +628,15 @@ desc: A wooden signpost, its indications are most helpful to wandering travelers
 symbol: 7x16
 color: dark sepia
 canMove: 0
+canGet: 0
+
+[spiderWeb]
+type: misc
+name: Spider web
+desc:  A silken web formed by various spiders to entrap their prey.
+symbol: 6x17
+color: white
+canMove: 1
 canGet: 0
 
 [stairs_down]
@@ -582,6 +667,16 @@ color: sepia
 canMove: 0
 canGet: 0
 
+[tomatoPlant]
+type: plant
+name: Tomato plant
+desc: This plant grows where there is warm weather and much sunlight. Its edible red fruit is commonly used in various salads.
+symbol: 7x19
+color: red
+canMove: 0
+canGet: 0
+
+
 [torch]
 type: misc
 name: Torch
@@ -591,9 +686,9 @@ color: orange
 canMove: 0
 canGet: 0
 
-[tree]
+[pineTree]
 type: misc
-name: Tree
+name: Pine tree
 desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
 symbol: 0x19
 color: darker chartreuse
@@ -630,7 +725,7 @@ type: trigger
 [sham]
 type: location
 name: Sham
-symbol: 3x16
-color: light sepia
+symbol: 9x16
+color: amber
 
 [end]

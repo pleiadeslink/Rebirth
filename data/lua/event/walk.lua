@@ -32,8 +32,10 @@ elseif(value1 == 8) then
 	mapY = getActorMapY(emitter) - 1
 -- Random
 elseif(value1 == 11) then
-	mapX = getActorMapX(emitter) + math.random(-1, 1)
-	mapY = getActorMapY(emitter) + math.random(-1, 1)
+	repeat
+		mapX = getActorMapX(emitter) + math.random(-1, 1)
+		mapY = getActorMapY(emitter) + math.random(-1, 1)
+	until(mapX ~= 0 and mapY ~= 0 and mapX ~= getMapWidth() and mapY ~= getMapHeight())
 end
 
 -- Distance is 1?
@@ -43,14 +45,33 @@ end
 
 if(isPlayer(emitter)) then
 	
-	-- Is it a location? Then go there
-	if(isWorldMap() == true and isLocation(mapX, mapY) == true) then
-		changeMap(mapX, mapY, getMapZ())
-		return
-	end
-	-- Is there an obstacle?
-	if(isObstacle(mapX, mapY) and isPlayerGod() == false) then
-		return
+	-- World map
+	if(isWorldMap() == true) then
+
+		-- Is it a location? Then go there
+		if(isLocation(mapX, mapY) == true) then
+			changeMap(mapX, mapY, getMapZ(), 0, 0)
+			return
+		end
+
+		-- Is it a mountain? Block pass
+		if(findActorByName(mapX, mapY, "mountain") ~= 0) then
+			message("The mountain in front of you is too steep to be traversed.")
+			return
+		end
+
+		-- Is it water? Block pass (use boats motherfucker)
+		if(findTileByName(mapX, mapY, "water")) then
+			message("The water is too deep, you don't wanna drown do you?")
+			return
+		end
+	
+	-- Regular map
+	else
+		-- Is there an obstacle?
+		if(isObstacle(mapX, mapY) and isPlayerGod() == false) then
+			return
+		end
 	end
 elseif(isObstacle(mapX, mapY)) then
 	return

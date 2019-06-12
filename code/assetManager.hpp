@@ -7,7 +7,7 @@ class c_assetManager {
         sf::Texture tileset;
         std::vector<structTextureAsset> v_textureAsset;
         std::vector<structActorAsset> v_actorAsset;
-        std::vector<s_skillAsset> v_skillAsset;
+        std::vector<s_abilityAsset> v_abilityAsset;
         structMapAsset a_mapAsset[127][127][63];
         std::vector<structTileAsset> v_tileAsset;
         std::vector<structVerbAsset> v_verbAsset;
@@ -16,10 +16,10 @@ class c_assetManager {
         int indexActor;
         void loadTiles();
         void loadActors();
-        void loadSkills();
+        void loadAbilities();
         structTileAsset clearTileAsset(structTileAsset asset);
         structActorAsset clearActorAsset(structActorAsset asset);
-        s_skillAsset clearSkillAsset(s_skillAsset asset);
+        s_abilityAsset clearAbilityAsset(s_abilityAsset asset);
         structMapAsset clearMapAsset(structMapAsset asset);
 	
     public:
@@ -32,7 +32,7 @@ class c_assetManager {
         std::vector<std::string> getTileIdList();
         structActorAsset* getActorAsset(const std::string& id);
         std::vector<std::string> getActorIdList();
-        s_skillAsset* getSkillAsset(const std::string& id);
+        s_abilityAsset* getAbilityAsset(const std::string& id);
         structVerbAsset* getVerbAsset(const std::string& id);
 };
 

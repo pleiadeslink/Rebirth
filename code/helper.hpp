@@ -36,6 +36,7 @@ class c_helper {
 		static const int& getMapX();
 		static const int& getMapY();
 		static const int& getMapZ();
+		static const bool& findTileByName(const int& x, const int& y, std::string name); // Returns true if the tile in location has the same name as parameter
 		static const int& genClear(const int& value);
 		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile = false);
 		static const bool& genDungeon(const int& value);
@@ -51,11 +52,12 @@ class c_helper {
 		static void setAmbience(std::string track);
 		static const int& build();
 		static void forgetMap();
+		static void updateWorld(); // Updates world map from map 0.0.0 stored locally
 
 
 		// * Actor
 
-		static const int& findActor(const int& x, const int&y, std::string type);
+		static const int& findActorByName(const int& x, const int&y, std::string name);
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getCreatureFromTile(const int& x, const int& y);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);
@@ -112,7 +114,7 @@ class c_helper {
 		static void give(std::string item);
 		static void toggleGodMode();
 		static const bool& isPlayerGod();
-		static const bool& learn(std::string id); // Teaches the player a skill
+		static const bool& learn(std::string id); // Teaches the player a ability
 };
 
 #endif

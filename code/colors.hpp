@@ -90,9 +90,9 @@ sf::Color color(const std::string& str) {
         color.b = 0;
         return color;
     } if(str == "lightest orange") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 255;
+        color.g = 233;
+        color.b = 191;
         return color;
     } if(str == "lighter orange") {
         color.r = 0;
@@ -130,9 +130,9 @@ sf::Color color(const std::string& str) {
         color.b = 0;
         return color;
     } if(str == "lightest amber") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 255;
+        color.g = 239;
+        color.b = 191;
         return color;
     } if(str == "lighter amber") {
         color.r = 255;

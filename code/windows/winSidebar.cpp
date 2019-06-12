@@ -6,7 +6,7 @@ c_winSidebar::c_winSidebar(const int& x, const int& y, const int& width, const i
 	this -> tileButtonWidth = 11;
 	this -> tileButtonHeight = 8;
 	this -> actorButtonWidth = 11;
-	this -> actorButtonHeight = 8;
+	this -> actorButtonHeight = 14;
 }
 
 void c_winSidebar::init() {

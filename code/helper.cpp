@@ -261,6 +261,17 @@ const int& c_helper::getMapZ() {
     return engine -> game -> map -> getZ();
 }
 
+// Returns true if the tile in location has the same name as parameter
+const bool& c_helper::findTileByName(const int& x, const int& y, std::string name) {
+    if(!engine -> game or !engine -> game -> map) {
+    	return false;
+	}
+	if(engine -> game -> map -> getTile(x, y) -> getId() == name) {
+		return true;
+	}
+	return false;
+}
+
 const int& c_helper::genClear(const int& value) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;
@@ -406,11 +417,19 @@ void c_helper::forgetMap() {
 	gameMessage("You forget how you came here.");
 }
 
-const int& c_helper::findActor(const int& x, const int&y, std::string type) {
+// Updates world map from map 0.0.0 stored locally
+void c_helper::updateWorld() {
+	if(!engine -> game) {
+		return;
+	}
+	engine -> game -> updateWorld();
+}
+
+const int& c_helper::findActorByName(const int& x, const int&y, std::string name) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;
 	}
-	int result = engine -> game -> map -> getTile(x, y) -> findActor(type);
+	int result = engine -> game -> map -> getTile(x, y) -> findActorByName(name);
     return result;		
 }
 
@@ -973,10 +992,10 @@ const bool& c_helper::isPlayerGod() {
 	return engine -> game -> actorManager.getPlayer() -> isGod();
 }
 
-// Teaches the player a skill
+// Teaches the player a ability
 const bool& c_helper::learn(std::string id) {
 	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
 		return false;
 	}
-	return engine -> game -> actorManager.getPlayer() -> player -> learnSkill(id);
+	return engine -> game -> actorManager.getPlayer() -> player -> learnAbility(id);
 }

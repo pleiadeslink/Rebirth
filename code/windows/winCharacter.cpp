@@ -5,13 +5,13 @@ c_winCharacter::c_winCharacter(const int& x, const int& y, const int& width, con
 	this -> height = height;
 	screen = charScreen::inventory;
 	inventoryPos = 0;
-	skillsPos = 0;
+	abilitiesPos = 0;
 	conditionPos = 0;
 	talentsPos = 0;
 	questsPos = 0;
 	systemPos = 0;
 	inventory = 0;
-	v_skills = 0;
+	v_abilities = 0;
 }
 
 void c_winCharacter::init()     {
@@ -24,7 +24,7 @@ int c_winCharacter::update(int key) {
 	}
  
 	inventory = 0;
-	v_skills = 0;
+	v_abilities = 0;
 
 	key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(), engine -> getMouse());
 	
@@ -164,34 +164,34 @@ int c_winCharacter::update(int key) {
 		}
 
 		// * SKILLS
-		case charScreen::skills: {
+		case charScreen::abilities: {
 
 			// Update inventory list
-			v_skills = engine -> game -> actorManager.getPlayer() -> player -> getSkills();
+			v_abilities = engine -> game -> actorManager.getPlayer() -> player -> getAbilities();
 
-			if(v_skills -> size() > 0) {
+			if(v_abilities -> size() > 0) {
 
 				// Cursor
 				switch(key) {
 					case key::up: {
-						--skillsPos;
-						if(skillsPos < 0) {
-							skillsPos = 0;
+						--abilitiesPos;
+						if(abilitiesPos < 0) {
+							abilitiesPos = 0;
 						}
-						engine -> interface.selectSkill(v_skills -> at(skillsPos));
+						engine -> interface.selectAbility(v_abilities -> at(abilitiesPos));
 						return 0;
 					}
 					case key::down: {
-						if(skillsPos < v_skills -> size() - 1) {
-							++skillsPos;
+						if(abilitiesPos < v_abilities -> size() - 1) {
+							++abilitiesPos;
 						}
-						engine -> interface.selectSkill(v_skills -> at(skillsPos));
+						engine -> interface.selectAbility(v_abilities -> at(abilitiesPos));
 						return 0;
 					}
 				}
 
 				// Item selection
-				engine -> interface.selectSkill(v_skills -> at(skillsPos));
+				engine -> interface.selectAbility(v_abilities -> at(abilitiesPos));
 
 			}
 			break;
@@ -247,7 +247,7 @@ void c_winCharacter::draw() {
 	// << MENU >>
 
 	engine -> screen.drawText("INVENTORY", (x + 2 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
-	engine -> screen.drawText("WORDS", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
+	engine -> screen.drawText("ABILITIES", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("CONDITION", (x + 23 + 4 + 1) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("SKILLS", (x + 33 + 4 + 2) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
 	engine -> screen.drawText("QUESTS", (x + 43 + 4 + 3) * 16, (y + 13 + 1) * 16 + 4, color("light grey"), textAlign::center);
@@ -387,22 +387,22 @@ void c_winCharacter::draw() {
 			}
 			break;
 		}
-		case charScreen::skills: {
+		case charScreen::abilities: {
 
 			// Menu label
-			engine -> screen.drawText("WORDS", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
+			engine -> screen.drawText("ABILITIES", (x + 13 + 4) * 16, (y + 13 + 1) * 16 + 4, sf::Color::White, textAlign::center);
 			//engine -> screen.drawTexture("menuCursor", (x + 13) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawTexture("menuCursor", (x + 13 + 7) * 16, (y + 13 + 1) * 16 + 7);
 			//engine -> screen.drawCenteredText(">           <", (x + 13 + 4) * 16, (y + 12 + 1) * 16 + 4, sf::Color::White);
 
-			// Skill list
-			if(!v_skills or v_skills -> size() == 0) {
-				engine -> screen.drawText("You don't know any words.", (x + 2) * 16 + 4, (y + 19) * 16 - 4, sf::Color::White);
+			// Ability list
+			if(!v_abilities or v_abilities -> size() == 0) {
+				engine -> screen.drawText("You have only learned how to walk.", (x + 2) * 16 + 4, (y + 19) * 16 - 4, sf::Color::White);
 			} else {
-				for(int i = 0; i < v_skills -> size(); ++i) {
+				for(int i = 0; i < v_abilities -> size(); ++i) {
 					int offset = 0;
-					s_skillAsset* skill = engine -> assetManager.getSkillAsset(v_skills -> at(i));
-					if(skill -> duration != 0) {
+					s_abilityAsset* ability = engine -> assetManager.getAbilityAsset(v_abilities -> at(i));
+					if(ability -> duration != 0) {
 
 						int ypos = (y + 18 + i) * 16 - 4 + (4 * i) + 1;
 
@@ -414,11 +414,11 @@ void c_winCharacter::draw() {
 
 						// Name
 						engine -> screen.drawText("Name", (x + 3) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
-						engine -> screen.drawText(skill -> name, (x + 3) * 16 + 4, ypos, sf::Color::White);
+						engine -> screen.drawText(ability -> name, (x + 3) * 16 + 4, ypos, sf::Color::White);
 
 						// Duration
 						engine -> screen.drawText("Time", (x + 20) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
-						engine -> screen.drawText(std::to_string(skill -> duration) + "s", (x + 20) * 16 + 4, ypos, color("lighter grey"));
+						engine -> screen.drawText(std::to_string(ability -> duration) + "s", (x + 20) * 16 + 4, ypos, color("lighter grey"));
 
 						// Type
 						/*offset += 5;
@@ -497,7 +497,7 @@ void c_winCharacter::draw() {
 						}*/
 					}
 				}
-				engine -> screen.drawTexture("gui/cursor", (x + 1) * 16 + 4, (y + 18 + skillsPos) * 16 + (skillsPos) * 4);
+				engine -> screen.drawTexture("gui/cursor", (x + 1) * 16 + 4, (y + 18 + abilitiesPos) * 16 + (abilitiesPos) * 4);
 			}
 			break;
 		}

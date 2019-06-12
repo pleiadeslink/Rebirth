@@ -41,7 +41,7 @@ class c_tile {
         const bool& hasActorType(std::string actType);
         const bool& hasAnyActor() { if(v_actor.size() > 0 ) return true; else return false; }
         std::vector<int> getActorList() { return v_actor; }
-        const int& findActor(std::string type);
+        const int& findActorByName(std::string name);
         const int& findStaircase(); // Returns direction if found
         
         const int& getX() { return x; }

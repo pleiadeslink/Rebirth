@@ -7,13 +7,13 @@ class c_winCharacter : public c_window
 		c_winMap* map;
 		int screen;
 		int inventoryPos;
-		int skillsPos;
+		int abilitiesPos;
 		int conditionPos;
 		int talentsPos;
 		int questsPos;
 		int systemPos;
 		std::vector<s_invItem>* inventory;
-		std::vector<std::string>* v_skills;
+		std::vector<std::string>* v_abilities;
 
 	public:
 		c_winCharacter(const int& x, const int& y, const int& width, const int& height);

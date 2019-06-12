@@ -374,8 +374,11 @@ void c_tile::wipe(const structTileAsset* asset) {
     check = 0;
 }
 
-const int& c_tile::findActor(std::string type) {
+const int& c_tile::findActorByName(std::string name) {
     for(int i = 0; i < v_actor.size(); ++i) {
+        if(engine -> game -> actorManager.getActor(v_actor[i]) -> getId() == name) {
+            return engine -> game -> actorManager.getActor(v_actor[i]) -> getUid();
+        }
     }
     return 0;
 }

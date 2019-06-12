@@ -36,6 +36,7 @@ state["setWall3"] = &c_helper::setGenWall3;
 state["setAmbience"] = &c_helper::setAmbience;
 state["build"] = &c_helper::build;
 state["forgetMap"] = &c_helper::forgetMap;
+state["updateWorld"] = &c_helper::updateWorld; // Updates world map from map 0.0.0 stored locally
 
 state["isObstacle"] = &c_helper::isObstacle;
 state["createActor"] = &c_helper::createActor;
@@ -80,3 +81,5 @@ state["god"] = &c_helper::toggleGodMode;
 state["isPlayerGod"] = &c_helper::isPlayerGod;
 state["isLocation"] = &c_helper::isLocation;
 state["learn"] = &c_helper::learn; // Teaches the player a skill
+state["findActorByName"] = &c_helper::findActorByName;
+state["findTileByName"] = &c_helper::findTileByName; // Returns true if the tile in location has the same name as parameter

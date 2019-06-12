@@ -18,7 +18,7 @@ void c_interface::init()     {
     mode = imode::game;
     sTile = 0;
     sActor = 0;
-    sSkill = "";
+    sAbility = "";
     targetText = "";
     inputText = "";
     pasteMode = false;
@@ -35,7 +35,7 @@ void c_interface::init()     {
 int c_interface::update(int key) {
     sTile = 0;
     sActor = 0;
-    sSkill = "";
+    sAbility = "";
     if(engine -> game -> actorManager.getPlayer()) {
         key = sidebar -> update(key, engine -> getMouse());
         if(mode == imode::game or mode == imode::edit) {

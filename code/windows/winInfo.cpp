@@ -131,10 +131,10 @@ void c_winInfo::draw() {
             drawTitle(commands, height - 2);
         }
 
-    // * Selected skill
+    // * Selected ability
 
-    } else if(engine -> interface.getSelectedSkill() != "") {
-        s_skillAsset* skill = engine -> assetManager.getSkillAsset(engine -> interface.getSelectedSkill());
+    } else if(engine -> interface.getSelectedAbility() != "") {
+        s_abilityAsset* ability = engine -> assetManager.getAbilityAsset(engine -> interface.getSelectedAbility());
 
         // Backgound
         engine -> screen.drawTexture("detailsTitle", (x + 1) * 16, (y + 2) * 16);
@@ -143,11 +143,11 @@ void c_winInfo::draw() {
         //engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 20) * 16, (y + 4) * 16 + 8, p_actor -> getColor(), 1);
 
         // Name
-        engine -> screen.drawText(skill -> name, (x + 2) * 16, (y + 2) * 16 + 6, sf::Color::White);
+        engine -> screen.drawText(ability -> name, (x + 2) * 16, (y + 2) * 16 + 6, sf::Color::White);
         
         // Description
         std::string desc;
-        desc.append(c_helper::justify(skill -> description, 34));
+        desc.append(c_helper::justify(ability -> description, 34));
         engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
         drawTitle("[C]ast, [K]ey", height - 2);
       

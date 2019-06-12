@@ -1,4 +1,4 @@
--- SKILLS --
+-- ABILITIES --
 
 [default]
 name: Default
@@ -38,6 +38,11 @@ duration: 1
 name: Speak
 desc: Sound-based information exchange with other intelligent beings. Different sounds are combined together into "words" to be imbued with meaning.
 duration: 4
+
+[travel]
+name: Travel
+desc: Allows to travel long distances through the world map. Travelling is only allowed in wilderness areas.
+duration: 1
 
 [wait]
 name: Wait

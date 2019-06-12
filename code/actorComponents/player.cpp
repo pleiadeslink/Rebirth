@@ -17,16 +17,17 @@ c_player::c_player(c_actor* father) {
 	equipment[5] = 0;
 	equipment[6] = 0;
 
-    // Learns basic skills
-    learnSkill("attack");
-    learnSkill("speak");
-    learnSkill("consume");
-    learnSkill("equip");
-    learnSkill("remove");
-    learnSkill("get");
-    learnSkill("drop");
-    learnSkill("wait");
-    learnSkill("walk");
+    // Learns basic abilitys
+    learnAbility("attack");
+    learnAbility("consume");
+    learnAbility("equip");
+    learnAbility("remove");
+    learnAbility("get");
+    learnAbility("drop");
+    learnAbility("wait");
+    learnAbility("speak");
+    learnAbility("travel");
+    learnAbility("walk");
 }
 
 bool c_player::channel(const int& key) {
@@ -331,27 +332,27 @@ const bool& c_player::isInInventory(const int& item) {
 	return false;
 }
 
-// Adds the skill to the skill memory
-const bool& c_player::learnSkill(std::string id, const bool& verbose) {
+// Adds the ability to the ability memory
+const bool& c_player::learnAbility(std::string id, const bool& verbose) {
 
-    // First checks if the skill exists
-    s_skillAsset* skill = engine -> assetManager.getSkillAsset(id);
-    if(skill -> duration == 0) {
+    // First checks if the ability exists
+    s_abilityAsset* ability = engine -> assetManager.getAbilityAsset(id);
+    if(ability -> duration == 0) {
         c_helper::gameMessage("That word does not exist!");
         return false;
     }
 
-    // Adds the skill to the skill memory
-    v_learnedSkills.push_back(id);
+    // Adds the ability to the ability memory
+    v_learnedAbilitys.push_back(id);
     if(verbose == true) {
         c_helper::gameMessage("You have learned the word '" + id + "'.");
     }
     return true;
 }
 
-const bool& c_player::hasSkill(std::string id) {
-    for(int i = 0; i < v_learnedSkills.size(); ++i) {
-        if(v_learnedSkills.at(i) == id) {
+const bool& c_player::hasAbility(std::string id) {
+    for(int i = 0; i < v_learnedAbilitys.size(); ++i) {
+        if(v_learnedAbilitys.at(i) == id) {
             return true;
         }
     }

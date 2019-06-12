@@ -1,6 +1,7 @@
 ---------
  REBIRTH 
 ---------
+World updated!
 Actor 'avatar' created.
 Loading /texture/fog.png...
 Loading /texture/healthbar.png...
@@ -9,13 +10,113 @@ Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
 Loading /texture/selectedTile.png...
-Loading /texture/sandglass.png...
-Actor 'avatar' created.
-Actor 'avatar' created.
-Actor 'avatar' created.
-Actor 'avatar' created.
-Actor 'avatar' created.
-Actor 'avatar' created.
-Actor 'avatar' created.
-Actor 'avatar' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
+Actor 'pineTree' created.
 Goodbye!

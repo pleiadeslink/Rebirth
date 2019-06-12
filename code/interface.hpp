@@ -21,7 +21,7 @@ class c_interface {
         int emode; // Editor
         c_tile* sTile;
         int sActor;
-        std::string sSkill;
+        std::string sAbility;
         c_tile* destination;
         std::string targetText;
         std::string inputText;
@@ -44,7 +44,7 @@ class c_interface {
         void talk(const int& actor); // Opens a talk window in the interface with several dialogue options
         void selectTile(c_tile* tile) { sTile = tile; }
         void selectActor(const int& actor) { sActor = actor; }
-        void selectSkill(std::string skill) { sSkill = skill; }
+        void selectAbility(std::string ability) { sAbility = ability; }
         void setTileDestination(c_tile* tile) { destination = tile; }
         void setEditTile(structTileAsset* tile) { editTile = tile; }
         void setEditActor(structActorAsset* actor) { editActor = actor; }
@@ -59,7 +59,7 @@ class c_interface {
         int getEmode() { return emode; }
         c_tile* getSelectedTile() { return sTile; }
         int getSelectedActor() { return sActor; }
-        std::string getSelectedSkill() { return sSkill; }
+        std::string getSelectedAbility() { return sAbility; }
         c_tile* getTileDestination() { return destination; }
         int getEditRadius() { return editRadius; }
         std::string getTargetText() { return targetText; }
