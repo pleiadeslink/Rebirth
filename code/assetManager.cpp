@@ -50,6 +50,8 @@ void c_assetManager::loadTiles() {
 				asset.type = tileType::deepWater;
 			} else if(line == "lava") {
 				asset.type = tileType::lava;
+			} else if(line == "world") {
+				asset.type = tileType::world;
 			}
 		}
 

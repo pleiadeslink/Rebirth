@@ -53,7 +53,11 @@ class c_helper {
 		static const int& build();
 		static void forgetMap();
 		static void updateWorld(); // Updates world map from map 0.0.0 stored locally
-
+		static int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
+		static void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
+		static void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
+		static void genPlaceActorSomewhere(std::string actor, const int& quantity); // Places actor in a free random position	
+		
 
 		// * Actor
 

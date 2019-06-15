@@ -226,7 +226,7 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
     // Teleport to position
     c_helper::teleportActor(newActor -> getUid(), mapX, mapY, false);
 
-    engine -> message("Actor '" + id + "' created.");
+    //engine -> message("Actor '" + id + "' created.");
     return newActor -> getUid();
 }
 
@@ -254,7 +254,7 @@ void c_actorManager::deleteActor(const int& uid) {
     //engine -> game -> map -> fov(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(),
    // engine -> game -> actorManager.getPlayer() -> life -> getViewRange());
 
-    engine -> message(actor -> getName() + " deleted.");
+    //engine -> message(actor -> getName() + " deleted.");
 
     // Delete actor instance
     delete actor;

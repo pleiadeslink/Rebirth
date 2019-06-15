@@ -96,17 +96,71 @@ void c_game::updateWorld() {
 
         // All right, so we have a temporal map with tile ids and actor vectors
         // Now here goes the meat, it's what everyone was waiting for, you, your mother, everyone
-        // We choose biome depending on tile type, actor, etc. (for example, if we find a certain tree, we select certain biome, etc)
+        // We choose biome depending on tile type, actor, etc. 
+        
+        // Well actually we will only use the actors to check for locations
+        
         for(int i = 0; i < width; ++i) {
             for(int j = 0; j < height; ++j) {
 
-                // BOREAL FOREST
+                // GRASSLAND (default)
+                world[i][j].biome = biome::grassland;
+                world[i][j].danger = 0;
+
+                // Look for locations
                 if(tempMap[i][j].v_actor.size() != 0) {
                     for(int k = 0; k < tempMap[i][j].v_actor.size(); ++k) {
-                        if(tempMap[i][j].v_actor[k] == "pineTree") {
-                            world[i][j].biome = biome::borealForest;
-                        }
+                        if(engine -> assetManager.getActorAsset(tempMap[i][j].v_actor[k]) -> type == actorType::location) {
+                            world[i][j].biome = biome::location;
+                        } 
                     }
+                }
+
+                // Select biome by tile
+
+                // MOUNTAIN
+                if(tempMap[i][j].tile == "world_mountain") {
+                    world[i][j].biome = biome::mountain;
+                }
+
+                // TEMPERATE FOREST
+                if(tempMap[i][j].tile == "world_temperateForest") {
+                    world[i][j].biome = biome::temperateForest;
+                }
+
+                // TAIGA
+                if(tempMap[i][j].tile == "world_taiga") {
+                    world[i][j].biome = biome::taiga;
+                }
+
+                // JUNGLE  
+                if(tempMap[i][j].tile == "world_jungle") {
+                    world[i][j].biome = biome::jungle;
+                }
+
+                // DESERT   
+                if(tempMap[i][j].tile == "world_desert") {
+                    world[i][j].biome = biome::desert;
+                }
+
+                // SAVANNA
+                if(tempMap[i][j].tile == "world_savanna") {
+                    world[i][j].biome = biome::savanna;
+                }
+
+                // MARSH
+                if(tempMap[i][j].tile == "world_marsh") {
+                    world[i][j].biome = biome::marsh;
+                }              
+
+                // TUNDRA
+                if(tempMap[i][j].tile == "world_tundra") {
+                    world[i][j].biome = biome::tundra;
+                }
+
+                // OCEAN
+                if(tempMap[i][j].tile == "world_ocean") {
+                    world[i][j].biome = biome::ocean;
                 }
             }
         }
@@ -114,6 +168,13 @@ void c_game::updateWorld() {
         engine -> message("World update failed because map 0.0.0 was not found.");
     }
     engine -> message("World updated!");
+}
+
+// Returns the biome of the selected location of the world map
+int c_game::getBiome(const int& x, const int& y) {
+    if(x > 0 and y > 0 and x < MAPSIZE and y < MAPSIZE) {
+        return world[x][y].biome;
+    }
 }
 
 void c_game::update(const int& key) {
@@ -173,4 +234,11 @@ bool c_game::runEffect(structEventData& data) {
     std::string path = "effect/" + data.type + ".lua";
     c_engine::runScript(path, data);
     return false;
+}
+
+s_worldTile c_game::getWorldTile(const int& x, const int& y) {
+    if(x >= 0 and y >= 0 and x <= MAPSIZE and y <= MAPSIZE) {
+        return world[x][y];
+    }
+    return world[0][0];
 }

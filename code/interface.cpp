@@ -56,6 +56,12 @@ void c_interface::draw() {
             }
             gamelog -> draw();
             sidebar -> draw();
+                
+            // Draw debug info
+            if(engine -> game and engine -> game -> map) {
+                engine -> screen.drawText(std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()), 1042, 4, sf::Color::White, textAlign::left);
+                engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> getMapX()) + "." + std::to_string(engine -> game -> actorManager.getPlayer() -> getMapY()), 1042, 20, sf::Color::White, textAlign::left);
+            }
             break;
         }
         case imode::character: {
@@ -85,13 +91,6 @@ void c_interface::draw() {
             break;
         }
     }
-
-    // Draw debug info
-    if(engine -> game and engine -> game -> map) {
-        std::string coords = std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ());
-        engine -> screen.drawText(std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()), 1042, 4, sf::Color::White, textAlign::left);
-    }
-    
 
     // Draw mouse
     if(engine -> isLoading()) {

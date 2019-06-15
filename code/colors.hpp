@@ -265,13 +265,13 @@ sf::Color color(const std::string& str) {
         color.b = 0;
         return color;
     } if(str == "chartreuse") {
-        color.r = 0;
-        color.g = 0;
+        color.r = 127;
+        color.g = 255;
         color.b = 0;
         return color;
     } if(str == "dark chartreuse") {
-        color.r = 0;
-        color.g = 0;
+        color.r = 95;
+        color.g = 191;
         color.b = 0;
         return color;
     } if(str == "darker chartreuse") {
@@ -355,9 +355,9 @@ sf::Color color(const std::string& str) {
         color.b = 0;
         return color;
     } if(str == "darker sea") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 37;
+        color.g = 121;
+        color.b = 78;
         return color;
     } if(str == "darkest sea") {
         color.r = 0;

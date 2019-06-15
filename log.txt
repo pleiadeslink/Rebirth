@@ -2,7 +2,6 @@
  REBIRTH 
 ---------
 World updated!
-Actor 'avatar' created.
 Loading /texture/fog.png...
 Loading /texture/healthbar.png...
 Loading /texture/ribbon.png...
@@ -10,113 +9,8 @@ Loading /texture/hbar.png...
 Loading /texture/vbar.png...
 Loading /texture/pointer.png...
 Loading /texture/selectedTile.png...
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
-Actor 'pineTree' created.
+Command run: fullscreen()
+Loading /texture/sandglass.png...
+Loading /texture/targetbar.png...
+Loading /texture/.png...
 Goodbye!

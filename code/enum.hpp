@@ -76,6 +76,16 @@ namespace direction {
     };
 }
 
+namespace size {
+    enum sizes {
+        tiny,
+        small,
+        medium,
+        big,
+        huge
+    };
+}
+
 namespace textAlign {
     enum textAligns {
         right,
@@ -121,7 +131,8 @@ namespace tileType {
         obstacle,
         water,
         deepWater,
-        lava
+        lava,
+        world
     };
 }
 
@@ -193,17 +204,20 @@ namespace genTile {
     };
 }
 
+// ! Careful with altering this order, as literals are being used in walk.lua
 namespace biome {
     enum biomes {
         grassland,
-        desert,
+        location,
+        mountain,
         temperateForest,
-        borealForest,
+        taiga,
         jungle,
-        coast,
-        savannah,
+        desert,
+        savanna,
         marsh,
-        tundra
+        tundra,
+        ocean
     };
 }
 

@@ -112,7 +112,7 @@ typedef struct structTileAsset {
 };
 
 typedef struct s_genTile {
-    int tile;
+    std::string tile;
     std::string actor;
     bool flag;
 };

@@ -31,7 +31,6 @@ class c_tile {
         bool isLocation();
         void updateObstacle();
         void explore();
-        static void drawOverlay(const int& x, const int& y, const int& type, sf::Color color, const int& scale = 1);
 
         // Actor
         void addActor(const int& actor);

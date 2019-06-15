@@ -1,4 +1,4 @@
--- TILES --
+-- FLOORS
 
 [floor_grass]
 name: Grass
@@ -35,12 +35,8 @@ symbol: 10x15
 color: dark grey
 colorbg: darker grey
 
-[water]
-name: Water
-type: water
-symbol: 14x7
-color: azure
-colorbg: dark azure
+
+-- WALLS
 
 [wall_stone]
 name: Stone wall
@@ -52,32 +48,70 @@ name: Rock wall
 type: wall
 colorbg: dark sepia
 
--- World map tiles
 
-[world_plains]
-name: Plains
-type: floor
-symbol: 10x15
-color: darker chartreuse
-colorbg: darkest green
+-- UNIQUE
 
-[world_desert]
-name: Desert
-type: floor
-symbol: 10x15
-color: light sepia	
-colorbg: lighter sepia
-
-[world_water]
+[water]
 name: Water
 type: water
 symbol: 14x7
 color: azure
 colorbg: dark azure
 
-[world_snow]
-name: Snow
-type: floor
+
+-- WORLD MAP
+
+[world_grassland]
+name: Grassland
+type: world
+symbol: 10x15
+color: darker chartreuse
+colorbg: darkest green
+
+[world_mountain]
+name: Mountain
+type: world
+symbol: 8x19
+color: grey
+colorbg: darkest green
+
+[world_temperateForest]
+name: Temperate Forest
+type: world
+color: darker chartreuse
+colorbg: darkest green
+
+[world_taiga]
+name: Taiga
+type: world
+symbol: 9x19
+color: darker chartreuse
+colorbg: darkest green
+
+[world_jungle]
+name: Jungle
+type: world
+symbol: 1x19
+color: darker chartreuse
+colorbg: darkest green
+
+[world_desert]
+name: Desert
+type: world
+symbol: 10x15
+color: light sepia	
+colorbg: lighter sepia
+
+[world_ocean]
+name: Ocean
+type: world
+symbol: 14x7
+color: azure
+colorbg: dark azure
+
+[world_tundra]
+name: Tundra
+type: world
 symbol: 10x15
 color: light grey
 colorbg: lightest grey

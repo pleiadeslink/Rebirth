@@ -10,3 +10,4 @@
 - Cambiar evento data type por algo más descriptivo
 - Refactorizar c_winCharacter::draw() para que los títulos no se muestren en cada iteracion
 - Refactor color to use define en lugar de función?
+- Refactorizar helper para que no tenga tantas clasess (hay muchas que deberían estar en map aunque sean estáticas)

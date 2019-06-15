@@ -518,15 +518,7 @@ desc: Chests are popular among adventureres because of the treasures that are of
 symbol: 12x13
 color: sepia
 
-[deadTree]
-type: misc
-name: Dead tree
-desc: These are the remains of a tree that died long ago.
-symbol: 6x19
-color: sepia
-canMove: 0
-canView: 0
-canGet: 0
+
 
 [door]
 type: door
@@ -586,15 +578,7 @@ canMove: 0
 canView: 0
 canGet: 0
 
-[palmTree]
-type: misc
-name: Palm Tree
-desc: These funky trees remind of sandy, white beaches, sunshine and the sound of ocean waves crashing against the shore.
-symbol: 1x19
-color: darker chartreuse
-canMove: 0
-canView: 0
-canGet: 0
+
 
 [rock]
 type: misc
@@ -686,12 +670,52 @@ color: orange
 canMove: 0
 canGet: 0
 
-[pineTree]
+[tree_deadTree]
+type: misc
+name: Dead tree
+desc: These are the remains of a tree that died long ago.
+symbol: 6x19
+color: sepia
+canMove: 0
+canView: 0
+canGet: 0
+
+[tree_oak]
+type: misc
+name: Oak tree
+desc: Oaks are common in temperate forests and are an important source of hard and durable wood used chiefly in construction, furniture, and shipbuilding.
+symbol: 10x19
+color: dark chartreuse
+canMove: 0
+canView: 0
+canGet: 0
+
+[tree_palmtree]
+type: misc
+name: Palm Tree
+desc: These funky trees remind of sandy, white beaches, sunshine and the sound of ocean waves crashing against the shore.
+symbol: 1x19
+color: darker chartreuse
+canMove: 0
+canView: 1
+canGet: 0
+
+[tree_pine]
 type: misc
 name: Pine tree
 desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
 symbol: 0x19
 color: darker chartreuse
+canMove: 0
+canView: 0
+canGet: 0
+
+[tree_spruce]
+type: misc
+name: Spruce tree
+desc: Spruces are large trees with whorled needle branches and conical form.
+symbol: 9x19
+color: darker sea
 canMove: 0
 canView: 0
 canGet: 0

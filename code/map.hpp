@@ -31,7 +31,7 @@ class c_map : public TCODMap {
         std::string genWall3;
         std::vector<s_coordinates> v_genWallStack;
         void updateWallStack();
-        static s_map getCellularMap(const int& iterations, const int& birthLimit, const int& deathLimit, const bool& connected); // Returns a cellular automata generated map with 0s and 1s
+        static s_map getCellularMap(const int& iterations, const int& birthLimit, const int& deathLimit, const int& chanceToStartAlive); // Returns a cellular automata generated map with 0s and 1s
         static s_map cellularIteration(s_map oldMap, const int& birthLimit, const int& deathLimit); // Conway's Game of Life rules
         static int countNeighbours(s_map map, const int& x, const int& y); // Used in cellular automata generation
         double getNoise(double nx, double ny, TCODNoise* noise); // Returns noise in specific location
@@ -74,6 +74,9 @@ class c_map : public TCODMap {
         void setGenWall2(std::string value) { genWall2 = value; }
         void setGenWall3(std::string value) { genWall3 = value; }
         void setAmbience(std::string track) { ambience = track; }
+        void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
+        void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
+        void genPlaceActorSomewhere(std::string actor, const int& quantity, std::string forbiddenTile = ""); // Places actor in a free random position
         void build();
 
         // Actor management

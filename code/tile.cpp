@@ -29,8 +29,11 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
                 engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), x, y, p_actor -> getColor());
             //}
         } else {
-            drawShadow(x, y);
+            if(type == tileType::world) { 
+                engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
+            }
             engine -> screen.drawTile(tileX, tileY, x, y, color);
+            drawShadow(x, y);
         }
         if(type == tileType::wall) {
             engine -> screen.drawTexture("wallmark", x, y);
@@ -130,6 +133,9 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
     // Otherwise draw tile terrain
     engine -> screen.drawTile(11, 13, x, y, bgcolor);
     //drawOverlay(x, y, type, olcolor);
+    if(type == tileType::world) { 
+        engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
+    }
     engine -> screen.drawTile(tileX, tileY, x, y, color);
     drawShadow(x, y);
 
@@ -216,23 +222,6 @@ void c_tile::drawShadow(const int& x, const int& y) {
             }
         }
     }    
-}
-
-void c_tile::drawOverlay(const int& x, const int& y, const int& type, sf::Color color, const int& scale) {
-    switch(type) {
-        case tileType::wall: {
-            engine -> screen.drawTile(15, 15, x, y, color, scale);
-            break;
-        }
-        case tileType::floor: {
-            engine -> screen.drawTile(4, 17, x, y, color, scale);
-            break;
-        }
-        case tileType::water: {
-            engine -> screen.drawTile(5, 17, x, y, color, scale);
-            break;
-        }
-    }
 }
 
 bool c_tile::isObstacle() {

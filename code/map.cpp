@@ -106,6 +106,9 @@ void c_map::wipe(const int& x, const int& y, const int& z) {
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
             matrix[i1][i2].wipe(engine -> assetManager.getTileAsset("floor_grass"));
+            genMatrix[i1][i2].tile = "floor_grass";
+            genMatrix[i1][i2].actor = "";
+            genMatrix[i1][i2].flag = false;
         }
     }
     this -> x = x;
@@ -205,7 +208,7 @@ void c_map::createGenMatrix() {
 		genMatrix[i] = new s_genTile[height];
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
-            genMatrix[i1][i2].tile = 0;
+            genMatrix[i1][i2].tile = "floor_grass";
             genMatrix[i1][i2].actor = "";
         }
     }
@@ -344,9 +347,7 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
 }
 
 // Returns a cellular automata generated map with 0s and 1s
-s_map c_map::getCellularMap(const int& iterations, const int& birthLimit, const int& deathLimit, const bool& connected) {
-
-    int chanceToStartAlive = 45;
+s_map c_map::getCellularMap(const int& iterations, const int& birthLimit, const int& deathLimit, const int& chanceToStartAlive) {
 
     // Create map and place random flags
     s_map map;
@@ -635,7 +636,7 @@ const bool& c_map::genCave() {
 
     // Gets cellular map
     genClear(genTile::wall1);
-    s_map celMap = getCellularMap(5, 4, 3, false);
+    s_map celMap = getCellularMap(5, 4, 3, 45);
 
     for(int i = 0; i < MAPSIZE; ++i) {
         for(int j = 0; j < MAPSIZE; ++j) {
@@ -659,57 +660,13 @@ const bool& c_map::genWild(const int& type) {
 
     // Makes tall grass patches with cellular automata
     if(type != wildernessType::desert) {
-        s_map celMap = getCellularMap(5, 4, 3, false);
+        s_map celMap = getCellularMap(5, 4, 3, 45);
         for(int i = 0; i < MAPSIZE; ++i) {
             for(int j = 0; j < MAPSIZE; ++j) {
                 if(celMap.tile[i][j] == false) {
                     genMatrix[i][j].tile = genTile::floor3;
                 } else {
                     genMatrix[i][j].tile = genTile::floor2;
-                }
-            }
-        }
-    }
-    
-
-    // Places trees (more chance to grow in tall grass)
-    int trees = 0;
-    int maxTrees = MAPSIZE * 2;
-    int x = 0;
-    int y = 0;
-    while(trees != maxTrees) {
-        
-        // Gets random position
-        x = c_helper::random(1, MAPSIZE - 2); 
-        y = c_helper::random(1, MAPSIZE - 2);
-        
-        // Checks if the location is empty and there are no adjacent trees
-        if(genMatrix[x][y].actor == ""
-           and genMatrix[x][y - 1].actor != "tree"
-           and genMatrix[x + 1][y - 1].actor != "tree"
-           and genMatrix[x + 1][y].actor != "tree"
-           and genMatrix[x + 1][y + 1].actor != "tree"
-           and genMatrix[x][y + 1].actor != "tree"
-           and genMatrix[x - 1][y + 1].actor != "tree"
-           and genMatrix[x - 1][y].actor != "tree"
-           and genMatrix[x - 1][y - 1].actor != "tree") {
-
-            // More chance to grow if it's between tall grass patches
-            if(genMatrix[x][y].tile == genTile::floor3
-               and genMatrix[x][y - 1].tile == genTile::floor3
-               and genMatrix[x + 1][y - 1].tile == genTile::floor3
-               and genMatrix[x + 1][y].tile == genTile::floor3
-               and genMatrix[x + 1][y + 1].tile == genTile::floor3
-               and genMatrix[x][y + 1].tile == genTile::floor3
-               and genMatrix[x - 1][y + 1].tile == genTile::floor3
-               and genMatrix[x - 1][y].tile == genTile::floor3
-               and genMatrix[x - 1][y].tile == genTile::floor3) {
-                genMatrix[x][y].actor = "tree";
-                ++trees;
-            } else {
-                if(c_helper::random(0, 100) < 5) {
-                    genMatrix[x][y].actor = "tree";
-                    ++trees;
                 }
             }
         }
@@ -756,64 +713,162 @@ double c_map::getNoise(double nx, double ny, TCODNoise* noise) {
 }
 
 const bool& c_map::genIsFloor(const int& x, const int& y) {
-    if(genMatrix[x][y].tile == genTile::floor1 or
-    genMatrix[x][y].tile == genTile::floor2 or
-    genMatrix[x][y].tile == genTile::floor3) {
+    if(engine -> assetManager.getTileAsset(genMatrix[x][y].tile) -> type == tileType::floor) {
         return true;
     }
     return false;
 }
 
 const bool& c_map::genIsWall(const int& x, const int& y) {
-    if(genMatrix[x][y].tile == genTile::wall1 or
-    genMatrix[x][y].tile == genTile::wall2 or
-    genMatrix[x][y].tile == genTile::wall3) {
+    if(engine -> assetManager.getTileAsset(genMatrix[x][y].tile) -> type == tileType::wall) {
         return true;
     }
     return false;
 }
 
+// Adds a patch of the specified tile using a cellular automata generated pattern
+void c_map::genAddCellularPatch(std::string tile, const int& size) {
+
+    int iterations = 0;
+    int birthLimit = 0;
+    int deathLimit = 0;
+    int chanceToStartAlive = 0;
+
+    // Set generation values depending on size
+    switch(size) {
+        case size::tiny: {
+            iterations = 5;
+            birthLimit = 4;
+            deathLimit = 3;
+            chanceToStartAlive = 45;
+            break;
+        }
+        case size::small: {
+            iterations = 4;
+            birthLimit = 3;
+            deathLimit = 3;
+            chanceToStartAlive = 40;
+            break;
+        }
+        case size::medium: {
+            iterations = 5;
+            birthLimit = 4;
+            deathLimit = 3;
+            chanceToStartAlive = 45;
+            break;
+        }
+        case size::big: {
+            iterations = 5;
+            birthLimit = 4;
+            deathLimit = 3;
+            chanceToStartAlive = 45;
+            break;
+        }
+        case size::huge: {
+            iterations = 5;
+            birthLimit = 4;
+            deathLimit = 3;
+            chanceToStartAlive = 45;
+            break;
+        }
+    }
+
+    // Makes cellular map
+    s_map celMap = getCellularMap(iterations, birthLimit, deathLimit, chanceToStartAlive);
+
+    // Applies it to the generator map
+    for(int i = 0; i < MAPSIZE; ++i) {
+        for(int j = 0; j < MAPSIZE; ++j) {
+            if(celMap.tile[i][j] == false) {
+                genMatrix[i][j].tile = tile;
+            }
+        }
+    }
+}
+
+// Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found (not implemented yet)
+void c_map::genPlantTrees(std::string tree, const int& size, const bool& dead) {
+
+    int trees = 0;
+    int maxTrees = 0;
+    int x = 0;
+    int y = 0;    
+
+    // Tree quantity depends on size parameter
+    switch(size) {
+        case size::tiny: {
+            maxTrees = MAPSIZE / 8 + c_helper::random(0, MAPSIZE / 16) - c_helper::random(0, MAPSIZE / 16);
+            break;
+        }
+        case size::small: {
+            maxTrees = MAPSIZE + c_helper::random(0, MAPSIZE / 2) - c_helper::random(0, MAPSIZE / 2);
+            break;
+        }
+        case size::medium: {
+            maxTrees = MAPSIZE * 4 + c_helper::random(0, MAPSIZE * 2) - c_helper::random(0, MAPSIZE * 2);
+            break;
+        }
+        case size::big: {
+            maxTrees = MAPSIZE * 8 + c_helper::random(0, MAPSIZE * 4) - c_helper::random(0, MAPSIZE * 4);
+            break;
+        }
+        case size::huge: {
+            maxTrees = MAPSIZE * 16 + c_helper::random(0, MAPSIZE * 8) - c_helper::random(0, MAPSIZE * 8);
+            break;
+        }
+    }
+
+    while(trees != maxTrees) {
+        
+        // Gets random position
+        x = c_helper::random(1, MAPSIZE - 2); 
+        y = c_helper::random(1, MAPSIZE - 2);
+        
+        // Checks if the position and adjacent tiles are free
+        if(genMatrix[x][y].actor == ""
+           and genMatrix[x][y - 1].actor == ""
+           and genMatrix[x + 1][y - 1].actor == ""
+           and genMatrix[x + 1][y].actor == ""
+           and genMatrix[x + 1][y + 1].actor == ""
+           and genMatrix[x][y + 1].actor == ""
+           and genMatrix[x - 1][y + 1].actor == ""
+           and genMatrix[x - 1][y].actor == ""
+           and genMatrix[x - 1][y - 1].actor == ""
+           and genMatrix[x][y].tile != "floor_tallGrass") {
+            genMatrix[x][y].actor = tree;
+            ++trees;
+        }
+    }
+}
+
+// Places actor in a free random position
+void c_map::genPlaceActorSomewhere(std::string actor, const int& quantity, std::string forbiddenTile) {
+    
+    int actors = 0;
+
+    while(actors != quantity) {
+        
+        // Gets random position
+        x = c_helper::random(1, MAPSIZE - 2); 
+        y = c_helper::random(1, MAPSIZE - 2);
+        
+        // Checks if the position is free and it's not the forbidden tile woah
+        if(genMatrix[x][y].actor == "" and genMatrix[x][y].tile != forbiddenTile) {
+            genMatrix[x][y].actor = actor;
+            ++actors;
+        }
+    }    
+}
+
 void c_map::build() {
     for(int x = 0; x < width; ++x) {
         for(int y = 0; y < height; ++y) {
+
             // Delete previous actor, unless it's the actor
             matrix[x][y].removeActors(true);
 
             // Applies generator map tiles to the real map
-            switch(genMatrix[x][y].tile) {
-                case genTile::floor1: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor1));
-                    break;
-                }
-                case genTile::floor2: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor2));
-                    break;
-                }
-                case genTile::floor3: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genFloor3));
-                    break;
-                }
-                case genTile::wall1: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genWall1));
-                    break;
-                }
-                case genTile::wall2: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genWall2));
-                    break;
-                }
-                case genTile::wall3: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genWall3));
-                    break;
-                }
-                case genTile::water: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset("water"));
-                    break;
-                }
-                case genTile::lava: {
-                    matrix[x][y].setAsset(engine -> assetManager.getTileAsset("lava"));
-                    break;
-                }
-            }
+            matrix[x][y].setAsset(engine -> assetManager.getTileAsset(genMatrix[x][y].tile));
 
             // Creates actors
             if(genMatrix[x][y].actor != "") {

@@ -17,6 +17,7 @@
 #include <cstdio>
 #include <queue>
 #include <regex>
+#include <filesystem>
 #include <time.h>
 #include <iso646.h>
 #include <SFML/Audio.hpp>
@@ -27,6 +28,7 @@
 #include "fastNoise.hpp"
 
 #define MAPSIZE 128
+#define MAXITERATIONS 2000
 
 namespace global {
 	const int maxFOVRange = 36;

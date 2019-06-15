@@ -48,19 +48,19 @@ if(isPlayer(emitter)) then
 	-- World map
 	if(isWorldMap() == true) then
 
-		-- Is it a location? Then go there
-		if(isLocation(mapX, mapY) == true) then
+		-- Location
+		if(getBiome(mapX, mapY) == 1) then
 			changeMap(mapX, mapY, getMapZ(), 0, 0)
 			return
 		end
 
-		-- Is it a mountain? Block pass
+		-- Mountain
 		if(findActorByName(mapX, mapY, "mountain") ~= 0) then
 			message("The mountain in front of you is too steep to be traversed.")
 			return
 		end
 
-		-- Is it water? Block pass (use boats motherfucker)
+		-- Ocean
 		if(findTileByName(mapX, mapY, "water")) then
 			message("The water is too deep, you don't wanna drown do you?")
 			return

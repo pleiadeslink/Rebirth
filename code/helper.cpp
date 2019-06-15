@@ -76,7 +76,7 @@ void c_helper::showMapInfo() {
 	gameMessage(s.str());
 }
 
-void c_helper::loadMap(const int& x, const int& y, const int& z) {
+void c_helper::loadMap(const int& x, const int& y, const int& z) { // ! Move these to map class no?
 	if(!engine -> game or !engine -> game -> map) {
 		return;
 	}
@@ -88,16 +88,40 @@ void c_helper::loadMap(const int& x, const int& y, const int& z) {
     std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
     if(zip.loadFromFile(savedFilename.c_str())) {
         engine -> game -> map -> load(&zip);
-        engine -> game -> actorManager.loadActors(&zip);
+		engine -> game -> actorManager.loadActors(&zip);
+		return;
+	}
     
-    // Load default 
-    } else {
-        std::string defaultFilename = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
-        if(zip.loadFromFile(defaultFilename.c_str())) {
-            engine -> game -> map -> load(&zip);
-            engine -> game -> actorManager.loadActors(&zip);
-        }
-    }
+	// Load static
+    std::string staticFilename = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
+    if(zip.loadFromFile(staticFilename.c_str())) {
+        engine -> game -> map -> load(&zip);
+		engine -> game -> actorManager.loadActors(&zip);
+		return;
+	}
+	
+	// Generate
+	//s_worldTile = engine -> game -> getWorldTile(x, y); // This needs to include already the biome file, world map needs to be informed when its created from data files + 0.0.0 map
+	// For now we say we know already the path file
+	if(engine -> game -> getWorldTile(x, y).biome == biome::grassland) {
+		engine -> runScript("gen/grassland.lua");
+	} else if(engine -> game -> getWorldTile(x, y).biome == biome::temperateForest) {
+		engine -> runScript("gen/temperateForest.lua");
+	} else if(engine -> game -> getWorldTile(x, y).biome == biome::taiga) {
+		engine -> runScript("gen/taiga.lua");
+	} else if(engine -> game -> getWorldTile(x, y).biome == biome::jungle) {
+		engine -> runScript("gen/jungle.lua");
+	} else if(engine -> game -> getWorldTile(x, y).biome == biome::desert) {
+		engine -> runScript("gen/desert.lua");
+	} else if(engine -> game -> getWorldTile(x, y).biome == biome::savanna) {
+		engine -> runScript("gen/savanna.lua");
+	} else if(engine -> game -> getWorldTile(x, y).biome == biome::marsh) {
+		engine -> runScript("gen/marsh.lua");
+	} else if(engine -> game -> getWorldTile(x, y).biome == biome::tundra) {
+		engine -> runScript("gen/tundra.lua");
+	}
+	
+	engine -> game -> map -> build();
 }
 
 // Saves as default map if parameter is true
@@ -128,11 +152,11 @@ void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, i
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
-    saveMap(false);
-    engine -> game -> actorManager.savePlayer();
+    //saveMap(false);
+    //engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
-	engine -> game -> actorManager.loadPlayer();
+	//engine -> game -> actorManager.loadPlayer();
 	if(startX == 0 and startY == 0) { // If starting position tile is empty, we teleport to the middle of the map
 		startX = engine -> game -> map -> getWidth() / 2;
 		startY = engine -> game -> map -> getHeight() / 2;
@@ -423,6 +447,38 @@ void c_helper::updateWorld() {
 		return;
 	}
 	engine -> game -> updateWorld();
+}
+
+// Returns the biome of the selected location of the world map
+int c_helper::getBiome(const int& x, const int& y) {
+	if(!engine -> game) {
+		return 0;
+	}
+	return engine -> game -> getBiome(x, y);
+}
+
+// Adds a patch of the specified tile using a cellular automata generated pattern
+void c_helper::genAddCellularPatch(std::string tile, const int& size) {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+	engine -> game -> map -> genAddCellularPatch(tile, size);
+}
+
+// Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
+void c_helper::genPlantTrees(std::string tree, const int& size, const bool& dead) {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+	engine -> game -> map -> genPlantTrees(tree, size, dead);	
+}
+
+// Places actor in a free random position
+void c_helper::genPlaceActorSomewhere(std::string actor, const int& quantity) {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+	engine -> game -> map -> genPlaceActorSomewhere(actor, quantity);		
 }
 
 const int& c_helper::findActorByName(const int& x, const int&y, std::string name) {

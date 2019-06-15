@@ -1,3 +1,8 @@
+0.2.8
+- Input no longer considered when the game is "loading"
+- Debug info panel added
+- Wilderness generation added
+
 0.2.7
 - World map biomes are calculated from 0.0.0 stored map
 
