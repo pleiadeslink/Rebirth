@@ -1,37 +1,37 @@
 -- N
-if(value1 == 1) then
+if(value1 == NORTH) then
 	mapX = getActorMapX(emitter)
 	mapY = getActorMapY(emitter) - 1
 -- NE
-elseif(value1 == 5) then
+elseif(value1 == NORTHEAST) then
 	mapX = getActorMapX(emitter) + 1
 	mapY = getActorMapY(emitter) - 1
 -- E
-elseif(value1 == 2) then
+elseif(value1 == EAST) then
 	mapX = getActorMapX(emitter) + 1
 	mapY = getActorMapY(emitter)
 -- SE
-elseif(value1 == 6) then
+elseif(value1 == SOUTHEAST) then
 	mapX = getActorMapX(emitter) + 1
 	mapY = getActorMapY(emitter) + 1
 -- S
-elseif(value1 == 3) then
+elseif(value1 == SOUTH) then
 	mapX = getActorMapX(emitter)
 	mapY = getActorMapY(emitter) + 1
 -- SW
-elseif(value1 == 7) then
+elseif(value1 == SOUTHWEST) then
 	mapX = getActorMapX(emitter) - 1
 	mapY = getActorMapY(emitter) + 1
 -- W
-elseif(value1 == 4) then
+elseif(value1 == WEST) then
 	mapX = getActorMapX(emitter) - 1
 	mapY = getActorMapY(emitter)
 -- NW
-elseif(value1 == 8) then
+elseif(value1 == NORTHWEST) then
 	mapX = getActorMapX(emitter) - 1
 	mapY = getActorMapY(emitter) - 1
 -- Random
-elseif(value1 == 11) then
+elseif(value1 == RANDOM) then
 	repeat
 		mapX = getActorMapX(emitter) + math.random(-1, 1)
 		mapY = getActorMapY(emitter) + math.random(-1, 1)

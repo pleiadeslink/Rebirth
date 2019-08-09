@@ -9,9 +9,11 @@ class c_helper {
 		static int random(const int& min, const int& max);
 		static std::vector<std::string> splitter(std::string in_pattern, std::string& content); // Splits a string in lines by '\n'
 		static std::string justify(std::string string, const size_t size);
-		static void gameMessage(const std::string& text, const bool& unique = false);
+		static void message(const std::string& text); // Logs a game message
+		static void updateGamelog(); // Refresh gamelog force pushing all buffer
 		static void toggleFullScreen(); // Changes between window and fullscreen mode
 		static void talk(const int& actor);
+		static void gameOver(); // Wait for enter key and deletes game
 
 		// * Sound
 
@@ -63,9 +65,9 @@ class c_helper {
 
 		static const int& findActorByName(const int& x, const int&y, std::string name);
 		static const bool& isObstacle(const int& x, const int& y);
-		static const int& getCreatureFromTile(const int& x, const int& y);
+		static const int& getActorFromTile(const int& x, const int& y, const int& type);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);
-		static const int& getFirstActorInTile(const int& emitter, const int& x, const int& y);
+		//static const int& getFirstActorInTile(const int& emitter, const int& x, const int& y);
 		static void teleportActor(const int& actor, const int& x, const int& y, const bool& recalculateFOV = true);
 		static const int& createActor(std::string id, const int& x, const int& y);
 		static const int& tryToTalk(const int& x, const int& y);
@@ -77,6 +79,7 @@ class c_helper {
 		static const int& getDirectionToActor(const int& emitter, const int& target);
 
 		static std::string getActorId(const int& actor); // Returns the actor's id
+		static int getActorType(const int& actor); // Returns the actor's type
 		static std::string getName(const int& actor); // Returns the actor's name
 		static std::string getPlayerName(); // Returns the actor's name
 		static const int& getPlayer(); // Returns the player actor uid
@@ -91,15 +94,19 @@ class c_helper {
 		static const int& getMaxHealth(const int& actor); // Returns the actor's max health
 		static const int& getMinDamage(const int& actor);
 		static const int& getMaxDamage(const int& actor);
-		static const int& getAccuracy(const int& actor);
-		static const int& getDodge(const int& actor);
+		static const int& getAttack(const int& actor);
+		static const int& getDefense(const int& actor);
+		static const int& getProtection(const int& actor);
+		static const int& getBlock(const int& actor);
+		static const int& getParry(const int& actor);
+		static const int& getExpReward(const int& actor);
 		static const int& getViewRange(const int& actor); // Returns the actor's view range
 
 		static void setConstitution(const int& value); // Returns avatar's constitution
 		static void setAgility(const int& value); // Returns avatar's agility
 		static void setSpirit(const int& value); // Returns avatar's spirit
 		static void setLuck(const int& value); // Returns avatar's luck
-		static void setAttributes(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry);
+		static void setAttributes(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attack, const int& defense, const int& protection, const int& block, const int& parry);
 		static void calculateAttributes();
 
 		//static const int& getMinMeleeDamage(const int& actor);

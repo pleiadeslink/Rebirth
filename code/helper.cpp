@@ -13,41 +13,64 @@ int c_helper::random(const int& min, const int& max) {
     return ran -> getInt(min, max);
 }
 
+// Splits a string into seperate strings using the pattern string as line break symbol
 std::vector<std::string> c_helper::splitter(std::string in_pattern, std::string& content) {
     std::vector<std::string> split_content;
     std::regex pattern(in_pattern);
-    copy(std::sregex_token_iterator(content.begin(), content.end(), pattern, -1),
-    std::sregex_token_iterator(),back_inserter(split_content));  
+    copy(std::sregex_token_iterator(content.begin(), content.end(), pattern, -1), std::sregex_token_iterator(), back_inserter(split_content));  
     return split_content;
 }
 
+/*/ Justify text adding \n
 std::string c_helper::justify(std::string string, const size_t size) {
     int iterator = 0;
 	for(int i = 0; i < string.length(); ++i) {
 		if(string.at(i) == ' ' and iterator >= size) {
 			iterator = 0;
-			string.erase(i,1);
-			string.insert(i, "\n");
+			string.erase(i,1); // Deletes space
+			string.insert(i, "\n"); // Adds line break
+		}
+		++iterator;
+	}
+    return string;
+}*/
+
+// Justify text adding \n
+std::string c_helper::justify(std::string string, const size_t size) {
+	int iterator = 0;
+	for(int i = 0; i < string.length(); ++i) {
+		if(iterator == size) {
+			for(int j = 0; j < size; ++j) {
+				if(string.at(i - j) == ' ') {
+					iterator = 0;
+					string.erase(i - j, 1); // Deletes space
+					string.insert(i - j, "\n"); // Adds line break
+					break;
+				}
+			}	
 		}
 		++iterator;
 	}
     return string;
 }
 
+// Logs a game message
+void c_helper::message(const std::string& text) {
+	
+	// Sends message to the system log
+	engine -> message("Game: " + text);
 
-
-void c_helper::gameMessage(const std::string& text, const bool& unique) {
-	if(!engine -> game) {
-		return;
+	// Sends message to the game log
+	if(engine -> game) {
+		engine -> game -> message(text);
 	}
-	if(unique == true) {
-		engine -> game -> gamelog.clear();
-		engine -> game -> gamelog.message(text);
+}
+
+// Refresh gamelog force pushing all buffer
+void c_helper::updateGamelog() {
+	if(engine -> game) {
 		engine -> game -> gamelog.update();
-	} else {
-		engine -> game -> gamelog.message(text);
 	}
-	std::cout << "Game: " << text << std::endl;
 }
 
 // Changes between window and fullscreen mode
@@ -73,7 +96,7 @@ void c_helper::showMapInfo() {
 	}
 	std::ostringstream s;
 	s << "Map x: " << engine -> game -> map -> getX() << " | Map x: " << engine -> game -> map -> getY() << " | Map z: " << engine -> game -> map -> getZ();
-	gameMessage(s.str());
+	message(s.str());
 }
 
 void c_helper::loadMap(const int& x, const int& y, const int& z) { // ! Move these to map class no?
@@ -84,13 +107,18 @@ void c_helper::loadMap(const int& x, const int& y, const int& z) { // ! Move the
 	TCODZip zip;
     engine -> game -> map -> wipe(x, y, z);
 
-    // Load saved
+
+	// * LOAD SAVED
+	
     std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
     if(zip.loadFromFile(savedFilename.c_str())) {
         engine -> game -> map -> load(&zip);
 		engine -> game -> actorManager.loadActors(&zip);
 		return;
 	}
+
+
+	// * lOAD STATIC
     
 	// Load static
     std::string staticFilename = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
@@ -100,26 +128,42 @@ void c_helper::loadMap(const int& x, const int& y, const int& z) { // ! Move the
 		return;
 	}
 	
-	// Generate
+	
+	// * GENERATE MAP
+
 	//s_worldTile = engine -> game -> getWorldTile(x, y); // This needs to include already the biome file, world map needs to be informed when its created from data files + 0.0.0 map
-	// For now we say we know already the path file
-	if(engine -> game -> getWorldTile(x, y).biome == biome::grassland) {
-		engine -> runScript("gen/grassland.lua");
-	} else if(engine -> game -> getWorldTile(x, y).biome == biome::temperateForest) {
-		engine -> runScript("gen/temperateForest.lua");
-	} else if(engine -> game -> getWorldTile(x, y).biome == biome::taiga) {
-		engine -> runScript("gen/taiga.lua");
-	} else if(engine -> game -> getWorldTile(x, y).biome == biome::jungle) {
-		engine -> runScript("gen/jungle.lua");
-	} else if(engine -> game -> getWorldTile(x, y).biome == biome::desert) {
-		engine -> runScript("gen/desert.lua");
-	} else if(engine -> game -> getWorldTile(x, y).biome == biome::savanna) {
-		engine -> runScript("gen/savanna.lua");
-	} else if(engine -> game -> getWorldTile(x, y).biome == biome::marsh) {
-		engine -> runScript("gen/marsh.lua");
-	} else if(engine -> game -> getWorldTile(x, y).biome == biome::tundra) {
-		engine -> runScript("gen/tundra.lua");
+	// For now we say we know already the path file -- WHAT THE FUCK DID I MEAN HERE?
+	std::cout << x << y << z << std::endl;
+	// World map
+	if(x == 0 and y == 0 and z == 0) {
+		std::cout << "what?" << std::endl;
+		engine -> game -> map -> genWorld();
+
+	// Local map
+	} else {
+		if(engine -> game -> getWorldTile(x, y).biome == biome::grassland) {
+			engine -> runScript("gen/grassland.lua");
+		} else if(engine -> game -> getWorldTile(x, y).biome == biome::temperateForest) {
+			engine -> runScript("gen/temperateForest.lua");
+		} else if(engine -> game -> getWorldTile(x, y).biome == biome::taiga) {
+			engine -> runScript("gen/taiga.lua");
+		} else if(engine -> game -> getWorldTile(x, y).biome == biome::jungle) {
+			engine -> runScript("gen/jungle.lua");
+		} else if(engine -> game -> getWorldTile(x, y).biome == biome::desert) {
+			engine -> runScript("gen/desert.lua");
+		} else if(engine -> game -> getWorldTile(x, y).biome == biome::savanna) {
+			engine -> runScript("gen/savanna.lua");
+		} else if(engine -> game -> getWorldTile(x, y).biome == biome::marsh) {
+			engine -> runScript("gen/marsh.lua");
+		} else if(engine -> game -> getWorldTile(x, y).biome == biome::tundra) {
+			engine -> runScript("gen/tundra.lua");
+		}
 	}
+
+	// We set the coords
+	engine -> game -> map -> setX(x);
+	engine -> game -> map -> setY(y);
+	engine -> game -> map -> setZ(z);
 	
 	engine -> game -> map -> build();
 }
@@ -152,7 +196,7 @@ void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, i
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
-    //saveMap(false);
+    saveMap(false);
     //engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     loadMap(x, y, z);
@@ -185,7 +229,7 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     loadMap(0, 0, 0);
     //engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
-	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
+	//engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
 	engine -> setLoading(false);
 }
 
@@ -315,14 +359,14 @@ const bool& c_helper::genDungeon(const int& value) {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
-	gameMessage("Generating dungeon...");
+	message("Generating dungeon...");
 	for(int i = 0; i < 100; ++i) {
 		if(engine -> game -> map -> genDungeon(value) == true) {
-			c_helper::gameMessage("OK");
+			c_helper::message("OK");
 			return true;
 		}
 	}
-	c_helper::gameMessage("FAIL");
+	c_helper::message("FAIL");
 	return false;
 }
 
@@ -330,14 +374,14 @@ const bool& c_helper::genCave() {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
-	gameMessage("Generating cave...");
+	message("Generating cave...");
 	for(int i = 0; i < 100; ++i) {
 		if(engine -> game -> map -> genCave() == true) {
-			c_helper::gameMessage("OK");
+			c_helper::message("OK");
 			return true;
 		}
 	}
-	c_helper::gameMessage("FAIL");
+	c_helper::message("FAIL");
 	return false;
 }
 
@@ -345,14 +389,14 @@ const bool& c_helper::genWild(const int& type) {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
-	gameMessage("Generating wilderness...");
+	message("Generating wilderness...");
 	for(int i = 0; i < 100; ++i) {
 		if(engine -> game -> map -> genWild(type) == true) {
-			c_helper::gameMessage("OK");
+			c_helper::message("OK");
 			return true;
 		}
 	}
-	c_helper::gameMessage("FAIL");
+	c_helper::message("FAIL");
 	return false;
 }
 
@@ -360,14 +404,14 @@ const bool& c_helper::genWorld() {
 	if(!engine -> game or !engine -> game -> map) {
 		return false;
 	}
-	gameMessage("Generating world map...");
+	message("Generating world map...");
 	for(int i = 0; i < 100; ++i) {
 		if(engine -> game -> map -> genWorld() == true) {
-			c_helper::gameMessage("OK");
+			c_helper::message("OK");
 			return true;
 		}
 	}
-	c_helper::gameMessage("FAIL");
+	c_helper::message("FAIL");
 	return false;
 }
 
@@ -429,7 +473,7 @@ const int& c_helper::build() {
 		return 0;
 	}
 	engine -> game -> map -> build();
-	gameMessage("Map rebuilt.");
+	message("Map rebuilt.");
 	return 0;
 }
 
@@ -438,7 +482,7 @@ void c_helper::forgetMap() {
 		return;
 	}
 	engine -> game -> map -> forget();
-	gameMessage("You forget how you came here.");
+	message("You forget how you came here.");
 }
 
 // Updates world map from map 0.0.0 stored locally
@@ -493,17 +537,12 @@ const bool& c_helper::isObstacle(const int& x, const int& y) {
 	return engine -> game -> map -> getTile(x, y) -> isObstacle();
 }
 
-const int& c_helper::getCreatureFromTile(const int& x, const int& y) {
+// Returns uid of first actor of type, if no type first actor
+const int& c_helper::getActorFromTile(const int& x, const int& y, const int& type) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;
 	}
-	std::vector<int> actorList = engine -> game -> map -> getTile(x, y) -> getActorList();
-	for(int i = 0; i < actorList.size(); ++i) {
-		if(engine -> game -> actorManager.getActor(actorList[i]) -> life) {
-			return actorList[i];
-		}
-	}
-	return 0;
+	return engine -> game -> map -> getActorFromTile(x, y, type);
 }
 
 const bool& c_helper::actorTypeInTile(std::string type, const int& x, const int& y) {
@@ -514,7 +553,7 @@ const bool& c_helper::actorTypeInTile(std::string type, const int& x, const int&
     return result;
 }
 
-const int& c_helper::getFirstActorInTile(const int& emitter, const int& x, const int& y) {
+/*const int& c_helper::getFirstActorInTile(const int& emitter, const int& x, const int& y) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;
 	}
@@ -528,7 +567,7 @@ const int& c_helper::getFirstActorInTile(const int& emitter, const int& x, const
 		}
 	}
 	return 0;
-}
+}*/
 
 void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY, const bool& recalculateFOV) {
 	if(!engine -> game or !engine -> game -> map) {
@@ -536,7 +575,7 @@ void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY,
 	}
 
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-
+ 
     // Get last position
     int oldX = p_actor -> getMapX();
     int oldY = p_actor -> getMapY();
@@ -628,7 +667,7 @@ void c_helper::showActorPosition(const int& actor) {
 	} 
 	std::ostringstream s;
 	s << p_actor -> getName() << " is located at " << p_actor -> getMapX() << "x" << p_actor -> getMapY() << ".";
-	gameMessage(s.str());
+	message(s.str());
 }
 
 // Shows player's coordinates in the game console
@@ -639,7 +678,7 @@ void c_helper::showPlayerPosition() {
 	} 
 	std::ostringstream s;
 	s << p_actor -> getName() << " is located at " << p_actor -> getMapX() << "x" << p_actor -> getMapY() << ".";
-	gameMessage(s.str());
+	message(s.str());
 }
 
 const int& c_helper::getDirectionToActor(const int& emitter, const int& target) {
@@ -679,6 +718,10 @@ const int& c_helper::getDirectionToActor(const int& emitter, const int& target) 
 
 std::string c_helper::getActorId(const int& actor) {
 	return engine -> game -> actorManager.getActor(actor) -> getId();
+}
+
+int c_helper::getActorType(const int& actor) {
+	return engine -> game -> actorManager.getActor(actor) -> getType();
 }
 
 std::string c_helper::getName(const int& actor) {
@@ -782,20 +825,52 @@ const int& c_helper::getMaxDamage(const int& actor) {
 	return p_actor -> life -> getMaxDamage();
 }
 
-const int& c_helper::getAccuracy(const int& actor) {
+const int& c_helper::getAttack(const int& actor) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
 	if(!p_actor -> life) {
 		return 0;
 	} 
-	return p_actor -> life -> getAccuracy();
+	return p_actor -> life -> getAttack();
 }
 
-const int& c_helper::getDodge(const int& actor) {
+const int& c_helper::getDefense(const int& actor) {
 	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
 	if(!p_actor -> life) {
 		return 0;
 	} 
-	return p_actor -> life -> getDodge();
+	return p_actor -> life -> getDefense();
+}
+
+const int& c_helper::getProtection(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getProtection();
+}
+
+const int& c_helper::getBlock(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getBlock();
+}
+
+const int& c_helper::getParry(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getParry();
+}
+
+const int& c_helper::getExpReward(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(!p_actor -> life) {
+		return 0;
+	} 
+	return p_actor -> life -> getExp();
 }
 
 const int& c_helper::getViewRange(const int& actor) {
@@ -881,11 +956,11 @@ const int& c_helper::getMeleeDamage(const int& actor) {
 	return 0;
 }*/
 
-void c_helper::setAttributes(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry) {
+void c_helper::setAttributes(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attack, const int& defense, const int& protection, const int& block, const int& parry) {
 	if(!engine -> game or !engine -> game -> actorManager.getPlayer()) {
 		return;
 	} 
-	engine -> game -> actorManager.getPlayer() -> life -> set(maxHealth, minDamage, maxDamage, speed, attackSpeed, accuracy, dodge, parry);
+	engine -> game -> actorManager.getPlayer() -> life -> set(maxHealth, minDamage, maxDamage, speed, attack, defense, protection, block, parry);
 }
 
 void c_helper::calculateAttributes() {
@@ -1035,9 +1110,9 @@ void c_helper::toggleGodMode() {
 	}
 	bool god = engine -> game -> actorManager.getPlayer() -> player -> toggleGodMode();
 	if(god == true) {
-		gameMessage("God mode enabled. Have fun!");
+		message("God mode enabled. Have fun!");
 	} else {
-		gameMessage("God mode disabled. Run for your life!");
+		message("God mode disabled. Run for your life!");
 	}
 }
 
@@ -1054,4 +1129,9 @@ const bool& c_helper::learn(std::string id) {
 		return false;
 	}
 	return engine -> game -> actorManager.getPlayer() -> player -> learnAbility(id);
+}
+
+// // Wait for enter key and deletes game
+void c_helper::gameOver() {
+	engine -> interface.gameOver();
 }

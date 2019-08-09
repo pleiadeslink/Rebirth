@@ -18,7 +18,6 @@ class c_window
 	    //std::vector<c_label*> v_label;
 	    //std::vector<c_button*> v_button;
 	    //std::vector<c_slot*> v_slot;
-        void drawFrame();
         void drawHBar(const int& hpos);
         void drawHLine(const int& x, const int& y, const int& size);
         void drawVLine(const int& x, const int& y, const int& size);
@@ -29,6 +28,7 @@ class c_window
         c_window(const std::string& id, const int& x, const int& y, const int& width, const int&height);
         void update();
         void draw();
+        void drawFrame();
         static void drawFrame(const int& x, const int& y, const int& width, const int& height);
         void addLabel(const int& x, const int& y, const std::string text);
         int getX() { return x; }

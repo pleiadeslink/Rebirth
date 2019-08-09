@@ -81,7 +81,7 @@ int c_winCharacter::update(int key) {
 					case key::d: {
 						if((item -> weapon and player -> player -> getEquippedItem(bodySlot::mainHand) == item -> getUid())
 						or (item -> armor and player -> player -> getEquippedItem(item -> armor -> getSlot()) == item -> getUid())) {
-							c_helper::gameMessage("You need to remove it first.", true);
+							c_helper::message("You need to remove it first.");
 							return 0;
 						}
                         structEventData eventData;
@@ -105,26 +105,26 @@ int c_winCharacter::update(int key) {
 					case key::e: {
 						if(item -> weapon) {
 							if(player -> player -> getEquippedItem(bodySlot::mainHand) == item -> getUid()) {
-								c_helper::gameMessage("It is already equipped.", true);
+								c_helper::message("It is already equipped.");
 								return 0;
 							}
 							if(item -> weapon -> getType() == weaponType::oneHanded) {
 								if(player -> player -> getEquippedItem(bodySlot::mainHand)) {
-									c_helper::gameMessage("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::mainHand)) -> getName() + " first.", true);
+									c_helper::message("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::mainHand)) -> getName() + " first.");
 									return 0;
 								}
 							} else if(item -> weapon -> getType() == weaponType::twoHanded) {
 								if(player -> player -> getEquippedItem(bodySlot::mainHand)) {
-									c_helper::gameMessage("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::mainHand)) -> getName() + " first.", true);
+									c_helper::message("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::mainHand)) -> getName() + " first.");
 									return 0;
 								} else if(player -> player -> getEquippedItem(bodySlot::offHand)) {
-									c_helper::gameMessage("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::offHand)) -> getName() + " first.", true);
+									c_helper::message("You need to remove the " +  engine -> game -> actorManager.getActor(player -> player -> getEquippedItem(bodySlot::offHand)) -> getName() + " first.");
 									return 0;
 								}
 							}
 						} else if(item -> armor) {
 							if(player -> player -> getEquippedItem(item -> armor -> getSlot()) == item -> getUid()) {
-								c_helper::gameMessage("It is already equipped.", true);
+								c_helper::message("It is already equipped.");
 								return 0;
 							}
 						} else {
@@ -232,11 +232,15 @@ void c_winCharacter::draw() {
 		
 		
 
-		engine -> screen.drawText("Damage:       13-15", (x + 34 + 22) * 16, (y + 1) * 16 + 4, color("light grey"));
-		engine -> screen.drawText("            (melee)", (x + 34 + 22) * 16, (y + 2) * 16 + 4, color("light grey"));
-		engine -> screen.drawText("Attack:          27", (x + 34 + 22) * 16, (y + 3) * 16 + 4, color("light grey"));
+		engine -> screen.drawText("Damage:", (x + 34 + 22) * 16, (y + 1) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMinDamage()) + "-" + std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMaxDamage()), (x + 34 + 22 + 9) * 16, (y + 1) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("(melee)", (x + 34 + 22 + 9) * 16, (y + 2) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Accuracy:", (x + 34 + 22) * 16, (y + 3) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getAttack()), (x + 34 + 22 + 9) * 16, (y + 3) * 16 + 4, sf::Color::White, textAlign::left);
 		engine -> screen.drawText("Defense:         14", (x + 34 + 22) * 16, (y + 4) * 16 + 4, color("light grey"));
-		engine -> screen.drawText("Protection:       3", (x + 34 + 22) * 16, (y + 5) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getDefense()), (x + 34 + 22 + 9) * 16, (y + 4) * 16 + 4, sf::Color::White, textAlign::left);
+		engine -> screen.drawText("Protection:", (x + 34 + 22) * 16, (y + 5) * 16 + 4, color("light grey"));
+		engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getProtection()), (x + 34 + 22 + 9) * 16, (y + 5) * 16 + 4, sf::Color::White, textAlign::left);
 		engine -> screen.drawText("Resist heat:      8", (x + 34 + 22) * 16, (y + 7) * 16 + 4, color("light grey"));
 		engine -> screen.drawText("Resist cold:      8", (x + 34 + 22) * 16, (y + 8) * 16 + 4, color("light grey"));
 		engine -> screen.drawText("Resist poison:    8", (x + 34 + 22) * 16, (y + 9) * 16 + 4, color("light grey"));
@@ -419,82 +423,6 @@ void c_winCharacter::draw() {
 						// Duration
 						engine -> screen.drawText("Time", (x + 20) * 16 + 4, (y + 17) * 16 - 4, color("lighter sepia"));
 						engine -> screen.drawText(std::to_string(ability -> duration) + "s", (x + 20) * 16 + 4, ypos, color("lighter grey"));
-
-						// Type
-						/*offset += 5;
-						engine -> screen.drawText("Type", (x + 20 + offset) * 16 - 8, (y + 17) * 16 - 4, color("lighter sepia"));
-						std::string str1 = "Null";
-						switch(p_item -> getType()) {
-							case actorType::weapon: {
-								str1 = "Weapon";
-								break;
-							}
-							case actorType::armor: {
-								str1 = "Armor";
-								break;
-							}
-							case actorType::misc: {
-								str1 = "Misc";
-								break;
-							}
-							case actorType::potion: {
-								str1 = "Potion";
-								break;
-							}
-							case actorType::scroll: {
-								str1 = "Scroll";
-								break;
-							}
-							case actorType::food: {
-								str1 = "Food";
-								break;
-							}
-							case actorType::staircase: {
-								str1 = "Staircase";
-								break;
-							}
-							case actorType::container: {
-								str1 = "Container";
-								break;
-							}
-							case actorType::door: {
-								str1 = "Door";
-								break;
-							}
-							case actorType::avatar: {
-								str1 = "Avatar";
-								break;
-							}
-							case actorType::creature: {
-								str1 = "Creature";
-								break;
-							}
-						}
-						engine -> screen.drawText(str1, (x + 20 + offset) * 16 - 8, ypos, color("lighter grey"));
-
-						// Damage
-						offset += 7;
-						engine -> screen.drawText("Dam.", (x + 20 + offset) * 16 - 8, (y + 17) * 16 - 4, color("lighter sepia"));
-						if(p_item -> weapon) {
-							std::string str2 = std::to_string(p_item -> weapon -> getMinDamage());
-							str2.append("-");
-							str2.append(std::to_string(p_item -> weapon -> getMaxDamage()));
-							engine -> screen.drawText(str2, (x + 20 + offset) * 16 - 8, ypos, color("lighter grey"));
-						}
-
-						// Protection
-						offset += 5;
-						engine -> screen.drawText("Prot.", (x + 20 + offset) * 16 - 8, (y + 17) * 16 - 4, color("lighter sepia"));
-						if(p_item -> armor) {
-							engine -> screen.drawText(std::to_string(p_item -> armor -> getProtection()), (x + 20 + offset) * 16 - 8, ypos, color("lighter grey"));
-						}
-
-						// Mass
-						offset += 5;
-						engine -> screen.drawText("Mass", (x + 20 + offset) * 16 - 8, (y + 17) * 16 - 4, color("lighter sepia"));
-						if(p_item -> body) {
-							engine -> screen.drawText(std::to_string(p_item -> body -> getMass()), (x + 20 + offset) * 16 - 8, ypos, color("lighter grey"));
-						}*/
 					}
 				}
 				engine -> screen.drawTexture("gui/cursor", (x + 1) * 16 + 4, (y + 18 + abilitiesPos) * 16 + (abilitiesPos) * 4);

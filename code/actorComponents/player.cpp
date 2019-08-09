@@ -6,7 +6,7 @@ c_player::c_player(c_actor* father) {
     agility = 5;
     spirit = 5;
     luck = 3;
-    energy = 100;
+    energy = 300;
     level = 1;
     carried = 0;
 	equipment[0] = 0;
@@ -17,8 +17,9 @@ c_player::c_player(c_actor* father) {
 	equipment[5] = 0;
 	equipment[6] = 0;
 
-    // Learns basic abilitys
-    learnAbility("attack");
+    // Learns basic abilities
+    learnAbility("hit");
+    learnAbility("kick");
     learnAbility("consume");
     learnAbility("equip");
     learnAbility("remove");
@@ -83,7 +84,7 @@ bool c_player::channel(const int& key) {
         return false;
     }
 
-    // Reads input
+    // We first do directional movement since it works in both regular and world maps
 	if(key) {
 
         // Walk (possible in regular and world map)
@@ -153,6 +154,7 @@ bool c_player::channel(const int& key) {
 
             // Explore current tile in local map
             case key::e: {
+                std::cout << father -> getMapX() << " " << father -> getMapY() << std::endl;
                 c_helper::changeMap(father -> getMapX(), father -> getMapY(), 0);
                 return true;
             }            
@@ -188,14 +190,54 @@ bool c_player::channel(const int& key) {
                     } else {
                         structEventData eventData;
                         eventData.type = "speak";
-                        eventData.target = engine -> interface.selectCloseTarget(imode::game, "Speak with");
+                        eventData.target = engine -> interface.selectCloseTarget(imode::game, "Speak with", actorType::creature);
                         father -> action -> start(eventData);
                         return true;
                     }
                 }
 
-                engine -> game -> gamelog.message("There is nobody you can speak with.");
+                engine -> game -> gamelog.message("There is nobody there.");
                 return false;
+            }
+
+            // Kick
+            case key::k: {
+
+                std::vector<int> actorList = engine -> game -> map -> countActorsAround(father -> getMapX(), father -> getMapY());
+
+                if(actorList.size() > 0) {
+                    // Only one actor
+                    if(actorList.size() == 1) {
+                        structEventData eventData;
+                        eventData.type = "kick";
+                        eventData.target = actorList[0];
+                        father -> action -> start(eventData);
+                        return true;
+                    // Several actors
+                    } else {
+                        structEventData eventData;
+                        eventData.type = "kick";
+                        eventData.target = engine -> interface.selectCloseTarget(imode::game, "Kick what?");
+                        father -> action -> start(eventData);
+                        return true;
+                    }
+                }
+
+                engine -> game -> gamelog.message("You kick the air around you.");
+                return false;
+
+                /*int actor = engine -> game -> map -> getActorInRange(father -> getMapX(), father -> getMapY());
+
+                if(actor == 0) {
+                    engine -> game -> gamelog.message("There is nothing to kick.");
+                    return false;
+                } else {
+                    structEventData eventData;
+                    eventData.type = "kick";
+                    eventData.target = actor;
+                    father -> action -> start(eventData);
+                    return true;
+                }*/
             }
 
             // Travel (go to the world map)
@@ -338,14 +380,14 @@ const bool& c_player::learnAbility(std::string id, const bool& verbose) {
     // First checks if the ability exists
     s_abilityAsset* ability = engine -> assetManager.getAbilityAsset(id);
     if(ability -> duration == 0) {
-        c_helper::gameMessage("That word does not exist!");
+        c_helper::message("That word does not exist!");
         return false;
     }
 
     // Adds the ability to the ability memory
     v_learnedAbilitys.push_back(id);
     if(verbose == true) {
-        c_helper::gameMessage("You have learned the word '" + id + "'.");
+        c_helper::message("You have learned the word '" + id + "'.");
     }
     return true;
 }

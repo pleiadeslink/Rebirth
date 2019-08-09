@@ -1,26 +1,28 @@
-c_life::c_life(c_actor* father, const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry, const int& exp)
+c_life::c_life(c_actor* father, const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attack, const int& defense, const int& protection, const int& block, const int& parry, const int& exp)
 : father(father),
   health(maxHealth),
   maxHealth(maxHealth),
   minDamage(minDamage),
   maxDamage(maxDamage),
   speed(speed),
-  attackSpeed(attackSpeed),
-  accuracy(accuracy),
-  dodge(dodge),
+  attack(attack),
+  defense(defense),
+  protection(protection),
+  block(block),
   parry(parry),
   exp(exp) {
 }
 
-void c_life::set(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry) {
+void c_life::set(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attack, const int& defense, const int& protection, const int& block, const int& parry) {
     this -> maxHealth = maxHealth;
     this -> health = maxHealth;
     this -> minDamage = minDamage;
     this -> maxDamage = maxDamage;
     this -> speed = speed;
-    this -> attackSpeed = attackSpeed;
-    this -> accuracy = accuracy;
-    this -> dodge = dodge;
+    this -> attack = attack;
+    this -> defense = defense;
+    this -> protection = protection;
+    this -> block = block;
     this -> parry = parry;
 }
 

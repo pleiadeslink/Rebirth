@@ -15,6 +15,7 @@
 #include <cmath>
 #include <memory>
 #include <cstdio>
+#include <stdio.h>
 #include <queue>
 #include <regex>
 #include <filesystem>
@@ -22,15 +23,26 @@
 #include <iso646.h>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-#include "richText.hpp"
+//#include "richText.hpp"
+#include "ftext.hpp"
 #include "libtcod.hpp"
 #include "kaguya/kaguya.hpp"
 #include "fastNoise.hpp"
+#include "worldgen.hpp"
 
+#define IN_RECTANGLE(x,y,w,h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
+#define SQRDIST(x1,y1,x2,y2) (((x1)-(x2))*((x1)-(x2))+((y1)-(y2))*((y1)-(y2)))
 #define MAPSIZE 128
 #define MAXITERATIONS 2000
 
+#ifndef NDEBUG
+#define DBG(x) printf x
+#else
+#define DBG(x)
+#endif
+
 namespace global {
+	const bool debug = true;
 	const int maxFOVRange = 36;
 	const int maxLight = 255;
 	const int lightMult = 16;
@@ -50,8 +62,8 @@ namespace global {
 #include "windows/winMap.hpp"
 #include "windows/winTalk.hpp"
 #include "windows/winCharacter.hpp"
-#include "windows/winGamelog.hpp"
 #include "windows/winSidebar.hpp"
+#include "windows/winDeath.hpp"
 #include "fire.hpp"
 #include "actorComponents/action.hpp"
 #include "actorComponents/player.hpp"
@@ -74,6 +86,9 @@ namespace global {
 #include "helper.hpp"
 #include "engine.hpp"
 
+TCODNoise noise1d(1);
+TCODNoise noise2d(2);
+WorldGenerator worldGen;
 c_engine* engine;
 
 int main(int argc, char *argv[]) {
@@ -83,8 +98,10 @@ int main(int argc, char *argv[]) {
 	return EXIT_SUCCESS;
 }
 
-#include "richText.cpp"
+//#include "richText.cpp"
+#include "ftext.cpp"
 #include "fastNoise.cpp"
+#include "worldgen.cpp"
 #include "screen.cpp"
 #include "sound.cpp"
 #include "interface.cpp"
@@ -94,8 +111,8 @@ int main(int argc, char *argv[]) {
 #include "windows/winMap.cpp"
 #include "windows/winTalk.cpp"
 #include "windows/winCharacter.cpp"
-#include "windows/winGamelog.cpp"
 #include "windows/winSidebar.cpp"
+#include "windows/winDeath.cpp"
 #include "fire.cpp"
 #include "actorComponents/action.cpp"
 #include "actorComponents/player.cpp"

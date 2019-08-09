@@ -16,15 +16,24 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i m
     int mapX = mapX0 + (x * 16) + mousePos.x / global::tileSize - tileWidth / 2;
     int mapY = mapY0 + (y * 16) + mousePos.y / global::tileSize - tileHeight / 2 + yUIOffset;
 
+    // If mouse is on tile
     if(mapX >= 0 and mapX < engine -> game -> map -> getWidth()
     and mapY >= 0 and mapY < engine -> game -> map -> getHeight()
     and mousePos.x > x * 16 and mousePos.x < (x + tileWidth) * 16
     and mousePos.y > y * 16 and mousePos.y < (y + tileHeight) * 16) {
+
         c_tile* tile = engine -> game -> map -> getTile(mapX, mapY);
+
         switch(engine -> interface.getMode()) {
             case imode::game: {
                 if(tile -> getExplored()) {
+
+                    // We select tile and actor if there is one
                     engine -> interface.selectTile(tile);
+                    std::vector<int> v_actor = tile -> getActorList();
+                    if(v_actor.size() != 0) {
+                        engine -> interface.selectActor(v_actor[0]);
+                    }
 
                     // Left click moves player to position
                     if(key == key::lclick and tile -> getType() != tileType::wall and tile -> isObstacle() == false) {
@@ -34,6 +43,7 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i m
                 }
                 break;
             }
+
             case imode::edit: {
                 engine -> interface.selectTile(tile);
 
@@ -75,11 +85,12 @@ int c_winMap::update(int key, const int& mapX0, const int& mapY0, sf::Vector2i m
                 }*/
                 break;
             }
+
             case imode::selectCloseTarget: {
                 if(c_helper::calculateDistance(mapX, mapY, mapX0, mapY0) == 1 and tile -> hasAnyActor()) {
                     engine -> interface.selectTile(tile);
                     if(key == key::lclick) {
-                        engine -> interface.selectActor(c_helper::getCreatureFromTile(mapX, mapY));
+                        engine -> interface.selectActor(c_helper::getActorFromTile(mapX, mapY, actorType::creature));
                         return 0;
                     }
                 }

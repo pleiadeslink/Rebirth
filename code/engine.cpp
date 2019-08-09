@@ -30,13 +30,18 @@ void c_engine::start() {
     game = new c_game();
     game -> newGame();
     interface.init();
-    //sf::Vector2f v(0, 0);
+    sf::Vector2f v(0, 0);
     //c_fire fire(8,160,90,v);
     //fire.setFireSourceStrength(10);
     // Main loop
     f_quit = false;
     int key = 0;
     while(f_quit == false) {
+
+        screen.clear();
+        interface.draw();
+        //fire.render(*screen.getWindow());
+        screen.display();
         
         // We don't receive input if the engine is "loading"
         if(!isLoading()) {
@@ -48,18 +53,17 @@ void c_engine::start() {
         }
         key = interface.update(key);
         //fire.update();
-        screen.clear();
-        interface.draw();
-        //fire.render(*screen.getWindow());
-        screen.display();
+        
     }
 
-    delete game;
-    message("Goodbye!");
+    //delete game;
+c_helper::test();
+
+    
 }
 
+// Adds message to the system log and prints it in the program console
 void c_engine::message(std::string message) {
-    
     v_messageLog.push_back(message);
     std::cout << message << std::endl;
 }
@@ -68,11 +72,16 @@ int c_engine::input() {
     sf::Event event;
     sf::RenderWindow* rwindow = screen.getWindow();
     while (rwindow -> pollEvent(event)) {
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+        // Mouse
+        if(event.type == sf::Event::MouseButtonReleased) {
+            
+        if(event.mouseButton.button == sf::Mouse::Left) {
             return key::lclick;
-        } else if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+        } else if(event.mouseButton.button == sf::Mouse::Right) {
             return key::rclick;
         }
+    }
 
         // Edit
         if(interface.getMode() == imode::edit and event.type == sf::Event::TextEntered) {
@@ -294,8 +303,9 @@ void c_engine::runScript(const std::string& path) {
     state["mapY"] = data.mapY;
     state["value1"] = data.value1;
     state["string1"] = data.string1;
-
+    
     // Run file
+    state.dofile("data/lua/enum.lua");
     std::stringstream str;
     str << "data/lua/" << path;
     state.dofile(str.str());

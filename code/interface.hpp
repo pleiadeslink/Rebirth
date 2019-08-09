@@ -7,6 +7,7 @@ class c_winGamelog;
 class c_winSidebar;
 class c_winCharacter;
 class c_winInfo;
+class c_winDeath;
 //class c_winMessage;
 
 class c_interface {
@@ -17,13 +18,16 @@ class c_interface {
         c_winSidebar* sidebar;
         c_winMap* map;
         c_winInfo* info;
+        c_winDeath* death;
         int mode; // Game, character screen, etc.
         int emode; // Editor
+        bool f_help;
         c_tile* sTile;
         int sActor;
         std::string sAbility;
         c_tile* destination;
         std::string targetText;
+        int targetType;
         std::string inputText;
         structTileAsset* editTile;
         structActorAsset* editActor;
@@ -32,7 +36,7 @@ class c_interface {
         bool pasteMode;
         int processInput(int key);
 
-	public:
+    public:
         c_interface();
         ~c_interface();
         void init();
@@ -54,7 +58,8 @@ class c_interface {
         structTileAsset* getEditTile() { return editTile; }
         structActorAsset* getEditActor() { return editActor; }
         const int& getEditScript() { return editScript; }
-        int selectCloseTarget(const int& prevMode, const std::string& targetText);
+        const int& selectCloseTarget(const int& prevMode, const std::string& targetText, const int& type = 0);
+        void gameOver(); // Wait for enter key and deletes game
         //c_tile* selectTarget(const int& prevMode, const std::string& targetText);
         int getEmode() { return emode; }
         c_tile* getSelectedTile() { return sTile; }

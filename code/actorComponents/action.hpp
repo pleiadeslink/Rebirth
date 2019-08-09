@@ -9,7 +9,7 @@ class c_action
         c_actor* father;
         bool active;
         int duration;
-        int energyLost;
+        int energy;
         structEventData eventData;
         
     public:

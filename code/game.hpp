@@ -24,6 +24,7 @@ class c_game {
         int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
         void update(const int& key);
         void turn(); // Runs turns till the player finishes his action
+        void message(std::string text); // Prints a message in the game console
         static bool runScript(structEventData& data);
         static bool runEvent(structEventData& data);
         static bool runEffect(structEventData& data);

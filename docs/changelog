@@ -1,3 +1,11 @@
+0.2.9
+- Kick skill added
+- Hit formulas added
+- Worldgen imported
+- Map is now dynamic vector
+- Color text added!
+- Death screen
+
 0.2.8
 - Input no longer considered when the game is "loading"
 - Debug info panel added

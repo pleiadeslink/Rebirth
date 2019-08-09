@@ -3,55 +3,72 @@
 [default]
 name: Default
 duration: 0
+energy: 0
 
-[attack]
-name: Physical attack
-desc: Attack a target using your fists or any equipped melee weapon.
+[hit]
+name: Hit
+desc: Hit a target using your fists or any equipped melee weapon.
 duration: 3
+energy: 8
+
+[kick]
+name: Kick
+desc: Express your feelings by kicking objects and creatures.
+duration: 1
+energy: 10
 
 [get]
 name: Get
 desc: Get an item from the ground.
 duration: 2
+energy: 1
 
 [equip]
 name: Equip
 desc: Equip a weapon or armor.
 duration: 1
+energy: 1
 
 [remove]
 name: Remove
 desc: Remove a weapon or armor that is currently equipped.
 duration: 1
+energy: 1
 
 [drop]
 name: Drop
-desc: Drop an item from your inventory to the ground.
+desc: Drop an item from your bag to the ground.
 duration: 1
+energy: 1
 
 [consume]
 name: Consume
-desc: Oral ingestion of food and brewages from your inventory.
+desc: Orally ingest food and brewages from your bag.
 duration: 1
+energy: 0
 
 [speak]
 name: Speak
-desc: Sound-based information exchange with other intelligent beings. Different sounds are combined together into "words" to be imbued with meaning.
+desc: Exchange thought forms with another intelligent being by the use of words.
 duration: 4
+energy: 1
 
 [travel]
 name: Travel
-desc: Allows to travel long distances through the world map. Travelling is only allowed in wilderness areas.
+desc: Travel long distances through the world map. Travelling is only allowed in wilderness areas.
 duration: 1
+energy: 0
 
 [wait]
 name: Wait
-desc: Contemplate the moment.
+desc: Contemplate reality for one turn.
 duration: 1
+energy: 1
 
 [walk]
 name: Walk
 desc: Move in any two-dimensional direction to an unoccupied nearby position.
 duration: 4
+energy: 1
 
 [end]

@@ -17,7 +17,7 @@ class c_body
 		const bool& getCanMove() { return canMove; }
 		const bool& getCanView() { return canView; }
 		const bool& getCanPickup() { return canPickup; }
-		const int& getMass() { return weight; }
+		float getMass() { return weight; }
 		void setCanMove(const bool& value) { canMove = value; }
 		void setCanView(const bool& value) { canView = value; }
 };

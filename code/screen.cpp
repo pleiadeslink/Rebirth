@@ -79,11 +79,12 @@ void c_screen::drawBox(const int& x, const int& y, const int& width, const int& 
 
 const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Color color, const int& align, const int& width, const int& size) {
     
-    sfe::RichText text(*(engine -> assetManager.getFont()));
-    text << color << str;
+    sf::Text text;
+    text.setFont(*(engine -> assetManager.getFont()));
+    //str.insert(0, "%4");
+    text.setString(str);
     text.setCharacterSize(size);
-    int lineCounter = 1;
-
+    text.setColor(color);
     switch(align) {
         case textAlign::left: {
             x = x - (text.getLocalBounds().width) + 6;
@@ -94,14 +95,48 @@ const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Co
             break;
         }
         case textAlign::justify: {
-
-            //x = x - (text.getLocalBounds().width);
-            
             std::vector<std::string> lines = c_helper::splitter("\n", str);
-
             for(int j = 0; j < lines.size(); ++j) {
-                sfe::RichText ltext(*(engine -> assetManager.getFont()));
-                ltext << color << lines[j];
+                sf::Text ltext;
+                ltext.setFont(*(engine -> assetManager.getFont()));
+                ltext.setString(lines[j]);
+                ltext.setCharacterSize(size);
+                ltext.setColor(color);
+                ltext.setPosition(x, y + (j * size));
+                window.draw(ltext);
+            }
+            return lines.size();
+        }
+    }
+    
+    text.setPosition(x, y);
+    window.draw(text);
+    return 1;
+}
+
+// Parse text for color codes and applies them (slower than drawText)
+const int& c_screen::drawCText(std::string str, int x, const int& y, const int& align, const int& width, const int& size) {
+    
+    FText text;
+    text.setFont(*(engine -> assetManager.getFont()));
+    //str.insert(0, "%4");
+    text.setString(str);
+    text.setCharacterSize(size);
+    switch(align) {
+        case textAlign::left: {
+            x = x - (text.getLocalBounds().width) + 6;
+            break;
+        }
+        case textAlign::center: {
+            x = x - (text.getLocalBounds().width / 2);
+            break;
+        }
+        case textAlign::justify: {
+            std::vector<std::string> lines = c_helper::splitter("\n", str);
+            for(int j = 0; j < lines.size(); ++j) {
+                FText ltext;
+                ltext.setFont(*(engine -> assetManager.getFont()));
+                ltext.setString(lines[j]);
                 ltext.setCharacterSize(size);
                 ltext.setPosition(x, y + (j * size));
                 window.draw(ltext);
@@ -109,7 +144,7 @@ const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Co
             return lines.size();
         }
     }
-
+    
     text.setPosition(x, y);
     window.draw(text);
     return 1;

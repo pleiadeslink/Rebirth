@@ -39,7 +39,8 @@ namespace actorType {
         container,
         misc,
         trigger,
-        location
+        location,
+        tree
     };
 }
 
@@ -101,7 +102,8 @@ namespace imode {
         character,
         edit,
         selectCloseTarget,
-        dialogue
+        dialogue,
+        gameOver
     };
 }
 

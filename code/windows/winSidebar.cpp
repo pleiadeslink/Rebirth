@@ -205,17 +205,17 @@ void c_winSidebar::draw() {
 				if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
 							
 					// Health bar
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + (counter * 2)) * 16, (width - 2) * 16, 32, color("darkest red"));
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + (counter * 2)) * 16, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(),
-					32, color("darker red"));
-					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + (counter * 2)) * 16);
+					engine -> screen.drawBox((x + 1) * 16, (y + 7 + counter) * 22 - 10, (width - 2) * 16, 22, color("darkest red"));
+					engine -> screen.drawBox((x + 1) * 16, (y + 7 + counter) * 22 - 10, ((width - 2) * 16) * p_actor -> life -> getHealth() / p_actor -> life -> getMaxHealth(), 22, color("darker red"));
+					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 7 + counter) * 22 - 10);
 
-					// Texture
-					engine -> screen.drawTexture(p_actor -> getTexture(), (x + 1) * 16 + 1, (y + 9 + (counter * 2)) * 16 + 1);
+					// Symbol
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 3 + 1, (y + 7 + counter) * 22 - 9 + 1, sf::Color::Black);
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 3, (y + 7 + counter) * 22 - 9, p_actor -> getColor());
 							
 					// Name
-					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 + 1 - 8, (y + 10 + (counter * 2)) * 16 - 6 + 1, sf::Color::Black);
-					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 - 8, (y + 10 + (counter * 2)) * 16 - 6, sf::Color::White);
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 7 + counter) * 22 - 11 + 1, sf::Color::Black);
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 7 + counter) * 22 - 11, sf::Color::White);
 
 					++counter;
 				}
@@ -237,16 +237,17 @@ void c_winSidebar::draw() {
 				if(engine -> game -> map -> getTile(p_actor -> getMapX(), p_actor -> getMapY()) -> getVisible() == true) {
 							
 					// Bar
-					engine -> screen.drawBox((x + 1) * 16, (y + 9 + (counter * 2)) * 16, (width - 2) * 16, 16, color("dark sepia"));
-					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 9 + (counter * 2)) * 16);
+					engine -> screen.drawBox((x + 1) * 16, (y + 7 + counter) * 22 - 10, (width - 2) * 16, 22, color("dark sepia"));
+					engine -> screen.drawTexture("targetbar", (x + 1) * 16, (y + 7 + counter) * 22 - 10);
 
 					// Symbol
-					engine -> screen.drawTexture(p_actor -> getTexture(), (x + 1) * 16 + 1, (y + 9 + (counter * 2)) * 16 + 1);
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 3 + 1, (y + 7 + counter) * 22 - 9 + 1, sf::Color::Black);
+					engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 1) * 16 + 3, (y + 7 + counter) * 22 - 9, p_actor -> getColor());
 							
 
 					// Name
-					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 + 1 - 8, (y + 10 + (counter * 2)) * 16 - 6 + 1, sf::Color::Black);
-					engine -> screen.drawText(p_actor -> getName(), (x + 4) * 16 - 8, (y + 10 + (counter * 2)) * 16 - 6, sf::Color::White);
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 7 + counter) * 22 - 11 + 1, sf::Color::Black);
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 7 + counter) * 22 - 11, sf::Color::White);
 
 					++counter;
 				}

@@ -22,20 +22,25 @@ void c_interface::init()     {
     targetText = "";
     inputText = "";
     pasteMode = false;
-    info = new c_winInfo(44, 16, 23, 23);
-    map = new c_winMap(0, 0, 67, 41);
-    gamelog = new c_winGamelog(0, 35, 80, 10);
+    info = new c_winInfo(44, 16, 23, 24);
+    map = new c_winMap(0, 0, 67, 39);
+    //gamelog = new c_winGamelog(0, 39, 67, 6);
     //sidebar = new c_winSidebar("sidebar", 0, 43, 80, 2);
-    character = new c_winCharacter(0, 0, 67, 39);
+    character = new c_winCharacter(0, 0, 67, 40);
     character -> init();
     sidebar = new c_winSidebar(66, 0, 14, 45);
     sidebar -> init();
+    death = new c_winDeath(25, 5, 17, 10);
 }
 
 int c_interface::update(int key) {
+
+    // We reset selections
     sTile = 0;
     sActor = 0;
     sAbility = "";
+    //f_help = false;
+
     if(engine -> game -> actorManager.getPlayer()) {
         key = sidebar -> update(key, engine -> getMouse());
         if(mode == imode::game or mode == imode::edit) {
@@ -50,12 +55,17 @@ int c_interface::update(int key) {
 
 void c_interface::draw() {
     switch(mode) {
+
+        // MAIN SCREEN
         case imode::game: {
             if(engine -> game -> actorManager.getPlayer()) {
                 map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
             }
-            gamelog -> draw();
             sidebar -> draw();
+            engine -> game -> gamelog.draw();
+            if(f_help) {
+                info -> draw(true);
+            }
                 
             // Draw debug info
             if(engine -> game and engine -> game -> map) {
@@ -64,29 +74,35 @@ void c_interface::draw() {
             }
             break;
         }
+
+        // CHARACTER SCREEN
         case imode::character: {
-            gamelog -> draw();
             sidebar -> draw();
-            info -> draw();
+            engine -> game -> gamelog.draw();
+            info -> draw(false);
             character -> draw();
             break;
         }
+
+        // EDIT MODE
         case imode::edit: {
             if(engine -> game -> actorManager.getPlayer()) {
                 map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
             }
-            gamelog -> draw();
             sidebar -> draw();
+            engine -> game -> gamelog.draw();
             std::string str = "> " + engine -> getCommand();
             engine -> screen.drawText(str, 4, 4, sf::Color::White);
             break;
         }
+
+        // TARGET SELECTION
         case imode::selectCloseTarget: {
             if(engine -> game -> actorManager.getPlayer()) {
                 map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
             }
-            gamelog -> draw();
             sidebar -> draw();
+            engine -> game -> gamelog.draw();
             //drawTargetSelectionMessage();
             break;
         }
@@ -95,8 +111,10 @@ void c_interface::draw() {
     // Draw mouse
     if(engine -> isLoading()) {
         engine -> screen.drawTexture("sandglass", engine -> getMouse().x, engine -> getMouse().y);
+    } else if(f_help) {
+        engine -> screen.drawTexture("cursor-help", engine -> getMouse().x, engine -> getMouse().y);
     } else {
-        engine -> screen.drawTexture("pointer", engine -> getMouse().x, engine -> getMouse().y);
+        engine -> screen.drawTexture("cursor", engine -> getMouse().x, engine -> getMouse().y);
     }
 }
 
@@ -131,13 +149,14 @@ void c_interface::talk(const int& actor) {
     
 }
 
-int c_interface::selectCloseTarget(const int& prevMode, const std::string& targetText) {
+const int& c_interface::selectCloseTarget(const int& prevMode, const std::string& targetText, const int& type) {
     if(!engine -> game or !engine -> game -> map or !engine -> game -> actorManager.getPlayer()) {
         return 0;
     }
     mode = imode::selectCloseTarget;
     sActor = 0;
     this -> targetText = targetText;
+    this -> targetType = type;
     while(sActor == 0) {
         engine -> game -> gamelog.clear();
         engine -> sound.update();
@@ -149,6 +168,31 @@ int c_interface::selectCloseTarget(const int& prevMode, const std::string& targe
     }
     mode = prevMode;
     return sActor;
+}
+
+// Wait for enter key and deletes game
+void c_interface::gameOver() {
+    if(!engine -> game) {
+        return;
+    }
+    bool loop = true;
+    while(loop == true) {
+        if(engine -> input() == key::enter) {
+            loop = false;
+        } else {
+            engine -> screen.clear();
+            engine -> sound.update();
+            if(engine -> game -> actorManager.getPlayer()) {
+                map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
+            }
+            sidebar -> draw();
+            engine -> game -> gamelog.draw();
+            death -> draw();
+            engine -> screen.display();
+        }
+        
+    }
+    engine -> quit();
 }
 
 /*c_tile* c_interface::selectTarget(const int& prevMode, const std::string& targetText) {
@@ -171,6 +215,16 @@ int c_interface::selectCloseTarget(const int& prevMode, const std::string& targe
 int c_interface::processInput(int key) {
 
     if(key == 0) {
+        return 0;
+    }
+
+    // We check help first, as it's viable in every screen, or at least it should (usability you fool!)
+    if(key == key::rclick) {
+        if(f_help) {
+            f_help = false;
+        } else {
+            f_help = true;
+        }
         return 0;
     }
 
@@ -251,19 +305,19 @@ int c_interface::processInput(int key) {
             switch(key) {
                 // Directions
                 case key::up: {
-                    sActor = c_helper::getCreatureFromTile(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY() - 1);
+                    sActor = c_helper::getActorFromTile(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY() - 1, targetType);
                     return 0;
                 }
                 case key::down: {
-                    sActor = c_helper::getCreatureFromTile(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY() + 1);
+                    sActor = c_helper::getActorFromTile(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY() + 1, targetType);
                     return 0;
                 }
                 case key::left: {
-                    sActor = c_helper::getCreatureFromTile(engine -> game -> actorManager.getPlayer() -> getMapX() - 1, engine -> game -> actorManager.getPlayer() -> getMapY());
+                    sActor = c_helper::getActorFromTile(engine -> game -> actorManager.getPlayer() -> getMapX() - 1, engine -> game -> actorManager.getPlayer() -> getMapY(), targetType);
                     return 0;
                 }
                 case key::right: {
-                    sActor = c_helper::getCreatureFromTile(engine -> game -> actorManager.getPlayer() -> getMapX() + 1, engine -> game -> actorManager.getPlayer() -> getMapY());
+                    sActor = c_helper::getActorFromTile(engine -> game -> actorManager.getPlayer() -> getMapX() + 1, engine -> game -> actorManager.getPlayer() -> getMapY(), targetType);
                     return 0;
                 }
             }

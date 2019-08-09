@@ -2,6 +2,7 @@
 
 [floor_grass]
 name: Grass
+desc: A patch of grass.
 type: floor
 symbol: 10x15
 color: darker chartreuse
@@ -9,6 +10,7 @@ colorbg: darkest green
 
 [floor_tallGrass]
 name: Tall grass
+desc: A patch of tall grass.
 type: floor
 symbol: 2x19
 color: darker chartreuse
@@ -16,6 +18,7 @@ colorbg: darkest green
 
 [floor_dirt]
 name: Dirt
+desc: A floor made of dirt.
 type: floor
 symbol: 10x15
 color: dark sepia
@@ -23,6 +26,7 @@ colorbg: darker sepia
 
 [floor_sand]
 name: Sand
+desc: The sand is everywhere.
 type: floor
 symbol: 10x15
 color: light sepia	
@@ -30,6 +34,7 @@ colorbg: lighter sepia
 
 [floor_stone]
 name: Stone floor
+desc: A floor made of solid rock.
 type: floor
 symbol: 10x15
 color: dark grey
@@ -40,56 +45,104 @@ colorbg: darker grey
 
 [wall_stone]
 name: Stone wall
+desc: A solid granite wall.
+symbol: 2x20
 type: wall
 colorbg: darker grey
 
-[wall_rock]
-name: Rock wall
+[wall_brick]
+name: Brick wall
+desc: A stone brick wall.
+symbol: 1x20
 type: wall
 colorbg: dark sepia
 
+[wall_wood]
+name: Wooden wall
+desc: A wooden wall.
+symbol: 0x20
+type: wall
+color: darker sepia
+
+[wall_sandstone]
+name: Sandstone wall
+desc: An age-worn sandstone wall.
+symbol: 0x20
+type: wall
+color: darker sepia
 
 -- UNIQUE
 
 [water]
 name: Water
+desc: An eerie pool of water.
 type: water
 symbol: 14x7
 color: azure
 colorbg: dark azure
+
+[deepWater]
+name: Deep water
+desc: A deep pool of water.
+type: water
+symbol: 14x7
+color: dark azure
+colorbg: darker azure
+
+[lava]
+name: Lava
+desc: A bubbling pool of lava.
+type: lava
+symbol: 14x7
+color: red
+colorbg: dark red
 
 
 -- WORLD MAP
 
 [world_grassland]
 name: Grassland
+desc: A fertile grassland plain.
 type: world
 symbol: 10x15
 color: darker chartreuse
 colorbg: darkest green
 
+[world_savanna]
+name: Savanna
+desc: Savanna
+type: world
+symbol: 10x15
+color: amber
+colorbg: amber
+
 [world_mountain]
 name: Mountain
+desc: A large natural elevation of Tera's surface
 type: world
 symbol: 8x19
 color: grey
 colorbg: darkest green
 
-[world_temperateForest]
-name: Temperate Forest
-type: world
-color: darker chartreuse
-colorbg: darkest green
-
 [world_taiga]
 name: Taiga
+desc: A dense taiga forest.
 type: world
-symbol: 9x19
+symbol: 1x19
+color: azure
+colorbg: azure
+
+[world_temperateForest]
+name: Temperate forest
+desc: A dense temperate forest.
+type: world
+symbol: 1x19
 color: darker chartreuse
 colorbg: darkest green
 
 [world_jungle]
 name: Jungle
+desc: A wild tropical jungle.
 type: world
 symbol: 1x19
 color: darker chartreuse
@@ -97,23 +150,26 @@ colorbg: darkest green
 
 [world_desert]
 name: Desert
+desc: A barren desert.
 type: world
 symbol: 10x15
 color: light sepia	
 colorbg: lighter sepia
 
+[world_marsh]
+name: Desert
+desc: A barren desert.
+type: world
+symbol: 10x15
+color: dark azure	
+colorbg: dark azure
+
 [world_ocean]
 name: Ocean
+desc: The vast ocean.
 type: world
 symbol: 14x7
 color: azure
 colorbg: dark azure
-
-[world_tundra]
-name: Tundra
-type: world
-symbol: 10x15
-color: light grey
-colorbg: lightest grey
 
 [end]

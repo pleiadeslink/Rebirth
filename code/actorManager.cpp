@@ -162,14 +162,15 @@ void c_actorManager::clear() {
     v_locations.clear();
 }
 
+// Update all active actors that are within maxFOVRange / 2 + 8 tiles
 void c_actorManager::timeUpdate() {
     int size = v_active.size();
-    if(size == 0) {
+    if(size == 0 or player == 0) {
         return;
     }
     for(int i = 0; i < size; ++i) {
         c_actor* actor = getActor(v_active[i]);
-        if(actor != 0) {
+        if(actor != 0 and c_helper::calculateDistance(actor -> getMapX(), actor -> getMapY(), player -> getMapX(), player -> getMapY()) < global::maxFOVRange / 2 + 8) {
             actor ->  timeUpdate();
         }
     }

@@ -1,4 +1,4 @@
-sf::Color color(const std::string& str) {
+sf::Color color(std::string str) {
     sf::Color color = sf::Color::White;
     if(str == "white") {
         color.r = 255;
@@ -165,43 +165,43 @@ sf::Color color(const std::string& str) {
         color.b = 0;
         return color;
     } if(str == "desaturated yellow") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 128;
+        color.g = 128;
+        color.b = 64;
         return color;
     } if(str == "lightest yellow") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 255;
+        color.g = 255;
+        color.b = 191;
         return color;
     } if(str == "lighter yellow") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 255;
+        color.g = 255;
+        color.b = 166;
         return color;
     } if(str == "light yellow") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 255;
+        color.g = 255;
+        color.b = 115;
         return color;
     } if(str == "yellow") {
-        color.r = 0;
-        color.g = 0;
+        color.r = 255;
+        color.g = 255;
         color.b = 0;
         return color;
     } if(str == "dark yellow") {
-        color.r = 0;
-        color.g = 0;
+        color.r = 191;
+        color.g = 191;
         color.b = 0;
         return color;
     } if(str == "darker yellow") {
-        color.r = 0;
-        color.g = 0;
+        color.r = 128;
+        color.g = 128;
         color.b = 0;
         return color;
     } if(str == "darkest yellow") {
-        color.r = 0;
-        color.g = 0;
+        color.r = 64;
+        color.g = 64;
         color.b = 0;
         return color;
     } if(str == "desaturated lime") {
@@ -445,24 +445,24 @@ sf::Color color(const std::string& str) {
         color.b = 0;
         return color;
     } if(str == "desaturated sky") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 64;
+        color.g = 112;
+        color.b = 128;
         return color;
     } if(str == "lightest sky") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 191;
+        color.g = 239;
+        color.b = 255;
         return color;
     } if(str == "lighter sky") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 166;
+        color.g = 233;
+        color.b = 255;
         return color;
     } if(str == "light sky") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 115;
+        color.g = 220;
+        color.b = 255;
         return color;
     } if(str == "sky") {
         color.r = 0;
@@ -471,18 +471,18 @@ sf::Color color(const std::string& str) {
         return color;
     } if(str == "dark sky") {
         color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.g = 143;
+        color.b = 191;
         return color;
     } if(str == "darker sky") {
         color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.g = 96;
+        color.b = 128;
         return color;
     } if(str == "darkest sky") {
         color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.g = 48;
+        color.b = 64;
         return color;
     } if(str == "desaturated azure") {
         color.r = 64;
@@ -928,6 +928,11 @@ sf::Color color(const std::string& str) {
         color.r = 229;
         color.g = 191;
         color.b = 0;
+        return color;
+    } if(str == "silver") {
+        color.r = 203;
+        color.g = 203;
+        color.b = 203;
         return color;
     } if(str == "copper") {
         color.r = 196;

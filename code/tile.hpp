@@ -7,6 +7,7 @@ class c_tile {
         int y;
         std::string id; // *
         std::string name;
+        std::string desc;
         int tileX;
         int tileY;
         sf::Color color;
@@ -47,6 +48,7 @@ class c_tile {
         const int& getY() { return y; }
         const std::string& getId() { return id; }
         const std::string& getName() { return name; }
+        const std::string& getDesc() { return desc; }
         const int& getType() { return type; }
         const int& getScript() { return script; }
         const bool& getInterior() { return interior; }

@@ -8,6 +8,7 @@ symbol: 0x4
 [avatar]
 type: avatar
 name: Avatar
+desc: That's you dummy!
 texture: reysimio
 symbol: 0x4
 faction: avatar
@@ -41,6 +42,34 @@ speed_a: 1
 protection: 2
 dodge: 30
 exp: 30
+
+[barb]
+type: creature
+name: Barb
+desc: Una criatura de origen abuelico se alimenta de estiercol y no se ducha.
+symbol: 2x0
+color: azure
+health: 200
+damage: 10-15
+speed: 2
+speed_a: 2
+protection: 5
+exp: 50
+faction: animal
+
+[bat]
+type: creature
+name: Bat
+desc: A tiny winged creature.
+been sated.
+symbol: 2x6
+health: 200
+damage: 10-15
+speed: 2
+speed_a: 2
+protection: 5
+exp: 50
+faction: animal
 
 [bear]
 type: creature
@@ -127,7 +156,7 @@ desc: Closely resembling ordinary spiders, but with a body the length of a manâ€
 [horse]
 type: creature
 name: Horse
-desc: A proud and noble animal that thunders across the grassy plain with fluid grace, wind tugging at its loose-fitting barding.
+desc: A proud and noble animal that thunders across the grassy plain with fluid grace.
 symbol: 8x6
 color: white
 damage: 4-10
@@ -167,15 +196,15 @@ desc: A pesky little marsupial.
 
 [rat]
 type: creature
-name: Dire rat
+name: Rat
 desc: Giant rats are usually around five to six feet long, with dirty, matted fur and sharp teeth. They are frequently disease carriers and the wounds they inflict have a good chance of becoming infected.
 symbol: 2x7
 color: dark grey
 speed: 2
 damage: 2-4
-speed_a: 1
-accuracy: 60
-dodge: 40
+attack: 10
+defense: 5
+protection: 1
 resist: poison
 faction: animal
 exp: 10
@@ -250,6 +279,19 @@ accuracy: 80
 dodge: 60
 exp: 15
 
+[stirge]
+type: creature
+name: Snake
+desc: This horrid monster looks like a cross between a large bat and an oversized mosquito. Its legs end in sharp pincers, and its long, needle-like proboscis slashes the air as it seeks to feed on the blood of living creatures.
+symbol: 3x7
+color: green
+speed: 1
+damage: 5-10
+speed_a: 0.5
+accuracy: 80
+dodge: 60
+exp: 15 
+
 [vampire]
 type: creature
 name: Vampire
@@ -289,7 +331,7 @@ mass: 5
 [shortSword]
 type: weapon
 name: Short sword
-desc: A short raw iron sword with some dents and notches, easy to wield in one hand.
+desc: A short raw iron sword with some dents and notches, easy to wield in one hand. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
 symbol: 0x18
 type_w: one_handed
 category_w: sword
@@ -366,7 +408,19 @@ symbol: 0x18
 [club]
 type: weapon
 name: Club
-desc: This weapon is just a shaped piece of wood.
+desc: The simplest of all weapons, this is a shaped piece of wood, used in one hand to club and batter your opponent.
+symbol: 2x18
+color: grey
+type_w: one_handed
+category_w: sword
+damage: 9-14
+speed: 1
+mass: 5
+
+[mace]
+type: weapon
+name: Club
+desc: Similar to a club, but with a metal head.
 symbol: 2x18
 color: grey
 type_w: one_handed
@@ -452,6 +506,14 @@ color: grey
 canMove: 0
 canGet: 0
 
+[apple]
+type: food
+name: Apple
+desc: A red golden apple.
+symbol: 7x18
+color: red
+mass: 0.3
+
 [barrel]
 type: misc
 name: Barrel
@@ -489,10 +551,20 @@ type: misc
 name: Book shelf
 desc: A wooden furniture with horizontal shelves used to store books.
 symbol: 0x16
-color: dark sepia
+color: sepia
 canMove: 0
 canGet: 0
 canView: 0
+
+[bush]
+type: misc
+name: Bush
+desc: A bushy shrub.
+symbol: 14x19
+color: darker chartreuse
+mass: 14
+canMove: 0
+canGet: 0
 
 [carpet]
 type: misc
@@ -517,8 +589,6 @@ name: Chest
 desc: Chests are popular among adventureres because of the treasures that are often stored inside.
 symbol: 12x13
 color: sepia
-
-
 
 [door]
 type: door
@@ -562,6 +632,14 @@ color: light azure
 mass: 0.3
 effect: restore|50|health
 
+[herb_azureLotus]
+type: misc
+name: Azure Lotus
+desc: The Azure Lotus is a rare flower growing in the depths of temperate forests. 
+symbol: 13x19
+color: lighter azure
+mass: 0.01
+
 [magicScroll]
 type: scroll
 name: Magic Scroll
@@ -578,11 +656,27 @@ canMove: 0
 canView: 0
 canGet: 0
 
+[champignon]
+type: misc
+name: Champignon
+desc: This mushroom is a popular cooking ingredient as it lacks any psychoactive properties.
+symbol: 12x19
+color: lighter sepia
 
+[oven]
+type: misc
+name: Oven
+desc: An iron oven used for cooking and heating.
+symbol: 8x18
+color: orange
+mass: 50
+canMove: 0
+canGet: 0
 
 [rock]
 type: misc
 name: Rock vein
+desc: It's just a rock.
 symbol: 3x19
 color: grey
 canMove: 0
@@ -660,7 +754,6 @@ color: red
 canMove: 0
 canGet: 0
 
-
 [torch]
 type: misc
 name: Torch
@@ -670,62 +763,23 @@ color: orange
 canMove: 0
 canGet: 0
 
-[tree_deadTree]
-type: misc
-name: Dead tree
-desc: These are the remains of a tree that died long ago.
-symbol: 6x19
-color: sepia
-canMove: 0
-canView: 0
-canGet: 0
-
-[tree_oak]
-type: misc
-name: Oak tree
-desc: Oaks are common in temperate forests and are an important source of hard and durable wood used chiefly in construction, furniture, and shipbuilding.
-symbol: 10x19
-color: dark chartreuse
-canMove: 0
-canView: 0
-canGet: 0
-
-[tree_palmtree]
-type: misc
-name: Palm Tree
-desc: These funky trees remind of sandy, white beaches, sunshine and the sound of ocean waves crashing against the shore.
-symbol: 1x19
-color: darker chartreuse
-canMove: 0
-canView: 1
-canGet: 0
-
-[tree_pine]
-type: misc
-name: Pine tree
-desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
-symbol: 0x19
-color: darker chartreuse
-canMove: 0
-canView: 0
-canGet: 0
-
-[tree_spruce]
-type: misc
-name: Spruce tree
-desc: Spruces are large trees with whorled needle branches and conical form.
-symbol: 9x19
-color: darker sea
-canMove: 0
-canView: 0
-canGet: 0
-
 [urn]
 type: misc
 name: Urn
 desc: A tall, rounded vase carved with numerous geometric patterns.
 symbol: 8x14
 color: darker amber
+canMove: 0
+canGet: 0
+mass: 500
+
+[well]
+type: misc
+name: Well
+desc: This old well has provided water for centuries.
+symbol: 9x18
+color: grey
+mass: 10000
 canMove: 0
 canGet: 0
 
@@ -737,8 +791,77 @@ symbol: 15x10
 color: light amber
 mass: 2
 
-[trigger]
-type: trigger
+##########################################################################################
+##########################################################################################
+##   TREES                                                                          ##
+##########################################################################################
+##########################################################################################
+
+[tree_acacia]
+type: tree
+name: Acacia
+desc: This is Tera's most abundant tree. It can grow in both temperate and warm regions.
+symbol: 10x19
+color: dark chartreuse
+canMove: 0
+canView: 0
+canGet: 0
+mass: 500
+
+[tree_cypress]
+type: tree
+name: Cypress
+desc: A large tree with whorled needle branches and conical form.
+symbol: 9x19
+color: darker sea
+canMove: 0
+canView: 0
+canGet: 0
+mass: 500
+
+[tree_dead]
+type: tree
+name: Dead tree
+desc: These are the remains of a tree that died long ago.
+symbol: 6x19
+color: sepia
+canMove: 0
+canView: 0
+canGet: 0
+mass: 500
+
+[tree_oak]
+type: tree
+name: Oak
+desc: This is Tera's most abundant tree. It can grow in both temperate and warm regions.
+symbol: 10x19
+color: dark chartreuse
+canMove: 0
+canView: 0
+canGet: 0
+mass: 500
+
+[tree_palm]
+type: tree
+name: Palm
+desc: These funky trees remind of sandy, white beaches, sunshine and the sound of ocean waves crashing against the shore.
+symbol: 1x19
+color: darker chartreuse
+canMove: 0
+canView: 1
+canGet: 0
+mass: 500
+
+[tree_pine]
+type: tree
+name: Pine
+desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
+symbol: 0x21
+color: dark chartreuse
+canMove: 0
+canView: 0
+canGet: 0
+mass: 500
 
 ##########################################################################################
 ##########################################################################################
@@ -751,5 +874,14 @@ type: location
 name: Sham
 symbol: 9x16
 color: amber
+
+##########################################################################################
+##########################################################################################
+##   MISC                                                                               ##
+##########################################################################################
+##########################################################################################
+
+[trigger]
+type: trigger
 
 [end]

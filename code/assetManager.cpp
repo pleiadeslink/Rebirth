@@ -1,3 +1,6 @@
+// =========
+// = TILES =
+// =========
 void c_assetManager::loadTiles() {
 	structTileAsset asset;
 	asset = clearTileAsset(asset);
@@ -33,6 +36,12 @@ void c_assetManager::loadTiles() {
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
 			asset.name = line;
+		}
+
+		key = "desc: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.desc = line;
 		}
 
 		key = "type: ";
@@ -89,6 +98,11 @@ void c_assetManager::loadTiles() {
         file.close();
 	}
 }
+
+
+// ==========
+// = ACTORS =
+// ==========
 
 void c_assetManager::loadActors() {
 	structActorAsset asset;
@@ -149,6 +163,8 @@ void c_assetManager::loadActors() {
 				asset.type = actorType::misc;
 			} else if(line == "location") {
 				asset.type = actorType::location;
+			} else if(line == "tree") {
+				asset.type = actorType::tree;
 			}
 		}
 
@@ -307,22 +323,28 @@ void c_assetManager::loadActors() {
 			asset.speed = atof(line.c_str());
 		}
 
-		key = "speed_a: ";
+		key = "attack: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
-			asset.attackSpeed = atof(line.c_str());
+			asset.attack = atof(line.c_str());
 		}
 
-		key = "accuracy: ";
+		key = "defense: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
-			asset.accuracy = atof(line.c_str());
+			asset.defense = atof(line.c_str());
 		}
 
-		key = "dodge: ";
+		key = "protection: ";
 		if(line.find(key) != std::string::npos) {
 			line.erase(0, key.length());
-			asset.dodge = atof(line.c_str());
+			asset.protection = atof(line.c_str());
+		}
+
+		key = "block: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.block = atof(line.c_str());
 		}
 
 		key = "parry: ";
@@ -402,6 +424,11 @@ void c_assetManager::loadActors() {
 	}
 }
 
+
+// =============
+// = ABILITIES =
+// =============
+
 void c_assetManager::loadAbilities() {
 	s_abilityAsset asset;
 	asset = clearAbilityAsset(asset);
@@ -450,6 +477,12 @@ void c_assetManager::loadAbilities() {
 			line.erase(0, key.length());
 			asset.duration = atof(line.c_str());
 		}
+
+		key = "energy: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.energy = atof(line.c_str());
+		}
     }
     if(file.is_open()) {
         file.close();
@@ -488,12 +521,13 @@ structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
 	asset.minDamage = 1;
 	asset.maxDamage = 1;
 	asset.speed = 1;
-	asset.attackSpeed = 1;
-	asset.accuracy = 0;
-	asset.dodge = 0;
+	asset.attack = 1;
+	asset.defense = 0;
+	asset.protection = 0;
+	asset.block = 0;
 	asset.parry = 0;
 	asset.exp = 0;
-	asset.protection = 0;
+	//asset.protection = 0;
 	asset.slot = 0;
 	asset.faction = 0;
 	asset.effect[0].script = "";
@@ -637,5 +671,5 @@ s_abilityAsset* c_assetManager::getAbilityAsset(const std::string& id) {
         }
     }
     // Not found, default returned
-	return &v_abilityAsset[0]; 
+	return NULL; 
 }

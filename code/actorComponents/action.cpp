@@ -14,20 +14,24 @@ bool c_action::start(const structEventData& eventData) {
 
     this -> eventData = eventData;
     this -> eventData.emitter = father -> getUid();
-    duration = 1;
 
-    /*/ Checks if it's a skill
-    s_skillAsset* skillAsset = engine -> assetManager.getSkillAsset(eventData.type);
-    if(skillAsset -> duration != 0) {
+    // If it's an ability, we get the energy required
+    s_abilityAsset* abilityAsset = engine -> assetManager.getAbilityAsset(eventData.type);
+    if(abilityAsset != NULL) {
         
-        // Check if player can perform skill
-        duration = father -> checkSkill(skillAsset);
-        if(duration == 0) {
+        // Check for player if the skill is learned
+        if(father -> player and father -> player -> hasAbility(eventData.type) == false) {
+            engine -> game -> gamelog.message("You need to learn that ability first.");
             return false;
         }
-    }*/
 
-    energyLost = 1;
+        duration = abilityAsset -> duration;
+        energy = abilityAsset -> energy;
+    } else {
+        duration = 1;
+        energy = 0;
+    }
+
     active = true;
     return true;
 }
@@ -41,11 +45,14 @@ void c_action::timeUpdate() {
     
     // If the action has finished
     if(duration <= 0) {
+
+        // Burn energy for player
         if(engine -> game -> actorManager.getActor(eventData.emitter) and engine -> game -> actorManager.getActor(eventData.emitter) -> player) {
-            engine -> game -> actorManager.getActor(eventData.emitter) -> player -> consumeEnergy(energyLost);
+            engine -> game -> actorManager.getActor(eventData.emitter) -> player -> consumeEnergy(energy);
         }
+
         engine -> game -> runEvent(eventData);
         active = false;
-        energyLost = 0;
+        energy = 0;
     }
 }

@@ -65,7 +65,7 @@ void c_actor::init(structActorAsset* asset) {
             action = new c_action(this);
             player = new c_player(this);
             body = new c_body(this, false, true, false, asset -> mass);
-            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attackSpeed, asset -> accuracy, asset -> dodge, asset -> parry, asset -> exp);
+            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attack, asset -> defense, asset -> protection, asset -> block, asset -> parry, asset -> exp);
             c_helper::calculateAttributes();
             break;
         }
@@ -73,7 +73,7 @@ void c_actor::init(structActorAsset* asset) {
             action = new c_action(this);
             AI = new c_AI(this);
             body = new c_body(this, false, true, false, asset -> mass);
-            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attackSpeed, asset -> accuracy, asset -> dodge, asset -> parry, asset -> exp);
+            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attack, asset -> defense, asset -> protection, asset -> block, asset -> parry, asset -> exp);
             break;
         }
         case actorType::weapon: {
@@ -110,6 +110,10 @@ void c_actor::init(structActorAsset* asset) {
             break;
         }
         case actorType::misc: {
+            body = new c_body(this, asset -> canMove, asset -> canView, asset -> canGet, asset -> mass);
+            break;
+        }
+        case actorType::tree: {
             body = new c_body(this, asset -> canMove, asset -> canView, asset -> canGet, asset -> mass);
             break;
         }
@@ -180,7 +184,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
     // Creature
     if(life) {
         structEventData eventData;
-        eventData.type = "attack";
+        eventData.type = "hit";
         eventData.target = uid;
         eventData.mapX = mapX;
         eventData.mapY = mapY;
@@ -238,7 +242,7 @@ const int& c_actor::checkAbility(s_abilityAsset* abilityAsset) {
     // If player, does he know the ability?
     if(type == actorType::avatar) {
         if(player -> hasAbility(abilityAsset -> id) == false) {
-            c_helper::gameMessage("You need to learn that ability first.");
+            c_helper::message("You need to learn that ability first.");
             return 0;
         }
     }

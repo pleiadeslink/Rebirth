@@ -23,6 +23,7 @@ class c_screen {
         void drawLine(const int& x1, const int& y1, const int& x2, const int& y2);
         void drawBox(const int& x, const int& y, const int& width, const int& height, const sf::Color color);
         const int& drawText(std::string str, int x, const int& y, const sf::Color color, const int& align = 0, const int& width = 20, const int& size = 16);
+        const int& drawCText(std::string str, int x, const int& y, const int& align = 0, const int& width = 20, const int& size = 16); // Parse text and applies color codes (slower than drawText)
         void drawPLine(const int& x1, const int& y1, const int& x2, const int& y2, const sf::Color color);
 
         const int& getXRes() {return xRes; }

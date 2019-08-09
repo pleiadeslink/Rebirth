@@ -1,4 +1,6 @@
-dofile("data/lua/states.lua")
+state = 0
+think = 0
+wander = 1
 
 -- Check if there are enemies
 while true do
@@ -21,7 +23,7 @@ while true do
 				data = s_data.new()
 				data:setEmitter(emitter)
 				data:setTarget(enemyFound)
-				data:setType("attack")
+				data:setType("hit")
 				startAction(data)
 				
 				return	

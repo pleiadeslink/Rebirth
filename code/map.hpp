@@ -6,7 +6,8 @@ struct structFOVMap;
 
 class c_map : public TCODMap {
     private:
-        c_tile** matrix; // *
+        //c_tile** matrix; // *
+        std::vector<std::vector<c_tile*>> matrix;
         s_genTile** genMatrix;
         std::string name; // *
         int x; // *
@@ -82,8 +83,10 @@ class c_map : public TCODMap {
         // Actor management
         const bool& addActorToTile(const int& actor, const int& x, const int& y);
         const bool& removeActorFromTile(const int& actor, const int& x, const int& y);
-        std::vector<int> countActorsAround(const int& x, const int& y);
-
+        std::vector<int> countActorsAround(const int& x, const int& y); // Returns a list with the uids of all actors around the tile
+        //const int& getActorInRange(const int& x, const int& y, const int& type = 0); // Returns uid of actor in 1 tile distance, if many, it makes you choose using directional keys
+        const int& getActorFromTile(const int& x, const int& y, const int& type = 0); // Returns uid of first actor of type, if no type first actor
+            
         // FOV
         std::vector<int> fov(const int& x, const int& y, const int& viewRange, const bool& isPlayer);
         const structFOVMap& computeFOV(const int& x, const int& y, const int& viewRange);
@@ -100,6 +103,11 @@ class c_map : public TCODMap {
         std::string getAmbience() { return ambience; }
         const int& getRandomSeed() { return randomSeed; }
         std::vector<s_script> getScripts() { return v_script; }
+
+        // Set
+        void setX(const int& x) { this -> x = x; }
+        void setY(const int& y) { this -> y = y; }
+        void setZ(const int& z) { this -> z = z; }
 };
 
 #endif

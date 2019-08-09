@@ -1,31 +1,43 @@
 c_winInfo::c_winInfo(const int& x, const int& y, const int& width, const int& height) {
 	this -> x = x;
-	this -> y = y;
+    this -> y = y;
+    originalX = x;
+    originalY = y;
 	this -> width = width;
-	this -> height = height;
+    this -> height = height;
 }
 
-void c_winInfo::draw() {
+void c_winInfo::draw(const bool& mainView) {
+
+    // We only show it if there's anything selected
+    if(engine -> interface.getSelectedTile() == 0 and engine -> interface.getSelectedActor() == 0 and engine -> interface.getSelectedAbility() == "") {
+        return;
+    }
+
+    // First lets calculate the text strings that will be later printed
+    std::string name;
+    std::string desc;
+    int iconX = 0;
+    int iconY = 0;
+    sf::Color symcolor;
+    std::string commands;
 
     // * Selected actor
-
     if(engine -> interface.getSelectedActor()) {
         c_actor* p_actor = engine -> game -> actorManager.getActor(engine -> interface.getSelectedActor());
         if(p_actor != 0 and engine -> game -> actorManager.actorExists(p_actor -> getUid())) {
 
-            // Backgound
-            engine -> screen.drawTexture("detailsTitle", (x + 1) * 16, (y + 2) * 16);
+            // Set icon
+            iconX = p_actor -> getTileX();
+            iconY = p_actor -> getTileY();
+            symcolor = p_actor -> getColor();
 
-            // Icon
-            engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 20) * 16, (y + 4) * 16 + 8, p_actor -> getColor(), 1);
-
-            // Name
-            engine -> screen.drawText(p_actor -> getName(), (x + 2) * 16, (y + 2) * 16 + 6, sf::Color::White);
+            // Sert name
+            name = p_actor -> getName();
             
-            // Description
-            std::string desc;
+            // Set description
             desc.append("Type: ");
-            switch(p_actor -> getType()) {
+            switch(p_actor -> getType()) {  
                 case actorType::creature: {
                     desc.append("creature");
                     break;
@@ -56,6 +68,10 @@ void c_winInfo::draw() {
                 }
                 case actorType::door: {
                     desc.append("door");
+                    break;
+                }
+                case actorType::tree: {
+                    desc.append("tree");
                     break;
                 }
                 case actorType::misc: {
@@ -104,12 +120,9 @@ void c_winInfo::draw() {
             desc.append("\nMass: ");
             desc.append(std::to_string(p_actor -> body -> getMass()));
             desc.append("\n\n");
-            desc.append(c_helper::justify(p_actor -> getDescription(), 34));
-            engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
+            desc.append(c_helper::justify(p_actor -> getDescription(), 38));
 
-            // Print commands
-
-            std::string commands = "";
+            // Set commands
             if(p_actor -> consumable) {
                 commands.append("[C]onsume, ");
             }
@@ -127,32 +140,109 @@ void c_winInfo::draw() {
                 }
             }
             commands.append("[D]rop");
-
-            drawTitle(commands, height - 2);
         }
 
-    // * Selected ability
 
+    // * Selected tile
+    } else if(engine -> interface.getSelectedTile()) {
+        c_tile* tile = engine -> interface.getSelectedTile();
+
+        // Set icon
+        //iconX = ability -> getTileX();
+        //iconY = ability -> getTileY();
+
+        // Set name
+        name = tile -> getName();
+        
+        // Set description
+        desc.append(c_helper::justify(tile -> getDesc(), 38));
+        
+        // Set commands
+        commands = "[C]ast, [K]ey";
+
+
+    // * Selected ability
     } else if(engine -> interface.getSelectedAbility() != "") {
         s_abilityAsset* ability = engine -> assetManager.getAbilityAsset(engine -> interface.getSelectedAbility());
 
-        // Backgound
-        engine -> screen.drawTexture("detailsTitle", (x + 1) * 16, (y + 2) * 16);
+        // Set icon
+        //iconX = ability -> getTileX();
+        //iconY = ability -> getTileY();
 
-        // Icon
-        //engine -> screen.drawTile(p_actor -> getTileX(), p_actor -> getTileY(), (x + 20) * 16, (y + 4) * 16 + 8, p_actor -> getColor(), 1);
-
-        // Name
-        engine -> screen.drawText(ability -> name, (x + 2) * 16, (y + 2) * 16 + 6, sf::Color::White);
+        // Set name
+        name = ability -> name;
         
-        // Description
-        std::string desc;
-        desc.append(c_helper::justify(ability -> description, 34));
-        engine -> screen.drawText(desc, (x + 2) * 16, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
-        drawTitle("[C]ast, [K]ey", height - 2);
+        // Set description
+        desc.append(c_helper::justify(ability -> description, 38));
+        
+        // Set commands
+        commands = "[C]ast, [K]ey";
       
     }
-		
+
+    // We don't draw if it just changed screen to avoid flash
+    if(f_prevMain != mainView) {
+        f_prevMain = mainView;
+        return;
+    }
+
+    // If main view, We set the height according to the content
+    int th = height;
+    if(mainView == true) {
+        std::vector<std::string> lines = c_helper::splitter("\n", desc);
+        th =  6 + lines.size();
+    }
+
+    // Regular view? Update coords following cursor
+    if(mainView == true) {
+        x = engine -> getMouse().x / 16 + 3;
+        y = engine -> getMouse().y / 16;
+        if(x > 43) {
+            x = engine -> getMouse().x / 16 - 3 - width;
+        } else {
+            engine -> getMouse().x / 16 + 3;
+        }
+        if(y + th > 41) {
+            y = 41 - th;
+        }
+    } else {
+        x = originalX;
+        y = originalY;
+    }    
+
+    // Draw backgound
+    if(mainView) {
+        engine -> screen.drawBox(x * 16, y * 16, width * 16, th * 16, sf::Color::Black);
+    }
+    
+
+    // Draw context indicator
+    engine -> screen.drawTexture("detailsTitle", (x + 1) * 16, (y + 2) * 16);
     drawTitle("Details", 1);
-    drawFrame();	
+
+    // Draw icon
+    if(iconX != 0 and iconY != 0) {
+        engine -> screen.drawTile(iconX, iconY, (x + 20) * 16, (y + 4) * 16 + 8, symcolor, 1);
+    }
+
+    // Draw name
+    engine -> screen.drawText(name, (x + 2) * 16 - 8, (y + 2) * 16 + 6, sf::Color::White);
+
+    // Draw desc
+    engine -> screen.drawText(desc, (x + 2) * 16 - 8, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
+
+    // Draw commands
+    if(!mainView) {
+        drawTitle(commands, th - 2);
+    }
+		
+    // Lastly, draw frame
+    if(mainView == true) {
+        int oldHeight = height;
+        height = th;
+        drawFrame();
+        height = oldHeight;
+    } else {
+        drawFrame();
+    }
 }

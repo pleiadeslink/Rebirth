@@ -212,6 +212,25 @@ void c_game::turn() {
     } while(actorManager.getPlayer() -> action -> isRunning());
 }
 
+// Prints a message in the game console
+void c_game::message(std::string text) {
+
+    // Adds the message type symbol
+    /* text.insert(0, "%");
+    text.insert(1, std::to_string(type));
+    text.insert(2, " %1");
+
+    // System messages are print in a single line
+	if(type == messageType::system) {
+		gamelog.clear();
+		gamelog.message(text);
+		gamelog.update();
+	} else {
+		gamelog.message(text);
+	}*/
+    gamelog.message(text);
+}
+
 bool c_game::runScript(structEventData& data) {  
     std::string path = data.type + ".lua";
     c_engine::runScript(path, data);

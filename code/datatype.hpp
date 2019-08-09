@@ -78,12 +78,13 @@ typedef struct structActorAsset {
     int minDamage;
     int maxDamage;
     int speed;
-    int attackSpeed;
-    int accuracy;
-    int dodge;
+    int attack;
+    int defense;
+    int protection;
+    int block;
     int parry;
     int exp;
-    int protection;
+    //int protection;
     int slot;
     int penalty;
     int faction;
@@ -96,12 +97,13 @@ typedef struct s_abilityAsset {
     std::string name;
     std::string description;
     int duration;
+    int energy;
 };
 
 typedef struct structTileAsset {
     std::string id;
     std::string name;
-    std::string description;
+    std::string desc;
     int type;
     int tx;
     int ty;
@@ -155,3 +157,8 @@ typedef struct s_script {
     std::string command;
     bool autodelete;
 };
+
+/* /typedef struct s_gameMessage {
+    std::string text;
+    int type;
+};*/

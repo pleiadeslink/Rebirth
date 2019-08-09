@@ -10,39 +10,30 @@ class c_life {
         int minDamage;
         int maxDamage;
         int speed;
-        int attackSpeed;
-        int accuracy;
-        int dodge;
+        int attack;
+        int defense;
+        int protection;
+        int block;
         int parry;
-        int exp;
+        int exp; // The exp the creature gives when dead
 
     public:
-        c_life(c_actor* father, const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry, const int& exp);      
-        void set(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attackSpeed, const int& accuracy, const int& dodge, const int& parry);
+        c_life(c_actor* father, const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attack, const int& defense, const int& protection, const int& block, const int& parry, const int& exp);      
+        void set(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attack, const int& defense, const int& protection, const int& block, const int& parry);
         void restoreHealth(const int& points);
         void damageHealth(const int& points); 
-
+        void setHealth(const int& points) { health = points; } // ! Warning! Use only for loading
         const int& getHealth() { return health; }
         const int& getMaxHealth() { return maxHealth; }
         const int& getMinDamage() { return minDamage; }
         const int& getMaxDamage() { return maxDamage; }
         const int& getSpeed() { return speed; }
-        const int& getAttackSpeed() { return attackSpeed; }
-        const int& getAccuracy() { return accuracy; }
-        const int& getDodge() { return dodge; }
+        const int& getAttack() { return attack; }
+        const int& getDefense() { return defense; }
+        const int& getProtection() { return protection; }
+        const int& getBlock() { return block; }
         const int& getParry() { return parry; }
         const int& getExp() { return exp; }
-
-        void setHealth(const int& value) { health = value; }
-        void setMaxHealth(const int& value) { maxHealth = value; }
-        void setMinDamage(const int& value) { minDamage = value; }
-        void setMaxDamage(const int& value) { maxDamage = value; }
-        void setSpeed(const int& value) { speed = value; }
-        void setAttackSpeed(const int& value) { attackSpeed = value; }
-        void setAccuracy(const int& value) { accuracy = value; }
-        void setDodge(const int& value) { dodge = value; }
-        void setParry(const int& value) { parry = value; }
-
         const int& getViewRange() { return global::maxFOVRange; }
 };
 

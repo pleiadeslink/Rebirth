@@ -11,7 +11,8 @@
 * ATTRIBUTES *
 - Constitution
 - Agility
-- Spirit
+- Concentration
+- Awareness
 - Luck
 
 * STATS *
@@ -93,9 +94,10 @@
 
 * DIALOGUE OPTIONS *
 - Quest
-- Trade
-- Learn
 - Chat
+- Trade
+- Repair
+- Learn
 - Background
 - Bye
 

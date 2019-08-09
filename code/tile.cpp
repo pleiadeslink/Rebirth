@@ -3,6 +3,7 @@ c_tile::c_tile()
     y(0),
     id("void"),
     name("Void"),
+    desc("Void"),
     tileX(0),
     tileY(0),
     type(tileType::floor),
@@ -338,6 +339,7 @@ const bool& c_tile::hasActorType(std::string actType) {
 void c_tile::setAsset(const structTileAsset* asset) {
     id = asset -> id;
     name = asset -> name;
+    desc = asset -> desc;
     tileX = asset -> tx;
     tileY = asset -> ty;
     color = asset -> color;
@@ -349,6 +351,7 @@ void c_tile::setAsset(const structTileAsset* asset) {
 void c_tile::wipe(const structTileAsset* asset) {
     id = asset -> id;
     name = asset -> name;
+    desc = asset -> desc;
     tileX = asset -> tx;
     tileY = asset -> ty;
     color = asset -> color;
