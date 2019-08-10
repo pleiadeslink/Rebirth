@@ -39,19 +39,38 @@ std::string c_helper::justify(std::string string, const size_t size) {
 std::string c_helper::justify(std::string string, const size_t size) {
 	int iterator = 0;
 	for(int i = 0; i < string.length(); ++i) {
-		if(iterator == size) {
-			for(int j = 0; j < size; ++j) {
-				if(string.at(i - j) == ' ') {
-					iterator = 0;
-					string.erase(i - j, 1); // Deletes space
-					string.insert(i - j, "\n"); // Adds line break
-					break;
+		if(iterator == size - 1) {
+			if(string.at(i + 1) == ' ') {
+				string.erase(i + 1, 1); // Deletes space
+				string.insert(i + 1, "/n"); // Adds line break
+				++i;
+				iterator = 0;
+			} else {
+				for(int j = 0; j < size; ++j) {
+					if(string.at(i - j) == ' ') {
+						string.erase(i - j, 1); // Deletes space
+						string.insert(i - j, "/n"); // Adds line break
+						++i;
+						iterator = 0;
+						break;
+					}
 				}
-			}	
+			}
 		}
 		++iterator;
 	}
     return string;
+}
+
+// Removes color code from a string
+std::string c_helper::removeColor(std::string str) {
+    for(int i = 0; i < str.size(); ++i) {
+        if(str[i] == '%') {
+            str.erase(i, 2);
+            i = 0;
+        }
+    }
+	return str;
 }
 
 // Logs a game message
@@ -133,10 +152,8 @@ void c_helper::loadMap(const int& x, const int& y, const int& z) { // ! Move the
 
 	//s_worldTile = engine -> game -> getWorldTile(x, y); // This needs to include already the biome file, world map needs to be informed when its created from data files + 0.0.0 map
 	// For now we say we know already the path file -- WHAT THE FUCK DID I MEAN HERE?
-	std::cout << x << y << z << std::endl;
 	// World map
 	if(x == 0 and y == 0 and z == 0) {
-		std::cout << "what?" << std::endl;
 		engine -> game -> map -> genWorld();
 
 	// Local map

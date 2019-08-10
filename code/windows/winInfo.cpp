@@ -80,7 +80,7 @@ void c_winInfo::draw(const bool& mainView) {
                 }
             }
             if(p_actor -> weapon) {
-                desc.append("\nWeapon type: ");
+                desc.append("/nWeapon type: ");
                 switch(p_actor -> weapon -> getType()) {
                     case weaponType::oneHanded: {
                         desc.append("one-handed");
@@ -95,7 +95,7 @@ void c_winInfo::draw(const bool& mainView) {
                         break;
                     }
                 }
-                desc.append("\nCategory: ");
+                desc.append("/nCategory: ");
                 switch(p_actor -> weapon -> getCategory()) {
                     case weaponCategory::sword: {
                         desc.append("sword");
@@ -110,17 +110,17 @@ void c_winInfo::draw(const bool& mainView) {
                         break;
                     }
                 }
-                desc.append("\nDamage: ");
+                desc.append("/nDamage: ");
                 desc.append(std::to_string(p_actor -> weapon -> getMinDamage()));
                 desc.append(" - ");
                 desc.append(std::to_string(p_actor -> weapon -> getMinDamage()));
-                desc.append("\nSpeed: ");
+                desc.append("/nSpeed: ");
                 desc.append(std::to_string(p_actor -> weapon -> getSpeed()));
             }
-            desc.append("\nMass: ");
+            desc.append("/nMass: ");
             desc.append(std::to_string(p_actor -> body -> getMass()));
-            desc.append("\n\n");
-            desc.append(c_helper::justify(p_actor -> getDescription(), 38));
+            desc.append("/n/n");
+            desc.append(c_helper::justify(p_actor -> getDescription(), 39));
 
             // Set commands
             if(p_actor -> consumable) {
@@ -155,7 +155,7 @@ void c_winInfo::draw(const bool& mainView) {
         name = tile -> getName();
         
         // Set description
-        desc.append(c_helper::justify(tile -> getDesc(), 38));
+        desc.append(c_helper::justify(tile -> getDesc(), 39));
         
         // Set commands
         commands = "[C]ast, [K]ey";
@@ -173,7 +173,7 @@ void c_winInfo::draw(const bool& mainView) {
         name = ability -> name;
         
         // Set description
-        desc.append(c_helper::justify(ability -> description, 38));
+        desc.append(c_helper::justify(ability -> description, 39));
         
         // Set commands
         commands = "[C]ast, [K]ey";
@@ -189,7 +189,7 @@ void c_winInfo::draw(const bool& mainView) {
     // If main view, We set the height according to the content
     int th = height;
     if(mainView == true) {
-        std::vector<std::string> lines = c_helper::splitter("\n", desc);
+        std::vector<std::string> lines = c_helper::splitter("/n", desc);
         th =  6 + lines.size();
     }
 
@@ -229,7 +229,7 @@ void c_winInfo::draw(const bool& mainView) {
     engine -> screen.drawText(name, (x + 2) * 16 - 8, (y + 2) * 16 + 6, sf::Color::White);
 
     // Draw desc
-    engine -> screen.drawText(desc, (x + 2) * 16 - 8, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 38);
+    engine -> screen.drawText(desc, (x + 2) * 16 - 8, (y + 4) * 16 + 8, color("lighter grey"), textAlign::justify, 39);
 
     // Draw commands
     if(!mainView) {

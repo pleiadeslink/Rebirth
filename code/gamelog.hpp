@@ -9,7 +9,7 @@ typedef struct s_message {
 class c_gamelog {
 
     private:
-        std::vector<s_message> v_gamelog;
+        std::vector<std::string> v_gamelog;
         s_message currentMessage;
         bool newMessage;
         int x;
@@ -18,7 +18,8 @@ class c_gamelog {
 		int height;
 		int scroll;
 		std::string text;
-        s_message getLastMessage(const int& position);
+        std::string getLastMessage(const int& position);
+        void updateStatText();
 
     public:  
         c_gamelog();

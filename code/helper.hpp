@@ -8,7 +8,8 @@ class c_helper {
 		static std::vector<std::string> split(const std::string& s, char delimiter);
 		static int random(const int& min, const int& max);
 		static std::vector<std::string> splitter(std::string in_pattern, std::string& content); // Splits a string in lines by '\n'
-		static std::string justify(std::string string, const size_t size);
+		static std::string justify(std::string string, const size_t size); // Justify text adding \n
+		static std::string removeColor(std::string str); // Removes color code from a string
 		static void message(const std::string& text); // Logs a game message
 		static void updateGamelog(); // Refresh gamelog force pushing all buffer
 		static void toggleFullScreen(); // Changes between window and fullscreen mode

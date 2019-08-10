@@ -65,7 +65,7 @@ c_helper::test();
 // Adds message to the system log and prints it in the program console
 void c_engine::message(std::string message) {
     v_messageLog.push_back(message);
-    std::cout << message << std::endl;
+    //std::cout << message << std::endl;
 }
 
 int c_engine::input() {

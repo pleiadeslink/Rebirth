@@ -95,7 +95,7 @@ const int& c_screen::drawText(std::string str, int x, const int& y, const sf::Co
             break;
         }
         case textAlign::justify: {
-            std::vector<std::string> lines = c_helper::splitter("\n", str);
+            std::vector<std::string> lines = c_helper::splitter("/n", str);
             for(int j = 0; j < lines.size(); ++j) {
                 sf::Text ltext;
                 ltext.setFont(*(engine -> assetManager.getFont()));
@@ -132,7 +132,7 @@ const int& c_screen::drawCText(std::string str, int x, const int& y, const int& 
             break;
         }
         case textAlign::justify: {
-            std::vector<std::string> lines = c_helper::splitter("\n", str);
+            std::vector<std::string> lines = c_helper::splitter("/n", str);
             for(int j = 0; j < lines.size(); ++j) {
                 FText ltext;
                 ltext.setFont(*(engine -> assetManager.getFont()));

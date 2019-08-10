@@ -562,7 +562,7 @@ sf::Color FText::getColorForChar(char c) {
 		case '6':
 			return color("dark red");
 		case '7':
-			return color("light sky");
+			return color("darker grey");
 		default:
 			return sf::Color::White;
 	}
