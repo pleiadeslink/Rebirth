@@ -1,3 +1,6 @@
+0.2.11
+- Internal docs are not registered in git anymore
+
 0.2.10
 - Text wrapper fixed.
 
