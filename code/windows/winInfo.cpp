@@ -202,8 +202,8 @@ void c_winInfo::draw(const bool& mainView) {
         } else {
             engine -> getMouse().x / 16 + 3;
         }
-        if(y + th > 41) {
-            y = 41 - th;
+        if(y + th > 39) {
+            y = 39 - th;
         }
     } else {
         x = originalX;

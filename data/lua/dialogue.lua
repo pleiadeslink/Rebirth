@@ -1,15 +1,7 @@
 math.randomseed(getMapSeed())
 
-local function pre()
-	return getName(target) .. " says: '"
-end
-
-local function post()
-	return "'"
-end
-
 local function send(mes)
-	message(pre() .. mes .. post())
+	message(getName(target) .. " says: %3" .. mes)
 end
 
 -- RESPONSES
@@ -25,7 +17,7 @@ elseif(id == "humusi") then
 	return
 end
 
--- Generic gossip
+-- Class-related gossip
 local random = math.random(3)
 if random == 1 then
 	send("Thoughts unify all reality in existence and are all shared.")

@@ -43,13 +43,20 @@ while true do
 
 	-- WANDER
 	while(state == wander) do
-		if(math.random(0, 3) == 0) then
+		if(math.random(0, 6) == 0) then
 			data = s_data.new()
 			data:setEmitter(emitter)
 			data:setValue1(11)
 			data:setType("walk")
 			startAction(data)
 			return
-		end
+		else
+			data = s_data.new()
+			data:setEmitter(emitter)
+			data:setValue1(11)
+			data:setType("wait")
+			startAction(data)
+			return		
+		end	
 	end
 end

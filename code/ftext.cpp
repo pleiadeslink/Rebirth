@@ -554,7 +554,7 @@ sf::Color FText::getColorForChar(char c) {
 		case '2':
 			return color("red");
 		case '3':
-			return color("amber");
+			return color("lightest amber");
 		case '4':
 			return color("azure");
 		case '5':

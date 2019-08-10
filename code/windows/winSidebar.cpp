@@ -64,7 +64,7 @@ int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 			}
 
 			// Update actor buttons
-			index = 0;
+			index = 2;
 			std::vector<std::string> v_actorIdList = engine -> assetManager.getActorIdList();
 			if(v_actorIdList.size() != 0) {
 				for(int i2 = 0; i2 < actorButtonHeight; ++i2) {
@@ -215,7 +215,7 @@ void c_winSidebar::draw() {
 							
 					// Name
 					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 + 1 - 8, (y + 7 + counter) * 22 - 11 + 1, sf::Color::Black);
-					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 7 + counter) * 22 - 11, sf::Color::White);
+					engine -> screen.drawText(p_actor -> getName(), (x + 3) * 16 - 8, (y + 7 + counter) * 22 - 11, color("lightest grey"));
 
 					++counter;
 				}

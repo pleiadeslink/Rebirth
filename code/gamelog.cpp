@@ -16,47 +16,56 @@ c_gamelog::c_gamelog() {
 
 void c_gamelog::update() {
     if(newMessage == true) {
+
+        // Greys out previous messages
         for(int j = 0; j < 3; ++j) {
             std::string str = c_helper::removeColor(v_gamelog[j]);
             str.insert(0, "%7");
             v_gamelog[j] = str;
         }
+
+        // If line short enough, directly print it
         const int maxChar = 130;
-        currentMessage.str = c_helper::justify(currentMessage.str, maxChar);
-        int tagCounter = 0;
-        int pushCounter = 0;
         if(currentMessage.cstr.size() <= maxChar) {
             v_gamelog.insert(v_gamelog.begin(), currentMessage.cstr);
             return;
         } else {
-            for(int i = 0; i < currentMessage.str.size(); ++i) {
-                if(currentMessage.cstr[i] == '%') {
-                    ++tagCounter;
-                }
-                if(currentMessage.str[i] == '/' and currentMessage.str[i + 1] == 'n') {
-                    std::string line = currentMessage.cstr.substr(0, i + (tagCounter * 2));
-                    currentMessage.str.erase(0, i + 2);
-                    currentMessage.cstr.erase(0, i + (tagCounter * 2));
-                    if(currentMessage.cstr[1] != ' ') {
-                        currentMessage.cstr.insert(0, " ");
-                    }
-                    if(currentMessage.cstr[0] == ' ') {
-                        currentMessage.cstr.erase(0, 1);
-                    }                    
-                    v_gamelog.insert(v_gamelog.begin(), line);
-                    ++pushCounter;
-                    tagCounter = 0;
-                    newMessage = false;
-                    i = 0;
 
-                    
-                } else if(i + 1 == currentMessage.str.size()) {
-                    v_gamelog.insert(v_gamelog.begin(), currentMessage.cstr);
+            // Adds line break characters
+            currentMessage.str = c_helper::justify(currentMessage.str, maxChar);
+
+            // Splits string into vector
+            std::vector<std::string> v_str = c_helper::splitter("/n", currentMessage.str);
+
+            std::string cstr = currentMessage.cstr;
+
+            // For each str line we have
+            for(int i = 0; i < v_str.size(); ++i) {
+                
+                // If it's the last line
+                if(cstr.size() < maxChar) {
+                    v_gamelog.insert(v_gamelog.begin(), cstr);
                     return;
                 }
+                
+                // Counts color tags
+                int tag = 0;
+                int size = v_str[i].size();
+                for(int k = 0; k < size; ++k) {
+                    if(cstr[k] == '%') {
+                        ++tag;
+                        size = size + 2;
+                    }
+                }
+
+                // Adds  line
+                v_gamelog.insert(v_gamelog.begin(), cstr.substr(0, v_str[i].size() + (tag * 2)));
+
+                // Removes final line segment from the working cstr
+                cstr.erase(0, v_str[i].size() + (tag * 2));
             }
         }
-    }
+    }   
 }
 
 void c_gamelog::message(std::string str) {
@@ -119,17 +128,17 @@ void c_gamelog::updateStatText() {
         text.append(std::to_string(p_player -> life -> getHealth()));
         text.append("/");
         text.append(std::to_string(p_player -> life -> getMaxHealth()));
-        text.append(" | ");
+        text.append(" - ");
         text.append("\004 ");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getHealth()));
         text.append("/");
         text.append(std::to_string(p_player -> life -> getMaxHealth()));
-        text.append(" | ");
+        text.append(" - ");
         text.append("\016 ");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getHealth()));
         text.append("/");
         text.append(std::to_string(p_player -> life -> getMaxHealth()));
-        text.append(" | Str ");
+        /*text.append(" | Str ");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getConstitution()));
         text.append(" | Agi ");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getAgility()));
@@ -137,7 +146,7 @@ void c_gamelog::updateStatText() {
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getSpirit()));
         text.append(" | Luc ");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> player -> getLuck()));
-        text.append(" | Dam ");
+        */text.append(" - Dam ");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMinDamage()));
         text.append("/");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getMaxDamage()));
@@ -147,6 +156,6 @@ void c_gamelog::updateStatText() {
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getDefense()));
         text.append(" | Pro ");
         text.append(std::to_string(engine -> game -> actorManager.getPlayer() -> life -> getProtection()));
-        */text.append(" | Weight: 13/50");
+        */text.append(" - Weight: 13/50 - You feel fine.");
     }
 }
