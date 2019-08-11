@@ -1,6 +1,6 @@
 -- CALCULATES ATTRIBUTES FOR PLAYER
 
-maxHealth = getConstitution() * 2000
+maxHealth = getConstitution() * 100
 --Convert.ToInt32(100 * Math.Pow(1.17, level - 1));
 --if (level < 35)
 --            this.baseMaxHealth = Convert.ToInt32((vitality * 10) + Math.Pow(level, 2) * 4);

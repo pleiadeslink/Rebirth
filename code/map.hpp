@@ -4,6 +4,12 @@
 struct structMapAsset;
 struct structFOVMap;
 
+/* 
+    SPECIAL MAPS
+    World: -1,-1,-1
+    Oversoul: -2, -2, -2
+*/
+
 class c_map : public TCODMap {
     private:
         //c_tile** matrix; // *

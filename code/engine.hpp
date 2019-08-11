@@ -8,7 +8,6 @@ class c_engine {
         std::vector<std::string> commandHistory;
         int commandIndex;
         bool commandPrompt;
-        bool f_quit;
         bool loading;
         
 	public:
@@ -25,7 +24,6 @@ class c_engine {
         void start();
         int input();
         sf::Vector2i getMouse() { return sf::Mouse::getPosition(*screen.getWindow()); }
-        void quit();
 		void message(std::string message); // Adds message to the system log and prints it in the program console
         static void runScript(const std::string& path);
         static void runScript(const std::string& path, const structEventData& data);

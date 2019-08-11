@@ -23,7 +23,6 @@
 #include <iso646.h>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-//#include "richText.hpp"
 #include "ftext.hpp"
 #include "libtcod.hpp"
 #include "kaguya/kaguya.hpp"
@@ -64,6 +63,7 @@ namespace global {
 #include "windows/winCharacter.hpp"
 #include "windows/winSidebar.hpp"
 #include "windows/winDeath.hpp"
+#include "windows/winTarget.hpp"
 #include "fire.hpp"
 #include "actorComponents/action.hpp"
 #include "actorComponents/player.hpp"
@@ -98,7 +98,6 @@ int main(int argc, char *argv[]) {
 	return EXIT_SUCCESS;
 }
 
-//#include "richText.cpp"
 #include "ftext.cpp"
 #include "fastNoise.cpp"
 #include "worldgen.cpp"
@@ -113,6 +112,7 @@ int main(int argc, char *argv[]) {
 #include "windows/winCharacter.cpp"
 #include "windows/winSidebar.cpp"
 #include "windows/winDeath.cpp"
+#include "windows/winTarget.cpp"
 #include "fire.cpp"
 #include "actorComponents/action.cpp"
 #include "actorComponents/player.cpp"

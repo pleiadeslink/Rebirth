@@ -22,7 +22,7 @@ void c_screen::start(bool fullscreen) {
         window.create(videoMode, "Rebirh", sf::Style::Fullscreen);
         fullScreen = false;
     } else {
-        window.create(videoMode, "Rebirh", sf::Style::Titlebar);
+        window.create(videoMode, "Rebirh", sf::Style::Close);
         fullScreen = true;    
     }  
     window.setFramerateLimit(0);

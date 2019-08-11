@@ -32,7 +32,7 @@ void c_winInfo::draw(const bool& mainView) {
             iconY = p_actor -> getTileY();
             symcolor = p_actor -> getColor();
 
-            // Sert name
+            // Set name
             name = p_actor -> getName();
             
             // Set description
@@ -139,7 +139,9 @@ void c_winInfo::draw(const bool& mainView) {
                     commands.append("[E]quip, ");
                 }
             }
-            commands.append("[D]rop");
+            if(!p_actor -> life) {
+                commands.append("[D]rop");
+            }
         }
 
 
@@ -202,6 +204,9 @@ void c_winInfo::draw(const bool& mainView) {
         } else {
             engine -> getMouse().x / 16 + 3;
         }
+        if(x + width > 63) {
+            x = 66 - width;
+        }
         if(y + th > 39) {
             y = 39 - th;
         }
@@ -222,7 +227,7 @@ void c_winInfo::draw(const bool& mainView) {
 
     // Draw icon
     if(iconX != 0 and iconY != 0) {
-        engine -> screen.drawTile(iconX, iconY, (x + 20) * 16, (y + 4) * 16 + 8, symcolor, 1);
+        engine -> screen.drawTile(iconX, iconY, (x + 20) * 16 - 8, (y + 2) * 16 + 2, symcolor, 2);
     }
 
     // Draw name

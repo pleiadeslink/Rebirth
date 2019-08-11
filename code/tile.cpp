@@ -336,6 +336,18 @@ const bool& c_tile::hasActorType(std::string actType) {
     return false;
 }
 
+// Returns vector of actors that can be picked up
+std::vector<int> c_tile::getItems() {
+    std::vector<int> v_item;
+    for(int i = 0; i < v_actor.size(); ++i) {
+        c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[i]);
+        if(p_actor -> body and p_actor -> body -> getCanPickup()) {
+            v_item.push_back(v_actor[i]);
+        }
+    }
+    return v_item;
+} 
+
 void c_tile::setAsset(const structTileAsset* asset) {
     id = asset -> id;
     name = asset -> name;

@@ -42,6 +42,7 @@ class c_interface {
         void init();
         int update(int key);
         void draw();
+        void drawMouse();
 
         int getMode() { return mode; }
         void edit();
@@ -68,6 +69,7 @@ class c_interface {
         c_tile* getTileDestination() { return destination; }
         int getEditRadius() { return editRadius; }
         std::string getTargetText() { return targetText; }
+        const bool& isHelpActivated() { return f_help; }
 };
 
 #endif

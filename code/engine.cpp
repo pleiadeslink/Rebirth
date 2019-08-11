@@ -1,7 +1,6 @@
 c_engine::c_engine()
 :   command(""),
-    commandPrompt(false),
-    f_quit(false) {
+    commandPrompt(false) {
 }
 
 c_engine::~c_engine() {
@@ -34,9 +33,8 @@ void c_engine::start() {
     //c_fire fire(8,160,90,v);
     //fire.setFireSourceStrength(10);
     // Main loop
-    f_quit = false;
     int key = 0;
-    while(f_quit == false) {
+    while(0 == 0) {
 
         screen.clear();
         interface.draw();
@@ -53,13 +51,7 @@ void c_engine::start() {
         }
         key = interface.update(key);
         //fire.update();
-        
     }
-
-    //delete game;
-c_helper::test();
-
-    
 }
 
 // Adds message to the system log and prints it in the program console
@@ -266,14 +258,10 @@ int c_engine::input() {
                 }
             }
         } else if(event.type == sf::Event::Closed) {
-            engine -> quit();
+            exit(EXIT_SUCCESS);
         }
     }
 }
-
-void c_engine::quit() {
-    f_quit = true;
- }
 
 void c_engine::runScript(const std::string& path) {
     structEventData data;

@@ -109,7 +109,11 @@ void c_interface::draw() {
     }
 
     // Draw mouse
-    if(engine -> isLoading()) {
+    drawMouse();
+}
+
+void c_interface::drawMouse() {
+if(engine -> isLoading()) {
         engine -> screen.drawTexture("sandglass", engine -> getMouse().x, engine -> getMouse().y);
     } else if(f_help) {
         engine -> screen.drawTexture("cursor-help", engine -> getMouse().x, engine -> getMouse().y);
@@ -175,6 +179,7 @@ void c_interface::gameOver() {
     if(!engine -> game) {
         return;
     }
+    //mode = imode::gameOver;
     bool loop = true;
     while(loop == true) {
         if(engine -> input() == key::enter) {
@@ -182,35 +187,18 @@ void c_interface::gameOver() {
         } else {
             engine -> screen.clear();
             engine -> sound.update();
+            update(0);
             if(engine -> game -> actorManager.getPlayer()) {
                 map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
             }
             sidebar -> draw();
             engine -> game -> gamelog.draw();
             death -> draw();
+            drawMouse();
             engine -> screen.display();
-        }
-        
+        } 
     }
-    engine -> quit();
 }
-
-/*c_tile* c_interface::selectTarget(const int& prevMode, const std::string& targetText) {
-    if(!engine -> game or !engine -> game -> map or !engine -> game -> actorManager.getPlayer()) {
-        return 0;
-    }
-    mode = imode::selectTarget;
-    target = 0;
-    this -> targetText = targetText;
-    while(target == 0) {
-        engine -> screen.clear();
-        update(engine -> input());
-        draw();
-        engine -> screen.display();
-    }
-    mode = prevMode;
-    return target;
-}*/
 
 int c_interface::processInput(int key) {
 
@@ -248,7 +236,7 @@ int c_interface::processInput(int key) {
 
                 // Quit
                 case key::escape: {
-                    engine -> quit();
+                    exit(EXIT_SUCCESS);
                     return 0;
                 }
 

@@ -1,3 +1,9 @@
+0.2.13 (wip)
+- Program exit fixed
+- Window closing fixed
+- Target actors can now be selected in help mode
+- Sidebar completed (bueno en realidad falta reimplementar locations)
+
 0.2.12
 - Gamelog wrapping and color support
 

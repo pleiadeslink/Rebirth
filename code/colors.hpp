@@ -615,14 +615,14 @@ sf::Color color(std::string str) {
         color.b = 0;
         return color;
     } if(str == "lighter violet") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 210;
+        color.g = 166;
+        color.b = 255;
         return color;
     } if(str == "light violet") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 185;
+        color.g = 115;
+        color.b = 255;
         return color;
     } if(str == "violet") {
         color.r = 127;
@@ -645,44 +645,44 @@ sf::Color color(std::string str) {
         color.b = 0;
         return color;
     } if(str == "desaturated purple") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 111;
+        color.g = 64;
+        color.b = 128;
         return color;
     } if(str == "lightest purple") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 239;
+        color.g = 191;
+        color.b = 255;
         return color;
     } if(str == "lighter purple") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 233;
+        color.g = 166;
+        color.b = 255;
         return color;
     } if(str == "light purple") {
-        color.r = 0;
-        color.g = 0;
-        color.b = 0;
+        color.r = 220;
+        color.g = 115;
+        color.b = 255;
         return color;
     } if(str == "purple") {
-        color.r = 0;
+        color.r = 191;
         color.g = 0;
-        color.b = 0;
+        color.b = 255;
         return color;
     } if(str == "dark purple") {
-        color.r = 0;
+        color.r = 143;
         color.g = 0;
-        color.b = 0;
+        color.b = 191;
         return color;
     } if(str == "darker purple") {
-        color.r = 0;
+        color.r = 95;
         color.g = 0;
-        color.b = 0;
+        color.b = 128;
         return color;
     } if(str == "darkest purple") {
-        color.r = 0;
+        color.r = 48;
         color.g = 0;
-        color.b = 0;
+        color.b = 64;
         return color;
     } if(str == "desaturated fuchsia") {
         color.r = 0;

@@ -7,7 +7,6 @@ symbol: 0x4
 type: avatar
 name: Avatar
 desc: That's you dummy!
-texture: reysimio
 symbol: 0x4
 faction: avatar
 
@@ -19,7 +18,7 @@ faction: avatar
 
 [physician]
 type: creature
-name: Physician
+name: physician
 desc: A dispenser of potions and medicines, knowledgeable of plant lore, first aid and diseases.
 symbol: 0x4
 color: dark chartreuse
@@ -30,6 +29,13 @@ speed_a: 2
 protection: 5
 exp: 20
 
+[elder]
+type: creature
+name: elder
+desc: As a respected figure in its community, an elder helps to resolve any arguments happening between parts of a given social memory complex.
+symbol: 0x4
+color: lighter violet
+
 ##########################################################################################
 ##########################################################################################
 ##   MONSTERS                                                                           ##
@@ -38,7 +44,7 @@ exp: 20
 
 [anaconda]
 type: creature
-name: Anaconda
+name: anaconda
 desc: A very large snake that moves with startling rapidity that kills not by poison but by constricting its prey. 
 
 [abomination]
@@ -46,7 +52,7 @@ type: creature
 name: Abomination
 desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
 symbol: 15x8
-color: dark sepia
+color: dark red
 health: 100
 damage: 30-40
 speed: 3
@@ -54,24 +60,12 @@ speed_a: 2
 accuracy: 100
 exp: 100
 
-[ape]
-type: creature
-name: ape
-desc: Peaceful and stoic animals that try to live outside the realm of mankind as much as possible, apes are family–based primates that choose a large area of wooded territory as their own and move about nomadically within it. They will fight to protect their families or hunt for food, but they would much rather run to safety than risk death.
-texture: ape
-speed: 2
-damage: 4-10
-speed_a: 1
-protection: 2
-dodge: 30
-exp: 30
-
 [bat]
 type: creature
 name: Bat
 desc: A tiny winged creature.
-been sated.
 symbol: 2x6
+color: grey
 health: 200
 damage: 10-15
 speed: 2
@@ -85,6 +79,7 @@ type: creature
 name: Bear
 desc: A large, powerful omnivore that inhabits many of Terra's forested hills. Equally happy consuming nuts, berries, fish, or small mammals, the bear is nonetheless fiercely territorial, and will kill any intruders. Many northern tribes hunt bears for their thick fur, strong bones, and sharp claws and teeth.
 symbol: 2x6
+color: color: dark sepia
 health: 200
 damage: 10-15
 speed: 2
@@ -97,7 +92,8 @@ faction: animal
 type: creature
 name: butterfly
 desc:  A beautiful, flying insect with large colorful wings.
-texture: butterfly
+symbol: 2x6
+color: azure
 health: 1
 damage: 0-0
 speed: 3
@@ -105,24 +101,33 @@ exp: 1
 
 [cow]
 type: creature
-name: Bear
+name: cow
 desc: A domesticated animal of stocky build used as an excellent source of meat, milk and leather.
-Hyrkania.
-texture: cow
+symbol: 3x6
+color: lighter grey
 health: 50
 damage: 0-0
 speed: 1
 protection: 1
 exp: 1
 
-[direWolf]
+[bear]
 type: creature
-name: Dire wolf
-desc:  These swift and cunning canines seldom fall for the same trick twice which makes them difficult to deal with.
+name: bear
+desc: A large, powerful omnivore that inhabits many of Terra's forested hills. Equally happy consuming nuts, berries, fish, or small mammals, the bear is nonetheless fiercely territorial, and will kill any intruders. Many northern tribes hunt bears for their thick fur, strong bones, and sharp claws and teeth.
+symbol: 2x6
+color: dark sepia
+health: 200
+damage: 10-15
+speed: 2
+speed_a: 2
+protection: 5
+exp: 50
+faction: animal
 
 [dog]
 type: creature
-name: Dog
+name: dog
 desc: This four-legged creature has a rought coat and wagging tail. Dogs make popular companions among other humans.
 symbol: 4x6
 color: light sepia
@@ -131,26 +136,26 @@ speed_a: 1
 accuracy: 70
 protection: 2
 exp: 8
-faction: animal
 
 [dolor]
 type: creature
-name: An ancient dread apparition, sheathed in a cloud of mist. It radiates unearthly fear, its form glows white-hot with debilitating, low-frequency energy. 
-
-[dragon]
+name: dolor
+desc: An ancient dread apparition, sheathed in a cloud of mist. 
+symbol: 4x6
+color: darker red
+speed: 1
+speed_a: 1
+accuracy: 70
+protection: 2
+exp: 8
 type: creature
-name: Dragon
-desc: Capable of levelling villages and reducing a fully armoured knight to cinders in an instant, the fiery breath of these huge creatures is widely feared.
 
 [dryad]
 type: creature
-name: Dryad
+name: dryad
 desc: Dryads are capricious female nature spirits that dwell exclusively within deep forests. Be not fooled by their beautiful guises, nor their attempts to cloak themselves in the trappings of the natural world to throw off suspicion as to their true evil nature.
-
-[elder]
-type: creature
-name: elder
-desc: As a respected figure in its community, an elder helps to resolve any arguments happening between parts of a given social memory complex.
+symbol: 4x6
+color: green
 
 [floatingEye]
 type: creature
@@ -186,6 +191,19 @@ speed_a: 1
 protection: 2
 accuracy: 60
 dodge: 40
+exp: 30
+
+[monkey]
+type: creature
+name: monkey
+desc: A highly social creature whose shape resembles that of a very primitive man. They are covered in hair and throw feces at their enemies.
+symbol: 1x6
+color: sepia
+speed: 2
+damage: 4-10
+speed_a: 1
+protection: 2
+dodge: 30
 exp: 30
 
 [mummy]

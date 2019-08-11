@@ -1148,7 +1148,8 @@ const bool& c_helper::learn(std::string id) {
 	return engine -> game -> actorManager.getPlayer() -> player -> learnAbility(id);
 }
 
-// // Wait for enter key and deletes game
+//  Wait for enter key and deletes game
 void c_helper::gameOver() {
 	engine -> interface.gameOver();
+	exit(EXIT_SUCCESS);
 }
