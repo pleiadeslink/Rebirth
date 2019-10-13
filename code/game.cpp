@@ -1,5 +1,5 @@
 c_game::~c_game() {
-    c_helper::saveMap();
+    saveMap();
     actorManager.clear();
     if(map) {
         delete map;
@@ -13,7 +13,7 @@ const bool& c_game::newGame() {
     map -> init();
 
     // Creates world map 
-    world = new s_worldTile*[MAPSIZE]; // ! I don't like this at all!
+    world = new s_worldTile*[MAPSIZE];
 	for(int i = 0; i < MAPSIZE; ++i)
 		world[i] = new s_worldTile[MAPSIZE];
     for(int i1 = 0; i1 < MAPSIZE; ++i1) {
@@ -22,10 +22,11 @@ const bool& c_game::newGame() {
             world[i1][i2].danger = 0;
         }
     }
-    updateWorld();
 
     // Loads initial map
     loadMap(0, 0, 0);
+    saveMap(true);
+    updateWorld();
     actorManager.createActor("avatar", 2, 2);
     c_helper::teleportActor(actorManager.getPlayer() -> getUid(), 2, 2, true);
     engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
@@ -69,7 +70,7 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 	// World map
 	if(x == 0 and y == 0 and z == 0) {
         //map -> genWorld();
-        map -> parse("data/world.txt");  
+        map -> parse("data/world.txt"); 
 	// Local map
 	} else {
 		if(getWorldTile(x, y).biome == biome::grassland) {
@@ -99,9 +100,26 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 	engine -> game -> map -> build();     // ? Useless??
 }
 
+// Saves as default map if parameter is true
+void c_game::saveMap(const bool& default) {
+	if(!map) {
+		return;
+	}
+
+    TCODZip zip;
+    map -> save(&zip);
+    actorManager.saveMapActors(&zip);
+    std::string filename;
+    if(default == true) {
+        filename = "data/map/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".map";
+    } else {
+        filename = "data/save/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".sav";
+    }
+    zip.saveToFile(filename.c_str());
+	return;
+}
+
 // Updates world from map 0.0.0
-// ! Careful with this shit because the world map is created with defines, but here it will be related to the stored map created with the stored dimensions
-// I mean, it's all ok if all maps share the same size, which is what I should probably do anyways
 void c_game::updateWorld() {
 
     TCODZip zip;

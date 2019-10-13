@@ -124,7 +124,7 @@ symbol: 8x19
 color: grey
 colorbg: darkest green
 
-[world_taigaForest]
+[world_taiga]
 name: Taiga
 desc: A dense coniferous forest composed of pines and spruces.
 type: world

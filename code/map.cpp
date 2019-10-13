@@ -306,7 +306,7 @@ void c_map::floodAux(const structTileAsset* asset, const int& x, const int& y) {
     floodAux(asset, x, y - 1);
 }
 
-void c_map::genClear(const int& tile) {
+void c_map::genClear(std::string tile) {
 	for(int i1 = 0; i1 < width; ++i1) {
 		for(int i2 = 0; i2 < height; ++i2) {
 			genMatrix[i1][i2].tile = tile;
@@ -376,7 +376,7 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
         }
     }
 
-    // Dig room
+    /*/ Dig room
     if(digStartingTile == true) {
         genMatrix[x0][y0].tile = genTile::floor1;
     }
@@ -401,7 +401,7 @@ const bool& c_map::genDigRoom(const int& x0, const int& y0, const int& rwidth, c
                 }
             }
         }
-    }
+    }*/
     return true;
 }
 
@@ -562,7 +562,7 @@ void c_map::genCleanCorridors() {
 
 // Generates a dungeon map
 const bool& c_map::genDungeon(const int& rooms) {
-
+/*
     // Clears tile stack (useful to store possible starting tiles for digging rooms)
     v_genWallStack.clear();
 
@@ -686,7 +686,7 @@ const bool& c_map::genDungeon(const int& rooms) {
 
     // Renders gen map in real map
     build();
-
+*/
     return true;
 }
 
@@ -694,15 +694,15 @@ const bool& c_map::genDungeon(const int& rooms) {
 const bool& c_map::genCave() {
 
     // Gets cellular map
-    genClear(genTile::wall1);
+    genClear("wall_stone");
     s_map celMap = getCellularMap(5, 4, 3, 45);
 
     for(int i = 0; i < MAPSIZE; ++i) {
         for(int j = 0; j < MAPSIZE; ++j) {
             if(celMap.tile[i][j] == false) {
-                genMatrix[i][j].tile = genTile::floor1;
+                genMatrix[i][j].tile = "floor_stone";
             } else {
-                genMatrix[i][j].tile = genTile::wall1;
+                genMatrix[i][j].tile = "wall_stone";
             }
         }
     }
@@ -714,7 +714,7 @@ const bool& c_map::genCave() {
 
 // Generates a plains map
 const bool& c_map::genWild(const int& type) {
-
+/*
     genClear(genTile::floor2);
 
     // Makes tall grass patches with cellular automata
@@ -731,7 +731,7 @@ const bool& c_map::genWild(const int& type) {
         }
     }
 
-    build();
+    build();*/
     return true;
 }
 
@@ -1157,6 +1157,7 @@ const structFOVMap& c_map::computeFOV(const int& x, const int& y, const int& vie
                     }
                 if(matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> getType() == tileType::wall
                 or matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> getType() == tileType::obstacle
+                or matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> getId() == "world_mountain"
                 or actorBlocksView == true) {
                     tcodmap -> setProperties(i1, i2, false, false);
                 } else {

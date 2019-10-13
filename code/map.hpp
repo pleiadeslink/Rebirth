@@ -66,7 +66,7 @@ class c_map : public TCODMap {
         void fill(const structTileAsset* asset);
         void flood(const structTileAsset* asset, const int& x, const int& y);
         void floodAux(const structTileAsset* asset, const int& x, const int& y);
-        void genClear(const int& tile = 0);
+        void genClear(std::string tile);
         const bool& genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile);
         void genCleanCorridors();
         const bool& genDungeon(const int& rooms = 10); // Generates a dungeon map

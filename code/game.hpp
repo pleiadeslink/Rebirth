@@ -4,11 +4,10 @@
 class c_actor;
 class c_map;
 
-// ! World es creado a través de defines MAPSIZE
-
 class c_game {
     private:
-        s_worldTile** world;
+        s_worldTile** world; // World map
+        int time; // Global ingame timer
 
     public:
         c_actorManager actorManager;
@@ -21,6 +20,7 @@ class c_game {
         const bool& saveGame();
         const bool& loadGame();
         void loadMap(const int& x, const int& y, const int& z); // Tries to load from saved file, or static map, or generates it
+        void saveMap(const bool& default = false); // Saves as default map if parameter is true
         void updateWorld(); // Updates world from map 0.0.0
         int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
         void update(const int& key);

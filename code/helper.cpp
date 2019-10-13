@@ -136,91 +136,13 @@ void c_helper::showMapInfo() {
 	message(s.str());
 }
 
-void c_helper::loadMap(const int& x, const int& y, const int& z) { // ! Move these to map class no?
-	if(!engine -> game or !engine -> game -> map) {
-		return;
-	}
-
-	TCODZip zip;
-    engine -> game -> map -> wipe(x, y, z);
-
-
-	// * LOAD SAVED
-	
-    std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
-    if(zip.loadFromFile(savedFilename.c_str())) {
-        engine -> game -> map -> load(&zip);
-		engine -> game -> actorManager.loadActors(&zip);
-		return;
-	}
-
-
-	// * lOAD STATIC
-    
-	// Load static
-    std::string staticFilename = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
-    if(zip.loadFromFile(staticFilename.c_str())) {
-        engine -> game -> map -> load(&zip);
-		engine -> game -> actorManager.loadActors(&zip);
-		return;
-	}
-	
-	
-	// * GENERATE MAP
-
-	//s_worldTile = engine -> game -> getWorldTile(x, y); // This needs to include already the biome file, world map needs to be informed when its created from data files + 0.0.0 map
-	// For now we say we know already the path file -- WHAT THE FUCK DID I MEAN HERE?
-	// World map
-	if(x == 0 and y == 0 and z == 0) {
-		engine -> game -> map -> genWorld();
-
-	// Local map
-	} else {
-		if(engine -> game -> getWorldTile(x, y).biome == biome::grassland) {
-			engine -> runScript("gen/grassland.lua");
-		} else if(engine -> game -> getWorldTile(x, y).biome == biome::temperateForest) {
-			engine -> runScript("gen/temperateForest.lua");
-		} else if(engine -> game -> getWorldTile(x, y).biome == biome::taiga) {
-			engine -> runScript("gen/taiga.lua");
-		} else if(engine -> game -> getWorldTile(x, y).biome == biome::jungle) {
-			engine -> runScript("gen/jungle.lua");
-		} else if(engine -> game -> getWorldTile(x, y).biome == biome::desert) {
-			engine -> runScript("gen/desert.lua");
-		} else if(engine -> game -> getWorldTile(x, y).biome == biome::savanna) {
-			engine -> runScript("gen/savanna.lua");
-		} else if(engine -> game -> getWorldTile(x, y).biome == biome::marsh) {
-			engine -> runScript("gen/marsh.lua");
-		} else if(engine -> game -> getWorldTile(x, y).biome == biome::tundra) {
-			engine -> runScript("gen/tundra.lua");
-		}
-	}
-
-	// We set the coords
-	engine -> game -> map -> setX(x);
-	engine -> game -> map -> setY(y);
-	engine -> game -> map -> setZ(z);
-	
-	engine -> game -> map -> build();
-}
-
 // Saves as default map if parameter is true
 void c_helper::saveMap(const bool& default) {
-	if(!engine -> game or !engine -> game -> map) {
-		return;
-	}
-
-    TCODZip zip;
-    engine -> game -> map -> save(&zip);
-    engine -> game -> actorManager.saveMapActors(&zip);
-    std::string filename;
-    if(default == true) {
-        filename = "data/map/" + std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()) + ".map";
-    } else {
-        filename = "data/save/" + std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()) + ".sav";
+    if(engine -> game) {
+    	engine -> game -> saveMap(default);
     }
-    zip.saveToFile(filename.c_str());
-	return;
 }
+
 
 void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, int startY) {
 	if(!engine -> game or !engine -> game -> map) {
@@ -231,10 +153,10 @@ void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, i
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
-    saveMap(false);
+    engine -> game -> saveMap(false);
     //engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
-    loadMap(x, y, z);
+    engine -> game -> loadMap(x, y, z);
 	//engine -> game -> actorManager.loadPlayer();
 	if(startX == 0 and startY == 0) { // If starting position tile is empty, we teleport to the middle of the map
 		startX = engine -> game -> map -> getWidth() / 2;
@@ -255,13 +177,10 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
-
-    saveMap(false);
+    engine -> game -> saveMap(false);
     //engine -> game -> actorManager.savePlayer();
-	
     engine -> game -> actorManager.clear();
-
-    loadMap(0, 0, 0);
+    engine -> game -> loadMap(0, 0, 0);
     //engine -> game -> actorManager.loadPlayer();
     teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
 	//engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
@@ -375,12 +294,12 @@ const bool& c_helper::findTileByName(const int& x, const int& y, std::string nam
 	return false;
 }
 
-const int& c_helper::genClear(const int& value) {
+const bool& c_helper::genClear(std::string tile) {
 	if(!engine -> game or !engine -> game -> map) {
-		return 0;
+		return false;
 	}
-	engine -> game -> map -> genClear(value);
-	return 0;
+	engine -> game -> map -> genClear(tile);
+	return true;
 }
 
 const bool& c_helper::genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile) {

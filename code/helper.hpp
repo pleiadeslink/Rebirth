@@ -25,7 +25,6 @@ class c_helper {
 		// * Map
 
 		static void showMapInfo();
-		static void loadMap(const int& x, const int& y, const int& z);
 		static void saveMap(const bool& default = false); // Saves as default map if parameter is true
 		static void changeMap(const int& x, const int& y, const int& z, int startX = 0, int startY = 0);
 		static void worldMap(const int& mapX, const int& mapY);
@@ -55,7 +54,7 @@ class c_helper {
 		static void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
 		static void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
 		static void genPlaceActorSomewhere(std::string actor, const int& quantity); // Places actor in a free random position	
-		static const int& genClear(const int& value);
+		static const bool& genClear(std::string tile);
 		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile = false);
 		static const bool& genDungeon(const int& value);
 		static const bool& genCave();
