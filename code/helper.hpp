@@ -41,12 +41,6 @@ class c_helper {
 		static const int& getMapY();
 		static const int& getMapZ();
 		static const bool& findTileByName(const int& x, const int& y, std::string name); // Returns true if the tile in location has the same name as parameter
-		static const int& genClear(const int& value);
-		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile = false);
-		static const bool& genDungeon(const int& value);
-		static const bool& genCave();
-		static const bool& genWild(const int& type);
-		static const bool& genWorld();
 		static const int& setGenFloor1(std::string value);
 		static const int& setGenFloor2(std::string value);
 		static const int& setGenFloor3(std::string value);
@@ -61,6 +55,12 @@ class c_helper {
 		static void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
 		static void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
 		static void genPlaceActorSomewhere(std::string actor, const int& quantity); // Places actor in a free random position	
+		static const int& genClear(const int& value);
+		static const bool& genDigRoom(const int& x0, const int& y0, const int& width, const int& height, const int& direction, const bool& digStartingTile = false);
+		static const bool& genDungeon(const int& value);
+		static const bool& genCave();
+		static const bool& genWild(const int& type);
+		static const bool& genWorld();
 		
 
 		// * Actor

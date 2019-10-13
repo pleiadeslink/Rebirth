@@ -134,9 +134,9 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
     // Otherwise draw tile terrain
     engine -> screen.drawTile(11, 13, x, y, bgcolor);
     //drawOverlay(x, y, type, olcolor);
-    if(type == tileType::world) { 
-        engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
-    }
+    //if(type == tileType::world) { 
+    //    engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
+    //}
     engine -> screen.drawTile(tileX, tileY, x, y, color);
     drawShadow(x, y);
 

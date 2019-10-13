@@ -824,23 +824,12 @@ mass: 2
 ##########################################################################################
 ##########################################################################################
 
-[tree_acacia]
+[tree_spruce]
 type: tree
-name: Acacia
-desc: This is Tera's most abundant tree. It can grow in both temperate and warm regions.
-symbol: 10x19
-color: dark chartreuse
-canMove: 0
-canView: 0
-canGet: 0
-mass: 500
-
-[tree_cypress]
-type: tree
-name: Cypress
+name: Spruce
 desc: A large tree with whorled needle branches and conical form.
 symbol: 9x19
-color: darker sea
+color: darker green
 canMove: 0
 canView: 0
 canGet: 0
@@ -884,7 +873,7 @@ type: tree
 name: Pine
 desc: These photosynthetic organisms function as Terra's organic antennas, used to amplify cosmic energy transmission.
 symbol: 0x21
-color: dark chartreuse
+color: darker chartreuse
 canMove: 0
 canView: 0
 canGet: 0

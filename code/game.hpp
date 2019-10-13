@@ -20,6 +20,7 @@ class c_game {
         const bool& newGame();
         const bool& saveGame();
         const bool& loadGame();
+        void loadMap(const int& x, const int& y, const int& z); // Tries to load from saved file, or static map, or generates it
         void updateWorld(); // Updates world from map 0.0.0
         int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
         void update(const int& key);

@@ -25,9 +25,9 @@ const bool& c_game::newGame() {
     updateWorld();
 
     // Loads initial map
-    c_helper::loadMap(0, 0, 0);
-    actorManager.createActor("avatar", 24, 24);
-    c_helper::teleportActor(actorManager.getPlayer() -> getUid(), 24, 24, true);
+    loadMap(0, 0, 0);
+    actorManager.createActor("avatar", 2, 2);
+    c_helper::teleportActor(actorManager.getPlayer() -> getUid(), 2, 2, true);
     engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
     return true;
 }
@@ -38,6 +38,65 @@ const bool& c_game::saveGame() {
 
 const bool& c_game::loadGame() {
     return true;
+}
+
+// Tries to load from saved file, or static map, or generates it
+void c_game::loadMap(const int& x, const int& y, const int& z) {
+	if(!map) {
+		return;
+	}
+
+	TCODZip zip;
+    map -> wipe(x, y, z);
+
+	// * LOAD SAVED
+    std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
+    if(zip.loadFromFile(savedFilename.c_str())) {
+        map -> load(&zip);
+		actorManager.loadActors(&zip);
+		return;
+	}
+
+	// * lOAD STATIC
+    std::string staticFilename = "data/world";
+    if(zip.loadFromFile(staticFilename.c_str())) {
+        map -> load(&zip);
+		actorManager.loadActors(&zip);
+		return;
+	}
+	
+	// * GENERATE MAP
+	// World map
+	if(x == 0 and y == 0 and z == 0) {
+        //map -> genWorld();
+        map -> parse("data/world.txt");  
+	// Local map
+	} else {
+		if(getWorldTile(x, y).biome == biome::grassland) {
+			engine -> runScript("gen/grassland.lua");
+		} else if(getWorldTile(x, y).biome == biome::temperateForest) {
+			engine -> runScript("gen/temperateForest.lua");
+		} else if(getWorldTile(x, y).biome == biome::taiga) {
+			engine -> runScript("gen/taiga.lua");
+		} else if(getWorldTile(x, y).biome == biome::jungle) {
+			engine -> runScript("gen/jungle.lua");
+		} else if(getWorldTile(x, y).biome == biome::desert) {
+			engine -> runScript("gen/desert.lua");
+		} else if(getWorldTile(x, y).biome == biome::savanna) {
+			engine -> runScript("gen/savanna.lua");
+		} else if(getWorldTile(x, y).biome == biome::marsh) {
+			engine -> runScript("gen/marsh.lua");
+		} else if(getWorldTile(x, y).biome == biome::tundra) {
+			engine -> runScript("gen/tundra.lua");
+		}
+	}
+
+	// We set the coords
+	map -> setX(x);
+	map -> setY(y);
+	map -> setZ(z);
+
+	engine -> game -> map -> build();     // ? Useless??
 }
 
 // Updates world from map 0.0.0

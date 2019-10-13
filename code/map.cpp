@@ -47,6 +47,7 @@ void c_map::init() {
     fill(engine -> assetManager.getTileAsset("floor_grass"));
 }
 
+// Save map into .map file in data/save
 void c_map::save(TCODZip* zip) {
 
     // Save dimension
@@ -71,7 +72,7 @@ void c_map::save(TCODZip* zip) {
     zip -> putString(ambience.c_str());
 }
 
-// ! If you fuck with these functions, you'll have to sodomize updateWorld() too
+// Load map from a .map file in data/map
 void c_map::load(TCODZip* zip) {
 
     // Load dimension
@@ -100,6 +101,53 @@ void c_map::load(TCODZip* zip) {
     // Load map info
     name = zip -> getString();
     ambience = zip -> getString();
+}
+
+// Parse map from a rex map
+void c_map::parse(std::string path) {
+    std::string line;
+    std::ifstream file(path);
+    int y = 0;
+    while(getline(file, line)) {
+        for(int i = 0; i < MAPSIZE; ++i) {
+            switch(line[i]) {
+                case ',': {
+                    genMatrix[i][y].tile = "world_grassland";
+                    break;
+                }
+                case '^': {
+                    genMatrix[i][y].tile = "world_mountain";
+                    break;
+                }
+                case 'T': {
+                    genMatrix[i][y].tile = "world_temperateForest";
+                    break;
+                }
+                case 'Y': {
+                    genMatrix[i][y].tile = "world_taigaForest";
+                    break;
+                }
+                case 'F': {
+                    genMatrix[i][y].tile = "world_jungle";
+                    break;
+                }
+                case '.': {
+                    genMatrix[i][y].tile = "world_desert";
+                    break;
+                }
+                case 'M': {
+                    genMatrix[i][y].tile = "world_marsh";
+                    break;
+                }
+                case ' ': {
+                    genMatrix[i][y].tile = "world_ocean";
+                    break;
+                }
+            }
+        }
+        ++y;
+    }
+    build();
 }
 
 void c_map::wipe(const int& x, const int& y, const int& z) {

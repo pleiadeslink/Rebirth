@@ -124,20 +124,20 @@ symbol: 8x19
 color: grey
 colorbg: darkest green
 
-[world_taiga]
+[world_taigaForest]
 name: Taiga
-desc: A dense taiga forest.
+desc: A dense coniferous forest composed of pines and spruces.
 type: world
-symbol: 1x19
-color: azure
-colorbg: azure
+symbol: 9x19
+color: darker green
+colorbg: darkest green
 
 [world_temperateForest]
 name: Temperate forest
 desc: A dense temperate forest.
 type: world
-symbol: 1x19
-color: darker chartreuse
+symbol: 10x19
+color: dark chartreuse
 colorbg: darkest green
 
 [world_jungle]

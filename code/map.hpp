@@ -51,8 +51,9 @@ class c_map : public TCODMap {
         c_map();
         ~c_map();
         void init();
-        void save(TCODZip* zip);
-        void load(TCODZip* zip);
+        void save(TCODZip* zip); // Save map into .map file in data/save
+        void load(TCODZip* zip); // Load map from a .map file in data/map
+        void parse(std::string path); // Parse map from a txt
         void wipe(const int& x, const int& y, const int& z);
         TCODPath* path(const int& x0, const int& y0, const int& x1, const int& y1);
         c_tile* runaway(const int& x1, const int& y1, const int& tx, const int& ty);

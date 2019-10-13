@@ -49,7 +49,6 @@ namespace global {
 	const int maxRounds = 10000;
 };
 
-//#include "colors.hpp"
 #include "enum.hpp"
 #include "datatype.hpp"
 #include "screen.hpp"
