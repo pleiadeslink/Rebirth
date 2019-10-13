@@ -25,7 +25,9 @@ end
 damage = math.random(getMinDamage(emitter), getMaxDamage(emitter))
 
 -- Substract protection value
-damage = damage * (100 / (100 + getProtection(target))) 
+if(isPlayer(target)) then
+	damage = damage * (100 / (100 + getProtection(target))) 
+end
 
 -- Round to integrer
 damage = math.floor(damage+0.5)

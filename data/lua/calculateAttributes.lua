@@ -8,7 +8,7 @@ maxHealth = getConstitution() * 100
 --            this.baseMaxHealth = Convert.ToInt32((vitality * 100) + Math.Pow(level, 2) * 4);
 --        else
 --            this.baseMaxHealth = Convert.ToInt32((vitality * (level - 25)) + Math.Pow(level, 2) * 4);
-minDamage = 20
+minDamage = 25
 
 maxDamage = 28
 

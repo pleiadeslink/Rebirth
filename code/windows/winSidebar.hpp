@@ -11,7 +11,7 @@ class c_winSidebar : public c_window
 	private:
 		c_winButton** m_tileButtons;
 		c_winButton** m_actorButtons;
-		c_winTarget* m_target;
+		c_winTarget* a_target;
 		int tileButtonWidth;
 		int tileButtonHeight;
 		int actorButtonWidth;

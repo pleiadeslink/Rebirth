@@ -19,6 +19,11 @@ void c_engine::start() {
     message(" REBIRTH ");
     message("---------");
 
+    // Load colors
+    structEventData eventData;
+	eventData.type = "color";
+	engine -> game -> runScript(eventData);
+
     // Load assets
     assetManager.load();
 
@@ -65,8 +70,8 @@ int c_engine::input() {
     sf::RenderWindow* rwindow = screen.getWindow();
     while (rwindow -> pollEvent(event)) {
 
-        // Mouse
-        if(event.type == sf::Event::MouseButtonReleased) {
+        // Mouse event.type == sf::Event::MouseButtonReleased
+        if(event.type == sf::Event::MouseButtonPressed) {
             
         if(event.mouseButton.button == sf::Mouse::Left) {
             return key::lclick;

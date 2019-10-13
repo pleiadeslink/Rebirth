@@ -322,7 +322,7 @@ exp: 15
 [vampire]
 type: creature
 name: Vampire
-desc: Vampires are notorious for their urge to drink the blood of the living, which they must do regularly if they are to continue in their undead existence. For most vampires, this frenzied desire for blood is their main concern.
+desc: A cruel fiend that has lived through eons, one part man, the other part demon, or maybe undead. It feeds on the life  essence in the blood of man, having to kill every time it feeds.
 
 [wyrm]
 type: creature

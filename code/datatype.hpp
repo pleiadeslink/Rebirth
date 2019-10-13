@@ -67,7 +67,7 @@ typedef struct structActorAsset {
     int tx;
     int ty;
     sf::Color color;
-    float mass;
+    int mass;
     bool canMove;
     bool canView;
     bool canGet;

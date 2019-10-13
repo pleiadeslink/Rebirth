@@ -219,16 +219,13 @@ void c_winInfo::draw(const bool& mainView) {
     if(mainView) {
         engine -> screen.drawBox(x * 16, y * 16, width * 16, th * 16, sf::Color::Black);
     }
-    
 
     // Draw context indicator
     engine -> screen.drawTexture("detailsTitle", (x + 1) * 16, (y + 2) * 16);
     drawTitle("Details", 1);
 
     // Draw icon
-    if(iconX != 0 and iconY != 0) {
-        engine -> screen.drawTile(iconX, iconY, (x + 20) * 16 - 8, (y + 2) * 16 + 2, symcolor, 2);
-    }
+    engine -> screen.drawTile(iconX, iconY, (x + 20) * 16 - 8, (y + 2) * 16 + 2, symcolor, 2);
 
     // Draw name
     engine -> screen.drawText(name, (x + 2) * 16 - 8, (y + 2) * 16 + 6, sf::Color::White);

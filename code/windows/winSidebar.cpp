@@ -14,9 +14,9 @@ c_winSidebar::c_winSidebar(const int& x, const int& y, const int& width, const i
 void c_winSidebar::init() {
 
 	// Create target matrix
-	m_target = new c_winTarget[MAXTARGET];
+	a_target = new c_winTarget[MAXTARGET];
 	for(int i = 0; i < MAXTARGET; ++i) {
-		m_target[i].init(x + 1, y + 9 + i, width - 2, 1);
+		a_target[i].init(x + 1, y + 9 + i, width - 2, 1);
 	}
 
 	// Create tile button matrix
@@ -67,19 +67,19 @@ int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 			}
 			if(creatureCounter != 0) {
 				for(int i = 0; i < creatureCounter; ++i) {
-					m_target[i].setActor(v_creature[i]);
-					key = m_target[i].update(key);
+					a_target[i].setActor(v_creature[i]);
+					key = a_target[i].update(key);
 				}
 				if(itemCounter != 0) {
 					for(int i = 0; i < itemCounter; ++i) {
-						m_target[creatureCounter + 2 + i].setActor(v_item[i]);
-						key = m_target[creatureCounter + 2 + i].update(key);
+						a_target[creatureCounter + 2 + i].setActor(v_item[i]);
+						key = a_target[creatureCounter + 2 + i].update(key);
 					}
 				}
 			} else {
 				for(int i = 0; i < itemCounter; ++i) {
-					m_target[i].setActor(v_item[i]);
-					key = m_target[i].update(key);
+					a_target[i].setActor(v_item[i]);
+					key = a_target[i].update(key);
 				}
 			}
 			break;
@@ -151,8 +151,8 @@ void c_winSidebar::draw() {
 		case imode::character:
 		case imode::game: {
 			for(int i = 0; i < MAXTARGET; ++i) {
-				m_target[i].draw();
-				m_target[i].clear();
+				a_target[i].draw();
+				a_target[i].clear();
 				/*if(thereAreItems == true) {
 					drawTitle("Ground", 8);
 				}*/

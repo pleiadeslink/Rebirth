@@ -164,10 +164,10 @@ void c_game::updateWorld() {
                 }
             }
         }
+        engine -> message("World updated!");
     } else {
         engine -> message("World update failed because map 0.0.0 was not found.");
     }
-    engine -> message("World updated!");
 }
 
 // Returns the biome of the selected location of the world map

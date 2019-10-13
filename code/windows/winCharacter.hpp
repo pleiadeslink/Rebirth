@@ -1,23 +1,27 @@
 #ifndef c_winCharacter_hpp
 #define c_winCharacter_hpp
 
+class c_winMenuBar;
+
+#define MAXMENUBAR 17
+
 class c_winCharacter : public c_window
 {
 	private:
-		c_winMap* map;
+		std::vector<s_invItem>* v_item;
+		std::vector<std::string>* v_ability;
+		c_winMenuBar* a_menuBar;
 		int screen;
-		int inventoryPos;
-		int abilitiesPos;
+		int itemPos;
+		int abilityPos;
 		int conditionPos;
-		int talentsPos;
-		int questsPos;
+		int talentPos;
+		int questPos;
 		int systemPos;
-		std::vector<s_invItem>* inventory;
-		std::vector<std::string>* v_abilities;
 
 	public:
 		c_winCharacter(const int& x, const int& y, const int& width, const int& height);
-		~c_winCharacter() { }
+		~c_winCharacter() {}
 		void init();
 		int update(int key);
         void draw();

@@ -18,7 +18,7 @@ class c_screen {
         void start(bool fullscreen = false);
         void screenshot();
 
-        void drawTile(const int& charX, const int& charY, const int& x, const int& y, const sf::Color color, const int& scale = 1);
+        void drawTile(const int& charX, const int& charY, const int& x, const int& y, const sf::Color color = sf::Color::White, const int& scale = 1);
         void drawTexture(const std::string& id, const int& x, const int& y, const float& scale = 1, const sf::Uint8& light = 255);
         void drawLine(const int& x1, const int& y1, const int& x2, const int& y2);
         void drawBox(const int& x, const int& y, const int& width, const int& height, const sf::Color color);

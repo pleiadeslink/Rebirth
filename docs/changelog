@@ -1,4 +1,12 @@
-0.2.13 (wip)
+0.2.16 c
+
+0.2.15
+- Git cleaned
+
+0.2.14
+- Colors are now stored in a std::map
+
+0.2.13
 - Program exit fixed
 - Window closing fixed
 - Target actors can now be selected in help mode

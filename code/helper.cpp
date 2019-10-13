@@ -1,3 +1,12 @@
+// Sets a color in the color matrix
+void c_helper::setColor(std::string key, const int& r, const int& g, const int& b) {
+	sf::Color color = sf::Color::White;
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	m_color[key] = color;
+}
+
 std::vector<std::string> c_helper::split(const std::string& s, char delimiter) {
    std::vector<std::string> tokens;
    /*std::string token;
@@ -39,8 +48,9 @@ std::string c_helper::justify(std::string string, const size_t size) {
 std::string c_helper::justify(std::string string, const size_t size) {
 	int iterator = 0;
 	for(int i = 0; i < string.length(); ++i) {
-		if(iterator == size - 1) {
-			if(string.at(i + 1) == ' ') {
+
+		if(iterator == size) {
+			if(string[i + 1] == ' ') {
 				string.erase(i + 1, 1); // Deletes space
 				string.insert(i + 1, "/n"); // Adds line break
 				++i;
@@ -74,14 +84,22 @@ std::string c_helper::removeColor(std::string str) {
 }
 
 // Logs a game message
-void c_helper::message(const std::string& text) {
+void c_helper::message(const std::string& text, const bool& updateNow) {
 	
 	// Sends message to the system log
 	engine -> message("Game: " + text);
 
+	if(updateNow == true) {
+		engine -> game -> gamelog.clear();
+	}
+
 	// Sends message to the game log
 	if(engine -> game) {
 		engine -> game -> message(text);
+	}
+
+	if(updateNow == true) {
+		engine -> game -> gamelog.update();
 	}
 }
 

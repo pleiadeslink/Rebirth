@@ -1,3 +1,4 @@
+state["setColor"] = &c_helper::setColor; // Sets a color in the color matrix
 state["runEvent"] = &c_game::runEvent;
 state["random"] = &c_helper::random;
 state["test"] = &c_helper::test;

@@ -83,13 +83,6 @@ void c_winTarget::draw() {
     engine -> screen.drawText(p_actor -> getName(), (x + 2) * 16 - 8, y * 16 - 3, color("lightest grey"));
 }
 
-/*void c_winTarget::drawOverlay() {
-	sf::Vector2i mousePos = engine -> getMouse();
-	if(item != 0 and mousePos.x > x and mousePos.x < x + width and mousePos.y > y and mousePos.y < y + height) {
-		engine -> screen.drawBox(x, y, 240, 24, color("darkest grey"));
-	}
-}*/
-
 void c_winTarget::clear() {
 	actor = 0;
 }

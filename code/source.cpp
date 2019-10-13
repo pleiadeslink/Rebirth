@@ -49,7 +49,7 @@ namespace global {
 	const int maxRounds = 10000;
 };
 
-#include "colors.hpp"
+//#include "colors.hpp"
 #include "enum.hpp"
 #include "datatype.hpp"
 #include "screen.hpp"
@@ -64,6 +64,7 @@ namespace global {
 #include "windows/winSidebar.hpp"
 #include "windows/winDeath.hpp"
 #include "windows/winTarget.hpp"
+#include "windows/winMenuBar.hpp"
 #include "fire.hpp"
 #include "actorComponents/action.hpp"
 #include "actorComponents/player.hpp"
@@ -91,6 +92,11 @@ TCODNoise noise2d(2);
 WorldGenerator worldGen;
 c_engine* engine;
 
+std::map<std::string, sf::Color> m_color;
+sf::Color color(std::string str) {
+	return m_color[str];
+}
+
 int main(int argc, char *argv[]) {
     engine = new c_engine();
     engine -> start();
@@ -113,6 +119,7 @@ int main(int argc, char *argv[]) {
 #include "windows/winSidebar.cpp"
 #include "windows/winDeath.cpp"
 #include "windows/winTarget.cpp"
+#include "windows/winMenuBar.cpp"
 #include "fire.cpp"
 #include "actorComponents/action.cpp"
 #include "actorComponents/player.cpp"

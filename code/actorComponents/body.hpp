@@ -10,14 +10,14 @@ class c_body
         bool canMove;
         bool canView;
         bool canPickup;
-        float weight;
+        int weight;
     
 	public:
-		c_body(c_actor* father, const bool& canMove, const bool& canView, const bool& canPickup, const float& weight);
+		c_body(c_actor* father, const bool& canMove, const bool& canView, const bool& canPickup, const int& weight);
 		const bool& getCanMove() { return canMove; }
 		const bool& getCanView() { return canView; }
 		const bool& getCanPickup() { return canPickup; }
-		float getMass() { return weight; }
+		const int& getMass() { return weight; }
 		void setCanMove(const bool& value) { canMove = value; }
 		void setCanView(const bool& value) { canView = value; }
 };
