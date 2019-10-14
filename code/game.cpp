@@ -247,6 +247,16 @@ void c_game::updateWorld() {
     }
 }
 
+// Populates the map with the monster group specified
+void c_game::populate(std::string herd) {
+    s_herdAsset = engine -> assetManager.getHerdAsset(herd);
+    for(int i = 0; i < 16; ++i) {
+        if(s_herdAsset.monster != "") {
+            
+        }
+    }
+}
+
 // Returns the biome of the selected location of the world map
 int c_game::getBiome(const int& x, const int& y) {
     if(x > 0 and y > 0 and x < MAPSIZE and y < MAPSIZE) {

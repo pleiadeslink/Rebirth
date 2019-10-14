@@ -92,6 +92,13 @@ typedef struct structActorAsset {
     bool f_noshadow;
 };
 
+
+// Used to random populate a room
+typedef struct s_herdAsset {
+    std::string id;
+    std::string monster[15];
+};
+
 typedef struct s_abilityAsset {
     std::string id;
     std::string name;

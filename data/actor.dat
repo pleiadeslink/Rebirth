@@ -38,27 +38,14 @@ color: lighter violet
 
 ##########################################################################################
 ##########################################################################################
-##   MONSTERS                                                                           ##
+##   ANIMALS                                                                            ##
 ##########################################################################################
 ##########################################################################################
 
 [anaconda]
 type: creature
 name: anaconda
-desc: A very large snake that moves with startling rapidity that kills not by poison but by constricting its prey. 
-
-[abomination]
-type: creature
-name: Abomination
-desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
-symbol: 15x8
-color: dark red
-health: 100
-damage: 30-40
-speed: 3
-speed_a: 2
-accuracy: 100
-exp: 100
+desc: A very large snake that moves with startling rapidity that kills not by poison but by constricting its prey.
 
 [bat]
 type: creature
@@ -111,20 +98,6 @@ speed: 1
 protection: 1
 exp: 1
 
-[bear]
-type: creature
-name: bear
-desc: A large, powerful omnivore that inhabits many of Terra's forested hills. Equally happy consuming nuts, berries, fish, or small mammals, the bear is nonetheless fiercely territorial, and will kill any intruders. Many northern tribes hunt bears for their thick fur, strong bones, and sharp claws and teeth.
-symbol: 2x6
-color: dark sepia
-health: 200
-damage: 10-15
-speed: 2
-speed_a: 2
-protection: 5
-exp: 50
-faction: animal
-
 [dog]
 type: creature
 name: dog
@@ -136,6 +109,25 @@ speed_a: 1
 accuracy: 70
 protection: 2
 exp: 8
+
+##########################################################################################
+##########################################################################################
+##   MONSTERS                                                                           ##
+##########################################################################################
+##########################################################################################
+
+[abomination]
+type: creature
+name: Abomination
+desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
+symbol: 15x8
+color: dark red
+health: 100
+damage: 30-40
+speed: 3
+speed_a: 2
+accuracy: 100
+exp: 100
 
 [dolor]
 type: creature

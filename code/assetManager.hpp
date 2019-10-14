@@ -11,16 +11,19 @@ class c_assetManager {
         structMapAsset a_mapAsset[127][127][63];
         std::vector<structTileAsset> v_tileAsset;
         std::vector<structVerbAsset> v_verbAsset;
+        std::vector<s_herdAsset> v_herdAsset;
         //std::vector<structTopicAsset> v_topicAsset;
         int indexTile;
         int indexActor;
         void loadTiles();
         void loadActors();
         void loadAbilities();
+        void loadHerds();
         structTileAsset clearTileAsset(structTileAsset asset);
         structActorAsset clearActorAsset(structActorAsset asset);
         s_abilityAsset clearAbilityAsset(s_abilityAsset asset);
         structMapAsset clearMapAsset(structMapAsset asset);
+        s_herdAsset clearHerdAsset(s_herdAsset);
 	
     public:
         void load();
@@ -32,8 +35,9 @@ class c_assetManager {
         std::vector<std::string> getTileIdList();
         structActorAsset* getActorAsset(const std::string& id);
         std::vector<std::string> getActorIdList();
-        s_abilityAsset* getAbilityAsset(const std::string& id);
         structVerbAsset* getVerbAsset(const std::string& id);
+        s_abilityAsset* getAbilityAsset(const std::string& id);
+        s_herdAsset* getHerdAsset(const std::string& id);
 };
 
 #endif

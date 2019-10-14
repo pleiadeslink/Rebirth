@@ -489,6 +489,140 @@ void c_assetManager::loadAbilities() {
 	}
 }
 
+// =========
+// = HERDS =
+// =========
+
+void c_assetManager::loadHerds() {
+	s_herdAsset asset;
+	asset = clearHerdAsset(asset);
+	std::string line;
+	std::string key;
+	bool n = true;
+	std::ifstream file("data/herd.dat");
+    while(getline(file, line)) {
+		if(line[0] == '[') {
+
+			// Save previous dump and clear asset
+			if(n == false) {
+				v_herdAsset.push_back(asset);
+				asset = clearHerdAsset(asset);
+			}
+
+			// Get new id name
+			bool found = false;
+			int i = 1;
+			std::string id;
+			while(found == false) {
+				id.push_back(line[i]);
+				if(line[i + 1] == ']') {
+					found = true;
+				}
+				++i;
+			}
+			n = false;
+			asset.id = id;
+		}
+
+		key = "monster[0]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[0] = line;
+		}
+
+		key = "monster[1]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[1] = line;
+		}
+		key = "monster[2]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[2] = line;
+		}
+		key = "monster[3]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[3] = line;
+		}
+
+		key = "monster[4]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[4] = line;
+		}
+
+		key = "monster[5]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[5] = line;
+		}
+
+		key = "monster[6]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[6] = line;
+		}
+
+		key = "monster[7]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[7] = line;
+		}
+
+		key = "monster[8]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[8] = line;
+		}
+
+		key = "monster[9]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[9] = line;
+		}
+
+		key = "monster[10]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[10] = line;
+		}
+
+		key = "monster[11]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[11] = line;
+		}
+
+		key = "monster[12]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[12] = line;
+		}
+
+		key = "monster[13]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[13] = line;
+		}
+
+		key = "monster[14]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[14] = line;
+		}
+
+		key = "monster[15]: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.monster[15] = line;
+		}
+    }
+    if(file.is_open()) {
+        file.close();
+	}
+}
+
 structTileAsset c_assetManager::clearTileAsset(structTileAsset asset) {
     asset.id = "default";
     asset.name = "default";
@@ -550,6 +684,14 @@ s_abilityAsset c_assetManager::clearAbilityAsset(s_abilityAsset asset) {
 	asset.id = "default";
 	asset.name = "Default";
 	asset.duration = 1;
+	return asset;
+}
+
+s_herdAsset c_assetManager::clearHerdAsset(s_herdAsset asset) {
+	asset.id = "default";
+	for(int i = 0; i < 16; ++i) {
+		asset.monster[i] = "";
+	}
 	return asset;
 }
 
@@ -672,4 +814,17 @@ s_abilityAsset* c_assetManager::getAbilityAsset(const std::string& id) {
     }
     // Not found, default returned
 	return NULL; 
+}
+
+s_herdAsset* c_assetManager::getHerdAsset(const std::string& id) {
+    int max = v_herdAsset.size();
+	if(max != 0) { 
+		for(int i = 0; i < max; ++i) {
+			if(v_herdAsset[i].id == id) {
+				return &v_herdAsset[i];
+            }
+        }
+    }
+    // Not found, default returned
+	return &v_herdAsset[0];
 }
