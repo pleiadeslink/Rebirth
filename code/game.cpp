@@ -97,7 +97,7 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 	map -> setY(y);
 	map -> setZ(z);
 
-	engine -> game -> map -> build();     // ? Useless??
+	//engine -> game -> map -> build();
 }
 
 // Saves as default map if parameter is true
@@ -249,10 +249,19 @@ void c_game::updateWorld() {
 
 // Populates the map with the monster group specified
 void c_game::populate(std::string herd) {
-    s_herdAsset = engine -> assetManager.getHerdAsset(herd);
+    s_herdAsset* asset = engine -> assetManager.getHerdAsset(herd);
     for(int i = 0; i < 16; ++i) {
-        if(s_herdAsset.monster != "") {
-            
+        
+        if(asset -> monster[i] != "") {
+
+            if(c_helper::d100(asset -> chance[i]) == true) {
+                std::cout << "test" << std::endl;
+                std::cout << "test" << std::endl;
+                std::cout << "test" << std::endl;
+                std::cout << "test" << std::endl;
+
+                std::cout << "test" << std::endl;
+            }
         }
     }
 }

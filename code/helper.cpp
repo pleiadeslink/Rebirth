@@ -17,9 +17,21 @@ std::vector<std::string> c_helper::split(const std::string& s, char delimiter) {
    return tokens;	
 }
 
-int c_helper::random(const int& min, const int& max) {
+// Returns a random number between min and max
+const int& c_helper::random(const int& min, const int& max) {
     TCODRandom* ran = TCODRandom::getInstance();
     return ran -> getInt(min, max);
+}
+
+// Gets a random number 1-100, returns true if result is lower than "chance"
+const bool& c_helper::d100(const int& chance) {
+	if(chance >= 100) {
+		return true;
+	}
+	if(random(1, 100) <= chance) {
+		return true;
+	}
+	return false;
 }
 
 // Splits a string into seperate strings using the pattern string as line break symbol
@@ -427,16 +439,7 @@ const int& c_helper::build() {
 		return 0;
 	}
 	engine -> game -> map -> build();
-	message("Map rebuilt.");
 	return 0;
-}
-
-void c_helper::forgetMap() {
-	if(!engine -> game or !engine -> game -> map) {
-		return;
-	}
-	engine -> game -> map -> forget();
-	message("You forget how you came here.");
 }
 
 // Updates world map from map 0.0.0 stored locally
@@ -445,6 +448,23 @@ void c_helper::updateWorld() {
 		return;
 	}
 	engine -> game -> updateWorld();
+}
+
+// Populates map in a random tile with a "herd"
+const bool& c_helper::populate(std::string herd) {
+	if(!engine -> game) {
+		return false;
+	}
+	engine -> game -> populate(herd);
+	return true;	
+}
+
+void c_helper::forgetMap() {
+	if(!engine -> game or !engine -> game -> map) {
+		return;
+	}
+	engine -> game -> map -> forget();
+	message("You forget how you came here.");
 }
 
 // Returns the biome of the selected location of the world map

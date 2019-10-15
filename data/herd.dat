@@ -3,4 +3,6 @@
 [default]
 
 [butterfly]
-monster[0]: butterfly
+monster[0]: 100-butterfly
+
+[end]

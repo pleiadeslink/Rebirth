@@ -42,6 +42,7 @@ state["setAmbience"] = &c_helper::setAmbience;
 state["build"] = &c_helper::build;
 state["forgetMap"] = &c_helper::forgetMap;
 state["updateWorld"] = &c_helper::updateWorld; // Updates world map from map 0.0.0 stored locally
+state["populate"] = &c_helper::populate; // Populates map in a random tile with a "herd"
 
 state["isObstacle"] = &c_helper::isObstacle;
 state["createActor"] = &c_helper::createActor;

@@ -7,7 +7,8 @@ class c_helper {
 		static void setColor(std::string key, const int& r, const int& g, const int& b); // Sets a color in the color matrix
 		static void test() { std::cout << "test" << std::endl; }
 		static std::vector<std::string> split(const std::string& s, char delimiter);
-		static int random(const int& min, const int& max);
+		static const int& random(const int& min, const int& max); // Returns a random number between min and max
+		static const bool& d100(const int& chance); // Gets a random number 1-100, returns true if result is lower than "chance"
 		static std::vector<std::string> splitter(std::string in_pattern, std::string& content); // Splits a string in lines by '\n'
 		static std::string justify(std::string string, const size_t size); // Justify text adding \n
 		static std::string removeColor(std::string str); // Removes color code from a string
@@ -47,9 +48,6 @@ class c_helper {
 		static const int& setGenWall2(std::string value);
 		static const int& setGenWall3(std::string value);
 		static void setAmbience(std::string track);
-		static const int& build();
-		static void forgetMap();
-		static void updateWorld(); // Updates world map from map 0.0.0 stored locally
 		static int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
 		static void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
 		static void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
@@ -60,7 +58,10 @@ class c_helper {
 		static const bool& genCave();
 		static const bool& genWild(const int& type);
 		static const bool& genWorld();
-		
+		static const int& build();
+		static void updateWorld(); // Updates world map from map 0.0.0 stored locally
+		static const bool& populate(std::string herd); // Populates map in a random tile with a "herd"
+		static void forgetMap();
 
 		// * Actor
 

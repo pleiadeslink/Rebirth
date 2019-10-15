@@ -97,6 +97,7 @@ typedef struct structActorAsset {
 typedef struct s_herdAsset {
     std::string id;
     std::string monster[15];
+    int chance[15];
 };
 
 typedef struct s_abilityAsset {
