@@ -25,7 +25,7 @@ const bool& c_game::newGame() {
 
     // Loads initial map
     loadMap(0, 0, 0);
-    saveMap(true);
+    storeMap();
     updateWorld();
     actorManager.createActor("avatar", 2, 2);
     c_helper::teleportActor(actorManager.getPlayer() -> getUid(), 2, 2, true);
@@ -41,37 +41,30 @@ const bool& c_game::loadGame() {
     return true;
 }
 
-// Tries to load from saved file, or static map, or generates it
 void c_game::loadMap(const int& x, const int& y, const int& z) {
 	if(!map) {
 		return;
 	}
-
 	TCODZip zip;
     map -> wipe(x, y, z);
-
-	// * LOAD SAVED
+	// Load saved
     std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
     if(zip.loadFromFile(savedFilename.c_str())) {
         map -> load(&zip);
 		actorManager.loadActors(&zip);
 		return;
 	}
-
-	// * lOAD STATIC
+	// Load static
     std::string staticFilename = "data/world";
     if(zip.loadFromFile(staticFilename.c_str())) {
         map -> load(&zip);
 		actorManager.loadActors(&zip);
 		return;
 	}
-	
-	// * GENERATE MAP
-	// World map
+	// Parse world map
 	if(x == 0 and y == 0 and z == 0) {
-        //map -> genWorld();
         map -> parse("data/world.txt"); 
-	// Local map
+	// Genrate wilderness map
 	} else {
 		if(getWorldTile(x, y).biome == biome::grassland) {
 			engine -> runScript("gen/grassland.lua");
@@ -91,43 +84,46 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 			engine -> runScript("gen/tundra.lua");
 		}
 	}
-
-	// We set the coords
 	map -> setX(x);
 	map -> setY(y);
 	map -> setZ(z);
-
-	//engine -> game -> map -> build();
 }
 
-// Saves as default map if parameter is true
-void c_game::saveMap(const bool& default) {
+void c_game::saveMap() {
 	if(!map) {
 		return;
 	}
-
     TCODZip zip;
     map -> save(&zip);
     actorManager.saveMapActors(&zip);
     std::string filename;
-    if(default == true) {
-        filename = "data/map/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".map";
-    } else {
-        filename = "data/save/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".sav";
-    }
+    filename = "data/save/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".sav";
     zip.saveToFile(filename.c_str());
 	return;
 }
 
-// Updates world from map 0.0.0
-void c_game::updateWorld() {
+void c_game::storeMap() {
+	if(!map) {
+		return;
+	}
+    // Save tiles
+    TCODZip zip;
+    map -> save(&zip);
+    std::string filename;
+    filename = "data/map/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".map";
+    zip.saveToFile(filename.c_str());
+    // Save actors
+    std::ofstream outfile("data/map/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".dat");
+    outfile << "my text here!" << std::endl;
+    outfile.close();
+	return;
+}
 
+void c_game::updateWorld() {
     TCODZip zip;
     std::string defaultFilename = "data/map/0.0.0.map";
-
     // First we need to load a temporal map with the info from 0.0.0
     if(zip.loadFromFile(defaultFilename.c_str())) {
-
         typedef struct s_temp {
             std::string tile;
             std::vector<std::string> v_actor;
@@ -135,55 +131,43 @@ void c_game::updateWorld() {
         const int width = zip.getInt();;
         const int height = zip.getInt();
         s_temp tempMap[MAPSIZE][MAPSIZE];
-        
         for(int i1 = 0; i1 < width; ++i1) {
             for(int i2 = 0; i2 < height; ++i2) {
-
                 // We assign the tile from the data file
                 tempMap[i1][i2].tile = zip.getString();
-
                 // We need to do this to respect the order of the stored data
                 zip.getInt(); 
             }
         }
-
         // Again, we need to do this to respect the order of the stored data
         zip.getInt();
         zip.getInt();
         zip.getInt();
         zip.getString();
         zip.getString();
-
         // We load the actors
         int size = zip.getInt();
         if(size > 0) {
             for(int i = 0; i < size; ++i) {
-
                 std::string id = zip.getString();
                 int x = zip.getInt();
                 int y = zip.getInt();
                 int actor = actorManager.createActor(id, x, y); // We need to create the actor so that it loads and respect the data file...
                 actorManager.getActor(actor) -> load(&zip);
                 actorManager.deleteActor(actor); // We delete the actor and make sure nobody saw us
-
                 // We add the actor to its tile in the temp map
                 tempMap[x][y].v_actor.push_back(id);
             }
         }
-
         // All right, so we have a temporal map with tile ids and actor vectors
         // Now here goes the meat, it's what everyone was waiting for, you, your mother, everyone
         // We choose biome depending on tile type, actor, etc. 
-        
         // Well actually we will only use the actors to check for locations
-        
         for(int i = 0; i < width; ++i) {
             for(int j = 0; j < height; ++j) {
-
                 // GRASSLAND (default)
                 world[i][j].biome = biome::grassland;
                 world[i][j].danger = 0;
-
                 // Look for locations
                 if(tempMap[i][j].v_actor.size() != 0) {
                     for(int k = 0; k < tempMap[i][j].v_actor.size(); ++k) {
@@ -192,49 +176,39 @@ void c_game::updateWorld() {
                         } 
                     }
                 }
-
                 // Select biome by tile
-
                 // MOUNTAIN
                 if(tempMap[i][j].tile == "world_mountain") {
                     world[i][j].biome = biome::mountain;
                 }
-
                 // TEMPERATE FOREST
                 if(tempMap[i][j].tile == "world_temperateForest") {
                     world[i][j].biome = biome::temperateForest;
                 }
-
                 // TAIGA
                 if(tempMap[i][j].tile == "world_taiga") {
                     world[i][j].biome = biome::taiga;
                 }
-
                 // JUNGLE  
                 if(tempMap[i][j].tile == "world_jungle") {
                     world[i][j].biome = biome::jungle;
                 }
-
                 // DESERT   
                 if(tempMap[i][j].tile == "world_desert") {
                     world[i][j].biome = biome::desert;
                 }
-
                 // SAVANNA
                 if(tempMap[i][j].tile == "world_savanna") {
                     world[i][j].biome = biome::savanna;
                 }
-
                 // MARSH
                 if(tempMap[i][j].tile == "world_marsh") {
                     world[i][j].biome = biome::marsh;
                 }              
-
                 // TUNDRA
                 if(tempMap[i][j].tile == "world_tundra") {
                     world[i][j].biome = biome::tundra;
                 }
-
                 // OCEAN
                 if(tempMap[i][j].tile == "world_ocean") {
                     world[i][j].biome = biome::ocean;
@@ -247,7 +221,6 @@ void c_game::updateWorld() {
     }
 }
 
-// Populates the map with the actor group specified
 void c_game::populate(std::string herd) {
     s_herdAsset* asset = engine -> assetManager.getHerdAsset(herd);
     const int herdSize = 16;
@@ -290,15 +263,15 @@ void c_game::populate(std::string herd) {
             // Discard connected tiles that are too far away from origin
             std::vector<s_coordinates> finalTiles;
             for(int j = 0; j < connectedTiles.size(); ++j) {
-                std::cout << map -> path(tiles[i].x, tiles[i].y, connectedTiles[j].x, connectedTiles[j].y) -> size() << std::endl;
-                if(map -> path(tiles[i].x, tiles[i].y, connectedTiles[j].x, connectedTiles[j].y) -> size() <= global::maxHerdDistanceFromOrigin) {
+                TCODPath* path = map -> path(tiles[i].x, tiles[i].y, connectedTiles[j].x, connectedTiles[j].y);
+                if(path -> size() <= global::maxHerdDistanceFromOrigin) {
                     finalTiles.push_back(connectedTiles[j]);
                 }
+                delete path;
                 if(finalTiles.size() >= (actorQuantity * 2)) {
                         break;
                 }
             }
-            
             // If origin tile has enough space around for all possible actors, use it to populate
             if(finalTiles.size() >= actorQuantity) {
                 std::random_shuffle(finalTiles.begin(), finalTiles.end());
@@ -321,7 +294,6 @@ void c_game::flood(const int& x, const int& y) {
     and map -> getTile(x, y) -> getType() == tileType::floor
     and map -> getTile(x, y) -> hasAnyActor() == false
     and map -> getTile(x, y) -> getCheck() == false) {
-
         map -> getTile(x, y) -> setCheck(true);
         s_coordinates coords;
         coords.x = x;

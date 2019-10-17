@@ -26,9 +26,20 @@ class c_helper {
 		// * Map
 
 		static void showMapInfo();
-		static void saveMap(const bool& default = false); // Saves as default map if parameter is true
+		
+        /// @brief Saves the map in a .TCODZip file.
+		static void saveMap();
+
+        /// @brief Stores the map in a human-readable file.
+        static void storeMap();
+
 		static void changeMap(const int& x, const int& y, const int& z, int startX = 0, int startY = 0);
+		
+		/// @brief Loads the world map.
+		/// @param x X map coordinate.
+		/// @param y Y map coordinate.
 		static void worldMap(const int& mapX, const int& mapY);
+		
 		static const bool& isLocation(const int& x, const int& y); // Returns true if it finds a location actor in the tile
 		static const bool& isWorldMap();
 		static void resetMap();

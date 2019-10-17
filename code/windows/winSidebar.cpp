@@ -49,7 +49,7 @@ int c_winSidebar::update(int key, sf::Vector2i mousePos) {
 		case imode::game: {
 
 			c_actor* p_player = engine -> game -> actorManager.getPlayer();
-			std::vector<int> v_creature = engine -> game -> actorManager.getActiveActors();
+			std::vector<int> v_creature = engine -> game -> actorManager.getVisibleActors();
 			creatureCounter = v_creature.size();
 			std::vector<int> v_item = engine -> game -> map -> getTile(p_player -> getMapX(), p_player -> getMapY()) -> getItems();
 			itemCounter = v_item.size();

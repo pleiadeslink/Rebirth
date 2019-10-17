@@ -12,9 +12,14 @@ state["playAmbience"] = &c_helper::playAmbience;
 
 // Map
 state["info"] = &c_helper::showMapInfo; 
-state["saveMap"] = &c_helper::saveMap;
+state["saveMap"] = &c_helper::saveMap; // Saves the map in a .TCODZip file
+state["storeMap"] = &c_helper::storeMap; // Stores the map in a human-readable file
 state["changeMap"] = &c_helper::changeMap;
-state["worldMap"] = &c_helper::worldMap;
+state["worldMap"] = &c_helper::worldMap; // Loads the world map.
+state["build"] = &c_helper::build;
+state["updateWorld"] = &c_helper::updateWorld; // Updates world map from map 0.0.0 stored locally
+state["populate"] = &c_helper::populate; // Populates map in a random tile with a "herd"
+state["forgetMap"] = &c_helper::forgetMap;
 state["isWorldMap"] = &c_helper::isWorldMap;
 state["resetMap"] = c_helper::resetMap;
 state["addScript"] = &c_helper::createMapScript;
@@ -39,11 +44,6 @@ state["setWall1"] = &c_helper::setGenWall1;
 state["setWall2"] = &c_helper::setGenWall2;
 state["setWall3"] = &c_helper::setGenWall3;
 state["setAmbience"] = &c_helper::setAmbience;
-state["build"] = &c_helper::build;
-state["forgetMap"] = &c_helper::forgetMap;
-state["updateWorld"] = &c_helper::updateWorld; // Updates world map from map 0.0.0 stored locally
-state["populate"] = &c_helper::populate; // Populates map in a random tile with a "herd"
-
 state["isObstacle"] = &c_helper::isObstacle;
 state["createActor"] = &c_helper::createActor;
 state["actorTypeInTile"] = &c_helper::actorTypeInTile;

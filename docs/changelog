@@ -1,3 +1,9 @@
+0.2.24
+- Fixed bug that showed non-visible actors in sidebar
+- Doxygen integrated
+- Map serialization refactoring started
+- Wolf added
+
 0.2.23
 - Actor herd map population implemented!
 

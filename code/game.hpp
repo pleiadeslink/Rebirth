@@ -20,10 +20,26 @@ class c_game {
         const bool& newGame();
         const bool& saveGame();
         const bool& loadGame();
-        void loadMap(const int& x, const int& y, const int& z); // Tries to load from saved file, or static map, or generates it
-        void saveMap(const bool& default = false); // Saves as default map if parameter is true
-        void updateWorld(); // Updates world from map 0.0.0
-        void populate(std::string herd); // Populates the map with the monster group specified
+
+        /// @brief Loads a map from a saved file, a static map  or generates it
+        /// @param x X coordinate.
+        /// @param y Y coordinate.
+        /// @param z Z coordinate.
+        void loadMap(const int& x, const int& y, const int& z);
+
+        /// @brief Saves the map in a .TCODZip file.
+        void saveMap();
+
+        /// @brief Stores the map in a human-readable file.
+        void storeMap();
+
+        /// @brief Updates world map from local map 0.0.0
+        void updateWorld();
+
+        /// @brief Populates the map with a herd.
+        /// @herd A string of the herd's id.
+        void populate(std::string herd);
+        
         void flood(const int& x, const int& y); // This flood is ONLY used in populate
         int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
         void update(const int& key);

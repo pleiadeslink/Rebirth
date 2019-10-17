@@ -148,13 +148,17 @@ void c_helper::showMapInfo() {
 	message(s.str());
 }
 
-// Saves as default map if parameter is true
-void c_helper::saveMap(const bool& default) {
+void c_helper::saveMap() {
     if(engine -> game) {
-    	engine -> game -> saveMap(default);
+    	engine -> game -> saveMap();
     }
 }
 
+void c_helper::storeMap() {
+    if(engine -> game) {
+    	engine -> game -> storeMap();
+    }
+}
 
 void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, int startY) {
 	if(!engine -> game or !engine -> game -> map) {
@@ -165,7 +169,7 @@ void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, i
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
-    engine -> game -> saveMap(false);
+    engine -> game -> saveMap();
     //engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     engine -> game -> loadMap(x, y, z);
@@ -189,7 +193,7 @@ void c_helper::worldMap(const int& mapX, const int& mapY) {
     engine -> interface.draw();
     engine -> screen.display();
 	engine -> interface.setTileDestination(0);
-    engine -> game -> saveMap(false);
+    engine -> game -> saveMap();
     //engine -> game -> actorManager.savePlayer();
     engine -> game -> actorManager.clear();
     engine -> game -> loadMap(0, 0, 0);

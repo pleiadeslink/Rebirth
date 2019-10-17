@@ -191,15 +191,11 @@ c_actor* c_actorManager::getActor(const int& uid) {
 }
 
 const int& c_actorManager::createActor(const std::string& id, const int& mapX, const int& mapY) {
-
-	// Load data from asset
     kaguya::State state;
     structActorAsset* asset = engine -> assetManager.getActorAsset(id);
     if(!asset) {
         return 0;
     }
-
-    // Create instance
     c_actor* newActor;
     if(id == "avatar") {
         newActor = new c_actor(1);
@@ -210,11 +206,7 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         newActor = new c_actor(icounter);
         a_uid[icounter] = newActor;
         newActor -> init(asset);
-        //if(inventory == false) {
-            v_map.push_back(icounter);
-        //} else {
-            //v_inventory.push_back(icounter);
-        //}
+        v_map.push_back(icounter);
         if(newActor -> AI) {
             v_active.push_back(icounter);    
         }
@@ -223,11 +215,8 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         }  
         ++icounter;
     }
-
-    // Teleport to position
     c_helper::teleportActor(newActor -> getUid(), mapX, mapY, false);
-
-    //engine -> message("Actor '" + id + "' created.");
+    engine -> message("Actor '" + id + "' created.");
     return newActor -> getUid();
 }
 
@@ -259,6 +248,16 @@ void c_actorManager::deleteActor(const int& uid) {
 
     // Delete actor instance
     delete actor;
+}
+
+std::vector<int> c_actorManager::getVisibleActors() {
+    std::vector<int> v_visibleActors;
+    for(int i = 0; i < v_active.size(); ++i) {
+        if(engine -> game -> map -> getTile(a_uid[v_active[i]] -> getMapX(), a_uid[v_active[i]] -> getMapY()) -> getVisible() == true) {
+            v_visibleActors.push_back(v_active[i]);
+        }
+    }
+    return v_visibleActors;
 }
 
 const bool& c_actorManager::actorExists(const int& uid) {

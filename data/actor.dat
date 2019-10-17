@@ -79,7 +79,7 @@ faction: animal
 type: creature
 name: butterfly
 desc:  A beautiful, flying insect with large colorful wings.
-symbol: 2x6
+symbol: 5x2
 color: azure
 health: 1
 damage: 0-0
@@ -109,50 +109,6 @@ speed_a: 1
 accuracy: 70
 protection: 2
 exp: 8
-
-##########################################################################################
-##########################################################################################
-##   MONSTERS                                                                           ##
-##########################################################################################
-##########################################################################################
-
-[abomination]
-type: creature
-name: Abomination
-desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
-symbol: 15x8
-color: dark red
-health: 100
-damage: 30-40
-speed: 3
-speed_a: 2
-accuracy: 100
-exp: 100
-
-[dolor]
-type: creature
-name: dolor
-desc: An ancient dread apparition, sheathed in a cloud of mist. 
-symbol: 4x6
-color: darker red
-speed: 1
-speed_a: 1
-accuracy: 70
-protection: 2
-exp: 8
-type: creature
-
-[dryad]
-type: creature
-name: dryad
-desc: Dryads are capricious female nature spirits that dwell exclusively within deep forests. Be not fooled by their beautiful guises, nor their attempts to cloak themselves in the trappings of the natural world to throw off suspicion as to their true evil nature.
-symbol: 4x6
-color: green
-
-[floatingEye]
-type: creature
-name: Floating eye
-desc: A floating eyeball, said to be one of the servitors of Jivya. It possesses a gaze that can eventually paralyze even the most strong-willed of adventurers.
 
 [giantSpider]
 type: creature
@@ -197,6 +153,63 @@ speed_a: 1
 protection: 2
 dodge: 30
 exp: 30
+
+[wolf]
+type: creature
+name: wolf
+desc:  Wandering alone or in packs, this powerful canine is ferociously territorial and sit at the top of the food chain.
+symbol: 7x5
+color: grey
+speed: 2
+damage: 8-14
+speed_a: 1
+protection: 2
+dodge: 30
+exp: 30
+
+##########################################################################################
+##########################################################################################
+##   MONSTERS                                                                           ##
+##########################################################################################
+##########################################################################################
+
+[abomination]
+type: creature
+name: Abomination
+desc: An amorphous creature made of condensed negative energy called up from the depths of the lower astral to be worshipped by the most depraved of fools. It is composed of a mass of slithering rotten flesh pierced by putrid holes. This monster produces an unbearable stench and disrupts the frequency of those around it.
+symbol: 15x8
+color: dark red
+health: 100
+damage: 30-40
+speed: 3
+speed_a: 2
+accuracy: 100
+exp: 100
+
+[dolor]
+type: creature
+name: dolor
+desc: An ancient dread apparition, sheathed in a cloud of mist. 
+symbol: 4x6
+color: darker red
+speed: 1
+speed_a: 1
+accuracy: 70
+protection: 2
+exp: 8
+type: creature
+
+[dryad]
+type: creature
+name: dryad
+desc: Dryads are capricious female nature spirits that dwell exclusively within deep forests. Be not fooled by their beautiful guises, nor their attempts to cloak themselves in the trappings of the natural world to throw off suspicion as to their true evil nature.
+symbol: 4x6
+color: green
+
+[floatingEye]
+type: creature
+name: Floating eye
+desc: A floating eyeball, said to be one of the servitors of Jivya. It possesses a gaze that can eventually paralyze even the most strong-willed of adventurers.
 
 [mummy]
 type: creature

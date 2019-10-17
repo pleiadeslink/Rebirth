@@ -5,4 +5,11 @@
 [butterfly]
 actor[0]: 100-butterfly
 
+[smallWolfPack]
+actor[0]: 100-wolf
+actor[1]: 100-wolf
+actor[2]: 100-wolf
+actor[3]: 75-wolf
+actor[4]: 50-wolf
+
 [end]
