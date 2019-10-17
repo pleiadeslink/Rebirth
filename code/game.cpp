@@ -290,17 +290,20 @@ void c_game::populate(std::string herd) {
             // Discard connected tiles that are too far away from origin
             std::vector<s_coordinates> finalTiles;
             for(int j = 0; j < connectedTiles.size(); ++j) {
+                std::cout << map -> path(tiles[i].x, tiles[i].y, connectedTiles[j].x, connectedTiles[j].y) -> size() << std::endl;
                 if(map -> path(tiles[i].x, tiles[i].y, connectedTiles[j].x, connectedTiles[j].y) -> size() <= global::maxHerdDistanceFromOrigin) {
                     finalTiles.push_back(connectedTiles[j]);
+                }
+                if(finalTiles.size() >= (actorQuantity * 2)) {
+                        break;
                 }
             }
             
             // If origin tile has enough space around for all possible actors, use it to populate
             if(finalTiles.size() >= actorQuantity) {
-
                 std::random_shuffle(finalTiles.begin(), finalTiles.end());
                 int tileCounter = 0;
-                for(int j = 0; j < herdSize; ++j) {
+                for(int j = 0; j < actorQuantity; ++j) {
                     if(c_helper::d100(asset -> chance[j]) == true) {
                         actorManager.createActor(asset -> actor[j], finalTiles[tileCounter].x, finalTiles[tileCounter].x);
                         ++tileCounter;
@@ -314,10 +317,11 @@ void c_game::populate(std::string herd) {
 
 // This flood is ONLY used in populate
 void c_game::flood(const int& x, const int& y) {
-    if(x >= 0 and x < MAPSIZE and y >= 0 and y < MAPSIZE
+    if(x > 0 and x < MAPSIZE - 1 and y > 0 and y < MAPSIZE - 1
     and map -> getTile(x, y) -> getType() == tileType::floor
-    and map -> getTile(x, y) -> hasAnyActor() != false
+    and map -> getTile(x, y) -> hasAnyActor() == false
     and map -> getTile(x, y) -> getCheck() == false) {
+
         map -> getTile(x, y) -> setCheck(true);
         s_coordinates coords;
         coords.x = x;
