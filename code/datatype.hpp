@@ -96,7 +96,7 @@ typedef struct structActorAsset {
 // Used to random populate a room
 typedef struct s_herdAsset {
     std::string id;
-    std::string monster[15];
+    std::string actor[15];
     int chance[15];
 };
 

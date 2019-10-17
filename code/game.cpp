@@ -247,23 +247,90 @@ void c_game::updateWorld() {
     }
 }
 
-// Populates the map with the monster group specified
+// Populates the map with the actor group specified
 void c_game::populate(std::string herd) {
     s_herdAsset* asset = engine -> assetManager.getHerdAsset(herd);
-    for(int i = 0; i < 16; ++i) {
-        
-        if(asset -> monster[i] != "") {
-
-            if(c_helper::d100(asset -> chance[i]) == true) {
-                std::cout << "test" << std::endl;
-                std::cout << "test" << std::endl;
-                std::cout << "test" << std::endl;
-                std::cout << "test" << std::endl;
-
-                std::cout << "test" << std::endl;
+    const int herdSize = 16;
+    // Count max number of actors in herd
+    int actorQuantity = 0;
+    for(int i = 0; i < herdSize; ++i) {
+        if(asset -> actor[i] != "") {
+            ++actorQuantity;
+        }
+    }
+    // Collect a list of all possible tiles
+    std::vector<s_coordinates> tiles;
+    for(int i = 0; i < MAPSIZE; ++i) {
+        for(int j = 0; j < MAPSIZE; ++j) {
+            c_tile* tile = map -> getTile(i, j);
+            if(tile -> getType() == tileType::floor and tile -> hasAnyActor() == false) {
+                s_coordinates coords;
+                coords.x = tile -> getX();
+                coords.y = tile -> getY();
+                tiles.push_back(coords);
             }
         }
     }
+    // Chooses a tile
+    if(tiles.size() != 0) {
+        std::random_shuffle(tiles.begin(), tiles.end());
+        // Limits number of possible tiles
+        int maxTiles = tiles.size();
+        if(maxTiles > 64) {
+            maxTiles = 64;
+        }
+        for(int i = 0; i < maxTiles; ++i) {
+            connectedTiles.clear();
+            for(int i1 = 0; i1 < MAPSIZE; ++i1) {
+                for(int i2 = 0; i2 < MAPSIZE; ++i2) {
+                    map -> getTile(i1, i2) -> setCheck(false);
+                }
+            }
+            flood(tiles[i].x, tiles[i].y);
+            // Discard connected tiles that are too far away from origin
+            std::vector<s_coordinates> finalTiles;
+            for(int j = 0; j < connectedTiles.size(); ++j) {
+                if(map -> path(tiles[i].x, tiles[i].y, connectedTiles[j].x, connectedTiles[j].y) -> size() <= global::maxHerdDistanceFromOrigin) {
+                    finalTiles.push_back(connectedTiles[j]);
+                }
+            }
+            
+            // If origin tile has enough space around for all possible actors, use it to populate
+            if(finalTiles.size() >= actorQuantity) {
+
+                std::random_shuffle(finalTiles.begin(), finalTiles.end());
+                int tileCounter = 0;
+                for(int j = 0; j < herdSize; ++j) {
+                    if(c_helper::d100(asset -> chance[j]) == true) {
+                        actorManager.createActor(asset -> actor[j], finalTiles[tileCounter].x, finalTiles[tileCounter].x);
+                        ++tileCounter;
+                    }
+                }
+                break;
+            }
+        }
+    }
+}
+
+// This flood is ONLY used in populate
+void c_game::flood(const int& x, const int& y) {
+    if(x >= 0 and x < MAPSIZE and y >= 0 and y < MAPSIZE
+    and map -> getTile(x, y) -> getType() == tileType::floor
+    and map -> getTile(x, y) -> hasAnyActor() != false
+    and map -> getTile(x, y) -> getCheck() == false) {
+        map -> getTile(x, y) -> setCheck(true);
+        s_coordinates coords;
+        coords.x = x;
+        coords.y = y;
+        connectedTiles.push_back(coords);
+    }
+    else {
+        return;
+    }
+    flood(x + 1, y);
+    flood(x - 1, y);
+    flood(x, y + 1);
+    flood(x, y - 1);
 }
 
 // Returns the biome of the selected location of the world map

@@ -526,7 +526,7 @@ void c_assetManager::loadHerds() {
 
 		for(int i = 0; i < 16; ++i) {
 			std::ostringstream o_key;
-			o_key << "monster[" << i << "]: ";
+			o_key << "actor[" << i << "]: ";
 			key = o_key.str();
 			if(line.find(key) != std::string::npos) {
 				line.erase(0, key.length());
@@ -543,7 +543,7 @@ void c_assetManager::loadHerds() {
 					}
 				}
 				asset.chance[i] = atof(n1.c_str());
-				asset.monster[i] = n2.c_str();
+				asset.actor[i] = n2.c_str();
 			}
 		}
     }
@@ -619,7 +619,7 @@ s_abilityAsset c_assetManager::clearAbilityAsset(s_abilityAsset asset) {
 s_herdAsset c_assetManager::clearHerdAsset(s_herdAsset asset) {
 	asset.id = "default";
 	for(int i = 0; i < 16; ++i) {
-		asset.monster[i] = "";
+		asset.actor[i] = "";
 		asset.chance[i] = 0;
 	}
 	return asset;

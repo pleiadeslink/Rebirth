@@ -8,6 +8,7 @@ class c_game {
     private:
         s_worldTile** world; // World map
         int time; // Global ingame timer
+        std::vector<s_coordinates> connectedTiles; // Used to store the tiles connected to a target tile when populating with herds
 
     public:
         c_actorManager actorManager;
@@ -23,6 +24,7 @@ class c_game {
         void saveMap(const bool& default = false); // Saves as default map if parameter is true
         void updateWorld(); // Updates world from map 0.0.0
         void populate(std::string herd); // Populates the map with the monster group specified
+        void flood(const int& x, const int& y); // This flood is ONLY used in populate
         int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
         void update(const int& key);
         void turn(); // Runs turns till the player finishes his action

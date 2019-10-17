@@ -3,6 +3,6 @@
 [default]
 
 [butterfly]
-monster[0]: 100-butterfly
+actor[0]: 100-butterfly
 
 [end]

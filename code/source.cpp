@@ -47,6 +47,7 @@ namespace global {
 	const int lightMult = 16;
 	const int tileSize = 16;
 	const int maxRounds = 10000;
+	const int maxHerdDistanceFromOrigin = 5;
 };
 
 #include "enum.hpp"
