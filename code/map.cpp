@@ -1115,8 +1115,6 @@ const structFOVMap& c_map::computeFOV(const int& x, const int& y, const int& vie
     structFOVMap FOVMap;
     TCODMap* tcodmap;
     tcodmap = new TCODMap(viewRange, viewRange);
-
-    // Copies real map to tcodmap
     for(int i1 = 0; i1 < viewRange; ++i1) {
         for(int i2 = 0; i2 < viewRange; ++i2) {
             if(x - viewRange / 2 + i1 > 0
@@ -1143,11 +1141,7 @@ const structFOVMap& c_map::computeFOV(const int& x, const int& y, const int& vie
             }
         }
     }
-    
-    // Computes fov
     tcodmap -> computeFov(viewRange / 2, viewRange / 2, viewRange, true, FOV_SHADOW);
-    
-    // Copies tcodmap to fovmap
     for(int i1 = 0; i1 < viewRange; ++i1) {
         for(int i2 = 0; i2 < viewRange; ++i2) {
             if(tcodmap -> isInFov(i1, i2)) {

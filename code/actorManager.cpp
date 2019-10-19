@@ -102,6 +102,7 @@ void c_actorManager::storeMapActors(std::string path) {
     std::ofstream outfile(path);
     for(int i = 0; i < v_map.size(); ++i) {
         c_actor* p_actor = a_uid[v_map[i]];
+        
         outfile << "[" << p_actor -> getId() << "]" << std::endl;
         outfile << "x: " << p_actor -> getMapX() << std::endl;
         outfile << "y: " << p_actor -> getMapY() << std::endl;
@@ -165,6 +166,9 @@ void c_actorManager::loadActorsFromText(std::string path) {
                     return;
                 }
 			}
+            if(line == "[end]") {
+                return;
+            }
 			bool found = false;
 			int i = 1;
 			std::string id;
@@ -287,6 +291,7 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         newActor = new c_actor(icounter);
         a_uid[icounter] = newActor;
         newActor -> init(asset);
+
         v_map.push_back(icounter);
         if(newActor -> AI) {
             v_active.push_back(icounter);    

@@ -22,6 +22,7 @@ void c_interface::init()     {
     targetText = "";
     inputText = "";
     pasteMode = false;
+    destination = 0;
     info = new c_winInfo(44, 16, 23, 24);
     map = new c_winMap(0, 0, 67, 39);
     //gamelog = new c_winGamelog(0, 39, 67, 6);

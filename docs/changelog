@@ -1,3 +1,7 @@
+0.2.26
+- Map asset management implemented
+- Several nasty memory bugs fixed <3
+
 0.2.25
 - Serialization refactorization; static map actor data is now stored in a plain text file, allowing to be edited
 

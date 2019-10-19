@@ -1,0 +1,7 @@
+-- MAPS --
+
+[grassland]
+name: Grasslands
+ambience: birds1.wav
+herd: butterfly
+herd: smallWolfPack

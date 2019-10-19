@@ -108,6 +108,13 @@ typedef struct s_abilityAsset {
     int energy;
 };
 
+typedef struct s_mapAsset {
+    std::string id;
+    std::string name;
+    std::string ambience;
+    std::vector<std::string> v_herd;
+};
+
 typedef struct structTileAsset {
     std::string id;
     std::string name;

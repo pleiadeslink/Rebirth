@@ -682,8 +682,17 @@ structVerbAsset* c_assetManager::getVerbAsset(const std::string& id) {
 	return &v_verbAsset[0]; 
 }
 
-structMapAsset* c_assetManager::getMapAsset(const int& x, const int& y, const int& z) {
-	return &a_mapAsset[x][y][z]; 
+s_mapAsset* c_assetManager::getMapAsset(const std::string& id) {
+    int max = v_mapAsset.size();
+	if(max != 0) { 
+		for(int i = 0; i < max; ++i) {
+			if(v_mapAsset[i].id == id) {
+				return &v_mapAsset[i];
+            }
+        }
+    }
+    // Not found, default returned
+	return &v_mapAsset[0]; 
 }
 
 structTileAsset* c_assetManager::getTileAsset(const std::string& id) {
