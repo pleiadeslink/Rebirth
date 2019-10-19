@@ -15,30 +15,71 @@ class c_actorManager {
         unsigned int icounter = 1;
 
     public:
+        /// @brief Variable initializations
         c_actorManager();
+
+        /// @brief Deletes all actors
         ~c_actorManager();
+
+        /// @brief Saves player into 'data/save/player.sav'
         void savePlayer();
+
+        /// @brief Loads player's actor data from 'data/save/player.sav', then creates it in the stored position
         void loadPlayer();
 
-        /// @brief Save those actors that are not in the inventory.
-        /// @param zip A pointer to the TCODZip save file.
+        /// @brief Save in a text file (.act) those actors that are not in the inventory
+        /// @param path A string of the .act path
+        void storeMapActors(std::string path);
+
+        /// @brief Save in a binary file those actors that are not in the inventory
+        /// @param zip A pointer to the TCODZip save file
         void saveMapActors(TCODZip* zip);
-        
+
+        /// @brief Save those actors that are not in the inventory
+        /// @param zip A pointer to the TCODZip save file        
         void saveInventoryActors(TCODZip* zip);
-        void loadActors(TCODZip* zip);
+
+        /// @brief Creates all actors stored in a .act file (human-readable) 
+        /// @param path A string of the .act file path
+        void loadActorsFromText(std::string path);
+
+        /// @brief Creates all actors stored in a TCODZip file
+        /// @param zip A pointer to the TCODZip save file 
+        void loadActorsFromBinary(TCODZip* zip);
+
+        /// @brief Removes all actors from map and vectors, then deletes them
         void clear();
+
+        /// @brief Updates all active actors that are within AI range; executed at every tick
         void timeUpdate();
+
+        /// @brief Returns a pointer to the player's actor object
         c_actor* getPlayer() { return player; }
+
+        /// @brief Returns a pointer to the actor
+        /// @param uid The actor's unique ID integrer
         c_actor* getActor(const int& uid);
+
+        /// @brief Removes an actor from map and vectors, then deletes it
+        /// @param id The actor's asset ID
+        /// @param mapX The X coord of the destination tile
+        /// @param mapY The X coord of the destination tile
         const int& createActor(const std::string& id, const int& mapX, const int& mapY);
+
+        /// @brief Deletes an actor from map and vectors, finally the actor's object is also deleted
+        /// @param uid The actor's unique ID
         void deleteActor(const int& uid);
 
-        /// @brief Returns a list of all currently active actors (those that are inside the active radius).
-        /// @return A vector with the uid of all active actors.
+        /// @brief Returns a list of all actors present in the map (meaning excluding those in the inventory)
+        /// @return A vector composed of the actor's uid
+        std::vector<int> getMapActors() { return v_map; }
+
+        /// @brief Returns a list of all currently active actors (those that are inside the active radius)
+        /// @return A vector composed of the actor's uid
         std::vector<int> getActiveActors() { return v_active; }
 
-        /// @brief Returns all active actors that are on a visible tile.
-        /// @return A vector with the uid of all visible actors.
+        /// @brief Returns all active actors that are located on top of a visible map tile
+        /// @return A vector composed of the actor's uid
         std::vector<int> getVisibleActors();
 
         std::vector<int> getLocations() { return v_locations; }

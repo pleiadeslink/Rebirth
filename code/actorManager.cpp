@@ -98,13 +98,30 @@ void c_actorManager::loadPlayer() {
     }
 }
 
-// Saves actors which are not in the inventory
-/*
-    int size of actors not in inv
-    save actors
-*/
+void c_actorManager::storeMapActors(std::string path) {
+    std::ofstream outfile(path);
+    for(int i = 0; i < v_map.size(); ++i) {
+        c_actor* p_actor = a_uid[v_map[i]];
+        outfile << "[" << p_actor -> getId() << "]" << std::endl;
+        outfile << "x: " << p_actor -> getMapX() << std::endl;
+        outfile << "y: " << p_actor -> getMapY() << std::endl;
+        outfile << "name: " << p_actor -> getName() << std::endl;
+        if(p_actor -> life) {
+            outfile << "health: " << p_actor -> life -> getHealth() << std::endl;
+        }
+        if(p_actor -> door) {
+            if(p_actor -> door -> getOpen() == true) {
+                outfile << "open: true" << std::endl;
+            } else {
+                outfile << "open: false" << std::endl;
+            }
+        }
+    }
+    outfile << "[end]" << std::endl;
+    outfile.close();
+}
+
 void c_actorManager::saveMapActors(TCODZip* zip) {
-    
     if(v_map.size() > 0) {
         int size = v_map.size();
         zip -> putInt(size);
@@ -129,8 +146,73 @@ void c_actorManager::saveInventoryActors(TCODZip* zip) {
     }
 }
 
-// ! If you fuck with this, you'll have to sodomize updateWorld() too
-void c_actorManager::loadActors(TCODZip* zip) {
+void c_actorManager::loadActorsFromText(std::string path) {
+	std::string line;
+	std::string key;
+	bool n = true;
+	std::ifstream file(path);
+    c_actor* p_actor = 0;
+    int x = 0;
+    int y = 0;
+    while(getline(file, line)) {
+		if(line[0] == '[') {
+			// Save previous dump and clear asset
+			if(n == false) {
+				c_helper::teleportActor(p_actor -> getUid(), x, y, false);
+
+                p_actor = 0;
+                if(line == "[end]") {
+                    return;
+                }
+			}
+			bool found = false;
+			int i = 1;
+			std::string id;
+			while(found == false) {
+				id.push_back(line[i]);
+				if(line[i + 1] == ']') {
+					found = true;
+				}
+				++i;
+			}
+			n = false;
+			int uid = createActor(id, 0, 0);
+            p_actor = a_uid[uid];
+		}
+		key = "x: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			x = atof(line.c_str());
+		}
+		key = "y: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			y = atof(line.c_str());
+		}
+        // Warning! Field names must be unique
+		if(p_actor != 0) {
+            key = "name: ";
+            if(line.find(key) != std::string::npos) {
+                line.erase(0, key.length());
+                p_actor -> setName(line);
+            }
+            key = "health: ";
+            if(line.find(key) != std::string::npos) {
+                line.erase(0, key.length());
+                p_actor -> life -> setHealth(atof(line.c_str()));
+            }
+            key = "open: true";
+            if(line.find(key) != std::string::npos) {
+                p_actor -> door -> setOpen(true);
+            }
+		}
+    }
+    if(file.is_open()) {
+        file.close();
+	}
+}
+
+void c_actorManager::loadActorsFromBinary(TCODZip* zip) {
     int size = zip -> getInt();
     if(size > 0) {
         for(int i = 0; i < size; ++i) {
@@ -162,7 +244,6 @@ void c_actorManager::clear() {
     v_locations.clear();
 }
 
-// Update all active actors that are within maxFOVRange / 2 + 8 tiles
 void c_actorManager::timeUpdate() {
     int size = v_active.size();
     if(size == 0 or player == 0) {

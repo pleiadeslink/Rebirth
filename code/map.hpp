@@ -1,15 +1,9 @@
 #ifndef c_map_hpp
 #define c_map_hpp
-
 struct structMapAsset;
 struct structFOVMap;
 
-/* 
-    SPECIAL MAPS
-    World: -1,-1,-1
-    Oversoul: -2, -2, -2
-*/
-
+/// @brief A 2D matrix composed of map tiles representing a physical space structure
 class c_map : public TCODMap {
     private:
         //c_tile** matrix; // *
@@ -51,11 +45,29 @@ class c_map : public TCODMap {
         c_map();
         ~c_map();
         void init();
-        void save(TCODZip* zip); // Save map into .map file in data/save
-        void load(TCODZip* zip); // Load map from a .map file in data/map
-        void parse(std::string path); // Parse map from a txt
+
+        /// @brief Saves the map data into the specified TCODZip file (used when storing and saving)
+        /// @param zip A pointer to the TCODZip file
+        void save(TCODZip* zip);
+
+        /// @brief Loads map data from a saved TCODZip file (binary)
+        /// @param zip A pointer to the TCODZip file
+        void load(TCODZip* zip);
+
+        /// @brief Parse map terrain data from a txt file
+        /// @param zip A string of the map file path
+        void parse(std::string path);
+
+        /// @brief Resets tile matrix to default values and the coordinates given in parameters
+        /// @param x X coordinate
+        /// @param y Y coordinate
+        /// @param z Z coordinate
         void wipe(const int& x, const int& y, const int& z);
+
+        /// @brief Calculates a path between two given points
+        /// @return A pointer to the path - WARNING! The path must be deleted after being used
         TCODPath* path(const int& x0, const int& y0, const int& x1, const int& y1);
+
         c_tile* runaway(const int& x1, const int& y1, const int& tx, const int& ty);
         void addScript(s_script script);
         const bool& isWorldMap();

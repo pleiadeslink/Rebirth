@@ -7,11 +7,9 @@ c_game::~c_game() {
 }
 
 const bool& c_game::newGame() {
-
     // Creates map
     map = new c_map();
     map -> init();
-
     // Creates world map 
     world = new s_worldTile*[MAPSIZE];
 	for(int i = 0; i < MAPSIZE; ++i)
@@ -22,7 +20,6 @@ const bool& c_game::newGame() {
             world[i1][i2].danger = 0;
         }
     }
-
     // Loads initial map
     loadMap(0, 0, 0);
     storeMap();
@@ -48,17 +45,18 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 	TCODZip zip;
     map -> wipe(x, y, z);
 	// Load saved
-    std::string savedFilename = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
-    if(zip.loadFromFile(savedFilename.c_str())) {
+    std::string path = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
+    if(zip.loadFromFile(path.c_str())) {
         map -> load(&zip);
-		actorManager.loadActors(&zip);
+		actorManager.loadActorsFromBinary(&zip);
 		return;
 	}
 	// Load static
-    std::string staticFilename = "data/world";
-    if(zip.loadFromFile(staticFilename.c_str())) {
+    path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
+    if(zip.loadFromFile(path.c_str())) {
         map -> load(&zip);
-		actorManager.loadActors(&zip);
+        path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".act";
+		actorManager.loadActorsFromText(path);
 		return;
 	}
 	// Parse world map
@@ -106,16 +104,16 @@ void c_game::storeMap() {
 	if(!map) {
 		return;
 	}
-    // Save tiles
+    // Save tile map in a binary file
     TCODZip zip;
     map -> save(&zip);
+    actorManager.saveMapActors(&zip); // Not needed but we leave it not to break updateWorld()
     std::string filename;
     filename = "data/map/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".map";
     zip.saveToFile(filename.c_str());
-    // Save actors
-    std::ofstream outfile("data/map/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".dat");
-    outfile << "my text here!" << std::endl;
-    outfile.close();
+    // Save actors in a human-readable file
+    std::string path = "data/map/" + std::to_string(map -> getX()) + "." + std::to_string(map -> getY()) + "." + std::to_string(map -> getZ()) + ".act";
+    actorManager.storeMapActors(path);
 	return;
 }
 
@@ -139,7 +137,7 @@ void c_game::updateWorld() {
                 zip.getInt(); 
             }
         }
-        // Again, we need to do this to respect the order of the stored data
+        // We need to do this to respect the order of the stored data
         zip.getInt();
         zip.getInt();
         zip.getInt();

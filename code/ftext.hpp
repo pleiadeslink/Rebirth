@@ -24,7 +24,7 @@
 using namespace sf;
 
 ////////////////////////////////////////////////////////////
-/// \brief Graphical text that can be drawn to a render target.
+/// \brief Graphical text that can be drawn to a render target
 ///
 ////////////////////////////////////////////////////////////
 class FText : public Drawable, public Transformable
@@ -32,7 +32,7 @@ class FText : public Drawable, public Transformable
 public:
 
     ////////////////////////////////////////////////////////////
-    /// \brief Enumeration of the string drawing styles.
+    /// \brief Enumeration of the string drawing styles
     ///
     ////////////////////////////////////////////////////////////
     enum Style
@@ -53,7 +53,7 @@ public:
     FText();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct the text from a string, font and size.
+    /// \brief Construct the text from a string, font and size
     ///
     /// Note that if the used font is a bitmap font, it is not
     /// scalable, thus not all requested sizes will be available
@@ -73,7 +73,7 @@ public:
     /// \brief Set the text's string
     ///
     /// The \a string argument is a sf::String, which can
-    /// automatically be constructed from standard string types.
+    /// automatically be constructed from standard string types
     /// So, the following calls are all valid:
     /// \code
     /// text.setString("hello");
@@ -91,7 +91,7 @@ public:
     void setString(const String& string);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the text's font.
+    /// \brief Set the text's font
     ///
     /// The \a font argument refers to a font that must
     /// exist as long as the text uses it. Indeed, the text
@@ -108,7 +108,7 @@ public:
     void setFont(const Font& font);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the character size.
+    /// \brief Set the character size
     ///
     /// The default size is 30.
     ///
@@ -127,7 +127,7 @@ public:
     void setCharacterSize(unsigned int size);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the text's style.
+    /// \brief Set the text's style
     ///
     /// You can pass a combination of one or more styles, for
     /// example sf::Text::Bold | sf::Text::Italic.
@@ -141,7 +141,7 @@ public:
     void setStyle(Uint32 style);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the fill color of the text.
+    /// \brief Set the fill color of the text
     ///
     /// By default, the text's fill color is opaque white.
     /// Setting the fill color to a transparent color with an outline
@@ -159,7 +159,7 @@ public:
     SFML_DEPRECATED void setColor(const Color& color);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the fill color of the text.
+    /// \brief Set the fill color of the text
     ///
     /// By default, the text's fill color is opaque white.
     /// Setting the fill color to a transparent color with an outline
@@ -173,7 +173,7 @@ public:
     void setFillColor(const Color& color);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the outline color of the text.
+    /// \brief Set the outline color of the text
     ///
     /// By default, the text's outline color is opaque black.
     ///
@@ -185,7 +185,7 @@ public:
     void setOutlineColor(const Color& color);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the thickness of the text's outline.
+    /// \brief Set the thickness of the text's outline
     ///
     /// By default, the outline thickness is 0.
     ///
@@ -200,7 +200,7 @@ public:
     void setOutlineThickness(float thickness);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the text's string.
+    /// \brief Get the text's string
     ///
     /// The returned string is a sf::String, which can automatically
     /// be converted to standard string types. So, the following
@@ -219,7 +219,7 @@ public:
     const String& getString(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the text's font.
+    /// \brief Get the text's font
     ///
     /// If the text has no font attached, a NULL pointer is returned.
     /// The returned pointer is const, which means that you
@@ -233,7 +233,7 @@ public:
     const Font* getFont(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the character size.
+    /// \brief Get the character size
     ///
     /// \return Size of the characters, in pixels
     ///
@@ -243,7 +243,7 @@ public:
     unsigned int getCharacterSize(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the text's style.
+    /// \brief Get the text's style
     ///
     /// \return Text's style
     ///
@@ -253,7 +253,7 @@ public:
     Uint32 getStyle(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the fill color of the text.
+    /// \brief Get the fill color of the text
     ///
     /// \return Fill color of the text
     ///
@@ -267,7 +267,7 @@ public:
     SFML_DEPRECATED const Color& getColor(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the fill color of the text.
+    /// \brief Get the fill color of the text
     ///
     /// \return Fill color of the text
     ///
@@ -277,7 +277,7 @@ public:
     const Color& getFillColor(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the outline color of the text.
+    /// \brief Get the outline color of the text
     ///
     /// \return Outline color of the text
     ///
@@ -287,7 +287,7 @@ public:
     const Color& getOutlineColor(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the outline thickness of the text.
+    /// \brief Get the outline thickness of the text
     ///
     /// \return Outline thickness of the text, in pixels
     ///
@@ -297,7 +297,7 @@ public:
     float getOutlineThickness(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Return the position of the \a index-th character.
+    /// \brief Return the position of the \a index-th character
     ///
     /// This function computes the visual position of a character
     /// from its index in the string. The returned position is
@@ -314,7 +314,7 @@ public:
     Vector2f findCharacterPos(std::size_t index);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the local bounding rectangle of the entity.
+    /// \brief Get the local bounding rectangle of the entity
     ///
     /// The returned rectangle is in local coordinates, which means
     /// that it ignores the transformations (translation, rotation,
@@ -328,7 +328,7 @@ public:
     FloatRect getLocalBounds(); 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the global bounding rectangle of the entity.
+    /// \brief Get the global bounding rectangle of the entity
     ///
     /// The returned rectangle is in global coordinates, which means
     /// that it takes into account the transformations (translation,
@@ -347,7 +347,7 @@ public:
 private:
 
     ////////////////////////////////////////////////////////////
-    /// \brief Draw the text to a render target.
+    /// \brief Draw the text to a render target
     ///
     /// \param target Render target to draw to
     /// \param states Current render states
@@ -356,7 +356,7 @@ private:
     virtual void draw(RenderTarget& target, RenderStates states) const; 
 
     ////////////////////////////////////////////////////////////
-    /// \brief Make sure the text's geometry is updated.
+    /// \brief Make sure the text's geometry is updated
     ///
     /// All the attributes related to rendering are cached, such
     /// that the geometry is only updated when necessary.

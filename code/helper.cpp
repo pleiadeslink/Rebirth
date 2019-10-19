@@ -996,12 +996,10 @@ const bool& c_helper::getItemFromFloor(const int& target) {
 	if(!p_emitter -> player or p_target -> life) {
 		return false;
 	}
-
     // If the same item already existed in the inventory, we remove this one (quantity increased in inventory)
     if(p_emitter -> player-> addToInventory(target) == true) {
         engine -> game -> actorManager.deleteActor(target);
         return true;
-
 	// The item did not exist
     } else {
 	    engine -> game -> map -> removeActorFromTile(target, p_target -> getMapX(), p_target -> getMapY());

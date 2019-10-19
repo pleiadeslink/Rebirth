@@ -47,39 +47,25 @@ void c_map::init() {
     fill(engine -> assetManager.getTileAsset("floor_grass"));
 }
 
-// Save map into .map file in data/save
 void c_map::save(TCODZip* zip) {
-
-    // Save dimension
     zip -> putInt(width);
     zip -> putInt(height);
-
-    // Save map tiles 
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
             zip -> putString(matrix[i1][i2] -> getId().c_str());
             zip -> putInt(matrix[i1][i2] -> getExplored());
         }
     }
-
-    // Save coords
     zip -> putInt(x);
     zip -> putInt(y);
     zip -> putInt(z);
-
-    // Save map info
     zip -> putString(name.c_str());
     zip -> putString(ambience.c_str());
 }
 
-// Load map from a .map file in data/map
 void c_map::load(TCODZip* zip) {
-
-    // Load dimension
     width = zip -> getInt();;
     height = zip -> getInt();
-
-    // Load map tiles 
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
             matrix[i1][i2] -> setAsset(engine -> assetManager.getTileAsset(zip -> getString()));
@@ -92,18 +78,13 @@ void c_map::load(TCODZip* zip) {
             }
         }
     }
-
-    // Load coords
     x = zip -> getInt();
     y = zip -> getInt();
     z = zip -> getInt();
-
-    // Load map info
     name = zip -> getString();
     ambience = zip -> getString();
 }
 
-// Parse map from a rex map
 void c_map::parse(std::string path) {
     std::string line;
     std::ifstream file(path);
@@ -166,7 +147,6 @@ void c_map::wipe(const int& x, const int& y, const int& z) {
 
 TCODPath* c_map::path(const int& x0, const int& y0, const int& x1, const int& y1) {
     TCODPath* path = new TCODPath(this); // Second value is the diagonal cost
-
     // Origin and destination tile are set as walkable temporarily for the path to compute
     bool originWasObstacle = false;
     if(matrix[x0][y0] -> isObstacle() or matrix[x0][y0] -> isLocation()) {
@@ -178,16 +158,13 @@ TCODPath* c_map::path(const int& x0, const int& y0, const int& x1, const int& y1
         setProperties(x1, y1, true, true);
         destWasObstacle = true; 
     }
-    
     path -> compute(x0, y0, x1, y1);
-
     if(originWasObstacle == true) {
         setProperties(x0, y0, false, false);
     }
     if(destWasObstacle == true) {
         setProperties(x1, y1, false, false);
     }
-
     return path;
 }
 

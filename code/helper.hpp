@@ -36,8 +36,8 @@ class c_helper {
 		static void changeMap(const int& x, const int& y, const int& z, int startX = 0, int startY = 0);
 		
 		/// @brief Loads the world map.
-		/// @param x X map coordinate.
-		/// @param y Y map coordinate.
+		/// @param mapX X map coordinate.
+		/// @param mapY Y map coordinate.
 		static void worldMap(const int& mapX, const int& mapY);
 		
 		static const bool& isLocation(const int& x, const int& y); // Returns true if it finds a location actor in the tile

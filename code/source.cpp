@@ -141,3 +141,11 @@ int main(int argc, char *argv[]) {
 #include "mapGen.cpp"
 #include "game.cpp"
 #include "engine.cpp"
+
+/*! \mainpage Rebirth docs
+ *
+ * Welcome!
+ *
+ * This is the official documentation for Rebirth RL, intented to be used internally only.
+ *
+ */

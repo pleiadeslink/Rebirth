@@ -1,3 +1,6 @@
+0.2.25
+- Serialization refactorization; static map actor data is now stored in a plain text file, allowing to be edited
+
 0.2.24
 - Fixed bug that showed non-visible actors in sidebar
 - Doxygen integrated

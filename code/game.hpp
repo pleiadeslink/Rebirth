@@ -22,26 +22,34 @@ class c_game {
         const bool& loadGame();
 
         /// @brief Loads a map from a saved file, a static map  or generates it
-        /// @param x X coordinate.
-        /// @param y Y coordinate.
-        /// @param z Z coordinate.
+        /// @param x X coordinate
+        /// @param y Y coordinate
+        /// @param z Z coordinate
         void loadMap(const int& x, const int& y, const int& z);
 
-        /// @brief Saves the map in a .TCODZip file.
+        /// @brief Saves the map in a .TCODZip file
         void saveMap();
 
-        /// @brief Stores the map in a human-readable file.
+        /// @brief Stores the map in a human-readable file
         void storeMap();
 
         /// @brief Updates world map from local map 0.0.0
         void updateWorld();
 
-        /// @brief Populates the map with a herd.
-        /// @herd A string of the herd's id.
+        /// @brief Populates the map with a herd
+        /// @param herd A string of the herd's id
         void populate(std::string herd);
         
-        void flood(const int& x, const int& y); // This flood is ONLY used in populate
-        int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
+        /// @brief Aux flood function used in populate() exclusively
+        /// @param x X coordinate
+        /// @param y Y coordinate
+        void flood(const int& x, const int& y);
+
+        /// @brief Returns the biome of the selected location of the world map
+        /// @param x X coordinate
+        /// @param y Y coordinate
+        int getBiome(const int& x, const int& y);
+        
         void update(const int& key);
         void turn(); // Runs turns till the player finishes his action
         void message(std::string text); // Prints a message in the game console

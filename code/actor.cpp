@@ -139,39 +139,34 @@ void c_actor::timeUpdate() {
     }
 }
 
-/*
-    string id
-    int mapX
-    int mapY
-    ------------------------- from here, parameters for load()
-    int hasLife
-    ? int health (life)
-*/
 void c_actor::save(TCODZip* zip) {
     zip -> putString(id.c_str());
     zip -> putInt(mapX);
     zip -> putInt(mapY);
+    zip -> putString(name.c_str());
     if(life) {
         zip -> putInt(1);
         zip -> putInt(life -> getHealth());
     } else {
         zip -> putInt(0);
     }
-    if(door and door -> isClosed() == false) {
+    if(door) {
         zip -> putInt(1);
+        zip -> putInt(door -> getOpen());
     } else {
         zip -> putInt(0);
     }
 }
 
 void c_actor::load(TCODZip* zip) {
+    name = zip -> getString();
     int hasLife = zip -> getInt();
     if(hasLife == 1) {
         life -> setHealth(zip -> getInt());
     }
-    int openedDoor = zip -> getInt();
-    if(openedDoor == 1) {
-        door -> toggleOpen();
+    int hasDoor = zip -> getInt();
+    if(hasDoor == 1) {
+        door -> setOpen(zip -> getInt());
     }
 }
 
@@ -193,7 +188,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
                         
     // Door
     } else if(door) {
-        if(door -> isClosed()) {
+        if(door -> getOpen() == false) {
             structEventData eventData;
             eventData.type = "open";
             eventData.target = uid;

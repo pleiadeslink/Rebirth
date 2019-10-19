@@ -22,7 +22,7 @@ class c_life {
         void set(const int& maxHealth, const int& minDamage, const int& maxDamage, const int& speed, const int& attack, const int& defense, const int& protection, const int& block, const int& parry);
         void restoreHealth(const int& points);
         void damageHealth(const int& points); 
-        void setHealth(const int& points) { health = points; } // ! Warning! Use only for loading
+        void setHealth(const int& health) { this -> health = health; }
         const int& getHealth() { return health; }
         const int& getMaxHealth() { return maxHealth; }
         const int& getMinDamage() { return minDamage; }
