@@ -291,7 +291,6 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         newActor = new c_actor(icounter);
         a_uid[icounter] = newActor;
         newActor -> init(asset);
-
         v_map.push_back(icounter);
         if(newActor -> AI) {
             v_active.push_back(icounter);    
