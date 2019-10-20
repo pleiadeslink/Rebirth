@@ -1,3 +1,7 @@
+0.2.27
+- Unused enums deleted
+- Documentation
+
 0.2.26
 - Map asset management implemented
 - Several nasty memory bugs fixed <3

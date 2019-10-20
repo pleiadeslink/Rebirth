@@ -68,12 +68,26 @@ class c_map : public TCODMap {
         /// @return A pointer to the path - WARNING! The path must be deleted after being used
         TCODPath* path(const int& x0, const int& y0, const int& x1, const int& y1);
 
+        /// @brief Returns the tile in opposite direction of the target's position
+        /// @param x1 The X coordinate of the emitter
+        /// @param y1 The Y coordinate of the emitter
+        /// @param tx The X coordinate of the target
+        /// @param ty The Y coordinate of the target
+        /// @return A pointer to the destination tile
         c_tile* runaway(const int& x1, const int& y1, const int& tx, const int& ty);
+
+        /// @brief Adds a s_script object to the map's script vector
+        /// @param script The s_script object to be saved
         void addScript(s_script script);
+
+        /// @brief Informs if the current map is the world map or not
+        /// @return Returns true if the current map is the world map
         const bool& isWorldMap();
 
-        // Public build
+        /// @brief Creates the tile matrix
         void createMatrix();
+
+        /// @brief Creates the generator tile matrix
         void createGenMatrix();
         void fill(const structTileAsset* asset);
         void flood(const structTileAsset* asset, const int& x, const int& y);

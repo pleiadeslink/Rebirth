@@ -1,1 +1,1 @@
-![Screenshot](screenshot.png)
+For more information, please visit [Rebirth's website](http://fractalmonkey.xyz/rebirth/).

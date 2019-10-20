@@ -1,7 +1,6 @@
 c_actor::c_actor(const int& uid)
 :	uid(uid),
     texture(""),
-    tall(false),
     action(0),
 	player(0),
 	AI(0),
@@ -48,7 +47,6 @@ c_actor::~c_actor() {
 }
 
 void c_actor::init(structActorAsset* asset) {
-
     id = asset -> id;
     type = asset -> type;
     name = asset -> name;
@@ -59,7 +57,6 @@ void c_actor::init(structActorAsset* asset) {
     color = asset -> color;
     faction = asset -> faction;
     f_noshadow = asset -> f_noshadow;
-
     switch(type) {
         case actorType::avatar: {
             action = new c_action(this);
@@ -128,11 +125,8 @@ void c_actor::draw(const int& x, int y) {
 }
 
 void c_actor::timeUpdate() {
-
     if(action) {
-
         action -> timeUpdate();
-
      	if(AI and action -> isRunning() == false) {
         	AI -> think();
         }
@@ -171,11 +165,9 @@ void c_actor::load(TCODZip* zip) {
 }
 
 bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
-
     if(!p_player or p_player -> action -> isRunning()) {
         return false;
     }
-    
     // Creature
     if(life) {
         structEventData eventData;
@@ -184,8 +176,7 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
         eventData.mapX = mapX;
         eventData.mapY = mapY;
         p_player -> action -> start(eventData);
-        return true;
-                        
+        return true;             
     // Door
     } else if(door) {
         if(door -> getOpen() == false) {
@@ -195,7 +186,6 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
             p_player -> action -> start(eventData);
             return true;                               
         }
-    
     // Consumable
     }/* else if(consumable and fromWalk == false) {
         switch(consumable -> getAction()) {
@@ -225,15 +215,11 @@ bool c_actor::playerAction(const bool& fromWalk, c_actor* p_player) {
             p_player -> action -> start(eventData);
             return true;  
         }
-               
     }*/
     return false;
 }
 
-
-// Checks if the actor can perform the ability, returns how long it takes (if 0, cannot perform)
 const int& c_actor::checkAbility(s_abilityAsset* abilityAsset) {
-
     // If player, does he know the ability?
     if(type == actorType::avatar) {
         if(player -> hasAbility(abilityAsset -> id) == false) {
@@ -241,6 +227,5 @@ const int& c_actor::checkAbility(s_abilityAsset* abilityAsset) {
             return 0;
         }
     }
-
     return abilityAsset -> duration;
 }

@@ -1,4 +1,4 @@
-
+/// @brief Keyboard keys
 namespace key {
     enum keys {
         none,
@@ -24,6 +24,7 @@ namespace key {
     };
 }
 
+/// @brief Actor categories
 namespace actorType {
     enum actorTypes {
         nothingness,
@@ -44,22 +45,7 @@ namespace actorType {
     };
 }
 
-namespace wildernessType {
-    enum wildernessTypes {
-        plains,
-        forest,
-        desert,
-        beach_n,
-        beach_s,
-        beach_e,
-        beach_w,
-        beach_ne,
-        beach_nw,
-        beach_se,
-        beach_sw
-    };
-}
-
+/// @brief 8 cardinal directions + up/down + random
 namespace direction {
     enum directions {
         none,
@@ -77,6 +63,7 @@ namespace direction {
     };
 }
 
+/// @brief Size categories
 namespace size {
     enum sizes {
         tiny,
@@ -87,6 +74,7 @@ namespace size {
     };
 }
 
+/// @brief Text alignment
 namespace textAlign {
     enum textAligns {
         right,
@@ -96,6 +84,7 @@ namespace textAlign {
     };
 }
 
+/// @brief Interface modes
 namespace imode {
     enum imodes {
         game,
@@ -107,6 +96,7 @@ namespace imode {
     };
 }
 
+/// @brief Interface edit modes
 namespace emode {
     enum emodes {
         tile,
@@ -115,6 +105,7 @@ namespace emode {
     };
 }
 
+/// @brief Screens for the main character menu
 namespace charScreen {
     enum charScreens {
         inventory,
@@ -126,6 +117,7 @@ namespace charScreen {
     };
 }
 
+/// @brief Tile categories used in c_tile
 namespace tileType {
     enum tileTypes {
         floor,
@@ -138,31 +130,7 @@ namespace tileType {
     };
 }
 
-namespace mapType {
-    enum mapTypes {
-        cave,
-        jungle,
-        dungeon,
-        hell
-    };
-}
-
-namespace event {
-    enum events {
-        none, // 0
-        walk, // 1
-        attack, // 2
-        damage, // 3
-        death, // 4
-        speak,
-        eat,
-        read,
-        drink, // 5
-        travel, // Only available in wilderness maps
-        explore // Only available in world map
-    };
-}
-
+/// @brief Actor factions, used by AI to establish enemies/allies
 namespace faction {
     enum factions {
         none,
@@ -171,25 +139,11 @@ namespace faction {
     };
 }
 
+/// @brief Button types by the interface's winButton element
 namespace buttonType {
     enum buttonTypes {
         tile,
         actor
-    };
-}
-
-namespace shader {
-    enum shaders {
-        water
-    };
-}
-
-namespace tile {
-    enum tiles {
-        thevoid,
-		wallRock,
-        floorGrass,
-        floorGravel
     };
 }
 
@@ -206,7 +160,9 @@ namespace genTile {
     };
 }
 
-// ! Careful with altering this order, as literals are being used in walk.lua
+/// @brief Biome types for world map
+///
+/// Careful with altering this order, as literals are being used in walk.lua
 namespace biome {
     enum biomes {
         grassland,
@@ -223,17 +179,7 @@ namespace biome {
     };
 }
 
-namespace layer {
-    enum layers {
-        thebackest,
-        background,
-        tiles,
-        fog,
-        gamelog,
-        healthbars
-    };
-}
-
+/// @brief Weapon types used by the actor's c_weapon component
 namespace weaponType {
     enum weaponTypes {
         none,
@@ -243,6 +189,7 @@ namespace weaponType {
     };
 }
 
+/// @brief Weapon categories used by the actor's c_weapon component
 namespace weaponCategory {
     enum weaponCategories {
         none,
@@ -252,6 +199,7 @@ namespace weaponCategory {
     };
 }
 
+/// @brief Weapon categories used by the actor's c_armor component
 namespace bodySlot {
     enum bodySlot {
         head,

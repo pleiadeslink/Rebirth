@@ -7,7 +7,7 @@ class c_body;
 class c_life;
 class c_player;
 
-/// @brief An object representing any type of entity in existence inside the game's universe
+/// @brief An object representing any type of entity in existence inside the game's universe; actors are composed of different components
 
 /// Attributes serialized:
 ///
@@ -33,18 +33,41 @@ class c_player;
 class c_actor {
 
     private:
+
+        /// @brief The actor's unique ID
         int uid;
+
+        /// @brief The actor's asset ID
         std::string id;
+
+        /// @brief The actor's type
         int type;
+
+        /// @brief The actor's name
         std::string name;
+
+        /// @brief The plural version of the actor's name
         std::string plural;
+
+        /// @brief The actor's description
         std::string description;
+
+        /// @brief The actor's texture
         std::string texture;
-        bool tall;
+
+        /// @brief The actor's X tileset coordinate (symbol) 
         int tileX;
+
+        /// @brief The actor's Y tileset coordinate (symbol)
         int tileY;
+
+        /// @brief The faction the actor belongs to
         int faction;
+
+        /// @brief The color that will be used to draw the actor's symbol on screen
         sf::Color color;
+
+        /// @brief This variable keeps track of the target's UID
         int target;
 
         /// @brief X map coordinate
@@ -57,6 +80,7 @@ class c_actor {
         bool f_noshadow;
         
     public:
+
         /// @brief A pointer to the action component
         c_action* action;
 
@@ -87,15 +111,41 @@ class c_actor {
         /// @brief A pointer to the armor component
         c_armor* armor;
         
+        /// @brief Assings uid and default values
+        /// @param uid The actor's uid
         c_actor(const int& uid);
+
+        /// @brief Deletes all the actor's components before dying
         ~c_actor();
+
+        /// @brief Initialize the actor with the data provided in the asset
+        /// @param asset A pointer to the actor's asset
         void init(structActorAsset* asset);
+
+        /// @brief Draws the character in the real coordinates provided
+        /// @param x The real X coordinate
+        /// @param y The real Y coordinate
         void draw(const int& x, int y);
+
+        /// @brief Iterates through all time-update activated components; executed every time tick
         void timeUpdate();
+
+        /// @brief Save required data in a TCODZip file
+        /// @param zip A pointer to the TCODZip file
         void save(TCODZip* zip);
+
+        /// @brief Load data from a TCODZip file
+        /// @param zip A pointer to the TCODZip file
         void load(TCODZip* zip);
+
         bool playerAction(const bool& fromWalk, c_actor* p_player);
-        const int& checkAbility(s_abilityAsset* abilityAsset); // Checks if the actor can perform the ability, returns how long it takes (if 0, cannot perform)
+
+        /// @brief Checks if the actor can perform an ability; returns how long it takes
+        /// @param abilityAsset A pointer to the s_abilityAsset file
+        /// @return The ability duration or 0 if the actor cannot perform it
+        const int& checkAbility(s_abilityAsset* abilityAsset); 
+
+        /// @brief 
         const bool& isGod() { if(player) return player -> isGod(); else return false; }
 
         const int& getUid() { return uid; }

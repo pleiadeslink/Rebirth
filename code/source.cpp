@@ -33,13 +33,13 @@
 #define SQRDIST(x1,y1,x2,y2) (((x1)-(x2))*((x1)-(x2))+((y1)-(y2))*((y1)-(y2)))
 #define MAPSIZE 128
 #define MAXITERATIONS 2000
-
 #ifndef NDEBUG
 #define DBG(x) printf x
 #else
 #define DBG(x)
 #endif
 
+/// @brief Global variables
 namespace global {
 	const bool debug = true;
 	const int maxFOVRange = 36;
@@ -90,6 +90,7 @@ namespace global {
 TCODNoise noise1d(1);
 TCODNoise noise2d(2);
 WorldGenerator worldGen;
+
 c_engine* engine;
 
 std::map<std::string, sf::Color> m_color;
@@ -145,7 +146,5 @@ int main(int argc, char *argv[]) {
 /*! \mainpage Rebirth docs
  *
  * Welcome!
- *
- * This is the official documentation for Rebirth RL, intented to be used internally only.
  *
  */
