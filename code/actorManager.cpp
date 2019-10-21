@@ -277,7 +277,7 @@ c_actor* c_actorManager::getActor(const int& uid) {
 
 const int& c_actorManager::createActor(const std::string& id, const int& mapX, const int& mapY) {
     kaguya::State state;
-    structActorAsset* asset = engine -> assetManager.getActorAsset(id);
+    s_actorAsset* asset = engine -> assetManager.getActorAsset(id);
     if(!asset) {
         return 0;
     }

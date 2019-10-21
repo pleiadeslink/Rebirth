@@ -1,8 +1,62 @@
+void c_assetManager::loadMaps() {
+	s_mapAsset asset;
+	asset = clearMapAsset(asset);
+	std::string line;
+	std::string key;
+	bool n = true;
+	std::ifstream file("data/map.dat");
+    while(getline(file, line)) {
+		if(line[0] == '[') {
+
+			// Save previous dump and clear asset
+			if(n == false) {
+				v_mapAsset.push_back(asset);
+				asset = clearMapAsset(asset);
+			}
+
+			// Get new id name
+			bool found = false;
+			int i = 1;
+			std::string id;
+			while(found == false) {
+				id.push_back(line[i]);
+				if(line[i + 1] == ']') {
+					found = true;
+				}
+				++i;
+			}
+			n = false;
+			asset.id = id;
+		}
+
+		key = "name: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.name = line;
+		}
+
+		key = "ambience: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.ambience = line;
+		}
+
+		key = "herd: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			asset.v_herd.push_back(line);
+		}
+    }
+    if(file.is_open()) {
+        file.close();
+	}
+}
+
 // =========
 // = TILES =
 // =========
 void c_assetManager::loadTiles() {
-	structTileAsset asset;
+	s_tileAsset asset;
 	asset = clearTileAsset(asset);
 	std::string line;
 	std::string key;
@@ -105,7 +159,7 @@ void c_assetManager::loadTiles() {
 // ==========
 
 void c_assetManager::loadActors() {
-	structActorAsset asset;
+	s_actorAsset asset;
 	asset = clearActorAsset(asset);
 	std::string line;
 	std::string key;
@@ -552,7 +606,7 @@ void c_assetManager::loadHerds() {
 	}
 }
 
-structTileAsset c_assetManager::clearTileAsset(structTileAsset asset) {
+s_tileAsset c_assetManager::clearTileAsset(s_tileAsset asset) {
     asset.id = "default";
     asset.name = "default";
     asset.type = tileType::floor;
@@ -561,7 +615,7 @@ structTileAsset c_assetManager::clearTileAsset(structTileAsset asset) {
 	return asset;
 }
 
-structActorAsset c_assetManager::clearActorAsset(structActorAsset asset) {
+s_actorAsset c_assetManager::clearActorAsset(s_actorAsset asset) {
 	asset.id = "default";
 	asset.type = 0;
 	asset.name = "Default";
@@ -616,6 +670,15 @@ s_abilityAsset c_assetManager::clearAbilityAsset(s_abilityAsset asset) {
 	return asset;
 }
 
+s_mapAsset c_assetManager::clearMapAsset(s_mapAsset asset) {
+	asset.id = "default";
+	asset.name = "Default";
+	asset.ambience = "";
+	std::vector<std::string> v_herd;
+	asset.v_herd = v_herd;
+	return asset;
+}
+
 s_herdAsset c_assetManager::clearHerdAsset(s_herdAsset asset) {
 	asset.id = "default";
 	for(int i = 0; i < 16; ++i) {
@@ -661,7 +724,7 @@ sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {
 	engine -> message(s.str());
 	
 	// Now add it to the asset manager
-	structTextureAsset newTexture;
+	s_textureAsset newTexture;
 	newTexture.id = id;
 	newTexture.data = data;
 	v_textureAsset.push_back(newTexture);
@@ -669,7 +732,7 @@ sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {
 	return newTexture.data;
 }
 
-structVerbAsset* c_assetManager::getVerbAsset(const std::string& id) {
+s_verbAsset* c_assetManager::getVerbAsset(const std::string& id) {
     int max = v_verbAsset.size();
 	if(max != 0) { 
 		for(int i = 0; i < max; ++i) {
@@ -695,7 +758,7 @@ s_mapAsset* c_assetManager::getMapAsset(const std::string& id) {
 	return &v_mapAsset[0]; 
 }
 
-structTileAsset* c_assetManager::getTileAsset(const std::string& id) {
+s_tileAsset* c_assetManager::getTileAsset(const std::string& id) {
     int max = v_tileAsset.size();
 	if(max != 0) { 
 		for(int i = 0; i < max; ++i) {
@@ -719,7 +782,7 @@ std::vector<std::string> c_assetManager::getTileIdList() {
 	return list;
 }
 
-structActorAsset* c_assetManager::getActorAsset(const std::string& id) {
+s_actorAsset* c_assetManager::getActorAsset(const std::string& id) {
     int max = v_actorAsset.size();
 	if(max != 0) { 
 		for(int i = 0; i < max; ++i) {

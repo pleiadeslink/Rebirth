@@ -56,7 +56,7 @@ void c_winButton::draw() {
 
             // Draw tile
             case buttonType::tile: {
-                structTileAsset* asset = engine -> assetManager.getTileAsset(id);
+                s_tileAsset* asset = engine -> assetManager.getTileAsset(id);
                 engine -> screen.drawTile(11, 13, xf, yf, asset -> bgcolor);
                 //c_tile::drawOverlay(xf, yf, asset -> type, asset -> olcolor);
                 engine -> screen.drawTile(asset -> tx, asset -> ty, xf, yf, asset -> color);
@@ -65,7 +65,7 @@ void c_winButton::draw() {
 
             // Draw actor
             case buttonType::actor: {
-                structActorAsset* asset = engine -> assetManager.getActorAsset(id);
+                s_actorAsset* asset = engine -> assetManager.getActorAsset(id);
                 engine -> screen.drawTile(asset -> tx, asset -> ty, xf, yf, asset -> color);
                 break;
             }

@@ -120,7 +120,7 @@ class c_actor {
 
         /// @brief Initialize the actor with the data provided in the asset
         /// @param asset A pointer to the actor's asset
-        void init(structActorAsset* asset);
+        void init(s_actorAsset* asset);
 
         /// @brief Draws the character in the real coordinates provided
         /// @param x The real X coordinate

@@ -58,8 +58,8 @@ class c_tile {
         const bool& getCheck() { return check; }
 
         void setCoords(const int& x, const int& y) { this -> x = x; this -> y = y; }
-        void setAsset(const structTileAsset* asset);
-        void wipe(const structTileAsset* asset);
+        void setAsset(const s_tileAsset* asset);
+        void wipe(const s_tileAsset* asset);
         void setScript(const int& script) { this -> script = script; }
         void setInterior(const bool& interior) { this -> interior = interior; }
         void setExplored(const bool& explored) { this -> explored = explored; }

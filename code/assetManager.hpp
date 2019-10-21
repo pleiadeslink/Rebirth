@@ -8,12 +8,12 @@ class c_assetManager {
 
         sf::Font font;
         sf::Texture tileset;
-        std::vector<structTextureAsset> v_textureAsset;
-        std::vector<structActorAsset> v_actorAsset;
+        std::vector<s_textureAsset> v_textureAsset;
+        std::vector<s_actorAsset> v_actorAsset;
         std::vector<s_abilityAsset> v_abilityAsset;
         std::vector<s_mapAsset> v_mapAsset;
-        std::vector<structTileAsset> v_tileAsset;
-        std::vector<structVerbAsset> v_verbAsset;
+        std::vector<s_tileAsset> v_tileAsset;
+        std::vector<s_verbAsset> v_verbAsset;
         std::vector<s_herdAsset> v_herdAsset;
         
         /// @brief This variable is used to keep track of the active tile in Edit Mode
@@ -21,6 +21,9 @@ class c_assetManager {
 
         /// @brief This variable is used to keep track of the active tile in Edit Mode
         int indexActor;
+
+        /// @brief Imports the map assets from the .dat file and loads them into memory
+        void loadMaps();
 
         /// @brief Imports the tile assets from the .dat file and loads them into memory
         void loadTiles();
@@ -34,13 +37,15 @@ class c_assetManager {
         /// @brief Imports the herd assets from the .dat file and loads them into memory
         void loadHerds();
 
+        // Don't remove the asset from parameter as it creates a weird memory bug:
+
         /// @brief Returns the tile default asset
         /// @return A tile default asset object
-        structTileAsset clearTileAsset(structTileAsset asset);
+        s_tileAsset clearTileAsset(s_tileAsset asset);
 
         /// @brief Returns the actor default asset
         /// @return A actor default asset object
-        structActorAsset clearActorAsset(structActorAsset asset);
+        s_actorAsset clearActorAsset(s_actorAsset asset);
 
         /// @brief Returns the ability default asset
         /// @return A ability default asset object
@@ -48,7 +53,7 @@ class c_assetManager {
 
         /// @brief Returns the map default asset
         /// @return A map default asset object
-        s_mapAsset clearMapAsset(const std::string& id);
+        s_mapAsset clearMapAsset(s_mapAsset asset);
 
         /// @brief Returns the herd default asset
         /// @return A herd default asset object
@@ -77,11 +82,11 @@ class c_assetManager {
         /// @return A pointer to the s_mapAsset object
         s_mapAsset* getMapAsset(const std::string& id);
 
-        structTileAsset* getTileAsset(const std::string& id);
+        s_tileAsset* getTileAsset(const std::string& id);
         std::vector<std::string> getTileIdList();
-        structActorAsset* getActorAsset(const std::string& id);
+        s_actorAsset* getActorAsset(const std::string& id);
         std::vector<std::string> getActorIdList();
-        structVerbAsset* getVerbAsset(const std::string& id);
+        s_verbAsset* getVerbAsset(const std::string& id);
         s_abilityAsset* getAbilityAsset(const std::string& id);
         s_herdAsset* getHerdAsset(const std::string& id);
 };

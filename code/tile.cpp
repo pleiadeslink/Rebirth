@@ -348,7 +348,7 @@ std::vector<int> c_tile::getItems() {
     return v_item;
 } 
 
-void c_tile::setAsset(const structTileAsset* asset) {
+void c_tile::setAsset(const s_tileAsset* asset) {
     id = asset -> id;
     name = asset -> name;
     desc = asset -> desc;
@@ -360,7 +360,7 @@ void c_tile::setAsset(const structTileAsset* asset) {
     type = asset -> type;
 }
 
-void c_tile::wipe(const structTileAsset* asset) {
+void c_tile::wipe(const s_tileAsset* asset) {
     id = asset -> id;
     name = asset -> name;
     desc = asset -> desc;

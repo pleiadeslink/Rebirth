@@ -44,7 +44,7 @@ typedef struct s_worldTile {
 
 // ASSET
 
-typedef struct structTextureAsset {
+typedef struct s_textureAsset {
     std::string id;
     sf::Texture* data;
 };
@@ -55,7 +55,7 @@ typedef struct s_effect {
     std::string string1;
 };
 
-typedef struct structActorAsset {
+typedef struct s_actorAsset {
     std::string id;
     int type;
     std::string name;
@@ -115,7 +115,7 @@ typedef struct s_mapAsset {
     std::vector<std::string> v_herd;
 };
 
-typedef struct structTileAsset {
+typedef struct s_tileAsset {
     std::string id;
     std::string name;
     std::string desc;
@@ -134,31 +134,25 @@ typedef struct s_genTile {
     bool flag;
 };
 
-typedef struct structMapAsset {
-    std::string name;
-    int width;
-    int height;
-};
-
 typedef struct s_gamelogMessage {
     std::string message;
     bool old;
 };
 
-typedef struct structVerbAsset {
+typedef struct s_verbAsset {
     std::string id;
     std::string name;
     int duration;
 };
 
-typedef struct structEntryAsset {
+typedef struct s_entryAsset {
     std::string text;
     std::string isActor;
 };
 
-typedef struct structTopicAsset {
+typedef struct s_topicAsset {
     std::string name;
-    std::vector<structEntryAsset> v_entry;
+    std::vector<s_entryAsset> v_entry;
 };
 
 typedef struct s_invItem {

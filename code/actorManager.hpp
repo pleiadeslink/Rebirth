@@ -1,8 +1,8 @@
 #ifndef c_actorManager_hpp
 #define c_actorManager_hpp
-
 class c_actor;
 
+/// @brief This class manages the game actors (who would've guessed it?), keeping their IDs in several memory vectors while they are alive
 class c_actorManager {
 
     private:

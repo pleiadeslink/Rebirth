@@ -89,9 +89,9 @@ class c_map : public TCODMap {
 
         /// @brief Creates the generator tile matrix
         void createGenMatrix();
-        void fill(const structTileAsset* asset);
-        void flood(const structTileAsset* asset, const int& x, const int& y);
-        void floodAux(const structTileAsset* asset, const int& x, const int& y);
+        void fill(const s_tileAsset* asset);
+        void flood(const s_tileAsset* asset, const int& x, const int& y);
+        void floodAux(const s_tileAsset* asset, const int& x, const int& y);
         void genClear(std::string tile);
         const bool& genDigRoom(const int& x0, const int& y0, const int& rwidth, const int& rheight, const int& direction, const bool& digStartingTile);
         void genCleanCorridors();

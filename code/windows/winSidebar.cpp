@@ -179,7 +179,7 @@ void c_winSidebar::draw() {
 			// Draw active edit element icon and name
 			switch(engine -> interface.getEmode() ) {
 				case emode::tile: {
-					structTileAsset* p_tile = engine -> interface.getEditTile();
+					s_tileAsset* p_tile = engine -> interface.getEditTile();
 					if(p_tile != 0) {
 						int xf = x * 16 + ((width * 16) / 2) - 16;
 						int yf = (y + 3) * 16 + 4;
@@ -190,7 +190,7 @@ void c_winSidebar::draw() {
 					break;
 				}
 				case emode::actor: {
-					structActorAsset* p_actor = engine -> interface.getEditActor();
+					s_actorAsset* p_actor = engine -> interface.getEditActor();
 					if(p_actor != 0) {
 						int xf = x * 16 + ((width * 16) / 2) - 16;
 						int yf = (y + 3) * 16 + 4;

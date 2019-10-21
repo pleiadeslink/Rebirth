@@ -29,8 +29,8 @@ class c_interface {
         std::string targetText;
         int targetType;
         std::string inputText;
-        structTileAsset* editTile;
-        structActorAsset* editActor;
+        s_tileAsset* editTile;
+        s_actorAsset* editActor;
         int editScript;
         int editRadius;
         bool pasteMode;
@@ -51,13 +51,13 @@ class c_interface {
         void selectActor(const int& actor) { sActor = actor; }
         void selectAbility(std::string ability) { sAbility = ability; }
         void setTileDestination(c_tile* tile) { destination = tile; }
-        void setEditTile(structTileAsset* tile) { editTile = tile; }
-        void setEditActor(structActorAsset* actor) { editActor = actor; }
+        void setEditTile(s_tileAsset* tile) { editTile = tile; }
+        void setEditActor(s_actorAsset* actor) { editActor = actor; }
         void setEditScript(int script) { editScript = script; }
         void setMode(const int& value) { mode = value; }
         void setEmode(const int& value) { emode = value; }
-        structTileAsset* getEditTile() { return editTile; }
-        structActorAsset* getEditActor() { return editActor; }
+        s_tileAsset* getEditTile() { return editTile; }
+        s_actorAsset* getEditActor() { return editActor; }
         const int& getEditScript() { return editScript; }
         const int& selectCloseTarget(const int& prevMode, const std::string& targetText, const int& type = 0);
         void gameOver(); // Wait for enter key and deletes game

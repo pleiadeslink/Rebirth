@@ -216,7 +216,7 @@ void c_map::createGenMatrix() {
     }
 }
 
-void c_map::fill(const structTileAsset* asset) {
+void c_map::fill(const sTileAsset* asset) {
 	for(int i1 = 0; i1 < width; ++i1) {
 		for(int i2 = 0; i2 < height; ++i2) {
 			matrix[i1][i2].setAsset(asset);
@@ -224,7 +224,7 @@ void c_map::fill(const structTileAsset* asset) {
 	}
 }
 
-void c_map::flood(const structTileAsset* asset, const int& x, const int& y) {
+void c_map::flood(const sTileAsset* asset, const int& x, const int& y) {
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
             matrix[i1][i2].setCheck(false);
@@ -233,7 +233,7 @@ void c_map::flood(const structTileAsset* asset, const int& x, const int& y) {
     floodAux(asset, x, y);
 }
 
-void c_map::floodAux(const structTileAsset* asset, const int& x, const int& y) {
+void c_map::floodAux(const sTileAsset* asset, const int& x, const int& y) {
     if(x >= 0 and x < width and y >= 0 and y < height
     and matrix[x][y].getType() != tileType::wall and matrix[x][y].getCheck() == false) {
         matrix[x][y].setAsset(asset);

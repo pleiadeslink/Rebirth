@@ -46,7 +46,7 @@ c_actor::~c_actor() {
     }
 }
 
-void c_actor::init(structActorAsset* asset) {
+void c_actor::init(s_actorAsset* asset) {
     id = asset -> id;
     type = asset -> type;
     name = asset -> name;
