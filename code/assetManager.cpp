@@ -689,7 +689,6 @@ s_herdAsset c_assetManager::clearHerdAsset(s_herdAsset asset) {
 }
 
 void c_assetManager::load() {
-
 	indexTile = 0;
 	indexActor = 0;
 	if(!font.loadFromFile("data/font/ibm.ttf")) {
@@ -697,6 +696,7 @@ void c_assetManager::load() {
 	}
 	tileset.loadFromFile("data/texture/terminal.png");
 	loadTiles();
+	loadMaps();
 	loadActors();
 	loadAbilities();
 	loadHerds();
@@ -708,27 +708,22 @@ sf::Texture* c_assetManager::getTextureAsset(const std::string& id) {
 		for(unsigned int i = 0; i < v_textureAsset.size(); ++i)
 			if(v_textureAsset[i].id == id)
 				return v_textureAsset[i].data;
-
 	// It doesn't exist, load it
 	sf::Texture* data = new sf::Texture();
 	data -> loadFromFile("data/texture/" + id + ".png");
-
 	// Set attributes
 	data -> setSmooth(true);
 	if(id == "s_abilityAssetwater")
 		data -> setRepeated(true);
-
 	// Console message
 	std::ostringstream s;
 	s << "Loading /texture/" << id << ".png...";
 	engine -> message(s.str());
-	
 	// Now add it to the asset manager
 	s_textureAsset newTexture;
 	newTexture.id = id;
 	newTexture.data = data;
 	v_textureAsset.push_back(newTexture);
-	
 	return newTexture.data;
 }
 

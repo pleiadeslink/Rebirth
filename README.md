@@ -1,1 +1,1 @@
-For more information, please visit [Rebirth's website](http://fractalmonkey.xyz/rebirth/).
+The documentation can be found [here](http://fractalmonkey.xyz/rebirth/doxygen/html/). For more information, please visit [Rebirth's website](http://fractalmonkey.xyz/rebirth/).
