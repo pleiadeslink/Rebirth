@@ -3,6 +3,8 @@ c_interface::c_interface() {
     editTile = 0;
     editActor = 0;
     editRadius = 1;
+    xOffset = 0;
+    yOffset = 0;
 }
 
 c_interface::~c_interface() {
@@ -35,17 +37,28 @@ void c_interface::init()     {
 }
 
 int c_interface::update(int key) {
-
-    // We reset selections
     sTile = 0;
     sActor = 0;
     sAbility = "";
-    //f_help = false;
-
+    sf::Vector2i mouse = engine -> getMouse();
+    if(mode == imode::edit or f_help == true) {
+        if(mouse.x < global::tileSize) {
+            --xOffset;
+        } else if(mouse.y < global::tileSize) {
+            --yOffset;
+        } else if(mouse.x > global::tileSize * 65) {
+            ++xOffset;
+        } else if(mouse.y > global::tileSize * 38) {
+            ++yOffset;
+        }
+    } else {
+        xOffset = 0;
+        yOffset = 0;
+    }
     if(engine -> game -> actorManager.getPlayer()) {
-        key = sidebar -> update(key, engine -> getMouse());
+        key = sidebar -> update(key, mouse);
         if(mode == imode::game or mode == imode::edit) {
-            key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(), engine -> getMouse());
+            key = map -> update(key, engine -> game -> actorManager.getPlayer() -> getMapX() + xOffset, engine -> game -> actorManager.getPlayer() -> getMapY() + yOffset, engine -> getMouse());
         } else if(mode == imode::character) {
             key = character -> update(key);
         }
@@ -56,26 +69,24 @@ int c_interface::update(int key) {
 
 void c_interface::draw() {
     switch(mode) {
-
         // MAIN SCREEN
         case imode::game: {
             if(engine -> game -> actorManager.getPlayer()) {
-                map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
+                map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX() + xOffset, engine -> game -> actorManager.getPlayer() -> getMapY() + yOffset);
             }
             sidebar -> draw();
             engine -> game -> gamelog.draw();
             if(f_help) {
                 info -> draw(true);
             }
-                
             // Draw debug info
             if(engine -> game and engine -> game -> map) {
                 engine -> screen.drawText(std::to_string(engine -> game -> map -> getX()) + "." + std::to_string(engine -> game -> map -> getY()) + "." + std::to_string(engine -> game -> map -> getZ()), 1042, 4, sf::Color::White, textAlign::left);
                 engine -> screen.drawText(std::to_string(engine -> game -> actorManager.getPlayer() -> getMapX()) + "." + std::to_string(engine -> game -> actorManager.getPlayer() -> getMapY()), 1042, 20, sf::Color::White, textAlign::left);
+                engine -> screen.drawText(std::to_string(xOffset) + "." + std::to_string(yOffset), 1042, 36, sf::Color::White, textAlign::left);
             }
             break;
         }
-
         // CHARACTER SCREEN
         case imode::character: {
             sidebar -> draw();
@@ -84,11 +95,10 @@ void c_interface::draw() {
             character -> draw();
             break;
         }
-
         // EDIT MODE
         case imode::edit: {
             if(engine -> game -> actorManager.getPlayer()) {
-                map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY());
+                map -> draw(engine -> game -> actorManager.getPlayer() -> getMapX() + xOffset, engine -> game -> actorManager.getPlayer() -> getMapY() + yOffset);
             }
             sidebar -> draw();
             engine -> game -> gamelog.draw();
@@ -96,7 +106,6 @@ void c_interface::draw() {
             engine -> screen.drawText(str, 4, 4, sf::Color::White);
             break;
         }
-
         // TARGET SELECTION
         case imode::selectCloseTarget: {
             if(engine -> game -> actorManager.getPlayer()) {
@@ -108,8 +117,6 @@ void c_interface::draw() {
             break;
         }
     }
-
-    // Draw mouse
     drawMouse();
 }
 
@@ -124,7 +131,6 @@ if(engine -> isLoading()) {
 }
 
 void c_interface::edit() {
-
     mode = imode::edit;
     if(editTile == 0) {
         editTile = engine -> assetManager.getTileAsset("default");
@@ -141,6 +147,8 @@ void c_interface::edit() {
         draw();
         engine -> screen.display();
     }
+    xOffset = 0;
+    yOffset = 0;
     this -> mode = imode::game;
 }
 
@@ -151,7 +159,6 @@ void c_interface::talk(const int& actor) {
         engine -> message(path + " does not exist.");
         return;
     }
-    
 }
 
 const int& c_interface::selectCloseTarget(const int& prevMode, const std::string& targetText, const int& type) {
@@ -175,12 +182,10 @@ const int& c_interface::selectCloseTarget(const int& prevMode, const std::string
     return sActor;
 }
 
-// Wait for enter key and deletes game
 void c_interface::gameOver() {
     if(!engine -> game) {
         return;
     }
-    //mode = imode::gameOver;
     bool loop = true;
     while(loop == true) {
         if(engine -> input() == key::enter) {
@@ -202,11 +207,9 @@ void c_interface::gameOver() {
 }
 
 int c_interface::processInput(int key) {
-
     if(key == 0) {
         return 0;
     }
-
     // We check help first, as it's viable in every screen, or at least it should (usability you fool!)
     if(key == key::rclick) {
         if(f_help) {
@@ -216,31 +219,25 @@ int c_interface::processInput(int key) {
         }
         return 0;
     }
-
     switch(mode) {
-
         case imode::game: {
             switch(key) {
-
                 // Change view
                 case key::space: {
                     mode = imode::character;
                     character -> update(0);
                     return 0;
                 }
-
                 // Edit
                 case key::f1: {
                     edit();
                     return 0;
                 }
-
                 // Quit
                 case key::escape: {
                     exit(EXIT_SUCCESS);
                     return 0;
                 }
-
                 // Screenshot
                 case key::p: {
                     engine -> screen.screenshot();
@@ -249,16 +246,13 @@ int c_interface::processInput(int key) {
             }
             return key;
         }
-
         case imode::character: {
             switch(key) {
-
                 // Change view
                 case key::space: {
                     mode = imode::game;
                     return 0;
                 }
-
                 // Quit
                 case key::escape: {
                     mode = imode::game;
@@ -267,7 +261,6 @@ int c_interface::processInput(int key) {
             }
             return key;
         }
-
         case imode::edit: {
             switch(key) {
                 case key::add: {
@@ -289,7 +282,6 @@ int c_interface::processInput(int key) {
             }
             return key;
         }
-
         case imode::selectCloseTarget: {
             switch(key) {
                 // Directions
@@ -312,7 +304,6 @@ int c_interface::processInput(int key) {
             }
             return key;
         }
-
         case imode::dialogue: {
             switch(key) {
                 case key::a: {

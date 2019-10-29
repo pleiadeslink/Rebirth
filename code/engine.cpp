@@ -49,6 +49,8 @@ void c_engine::start() {
         // We don't receive input if the engine is "loading"
         if(!isLoading()) {
             key = input();
+        } else {
+            key = 0;
         }
         sound.update();
         if(game and interface.getMode() == imode::game) {
@@ -82,7 +84,6 @@ int c_engine::input() {
 
         // Edit
         if(interface.getMode() == imode::edit and event.type == sf::Event::TextEntered) {
-            
             if(event.text.unicode == 8 and command.size() != 0) { // Backspace key
                 command.pop_back();
             } else if(event.text.unicode == 13) { // Return key

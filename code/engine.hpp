@@ -1,6 +1,7 @@
 #ifndef c_engine_hpp
 #define c_engine_hpp
 
+/// @brief This is the root class, from which all existence is manifested
 class c_engine {
     private:
         std::vector<std::string> v_messageLog;
@@ -15,10 +16,7 @@ class c_engine {
         c_sound sound;
         c_interface interface;
         c_assetManager assetManager;
-        c_game* game;
-        
-        //c_keyboard keyboard;
-        
+        c_game* game;  
         c_engine();
         ~c_engine();
         void start();
@@ -31,5 +29,4 @@ class c_engine {
         const bool& isLoading() { return loading; }
         void setLoading(const bool& value) { loading = value; }
 };
-
 #endif

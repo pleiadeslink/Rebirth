@@ -10,17 +10,41 @@ class c_winInfo;
 class c_winDeath;
 //class c_winMessage;
 
+/// @brief This object manages the interface windows; global input depends on the interface mode
 class c_interface {
 
     private:
+
+        /// @brief A pointer to the gamelog window
         c_winGamelog* gamelog;
+
+        /// @brief A pointer to the character window
         c_winCharacter* character;
+
+        /// @brief A pointer to the sidebar window
         c_winSidebar* sidebar;
+
+        /// @brief A pointer to the map window
         c_winMap* map;
+
+        /// @brief A pointer to the information window
         c_winInfo* info;
+
+        /// @brief A pointer to the death window
         c_winDeath* death;
-        int mode; // Game, character screen, etc.
+
+        /// @brief The interface mode affects what input is received and what windows are displayed
+        int mode;
+
+        /// @brief The editor interface mode, affects active editor element selection
         int emode; // Editor
+        
+        /// @brief X offset camera alignment value; allows to move the camera around
+        int xOffset;
+        
+        /// @brief Y offset camera alignment value; allows to move the camera around
+        int yOffset;
+        
         bool f_help;
         c_tile* sTile;
         int sActor;
@@ -37,11 +61,24 @@ class c_interface {
         int processInput(int key);
 
     public:
+
+        /// @brief Set default values to variables
         c_interface();
+
+        /// @brief Delete window objects before dying
         ~c_interface();
+
+        /// @brief Creates the window objects using hardcoded values :/
         void init();
+
+        /// @brief Reset selections, update windows and process input
+        /// @param key The input key
         int update(int key);
+
+        /// @brief Draw windows depending on the current interface mode
         void draw();
+
+        /// @brief Draw mouse pointer
         void drawMouse();
 
         int getMode() { return mode; }
