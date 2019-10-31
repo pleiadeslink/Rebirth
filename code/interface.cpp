@@ -42,13 +42,13 @@ int c_interface::update(int key) {
     sAbility = "";
     sf::Vector2i mouse = engine -> getMouse();
     if(mode == imode::edit or f_help == true) {
-        if(mouse.x < global::tileSize) {
+        if(mouse.x == 0) {
             --xOffset;
-        } else if(mouse.y < global::tileSize) {
+        } else if(mouse.y == 0) {
             --yOffset;
-        } else if(mouse.x > global::tileSize * 65) {
+        } else if(mouse.x == 1279) {
             ++xOffset;
-        } else if(mouse.y > global::tileSize * 38) {
+        } else if(mouse.y == 719) {
             ++yOffset;
         }
     } else {
