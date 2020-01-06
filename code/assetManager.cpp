@@ -166,8 +166,11 @@ void c_assetManager::loadActors() {
 	bool n = true;
 	std::ifstream file("data/actor.dat");
 	int effectIndex = 0;
+	int lootIndex = 0;
     while(getline(file, line)) {
 		if(line[0] == '[') {
+			effectIndex = 0;
+			lootIndex = 0;
 
 			// Save previous dump and clear asset
 			if(n == false) {
@@ -256,11 +259,6 @@ void c_assetManager::loadActors() {
 			line.erase(0, key.length());
 			asset.playerTex = "actor/player/";
 			asset.playerTex.append(line);
-		}
-
-		key = "TALL";
-		if(line.find(key) != std::string::npos) {
-			asset.tall = true;
 		}
 
 		key = "symbol: ";
@@ -459,10 +457,30 @@ void c_assetManager::loadActors() {
 					a3 += line[i];
 				}
 			}
-			asset.effect[effectIndex].script = a1.c_str();
+			asset.effect[effectIndex].script = a1;
 			asset.effect[effectIndex].value1 = atof(a2.c_str());
-			asset.effect[effectIndex].string1 = a3.c_str();
+			asset.effect[effectIndex].string1 = a3;
 			++effectIndex;
+		}
+
+		key = "loot: ";
+		if(line.find(key) != std::string::npos and lootIndex < 5) {
+			line.erase(0, key.length());
+			int a = 0;
+			std::string a1 = "";
+			std::string a2 = "";
+			for(int i = 0; i < line.length(); ++i) {
+				if(line[i] == '.') {
+					++a;
+				} else if(a == 0) {
+					a1 += line[i];
+				} else if(a == 1)  {	
+					a2 += line[i];
+				}
+			}
+			asset.loot[lootIndex].chance = atof(a1.c_str());
+			asset.loot[lootIndex].actor = a2;
+			++lootIndex;
 		}
 
 		// Flags
@@ -606,6 +624,50 @@ void c_assetManager::loadHerds() {
 	}
 }
 
+// ==========
+// = GROUPS =
+// ==========
+
+void c_assetManager::loadGroups() {
+	s_groupAsset asset;
+	asset = clearGroupAsset(asset);
+	std::string line;
+	std::string key;
+	bool n = true;
+	std::ifstream file("data/group.dat");
+    while(getline(file, line)) {
+		if(line[0] != '-') {
+			if(line[0] == '[') {
+
+				// Save previous dump and clear asset
+				if(n == false) {
+					v_groupAsset.push_back(asset);
+					asset = clearGroupAsset(asset);
+				}
+
+				// Get new id name
+				bool found = false;
+				int i = 1;
+				std::string id;
+				while(found == false) {
+					id.push_back(line[i]);
+					if(line[i + 1] == ']') {
+						found = true;
+					}
+					++i;
+				}
+				n = false;
+				asset.id = id;
+			} else {
+				asset.v_actor.push_back(line);
+			}
+		}
+    }
+    if(file.is_open()) {
+        file.close();
+	}
+}
+
 s_tileAsset c_assetManager::clearTileAsset(s_tileAsset asset) {
     asset.id = "default";
     asset.name = "default";
@@ -623,7 +685,6 @@ s_actorAsset c_assetManager::clearActorAsset(s_actorAsset asset) {
 	asset.description = "Default description";
 	asset.texture = "";
 	asset.playerTex = "";
-	asset.tall = false;
 	asset.tx = 1;
 	asset.ty = 0;
 	asset.color = sf::Color::White;
@@ -659,6 +720,19 @@ s_actorAsset c_assetManager::clearActorAsset(s_actorAsset asset) {
 	asset.effect[3].script = "";
 	asset.effect[3].value1 = 0;
 	asset.effect[3].string1 = "";
+	asset.effect[4].script = "";
+	asset.effect[4].value1 = 0;
+	asset.effect[4].string1 = "";
+	asset.loot[0].chance = 0;
+	asset.loot[0].actor = "";
+	asset.loot[1].chance = 0;
+	asset.loot[1].actor = "";
+	asset.loot[2].chance = 0;
+	asset.loot[2].actor = "";
+	asset.loot[3].chance = 0;
+	asset.loot[3].actor = "";
+	asset.loot[4].chance = 0;
+	asset.loot[4].actor = "";
 	asset.f_noshadow = false;
 	return asset;
 }
@@ -688,6 +762,13 @@ s_herdAsset c_assetManager::clearHerdAsset(s_herdAsset asset) {
 	return asset;
 }
 
+s_groupAsset c_assetManager::clearGroupAsset(s_groupAsset asset) {
+	asset.id = "default";
+	std::vector<std::string> v_actor;
+	asset.v_actor = v_actor;
+	return asset;
+}
+
 void c_assetManager::load() {
 	indexTile = 0;
 	indexActor = 0;
@@ -697,7 +778,9 @@ void c_assetManager::load() {
 	tileset.loadFromFile("data/texture/terminal.png");
 	loadTiles();
 	loadMaps();
+	
 	loadActors();
+	
 	loadAbilities();
 	loadHerds();
 }
@@ -825,4 +908,22 @@ s_herdAsset* c_assetManager::getHerdAsset(const std::string& id) {
     }
     // Not found, default returned
 	return &v_herdAsset[0];
+}
+
+std::string c_assetManager::getRandomActorFromGroup(const std::string& id) {
+    int max = v_herdAsset.size();
+	if(max != 0) { 
+		for(int i = 0; i < max; ++i) {
+			if(v_groupAsset[i].id == id) {
+				if(v_groupAsset[i].v_actor.size() == 1) {
+					return v_groupAsset[i].v_actor[0];
+				} else {
+					int vsize = v_groupAsset[i].v_actor.size() - 1;
+					return v_groupAsset[i].v_actor[c_helper::random(0, vsize)];
+				}
+            }
+        }
+    }
+    // Not found, default returned
+	return "default";
 }

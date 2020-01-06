@@ -93,6 +93,7 @@ WorldGenerator worldGen;
 
 c_engine* engine;
 
+// Color matrix is declared globally, it will be later informed during c_engine::start()
 std::map<std::string, sf::Color> m_color;
 sf::Color color(std::string str) {
 	return m_color[str];

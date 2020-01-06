@@ -1,0 +1,9 @@
+-- ACTOR GROUPS --
+
+[weapon_physical_1]
+gladius
+
+[small_shield_1]
+buckler
+
+[end]

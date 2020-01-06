@@ -265,6 +265,10 @@ void c_tile::explore() {
     updateObstacle();
 }
 
+void c_tile::stainBlood() {
+    color = m_color["darker red"];
+}
+
 /*void c_tile::drawTransitionMark(const int& x, const int& y) {
     if(this -> y == 0) {
         engine -> screen.drawTexture("travelNorth", x, y);

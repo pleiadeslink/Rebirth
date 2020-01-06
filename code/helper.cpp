@@ -471,7 +471,16 @@ void c_helper::forgetMap() {
 	message("You forget how you came here.");
 }
 
-// Returns the biome of the selected location of the world map
+void c_helper::stainTileWithBlood(const int& mapX, const int& mapY) {
+	if(!engine -> game or !engine -> game -> map
+	or mapX < 0 or mapX > engine -> game -> map -> getWidth()
+	or mapY < 0 or mapY > engine -> game -> map -> getHeight()) {
+		return;
+	}
+	engine -> game -> map -> getTile(mapX, mapY) -> stainBlood();
+}
+
+
 int c_helper::getBiome(const int& x, const int& y) {
 	if(!engine -> game) {
 		return 0;
@@ -692,6 +701,13 @@ const int& c_helper::getDirectionToActor(const int& emitter, const int& target) 
         }
     }
     return 0;
+}
+
+void c_helper::dropLoot(const int& actor) {
+	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+	if(p_actor -> life) {
+		p_actor -> life -> dropLoot();
+	}
 }
 
 std::string c_helper::getActorId(const int& actor) {

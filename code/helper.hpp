@@ -59,7 +59,10 @@ class c_helper {
 		static const int& setGenWall2(std::string value);
 		static const int& setGenWall3(std::string value);
 		static void setAmbience(std::string track);
-		static int getBiome(const int& x, const int& y); // Returns the biome of the selected location of the world map
+
+		/// @brief Returns the biome of the selected location of the world map
+		static int getBiome(const int& x, const int& y);
+
 		static void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
 		static void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
 		static void genPlaceActorSomewhere(std::string actor, const int& quantity); // Places actor in a free random position	
@@ -73,6 +76,11 @@ class c_helper {
 		static void updateWorld(); // Updates world map from map 0.0.0 stored locally
 		static const bool& populate(std::string herd); // Populates map in a random tile with a "herd"
 		static void forgetMap();
+
+		/// @brief Stains a map tile with blood
+		/// @param mapX The tile's horizontal coordinate.
+		/// @param mapY The tile's vertical coordinate.
+		static void stainTileWithBlood(const int& mapX, const int& mapY);
 
 		// * Actor
 
@@ -90,6 +98,10 @@ class c_helper {
 		static void showActorPosition(const int& actor); // Shows actor's coordinates in the game console
 		static void showPlayerPosition(); // Shows player's coordinates in the game console
 		static const int& getDirectionToActor(const int& emitter, const int& target);
+
+		/// @brief Makes an actor drop its loot items
+		/// @param UID of the actor
+		static void dropLoot(const int& actor);
 
 		static std::string getActorId(const int& actor); // Returns the actor's id
 		static int getActorType(const int& actor); // Returns the actor's type

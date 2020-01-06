@@ -62,7 +62,7 @@ void c_actor::init(s_actorAsset* asset) {
             action = new c_action(this);
             player = new c_player(this);
             body = new c_body(this, false, true, false, asset -> mass);
-            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attack, asset -> defense, asset -> protection, asset -> block, asset -> parry, asset -> exp);
+            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attack, asset -> defense, asset -> protection, asset -> block, asset -> parry, asset -> exp, asset->loot[0], asset->loot[1], asset->loot[2], asset->loot[3], asset->loot[4]);
             c_helper::calculateAttributes();
             break;
         }
@@ -70,7 +70,7 @@ void c_actor::init(s_actorAsset* asset) {
             action = new c_action(this);
             AI = new c_AI(this);
             body = new c_body(this, false, true, false, asset -> mass);
-            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attack, asset -> defense, asset -> protection, asset -> block, asset -> parry, asset -> exp);
+            life = new c_life(this, asset -> health, asset -> minDamage, asset -> maxDamage, asset -> speed, asset -> attack, asset -> defense, asset -> protection, asset -> block, asset -> parry, asset -> exp, asset->loot[0], asset->loot[1], asset->loot[2], asset->loot[3], asset->loot[4]);
             break;
         }
         case actorType::weapon: {

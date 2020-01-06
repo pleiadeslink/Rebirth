@@ -1,10 +1,17 @@
 #ifndef c_tile_hpp
 #define c_tile_hpp
 
+/// @brief This class represents the tiled floor sections that compose a map
 class c_tile {
     private:
+
+        /// @brief The horizontal map coordinate
         int x;
+
+        /// @brief The vertical map coordinate
         int y;
+
+        /// @brief The tile asset identifier
         std::string id; // *
         std::string name;
         std::string desc;
@@ -12,7 +19,7 @@ class c_tile {
         int tileY;
         sf::Color color;
         sf::Color bgcolor;
-        sf::Color olcolor;
+        sf::Color olcolor; // Seems this is not used anymore, delete it!
         int type;
         int script; // *
         bool interior; // *
@@ -32,6 +39,9 @@ class c_tile {
         bool isLocation();
         void updateObstacle();
         void explore();
+
+        /// @brief // Changes the symbol color to red as if it was stained by blood
+        void stainBlood(); 
 
         // Actor
         void addActor(const int& actor);

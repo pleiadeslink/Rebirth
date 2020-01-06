@@ -55,6 +55,16 @@ typedef struct s_effect {
     std::string string1;
 };
 
+typedef struct s_loot {
+    int chance;
+    std::string actor;
+};
+
+typedef struct s_groupAsset {
+    std::string id;
+    std::vector<std::string> v_actor;
+};
+
 typedef struct s_actorAsset {
     std::string id;
     int type;
@@ -63,7 +73,6 @@ typedef struct s_actorAsset {
     std::string description;
     std::string texture;
     std::string playerTex;
-    bool tall;
     int tx;
     int ty;
     sf::Color color;
@@ -88,7 +97,8 @@ typedef struct s_actorAsset {
     int slot;
     int penalty;
     int faction;
-    s_effect effect[4];
+    s_effect effect[5];
+    s_loot loot[5];
     bool f_noshadow;
 };
 

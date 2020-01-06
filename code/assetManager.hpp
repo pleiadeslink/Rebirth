@@ -15,6 +15,7 @@ class c_assetManager {
         std::vector<s_tileAsset> v_tileAsset;
         std::vector<s_verbAsset> v_verbAsset;
         std::vector<s_herdAsset> v_herdAsset;
+        std::vector<s_groupAsset> v_groupAsset;
         
         /// @brief This variable is used to keep track of the active tile in Edit Mode
         int indexTile;
@@ -37,6 +38,9 @@ class c_assetManager {
         /// @brief Imports the herd assets from the .dat file and loads them into memory
         void loadHerds();
 
+        /// @brief Imports the actor group assets from the .dat file and loads them into memory
+        void loadGroups();
+
         // Don't remove the asset from parameter as it creates a weird memory bug:
 
         /// @brief Returns the tile default asset
@@ -58,6 +62,10 @@ class c_assetManager {
         /// @brief Returns the herd default asset
         /// @return A herd default asset object
         s_herdAsset clearHerdAsset(s_herdAsset asset);
+
+        /// @brief Returns the actor group default asset
+        /// @return An actor group default asset object
+        s_groupAsset clearGroupAsset(s_groupAsset asset);
 
     public:
 
@@ -89,5 +97,10 @@ class c_assetManager {
         s_verbAsset* getVerbAsset(const std::string& id);
         s_abilityAsset* getAbilityAsset(const std::string& id);
         s_herdAsset* getHerdAsset(const std::string& id);
+
+        /// @brief Returns a random actor's ID from an actor group
+        /// @param id A string of the actor group ID
+        /// @return A string of the actor's ID
+        std::string c_assetManager::getRandomActorFromGroup(const std::string& id);
 };
 #endif

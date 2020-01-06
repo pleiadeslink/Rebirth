@@ -76,7 +76,7 @@ class c_actor {
         /// @brief X map coordinate
         int mapY;
 
-        // Flags
+        /// @brief This flag disables the sprite shadow
         bool f_noshadow;
         
     public:
@@ -162,12 +162,10 @@ class c_actor {
         const int& getFaction() { return faction; }
         const sf::Color& getColor() { return color; }
         const int& getTarget() { return target; }
-
         void setName(std::string name) { this -> name = name; }
         void setTile(const int& tileX, const int& tileY) { this -> tileX = tileX; this -> tileY = tileY; }
         void setMapX(const int& value) { mapX = value; }
         void setMapY(const int& value) { mapY = value; }
         void setTarget(const int& actor) { target = actor; }
 };
-
 #endif

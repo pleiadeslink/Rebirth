@@ -16,10 +16,10 @@ faction: avatar
 ##########################################################################################
 ##########################################################################################
 
-[physician]
+[apothecary]
 type: creature
 name: physician
-desc: A dispenser of potions and medicines, knowledgeable of plant lore, first aid and diseases.
+desc: A dispenser of drugs and medicines, knowledgeable of plant lore, first aid and diseases.
 symbol: 0x4
 color: dark chartreuse
 health: 100
@@ -85,6 +85,7 @@ health: 1
 damage: 0-0
 speed: 3
 exp: 1
+faction: animal
 
 [cow]
 type: creature
@@ -97,6 +98,7 @@ damage: 0-0
 speed: 1
 protection: 1
 exp: 1
+faction: animal
 
 [dog]
 type: creature
@@ -109,6 +111,21 @@ speed_a: 1
 accuracy: 70
 protection: 2
 exp: 8
+faction: animal
+
+[elk]
+type: creature
+name: elk
+desc: This majestic beast stands the height of a man at its shoulders, a many-tipped rack of proud antlers crowning its head.
+symbol: 11x6
+color: light sepia
+health: 50
+speed: 2
+speed_a: 1
+accuracy: 80
+protection: 2
+exp: 2
+faction: animal
 
 [giantSpider]
 type: creature
@@ -228,7 +245,7 @@ desc: A pesky little marsupial.
 
 [rat]
 type: creature
-name: Rat
+name: rat
 desc: Giant rats are usually around five to six feet long, with dirty, matted fur and sharp teeth. They are frequently disease carriers and the wounds they inflict have a good chance of becoming infected.
 symbol: 2x7
 color: dark grey
@@ -240,7 +257,15 @@ protection: 1
 resist: poison
 faction: animal
 exp: 10
-loot: 100.rat_corpse
+loot: 100.ratCorpse
+
+[ratCorpse]
+type: misc
+name: rat corpse
+desc: The corpse of a rat.
+symbol: 2x7
+color: darker red
+canGet: 1
 
 [serpopard]
 type: creature
@@ -270,7 +295,7 @@ faction: animal
 type: creature
 name: skeleton warrior
 desc: An undead warrior clad in corroded armor. Skeletons are animated by powerful necromantic sorcery. Unlike the more powerful corporeal undead such as wights and mummies, skeletons do not retain any trace of the spirit or essence of their former owners. They are kept animate purely by sorcery.
-texture: reaper
+symbol: 3x7
 color: white
 health: 80
 damage: 80
@@ -283,7 +308,8 @@ parry: 10
 protection: 10
 resist: pierce|blunt
 exp: 40
-loot: 50.weapon_physical_1|100.skeleton_corpse|20.shield_1
+loot: 50.weapon_physical_1
+loot: 20.shield_1
 
 [skeletonSorcerer]
 type: creature
