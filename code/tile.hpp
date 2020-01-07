@@ -13,6 +13,7 @@ class c_tile {
 
         /// @brief The tile asset identifier
         std::string id; // *
+
         std::string name;
         std::string desc;
         int tileX;
@@ -27,6 +28,13 @@ class c_tile {
         bool visible;
         std::vector<int> v_actor;
         bool check;
+
+        /// @brief Used to cycle between the present actor symbols when drawing the tile
+        int frameIndex;
+
+        /// @brief Used to cycle between the present actor symbols when drawing the tile
+        int tickCounter;
+
         //void drawTransitionMark(const int& x, const int& y);
         void drawShadow(const int& x, const int& y);
         

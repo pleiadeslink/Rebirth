@@ -1,3 +1,6 @@
+0.3.1
+- Items now cycle between frames when several are present in one tile
+
 0.3
 - Actors drop loot after being killed
 

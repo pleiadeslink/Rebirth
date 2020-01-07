@@ -257,7 +257,7 @@ protection: 1
 resist: poison
 faction: animal
 exp: 10
-loot: 100.ratCorpse
+loot: 50.ratCorpse
 
 [ratCorpse]
 type: misc

@@ -11,7 +11,8 @@ c_tile::c_tile()
     interior(false),
     explored(false),
     visible(false),
-    check(false) {
+    check(false),
+    tickCounter(0) {
     engine -> game -> map -> setProperties(x, y, false, false);
 }
 
@@ -87,10 +88,7 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
 
     // Draw actor
     if(v_actor.size() > 0) {
-
-        // Draw shadow
         drawShadow(x, y);
-
         if(v_actor.size() == 1) {
             engine -> screen.drawTile(11, 13, x, y, bgcolor);
             //drawOverlay(x, y, type, olcolor);
@@ -99,35 +97,29 @@ void c_tile::draw(const int& x, const int& y, const bool& playerIsInside, const 
             //engine -> screen.drawTexture("fog-night", x, y);
             return;
         }
-        int manyItems = 0;
-        int itemPosition = 0;
         for(int i = 0; i < v_actor.size(); ++i) {
-
             c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[i]);
-
-            // Draw living actor
             if(p_actor -> life) {
                 engine -> screen.drawTile(11, 13, x, y, bgcolor);
-                //drawOverlay(x, y, type, olcolor);
                 drawShadow(x, y);
                 p_actor -> draw(x, y);
-                //engine -> screen.drawTexture("fog-night", x, y);
                 return;
-            } else {
-                itemPosition = i;
-                ++manyItems;
             }
         }
-        //if(manyItems > 1) {
+        // We cycle across all actors, changing frame every X ticks
+        const int ticks = 50;
+        ++tickCounter;
+        if(tickCounter > ticks) {
+            tickCounter = 0;
+            ++frameIndex;
+            if(frameIndex == v_actor.size()) {
+                frameIndex = 0;
+            }
+        }
+        c_actor* p_actor = engine -> game -> actorManager.getActor(v_actor[frameIndex]);
         engine -> screen.drawTile(11, 13, x, y, bgcolor);
-        //drawOverlay(x, y, type, olcolor);
-        engine -> screen.drawTile(15, 0, x, y, sf::Color::White);
-        //} else {
-        //    engine -> screen.drawTile(11, 13, x, y, bgcolor);
-        //    engine -> screen.drawTile(engine -> game -> actorManager.getActor(v_actor[itemPosition]) -> getTileX(),
-        //    engine -> game -> actorManager.getActor(v_actor[itemPosition]) -> getTileY(), x, y, engine -> game -> actorManager.getActor(v_actor[itemPosition]) -> getColor());
-        //}
-        //engine -> screen.drawTexture("fog-night", x, y);
+        drawShadow(x, y);
+        p_actor -> draw(x, y);
         return;
     }
 
