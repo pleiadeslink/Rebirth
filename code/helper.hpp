@@ -76,6 +76,7 @@ class c_helper {
 		static void updateWorld(); // Updates world map from map 0.0.0 stored locally
 		static const bool& populate(std::string herd); // Populates map in a random tile with a "herd"
 		static void forgetMap();
+		static const int& los(const int& x1, const int& y1, const int& x2, const int& y2);
 
 		/// @brief Stains a map tile with blood
 		/// @param mapX The tile's horizontal coordinate.

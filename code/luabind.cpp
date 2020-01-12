@@ -93,3 +93,5 @@ state["updateWorld"] = &c_helper::updateWorld; // Updates world map from map 0.0
 state["worldMap"] = &c_helper::worldMap; // Loads the world map
 state["stainTileWithBlood"] = &c_helper::stainTileWithBlood;
 state["dropLoot"] = &c_helper::dropLoot;
+state["dropLoot"] = &c_helper::dropLoot;
+state["los"] = &c_helper::los;

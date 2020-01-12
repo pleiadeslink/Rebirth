@@ -1121,19 +1121,7 @@ const structFOVMap& c_map::computeFOV(const int& x, const int& y, const int& vie
             && x - viewRange / 2 + i1 < width
             && y - viewRange / 2 + i2 > 0
             && y - viewRange / 2 + i2 < height) {
-                bool actorBlocksView = false;
-                std::vector<int> actorsInTile = matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> getActorList();
-                if(actorsInTile.size() != 0) {
-                    for(int i = 0; i < actorsInTile.size(); ++i) {
-                            if(engine -> game -> actorManager.getActor(actorsInTile[i]) -> body and !engine -> game -> actorManager.getActor(actorsInTile[i]) -> body -> getCanView()) {
-                                actorBlocksView = true;
-                            }
-                        }
-                    }
-                if(matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> getType() == tileType::wall
-                or matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> getType() == tileType::obstacle
-                or matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> getId() == "world_mountain"
-                or actorBlocksView == true) {
+                if(matrix[x - viewRange / 2 + i1][y - viewRange / 2 + i2] -> blocksView() == true) {
                     tcodmap -> setProperties(i1, i2, false, false);
                 } else {
                     tcodmap -> setProperties(i1, i2, true, true);
@@ -1141,7 +1129,7 @@ const structFOVMap& c_map::computeFOV(const int& x, const int& y, const int& vie
             }
         }
     }
-    tcodmap -> computeFov(viewRange / 2, viewRange / 2, viewRange, true, FOV_SHADOW);
+    tcodmap -> computeFov(viewRange / 2, viewRange / 2, viewRange, true, FOV_PERMISSIVE_8);
     for(int i1 = 0; i1 < viewRange; ++i1) {
         for(int i2 = 0; i2 < viewRange; ++i2) {
             if(tcodmap -> isInFov(i1, i2)) {
@@ -1151,12 +1139,10 @@ const structFOVMap& c_map::computeFOV(const int& x, const int& y, const int& vie
             }
         }
     }
-        
     delete tcodmap;
     return FOVMap;    
 }
 
-// Forgets FOV
 void c_map::forget() {
     for(int i1 = 0; i1 < width; ++i1) {
         for(int i2 = 0; i2 < height; ++i2) {
@@ -1164,6 +1150,16 @@ void c_map::forget() {
             setProperties(i1, i2, true, true);
         }
     }
+}
+
+const bool& c_map::los(int x1, int y1, const int& x2, const int& y2) {
+    TCODLine::init(x1, y1, x2, y2);
+    do {
+        if(matrix[x1][y1] -> blocksView()) {
+            return false;
+        }
+    } while (!TCODLine::step(&x1, &y1));
+    return true;
 }
 
 // --- GETS ----

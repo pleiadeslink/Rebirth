@@ -69,10 +69,10 @@ class c_map : public TCODMap {
         TCODPath* path(const int& x0, const int& y0, const int& x1, const int& y1);
 
         /// @brief Returns the tile in opposite direction of the target's position
-        /// @param x1 The X coordinate of the emitter
-        /// @param y1 The Y coordinate of the emitter
-        /// @param tx The X coordinate of the target
-        /// @param ty The Y coordinate of the target
+        /// @param x1 The emitter X coordinate
+        /// @param y1 The emitter Y coordinate
+        /// @param tx The target X coordinate
+        /// @param ty The target Y coordinate
         /// @return A pointer to the destination tile
         c_tile* runaway(const int& x1, const int& y1, const int& tx, const int& ty);
 
@@ -123,7 +123,17 @@ class c_map : public TCODMap {
         // FOV
         std::vector<int> fov(const int& x, const int& y, const int& viewRange, const bool& isPlayer);
         const structFOVMap& computeFOV(const int& x, const int& y, const int& viewRange);
-        void forget(); // Forgets FOV
+
+        /// @brief Set all map tiles to unexplored
+        void forget();
+
+        /// @brief Calculates line of sight using Bresenham’s Line Generation Algorithm
+        /// @param x1 The source X coordinate
+        /// @param y1 The source Y coordinate
+        /// @param tx The destiny X coordinate
+        /// @param ty The destiny Y coordinate
+        /// @return Returns false if any tile blocks view
+        const bool& los(int x1, int y1, const int& x2, const int& y2);
 
         // Get
         c_tile* getTile(const int& x, const int& y);

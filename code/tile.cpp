@@ -257,6 +257,21 @@ void c_tile::explore() {
     updateObstacle();
 }
 
+const bool& c_tile::blocksView() {
+    if(v_actor.size() > 0) {
+        for(int i = 0; i < v_actor.size(); ++i) {
+            if(engine -> game -> actorManager.getActor(v_actor[i]) -> body
+            and !engine -> game -> actorManager.getActor(v_actor[i]) -> body -> getCanView()) {
+                return true;
+            }
+        }
+    }
+    if(type == tileType::wall or type == tileType::obstacle or id == "world_mountain") {
+        return true;
+    }
+    return false;
+}
+
 void c_tile::stainBlood() {
     color = m_color["darker red"];
 }

@@ -48,6 +48,10 @@ class c_tile {
         void updateObstacle();
         void explore();
 
+        /// @brief Finds out if the tile blocks view
+        /// @return Returns true if the tile blocks view or an obstacle is found
+        const bool& blocksView();
+
         /// @brief // Changes the symbol color to red as if it was stained by blood
         void stainBlood(); 
 

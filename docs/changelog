@@ -1,3 +1,6 @@
+0.3.2
+- Line of sight implemented (to be used for enemy FOV)
+
 0.3.1
 - Items now cycle between frames when several are present in one tile
 

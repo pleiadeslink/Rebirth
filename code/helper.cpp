@@ -471,6 +471,17 @@ void c_helper::forgetMap() {
 	message("You forget how you came here.");
 }
 
+const int& c_helper::los(const int& x1, const int& y1, const int& x2, const int& y2) {
+	if(!engine -> game or !engine -> game -> map) {
+		return false;
+	}
+	if(engine -> game -> map -> los(x1, y1, x2, y2) == true) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
 void c_helper::stainTileWithBlood(const int& mapX, const int& mapY) {
 	if(!engine -> game or !engine -> game -> map
 	or mapX < 0 or mapX > engine -> game -> map -> getWidth()
