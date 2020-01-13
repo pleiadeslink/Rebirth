@@ -135,8 +135,8 @@ desc: Closely resembling ordinary spiders, but with a body the length of a manâ€
 [horse]
 type: creature
 name: Horse
-desc: A proud and noble animal that thunders across the grassy plain with fluid grace.
-symbol: 8x6
+desc: This large quadruped is used as a mount and pack animal.
+symbol: 10x15
 color: white
 damage: 4-10
 speed: 1
@@ -161,7 +161,7 @@ exp: 30
 [monkey]
 type: creature
 name: monkey
-desc: A highly social creature whose shape resembles that of a very primitive man. They are covered in hair and throw feces at their enemies.
+desc: A highly social creature whose shape resembles that of a very primitive man. They are covered in hair and like to throw feces at their enemies.
 symbol: 1x6
 color: sepia
 speed: 2
@@ -170,6 +170,21 @@ speed_a: 1
 protection: 2
 dodge: 30
 exp: 30
+
+[pig]
+type: creature
+name: pig
+desc: This domesticated beast is the descendant of wild boars, and is raised for its meat and hide, being among the most versatile and common farm animals.
+
+[rabbit]
+type: creature
+name: rabbit
+desc: A small, furry mammal with long ears, short fluffy tail and strong, large hind legs used to move by hopping.
+
+[sheep]
+type: creature
+name: sheep
+desc: This small, fearful livestock herbivore is raised for its wool, hair or pelts as well as milk and meat.
 
 [wolf]
 type: creature

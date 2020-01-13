@@ -44,26 +44,26 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 	}
 	TCODZip zip;
     map -> wipe(x, y, z);
-	// Load saved
-    std::string path = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
-    if(zip.loadFromFile(path.c_str())) {
-        map -> load(&zip);
-		actorManager.loadActorsFromBinary(&zip);
-		return;
-	}
-	// Load static
-    path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
-    if(zip.loadFromFile(path.c_str())) {
-        map -> load(&zip);
-        path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".act";
-		actorManager.loadActorsFromText(path);
-		return;
-	}
-	// Parse world map
+	// World map
 	if(x == 0 and y == 0 and z == 0) {
         map -> parse("data/world.txt"); 
-	// Genrate wilderness map
 	} else {
+        // Load saved
+        std::string path = "data/save/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".sav";
+        if(zip.loadFromFile(path.c_str())) {
+            map -> load(&zip);
+            actorManager.loadActorsFromBinary(&zip);
+            return;
+        }
+        // Load static
+        path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
+        if(zip.loadFromFile(path.c_str())) {
+            map -> load(&zip);
+            path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".act";
+            actorManager.loadActorsFromText(path);
+            return;
+        }
+        // Genrate wilderness map
 		if(getWorldTile(x, y).biome == biome::grassland) {
 			engine -> runScript("gen/grassland.lua");
 		} else if(getWorldTile(x, y).biome == biome::temperateForest) {

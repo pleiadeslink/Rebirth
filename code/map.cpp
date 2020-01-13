@@ -120,7 +120,7 @@ void c_map::parse(std::string path) {
                     genMatrix[i][y].tile = "world_marsh";
                     break;
                 }
-                case ' ': {
+                case '-': {
                     genMatrix[i][y].tile = "world_ocean";
                     break;
                 }
