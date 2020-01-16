@@ -15,13 +15,9 @@ void c_actorManager::savePlayer() {
     if(!player) {
         return;
     }
-
     TCODZip zip;
-
     player -> save(&zip); // * Save actor (id, x, y + modules)
-
     //saveInventoryActors(&zip);
-
     /*/ Inventory
     std::vector<s_invItem> inv = player -> life -> getInventory();
     if(inv.size() > 0) {
@@ -39,32 +35,21 @@ void c_actorManager::savePlayer() {
     } else {
         zip.putInt(0); // * Save int inventory size (0)
     }*/
-
-    
-
     std::string filename = "data/save/player.sav";
-
     zip.saveToFile(filename.c_str());
 }
 
 void c_actorManager::loadPlayer() {
-
     TCODZip zip;
-
     std::string filename = "data/save/player.sav";
-
     if(zip.loadFromFile(filename.c_str())) {
-
         std::string id = zip.getString();
         int x = zip.getInt();
         int y = zip.getInt();
         int player = createActor(id, x, y);
         c_actor* p_player = getActor(player);
-
         p_player -> load(&zip); // * Load actor (id, x, y + modules)
-
         //loadActors(&zip, true);
-
         /*/ Inventory
         int invSize = zip.getInt(); // * Load int inventory size
         if(invSize != 0) {
@@ -245,6 +230,7 @@ void c_actorManager::clear() {
     //memset(a_uid, 0, sizeof(a_uid));
     v_map.clear();
     v_active.clear();
+    v_creature.clear();
     v_locations.clear();
 }
 
@@ -293,7 +279,8 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         newActor -> init(asset);
         v_map.push_back(icounter);
         if(newActor -> AI) {
-            v_active.push_back(icounter);    
+            v_active.push_back(icounter);
+
         }
         if(newActor -> getType() == actorType::location) {
             v_locations.push_back(icounter);
@@ -320,6 +307,7 @@ void c_actorManager::deleteActor(const int& uid) {
     // Delete actor from lists
     removeFromMap(uid);
     removeFromActive(uid);
+    removeFromCreature(uid);
     removeFromLocations(uid);
     removeFromInventory(uid);
 
@@ -380,6 +368,16 @@ const bool& c_actorManager::removeFromActive(const int& uid) {
     return false;
 }
 
+const bool& c_actorManager::removeFromCreature(const int& uid) {
+    for(int i = 0; i < static_cast<int>(v_active.size()); ++i) {
+        if(v_creature[i] == uid) {
+            v_creature.erase(v_creature.begin() + i);
+            return true;
+        }
+    }
+    return false;
+}
+
 const bool& c_actorManager::removeFromLocations(const int& uid) {
     for(int i = 0; i < static_cast<int>(v_locations.size()); ++i) {
         if(v_locations[i] == uid) {
@@ -409,3 +407,7 @@ const bool& c_actorManager::removeFromInventory(const int& uid) {
         player -> player -> addToInventory(v_inventory[i]);
     }    
 }*/
+
+const int& c_actorManager::getTarget(const int& emitter, const int& diplomacy) {
+    return 0;
+}

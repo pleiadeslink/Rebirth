@@ -108,25 +108,41 @@ symbol: 10x15
 color: darker chartreuse
 colorbg: darkest green
 
-[world_savanna]
-name: Savanna
-desc: Savanna
+[world_tundra]
+name: Tundra
+desc: The frozen tundra.
 type: world
 symbol: 10x15
-color: amber
-colorbg: amber
+color: grey
+colorbg: lightest cyan
+
+[world_dead]
+name: Dead zone
+desc: A dead area.
+type: world
+symbol: 10x15
+color: light red
+colorbg: desaturated red
+
+[world_savanna]
+name: Savanna
+desc: An arid hot savanna.
+type: world
+symbol: 10x15
+color: ligthtest amber
+colorbg: lighter amber
 
 [world_mountain]
 name: Mountain
-desc: A large natural elevation of Tera's surface
+desc: A large natural elevation.
 type: world
 symbol: 8x19
 color: grey
-colorbg: darkest green
+colorbg: darkest sepia
 
 [world_taiga]
 name: Taiga
-desc: A dense coniferous forest composed of pines and spruces.
+desc: A dense coniferous forest.
 type: world
 symbol: 9x19
 color: darker green
@@ -150,19 +166,20 @@ colorbg: darkest green
 
 [world_desert]
 name: Desert
-desc: A barren desert.
+desc: An arid sand desert.
 type: world
 symbol: 10x15
 color: light sepia	
 colorbg: lighter sepia
 
 [world_marsh]
-name: Desert
-desc: A barren desert.
+name: Marsh
+desc: A wet marsh.
 type: world
 symbol: 10x15
-color: dark azure	
-colorbg: dark azure
+color: darkest sepia
+colorbg: darkest turquoise
+
 
 [world_ocean]
 name: Ocean

@@ -10,6 +10,7 @@ class c_actorManager {
         c_actor* a_uid[32766];
         std::vector<int> v_map;
         std::vector<int> v_active;
+        std::vector<int> v_creature;
         std::vector<int> v_locations;
         std::vector<int> v_inventory;
         unsigned int icounter = 1;
@@ -57,7 +58,7 @@ class c_actorManager {
         c_actor* getPlayer() { return player; }
 
         /// @brief Returns a pointer to the actor
-        /// @param uid The actor's unique ID integrer
+        /// @param uid The actor's UID
         c_actor* getActor(const int& uid);
 
         /// @brief Removes an actor from map and vectors, then deletes it
@@ -90,7 +91,14 @@ class c_actorManager {
         const bool& removeFromActive(const int& uid);
         const bool& removeFromLocations(const int& uid);
         const bool& removeFromInventory(const int& uid);
+        const bool& removeFromCreature(const int& uid);
         //void updateInventory();
+
+        /// @brief Finds the most aggroed target
+        /// @param emitter The emitter's UID
+        /// @param diplomacy Diplomacy stance for the desired target
+        /// @return The target's UID, 0 if nothing found
+        const int& getTarget(const int& emitter, const int& diplomacy);
 };
 
 #endif

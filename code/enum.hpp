@@ -24,6 +24,15 @@ namespace key {
     };
 }
 
+/// @brief Diplomacy stances
+namespace diplomacy {
+    enum diplomacies {
+        friendly,
+        neutral,
+        hostile
+    };
+}
+
 /// @brief Actor categories
 namespace actorType {
     enum actorTypes {

@@ -93,7 +93,13 @@ void c_map::parse(std::string path) {
         for(int i = 0; i < MAPSIZE; ++i) {
             switch(line[i]) {
                 case ',': {
+
                     genMatrix[i][y].tile = "world_grassland";
+                    break;
+                }
+                case 'V': {
+                    genMatrix[i][y].tile = "world_mountain";
+                    genMatrix[i][y].actor = "village";
                     break;
                 }
                 case '^': {
@@ -105,7 +111,7 @@ void c_map::parse(std::string path) {
                     break;
                 }
                 case 'Y': {
-                    genMatrix[i][y].tile = "world_taigaForest";
+                    genMatrix[i][y].tile = "world_taiga";
                     break;
                 }
                 case 'F': {
@@ -116,12 +122,28 @@ void c_map::parse(std::string path) {
                     genMatrix[i][y].tile = "world_desert";
                     break;
                 }
-                case 'M': {
+                case 'm': {
                     genMatrix[i][y].tile = "world_marsh";
+                    break;
+                }
+                case 's': {
+                    genMatrix[i][y].tile = "world_savanna";
                     break;
                 }
                 case '-': {
                     genMatrix[i][y].tile = "world_ocean";
+                    break;
+                }
+                case '0': {
+                    genMatrix[i][y].tile = "world_tundra";
+                    break;
+                }
+                case 'x': {
+                    genMatrix[i][y].tile = "world_dead";
+                    break;
+                }
+                default: {
+                    genMatrix[i][y].tile = "world_grassland";
                     break;
                 }
             }

@@ -616,7 +616,7 @@ void c_helper::startAction(const structEventData& eventData) {
 	engine -> game -> actorManager.getActor(eventData.emitter) -> action -> start(eventData);
 }
 
-const int& c_helper::findEnemy(const int& actor) {
+const int& c_helper::getTarget(const int& actor) {
 
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;

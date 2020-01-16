@@ -15,7 +15,7 @@ while true do
 		end
 		
 		-- Check if there are visible enemies
-		enemyFound = findEnemy(emitter)
+		enemyFound = targetEnemy(emitter)
 		if(enemyFound ~= 0) then
 
 			-- If the enemy is close, attack
@@ -25,7 +25,6 @@ while true do
 				data:setTarget(enemyFound)
 				data:setType("hit")
 				startAction(data)
-				
 				return	
 			else
 				-- Move to target

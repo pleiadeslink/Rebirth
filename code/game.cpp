@@ -117,6 +117,7 @@ void c_game::storeMap() {
 	return;
 }
 
+// Fuck I had to be really stoned when I wrote this
 void c_game::updateWorld() {
     TCODZip zip;
     std::string defaultFilename = "data/map/0.0.0.map";

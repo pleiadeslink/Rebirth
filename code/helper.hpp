@@ -94,7 +94,7 @@ class c_helper {
 		static const int& createActor(std::string id, const int& x, const int& y);
 		static const int& tryToTalk(const int& x, const int& y);
 		static void startAction(const structEventData& eventData);
-		static const int& findEnemy(const int& actor);
+		static const int& getTarget(const int& actor);
 		static const bool& isEnemy(const int& emitter, const int& target);
 		static void showActorPosition(const int& actor); // Shows actor's coordinates in the game console
 		static void showPlayerPosition(); // Shows player's coordinates in the game console
