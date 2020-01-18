@@ -12,6 +12,7 @@ class c_game {
 
     public:
         c_actorManager actorManager;
+        c_diplomacy diplomacy;
         c_gamelog gamelog;
         c_map* map = 0;
         
@@ -51,8 +52,13 @@ class c_game {
         int getBiome(const int& x, const int& y);
         
         void update(const int& key);
-        void turn(); // Runs turns till the player finishes his action
-        void message(std::string text); // Prints a message in the game console
+
+        /// @brief Runs turns till the avatar finishes his action
+        void turn();
+
+        /// @brief Prints a message in the game console 
+        void message(std::string text);
+
         s_worldTile getWorldTile(const int& x, const int& y);
         static bool runScript(structEventData& data);
         static bool runEvent(structEventData& data);

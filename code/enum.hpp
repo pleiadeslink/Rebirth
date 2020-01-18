@@ -24,15 +24,6 @@ namespace key {
     };
 }
 
-/// @brief Diplomacy stances
-namespace diplomacy {
-    enum diplomacies {
-        friendly,
-        neutral,
-        hostile
-    };
-}
-
 /// @brief Actor categories
 namespace actorType {
     enum actorTypes {
@@ -51,6 +42,24 @@ namespace actorType {
         trigger,
         location,
         tree
+    };
+}
+
+/// @brief Actor factions, used by AI to establish enemies/allies
+namespace faction {
+    enum factions {
+        avatar,
+        animal,
+        citizen
+    };
+}
+
+/// @brief Diplomacy stances
+namespace diplomacy {
+    enum diplomacies {
+        hostile,
+        neutral,
+        friendly
     };
 }
 
@@ -136,15 +145,6 @@ namespace tileType {
         deepWater,
         lava,
         world
-    };
-}
-
-/// @brief Actor factions, used by AI to establish enemies/allies
-namespace faction {
-    enum factions {
-        none,
-        avatar,
-        animal
     };
 }
 

@@ -308,7 +308,6 @@ void c_game::flood(const int& x, const int& y) {
     flood(x, y - 1);
 }
 
-// Returns the biome of the selected location of the world map
 int c_game::getBiome(const int& x, const int& y) {
     if(x > 0 and y > 0 and x < MAPSIZE and y < MAPSIZE) {
         return world[x][y].biome;
@@ -334,23 +333,19 @@ void c_game::update(const int& key) {
     gamelog.update();
 }
 
-// Runs turns till the player finishes his action
 void c_game::turn() {
     if(!actorManager.getPlayer() -> action -> isRunning()) {
         return;
     }
-
     do {
         // Update player
         actorManager.getPlayer() -> timeUpdate();
-        
+
         // Update active actors
         actorManager.timeUpdate();
-
     } while(actorManager.getPlayer() -> action -> isRunning());
 }
 
-// Prints a message in the game console
 void c_game::message(std::string text) {
     gamelog.message(text);
 }

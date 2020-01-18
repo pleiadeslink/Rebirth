@@ -1,8 +1,9 @@
-c_AI::c_AI(c_actor* father)
-: father(father) {
+c_AI::c_AI(c_actor* father, const int& faction)
+: father(father),
+  faction(faction) {
 }
 
-bool c_AI::think() {
+const bool& c_AI::think() {
     structEventData eventData;
     eventData.emitter = father -> getUid();
     eventData.type = "think";

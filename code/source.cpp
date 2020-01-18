@@ -2,8 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <list>
 #include <map>
+#include <set>
 #include <algorithm>
 #include <string>
 #include <cctype>
@@ -83,6 +83,7 @@ namespace global {
 #include "gamelog.hpp"
 #include "map.hpp"
 #include "mapGen.hpp"
+#include "diplomacy.hpp"
 #include "game.hpp"
 #include "helper.hpp"
 #include "engine.hpp"
@@ -139,6 +140,7 @@ int main(int argc, char *argv[]) {
 #include "actorManager.cpp"
 #include "helper.cpp"
 #include "gamelog.cpp"
+#include "diplomacy.cpp"
 #include "map.cpp"
 #include "mapGen.cpp"
 #include "game.cpp"

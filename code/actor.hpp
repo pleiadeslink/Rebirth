@@ -61,9 +61,6 @@ class c_actor {
         /// @brief The actor's Y tileset coordinate (symbol)
         int tileY;
 
-        /// @brief The faction the actor belongs to
-        int faction;
-
         /// @brief The color that will be used to draw the actor's symbol on screen
         sf::Color color;
 
@@ -159,7 +156,6 @@ class c_actor {
         const int& getMapY()  { return mapY; }
         const int& getTileX() { return tileX; }
         const int& getTileY() { return tileY; }
-        const int& getFaction() { return faction; }
         const sf::Color& getColor() { return color; }
         const int& getTarget() { return target; }
         void setName(std::string name) { this -> name = name; }

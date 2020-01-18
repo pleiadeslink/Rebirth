@@ -436,6 +436,50 @@ void c_assetManager::loadActors() {
 				asset.faction = faction::avatar;
 			} else if(line == "animal") {
 				asset.faction = faction::animal;
+			} else if(line == "citizen") {
+				asset.faction = faction::citizen;
+			}
+		}
+
+		key = "diplomacy: ";
+		if(line.find(key) != std::string::npos) {
+			line.erase(0, key.length());
+			bool digit = 0;
+			std::string n1 = "";
+			std::string n2 = "";
+			for(int i = 0; i < line.length(); ++i) {
+				if(line[i] == '-') {
+					digit = 1;
+				} else if(digit == 0) {
+					n1 += line[i];
+				} else {
+					n2 += line[i];
+				}
+			}
+			if(n1.c_str() == "avatar") {
+				if(n2.c_str() == "hostile") {
+					asset.a_diplomacy[faction::avatar] = diplomacy::hostile;
+				} else if(n2.c_str() == "neutral") {
+					asset.a_diplomacy[faction::avatar] = diplomacy::neutral;
+				} else if(n2.c_str() == "friendly") {
+					asset.a_diplomacy[faction::avatar] = diplomacy::friendly;
+				}
+			} else if(n1.c_str() == "animal") {
+				if(n2.c_str() == "hostile") {
+					asset.a_diplomacy[faction::animal] = diplomacy::hostile;
+				} else if(n2.c_str() == "neutral") {
+					asset.a_diplomacy[faction::animal] = diplomacy::neutral;
+				} else if(n2.c_str() == "friendly") {
+					asset.a_diplomacy[faction::animal] = diplomacy::friendly;
+				}
+			} else if(n1.c_str() == "citizen") {
+				if(n2.c_str() == "hostile") {
+					asset.a_diplomacy[faction::citizen] = diplomacy::hostile;
+				} else if(n2.c_str() == "neutral") {
+					asset.a_diplomacy[faction::citizen] = diplomacy::neutral;
+				} else if(n2.c_str() == "friendly") {
+					asset.a_diplomacy[faction::citizen] = diplomacy::friendly;
+				}
 			}
 		}
 		
@@ -734,6 +778,9 @@ s_actorAsset c_assetManager::clearActorAsset(s_actorAsset asset) {
 	asset.loot[4].chance = 0;
 	asset.loot[4].actor = "";
 	asset.f_noshadow = false;
+	for(int i = 0; i < 16; ++i) {
+		asset.a_diplomacy[i] = diplomacy::neutral;
+	}
 	return asset;
 }
 

@@ -33,7 +33,6 @@ typedef struct structFOVMap {
     bool val[global::maxFOVRange][global::maxFOVRange];
 };
 
-
 // MAP
 
 typedef struct s_worldTile {
@@ -97,6 +96,7 @@ typedef struct s_actorAsset {
     int slot;
     int penalty;
     int faction;
+    int a_diplomacy[16];
     s_effect effect[5];
     s_loot loot[5];
     bool f_noshadow;

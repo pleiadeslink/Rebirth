@@ -23,6 +23,7 @@ class c_body
     
 	public:
 		/// @brief The constructor initializes all component internal values
+		/// @param father Pointer to the parent object
 		/// @param canMove If true, other actors can move to the same tile as the current actor
 		/// @param canView If true, other actors can see through the current actor
 		/// @param canPickup If true, the actor can be picked up in the inventory

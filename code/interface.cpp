@@ -5,6 +5,7 @@ c_interface::c_interface() {
     editRadius = 1;
     xOffset = 0;
     yOffset = 0;
+    f_help = 0;
 }
 
 c_interface::~c_interface() {

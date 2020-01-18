@@ -257,7 +257,6 @@ c_actor* c_actorManager::getActor(const int& uid) {
         return a_uid[uid];
     }
     }*/
-    
     return a_uid[uid];
 }
 
@@ -280,7 +279,7 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         v_map.push_back(icounter);
         if(newActor -> AI) {
             v_active.push_back(icounter);
-
+            v_creature.push_back(icounter);
         }
         if(newActor -> getType() == actorType::location) {
             v_locations.push_back(icounter);
@@ -369,7 +368,7 @@ const bool& c_actorManager::removeFromActive(const int& uid) {
 }
 
 const bool& c_actorManager::removeFromCreature(const int& uid) {
-    for(int i = 0; i < static_cast<int>(v_active.size()); ++i) {
+    for(int i = 0; i < static_cast<int>(v_creature.size()); ++i) {
         if(v_creature[i] == uid) {
             v_creature.erase(v_creature.begin() + i);
             return true;
@@ -408,6 +407,40 @@ const bool& c_actorManager::removeFromInventory(const int& uid) {
     }    
 }*/
 
-const int& c_actorManager::getTarget(const int& emitter, const int& diplomacy) {
+struct comp {
+	template<typename T>
+	bool operator()(const T& l, const T& r) const {
+		if(l.second != r.second)
+			return l.second > r.second;
+		return l.first > r.first;
+	}
+};
+
+const int& c_actorManager::findTarget(const int& emitter, const int& diplomacy) {
+    if(a_uid[emitter] == 0 or v_creature.size() == 0) {
+        return 0;
+    }
+    std::map<int, int> m_target;
+    const int aggro_base = 100;
+    const int aggro_avatar = 100;
+    // Add the avatar if criteria is met (diplomacy is as desired, actor is in distance and visible from source)
+    if(engine -> game -> diplomacy.getStance(a_uid[emitter] -> AI -> getFaction(), faction::avatar) == diplomacy
+    and c_helper::calculateDistance(a_uid[emitter] -> getMapX(), a_uid[emitter] -> getMapY(), player -> getMapX(), player -> getMapY()) <= 16
+    and engine -> game -> map -> los(a_uid[emitter] -> getMapX(), a_uid[emitter] -> getMapY(), player -> getMapX(), player -> getMapY()) == true) {
+        m_target[1] = aggro_base + aggro_avatar;
+    }
+    // Add creatures if criteria is met
+    for(int i = 0; i < v_creature.size(); ++i) {
+        if(v_creature[i] != emitter
+        and engine -> game -> diplomacy.getStance(a_uid[emitter] -> AI -> getFaction(), a_uid[v_creature[i]] -> AI -> getFaction()) == diplomacy
+        and c_helper::calculateDistance(a_uid[emitter] -> getMapX(), a_uid[emitter] -> getMapY(), a_uid[v_creature[i]] -> getMapX(), a_uid[v_creature[i]] ->getMapY()) <= 16
+        and engine -> game -> map -> los(a_uid[emitter] -> getMapX(), a_uid[emitter] -> getMapY(), a_uid[v_creature[i]] -> getMapX(), a_uid[v_creature[i]] ->getMapY()) == true) {
+            m_target[v_creature[i]] = aggro_base;
+        }
+    }
+    std::set<std::pair<int, int>, comp> set_target(m_target.begin(), m_target.end());
+    for(auto const &pair: set_target) {
+		return pair.first;
+	}
     return 0;
 }

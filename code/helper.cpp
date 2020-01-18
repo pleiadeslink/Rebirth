@@ -616,45 +616,11 @@ void c_helper::startAction(const structEventData& eventData) {
 	engine -> game -> actorManager.getActor(eventData.emitter) -> action -> start(eventData);
 }
 
-const int& c_helper::getTarget(const int& actor) {
-
-	if(!engine -> game or !engine -> game -> map) {
+const int& c_helper::findTarget(const int& actor, const int& diplomacy) {
+	if(!engine -> game) {
 		return 0;
 	}
-	
-	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
-
-	// Get actor list
-	std::vector<int> actorList = engine -> game -> map -> fov(p_actor -> getMapX(), p_actor -> getMapY(), p_actor -> life -> getViewRange(), false);
-	
-	if(actorList.size() != 0) {
-		for(int i = 0; i < actorList.size(); ++i) {
-			if(isEnemy(actor, actorList.at(i)) == true) {
-
-				// Sets enemy as target
-
-
-				return actorList.at(i);
-			}
-		}
-	}
-	return 0;
-}
-
-const bool& c_helper::isEnemy(const int& emitter, const int& target) {
-
-	int fac = engine -> game -> actorManager.getActor(target) -> getFaction();
-	switch(engine -> game -> actorManager.getActor(emitter) -> getFaction()) {
-
-		// ANIMAL
-		case faction::animal: {
-			if(fac == faction::avatar) {
-				return true;
-			}
-			break;
-		}
-	}
-	return false;
+	return engine -> game -> actorManager.findTarget(actor, diplomacy);
 }
 
 // Shows actor's coordinates in the game console

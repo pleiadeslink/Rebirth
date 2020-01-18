@@ -16,7 +16,7 @@ faction: avatar
 ##########################################################################################
 ##########################################################################################
 
-[apothecary]
+[physician]
 type: creature
 name: physician
 desc: A dispenser of drugs and medicines, knowledgeable of plant lore, first aid and diseases.
@@ -28,6 +28,7 @@ speed: 2
 speed_a: 2
 protection: 5
 exp: 20
+faction: citizen
 
 [elder]
 type: creature
@@ -198,6 +199,7 @@ speed_a: 1
 protection: 2
 dodge: 30
 exp: 30
+faction: animal
 
 ##########################################################################################
 ##########################################################################################

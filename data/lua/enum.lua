@@ -45,3 +45,8 @@ M_MAGIC = 4
 M_MONSTER = 5
 M_NEUTRAL = 6
 M_ALLY = 7
+
+-- Diplomacy stances
+HOSTILE = 0
+NEUTRAL = 1
+FRIENDLY = 2

@@ -15,7 +15,7 @@ while true do
 		end
 		
 		-- Check if there are visible enemies
-		enemyFound = targetEnemy(emitter)
+		enemyFound = findTarget(emitter, HOSTILE)
 		if(enemyFound ~= 0) then
 
 			-- If the enemy is close, attack

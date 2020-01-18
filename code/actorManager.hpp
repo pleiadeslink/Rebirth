@@ -94,11 +94,11 @@ class c_actorManager {
         const bool& removeFromCreature(const int& uid);
         //void updateInventory();
 
-        /// @brief Finds the most aggroed target
+        /// @brief Returns the most aggroed target
         /// @param emitter The emitter's UID
         /// @param diplomacy Diplomacy stance for the desired target
         /// @return The target's UID, 0 if nothing found
-        const int& getTarget(const int& emitter, const int& diplomacy);
+        const int& findTarget(const int& emitter, const int& diplomacy);
 };
 
 #endif

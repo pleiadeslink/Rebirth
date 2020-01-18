@@ -19,7 +19,6 @@ class c_helper {
 		static void gameOver(); // Wait for enter key and deletes game
 
 		// * Sound
-
 		static void playAmbience(std::string track); // Plays a big audio file
 
 
@@ -94,14 +93,13 @@ class c_helper {
 		static const int& createActor(std::string id, const int& x, const int& y);
 		static const int& tryToTalk(const int& x, const int& y);
 		static void startAction(const structEventData& eventData);
-		static const int& getTarget(const int& actor);
-		static const bool& isEnemy(const int& emitter, const int& target);
+		static const int& findTarget(const int& actor, const int& diplomacy);
 		static void showActorPosition(const int& actor); // Shows actor's coordinates in the game console
 		static void showPlayerPosition(); // Shows player's coordinates in the game console
 		static const int& getDirectionToActor(const int& emitter, const int& target);
 
 		/// @brief Makes an actor drop its loot items
-		/// @param UID of the actor
+		/// @param actor UID of the actor
 		static void dropLoot(const int& actor);
 
 		static std::string getActorId(const int& actor); // Returns the actor's id

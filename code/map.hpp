@@ -55,7 +55,7 @@ class c_map : public TCODMap {
         void load(TCODZip* zip);
 
         /// @brief Parse map terrain data from a txt file
-        /// @param zip A string of the map file path
+        /// @param path A string of the map file path
         void parse(std::string path);
 
         /// @brief Resets tile matrix to default values and the coordinates given in parameters
@@ -130,8 +130,8 @@ class c_map : public TCODMap {
         /// @brief Calculates line of sight using Bresenham’s Line Generation Algorithm
         /// @param x1 The source X coordinate
         /// @param y1 The source Y coordinate
-        /// @param tx The destiny X coordinate
-        /// @param ty The destiny Y coordinate
+        /// @param x2 The destiny X coordinate
+        /// @param y2 The destiny Y coordinate
         /// @return Returns false if any tile blocks view
         const bool& los(int x1, int y1, const int& x2, const int& y2);
 
