@@ -1,6 +1,9 @@
+0.3.5
+- Basic combat AI refactored
+
 0.3.4
-- Diplomacy refactored (NPC factions!)
-- AI target system refactored (now with aggro!)
+- Diplomacy refactored
+- AI target system refactored
 
 0.3.3
 - The world map is finally born!

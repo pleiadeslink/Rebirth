@@ -528,10 +528,13 @@ void c_assetManager::loadActors() {
 		}
 
 		// Flags
-
 		key = "NOSHADOW";
 		if(line.find(key) != std::string::npos) {
-			asset.f_noshadow = true;
+			asset.a_flag[flag::noshadow] = true;
+		}
+		key = "PASSIVE";
+		if(line.find(key) != std::string::npos) {
+			asset.a_flag[flag::passive] = true;
 		}
 
     }
@@ -777,9 +780,11 @@ s_actorAsset c_assetManager::clearActorAsset(s_actorAsset asset) {
 	asset.loot[3].actor = "";
 	asset.loot[4].chance = 0;
 	asset.loot[4].actor = "";
-	asset.f_noshadow = false;
 	for(int i = 0; i < 16; ++i) {
 		asset.a_diplomacy[i] = diplomacy::neutral;
+	}
+	for(int j = 0; j < MAXFLAGS; ++j) {
+		asset.a_flag[j] = false;
 	}
 	return asset;
 }

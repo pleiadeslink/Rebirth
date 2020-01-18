@@ -11,6 +11,9 @@ c_actor::c_actor(const int& uid)
     staircase(0),
     weapon(0),
     armor(0) {
+    for(int i = 0; i < 32; ++i) {
+        a_flag[i] = 0;
+    }
 }
 
 c_actor::~c_actor() {
@@ -55,7 +58,9 @@ void c_actor::init(s_actorAsset* asset) {
     tileX = asset -> tx;
     tileY = asset -> ty;
     color = asset -> color;
-    f_noshadow = asset -> f_noshadow;
+    for(int i = 0; i < 32; ++i) {
+        a_flag[i] = asset -> a_flag[i];
+    }
     switch(type) {
         case actorType::avatar: {
             action = new c_action(this);
@@ -117,7 +122,7 @@ void c_actor::init(s_actorAsset* asset) {
 }
 
 void c_actor::draw(const int& x, int y) {
-    if(f_noshadow == false) {
+    if(a_flag[flag::noshadow] == false) {
         engine -> screen.drawTile(tileX, tileY, x + 1, y + 1, sf::Color::Black);
     }
     engine -> screen.drawTile(tileX, tileY, x, y, color);

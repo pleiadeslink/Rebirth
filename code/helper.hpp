@@ -75,6 +75,13 @@ class c_helper {
 		static void updateWorld(); // Updates world map from map 0.0.0 stored locally
 		static const bool& populate(std::string herd); // Populates map in a random tile with a "herd"
 		static void forgetMap();
+
+        /// @brief [LUA] Calculates map line of sight using Bresenham’s Line Generation Algorithm
+        /// @param x1 The source X coordinate
+        /// @param y1 The source Y coordinate
+        /// @param x2 The destiny X coordinate
+        /// @param y2 The destiny Y coordinate
+        /// @return Returns true if there are no vision obstacles between the source and the destiny
 		static const int& los(const int& x1, const int& y1, const int& x2, const int& y2);
 
 		/// @brief Stains a map tile with blood
@@ -82,23 +89,43 @@ class c_helper {
 		/// @param mapY The tile's vertical coordinate.
 		static void stainTileWithBlood(const int& mapX, const int& mapY);
 
-		// * Actor
+		// ACTOR
+
+		/// @brief [LUA] Returns true if the actor exists
+		/// @param actor The actor UID
+		/// @return True if the actor still exists
+		static const bool& actorExists(const int& actor);
 
 		static const int& findActorByName(const int& x, const int&y, std::string name);
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getActorFromTile(const int& x, const int& y, const int& type);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);
-		//static const int& getFirstActorInTile(const int& emitter, const int& x, const int& y);
 		static void teleportActor(const int& actor, const int& x, const int& y, const bool& recalculateFOV = true);
 		static const int& createActor(std::string id, const int& x, const int& y);
 		static const int& tryToTalk(const int& x, const int& y);
 		static void startAction(const structEventData& eventData);
 		static const int& findTarget(const int& actor, const int& diplomacy);
-		static void showActorPosition(const int& actor); // Shows actor's coordinates in the game console
-		static void showPlayerPosition(); // Shows player's coordinates in the game console
+		static void showActorPosition(const int& actor);
+		static void showPlayerPosition();
 		static const int& getDirectionToActor(const int& emitter, const int& target);
 
-		/// @brief Makes an actor drop its loot items
+		/// @brief [LUA] Returns the value of an actor flag
+		/// @param actor The actor UID
+        /// @param flag The desired flag ID
+        /// @return The flag bool value
+		static const bool& getActorFlag(const int& actor, const int& flag);
+
+		/// @brief [LUA] Returns the actor target
+        /// @param actor The actor UID
+        /// @return The target UID
+		static const int& getActorTarget(const int& actor);
+
+		/// @brief [LUA] Sets a target to an actor
+        /// @param actor The actor UID
+        /// @param target The target UID
+		static void setActorTarget(const int& actor, const int& target);		
+
+		/// @brief [LUA] Makes an actor drop its loot items
 		/// @param actor UID of the actor
 		static void dropLoot(const int& actor);
 

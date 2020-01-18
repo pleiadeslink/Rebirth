@@ -1,47 +1,72 @@
-state = 0
-think = 0
-wander = 1
+THINK = 0
+WANDER = 1
+state = THINK
 
--- Check if there are enemies
 while true do
 
 	-- THINK
-	while(state == think) do
+	while(state == THINK) do
 
-		-- If player is too far away, wander
-		if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), getActorMapX(getPlayer()), getActorMapY(getPlayer())) > getViewRange(emitter)) then
-			state = wander
+		-- If player is passive, wander
+		if(getActorFlag(emitter, PASSIVE) == true) then
+			state = WANDER
 			break
 		end
-		
-		-- Check if there are visible enemies
-		enemyFound = findTarget(emitter, HOSTILE)
-		if(enemyFound ~= 0) then
 
-			-- If the enemy is close, attack
-			if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), getActorMapX(enemyFound), getActorMapY(enemyFound)) == 1) then
-				data = s_data.new()
-				data:setEmitter(emitter)
-				data:setTarget(enemyFound)
-				data:setType("hit")
-				startAction(data)
-				return	
-			else
-				-- Move to target
-				data = s_data.new()
-				data:setEmitter(emitter)
-				data:setValue1(getDirectionToActor(emitter, enemyFound))
-				data:setType("walk")
-				startAction(data)
-				return
+		-- Remembers target
+		target = getActorTarget(emitter)
+
+		-- Check if the target still exists
+		if(target ~= 0) then
+			if(actorExists(target) == false) then
+				target = 0
+				setActorTarget(emitter, 0)
 			end
-		else
-			state = wander
 		end
+
+		-- Check if the target is still visible from the emitter position
+		if(target ~= 0) then
+			if(los(getActorMapX(emitter), getActorMapY(emitter), getActorMapX(target), getActorMapY(target)) == false) then
+				target = 0
+				setActorTarget(emitter, 0)
+			end
+		end
+
+		-- If there is no target, search for a new one
+		if(target == 0) then
+			target = findTarget(emitter, HOSTILE)
+		end
+
+		-- If no target was found, wander
+		if(target == 0) then
+			state = WANDER
+			break
+		end
+
+		-- If hostile target is within range, attack
+		if(calculateDistance(getActorMapX(emitter), getActorMapY(emitter), getActorMapX(target), getActorMapY(target)) == 1) then
+			data = s_data.new()
+			data:setEmitter(emitter)
+			data:setTarget(target)
+			data:setType("hit")
+			startAction(data)
+			return	
+		
+		-- Move to target
+		else
+			data = s_data.new()
+			data:setEmitter(emitter)
+			data:setValue1(getDirectionToActor(emitter, target))
+			data:setType("walk")
+			startAction(data)
+			return
+		end
+
+		state = WANDER
 	end
 
 	-- WANDER
-	while(state == wander) do
+	while(state == WANDER) do
 		if(math.random(0, 6) == 0) then
 			data = s_data.new()
 			data:setEmitter(emitter)

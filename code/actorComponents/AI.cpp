@@ -1,6 +1,7 @@
 c_AI::c_AI(c_actor* father, const int& faction)
 : father(father),
-  faction(faction) {
+  faction(faction),
+  target(0) {
 }
 
 const bool& c_AI::think() {

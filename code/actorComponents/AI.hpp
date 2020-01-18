@@ -3,6 +3,7 @@
 
 /// @brief This actor component provides artificial intelligence to an actor
 class c_AI {
+    
     private:
         /// @brief A pointer to the actor's main object
         c_actor* father;
@@ -10,8 +11,10 @@ class c_AI {
         /// @brief The faction the actor belongs to
         int faction;
 
-    public:
+        /// @brief Stores the target UID in memory
+        int target;
 
+    public:
         /// @brief Set all diplomacy relations to neutral by default
         c_AI(c_actor* father, const int& faction);
 
@@ -19,5 +22,7 @@ class c_AI {
         const bool& think();
 
         const int& getFaction() { return faction; }
+        const int& getTarget() { return target; }
+        void setTarget(const int& uid) { target = uid; }
 };
 #endif

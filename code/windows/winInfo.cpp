@@ -117,8 +117,8 @@ void c_winInfo::draw(const bool& mainView) {
                 desc.append("/nSpeed: ");
                 desc.append(std::to_string(p_actor -> weapon -> getSpeed()));
             }
-            desc.append("/nMass: ");
-            desc.append(std::to_string(p_actor -> body -> getMass()));
+            //desc.append("/nMass: ");
+            //desc.append(std::to_string(p_actor -> body -> getMass()));
             desc.append("/n/n");
             desc.append(c_helper::justify(p_actor -> getDescription(), 39));
 

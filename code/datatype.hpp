@@ -99,9 +99,18 @@ typedef struct s_actorAsset {
     int a_diplomacy[16];
     s_effect effect[5];
     s_loot loot[5];
-    bool f_noshadow;
+    bool a_flag[32];
 };
 
+/// @brief Used to order targets by aggro
+typedef struct s_comp {
+	template<typename T>
+	bool operator()(const T& l, const T& r) const {
+		if(l.second != r.second)
+			return l.second > r.second;
+		return l.first > r.first;
+	}
+};
 
 // Used to random populate a room
 typedef struct s_herdAsset {

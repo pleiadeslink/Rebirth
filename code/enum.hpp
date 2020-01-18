@@ -45,6 +45,14 @@ namespace actorType {
     };
 }
 
+/// @brief Actor flags
+namespace flag {
+    enum flags {
+        noshadow,
+        passive
+    };
+}
+
 /// @brief Actor factions, used by AI to establish enemies/allies
 namespace faction {
     enum factions {

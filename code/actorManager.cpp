@@ -407,15 +407,6 @@ const bool& c_actorManager::removeFromInventory(const int& uid) {
     }    
 }*/
 
-struct comp {
-	template<typename T>
-	bool operator()(const T& l, const T& r) const {
-		if(l.second != r.second)
-			return l.second > r.second;
-		return l.first > r.first;
-	}
-};
-
 const int& c_actorManager::findTarget(const int& emitter, const int& diplomacy) {
     if(a_uid[emitter] == 0 or v_creature.size() == 0) {
         return 0;
@@ -438,7 +429,7 @@ const int& c_actorManager::findTarget(const int& emitter, const int& diplomacy) 
             m_target[v_creature[i]] = aggro_base;
         }
     }
-    std::set<std::pair<int, int>, comp> set_target(m_target.begin(), m_target.end());
+    std::set<std::pair<int, int>, s_comp> set_target(m_target.begin(), m_target.end());
     for(auto const &pair: set_target) {
 		return pair.first;
 	}

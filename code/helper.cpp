@@ -523,6 +523,10 @@ void c_helper::genPlaceActorSomewhere(std::string actor, const int& quantity) {
 	engine -> game -> map -> genPlaceActorSomewhere(actor, quantity);		
 }
 
+const bool& c_helper::actorExists(const int& actor) {
+	return engine -> game -> actorManager.actorExists(actor);
+}
+
 const int& c_helper::findActorByName(const int& x, const int&y, std::string name) {
 	if(!engine -> game or !engine -> game -> map) {
 		return 0;
@@ -678,6 +682,18 @@ const int& c_helper::getDirectionToActor(const int& emitter, const int& target) 
         }
     }
     return 0;
+}
+
+const bool& c_helper::getActorFlag(const int& actor, const int& flag) {
+	return engine -> game -> actorManager.getActor(actor) -> getFlag(flag);
+}
+
+const int& c_helper::getActorTarget(const int& actor) {
+	return engine -> game -> actorManager.getActor(actor) -> AI -> getTarget();
+}
+
+void c_helper::setActorTarget(const int& actor, const int& target) {
+	engine -> game -> actorManager.getActor(actor) -> AI -> setTarget(target);
 }
 
 void c_helper::dropLoot(const int& actor) {

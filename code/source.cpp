@@ -33,6 +33,7 @@
 #define SQRDIST(x1,y1,x2,y2) (((x1)-(x2))*((x1)-(x2))+((y1)-(y2))*((y1)-(y2)))
 #define MAPSIZE 128
 #define MAXITERATIONS 2000
+#define MAXFLAGS 32
 #ifndef NDEBUG
 #define DBG(x) printf x
 #else

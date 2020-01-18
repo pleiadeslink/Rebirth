@@ -50,3 +50,7 @@ M_ALLY = 7
 HOSTILE = 0
 NEUTRAL = 1
 FRIENDLY = 2
+
+-- Actor flags
+NOSHADOW = 0
+PASSIVE = 1
