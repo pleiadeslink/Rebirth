@@ -3,9 +3,9 @@ c_winSidebar::c_winSidebar(const int& x, const int& y, const int& width, const i
 	this -> y = y;
 	this -> width = width;
 	this -> height = height;
-	this -> tileButtonWidth = 11;
+	this -> tileButtonWidth = 12;
 	this -> tileButtonHeight = 8;
-	this -> actorButtonWidth = 11;
+	this -> actorButtonWidth = 12;
 	this -> actorButtonHeight = 14;
 	creatureCounter = 0;
 	itemCounter = 0;
@@ -183,7 +183,8 @@ void c_winSidebar::draw() {
 					if(p_tile != 0) {
 						int xf = x * 16 + ((width * 16) / 2) - 16;
 						int yf = (y + 3) * 16 + 4;
-						//engine -> screen.drawTexture(p_tile -> texture, xf, yf);
+						engine -> screen.drawTile(11, 13, xf, yf, p_tile -> bgcolor, 2);
+						engine -> screen.drawTile(p_tile -> tx, p_tile -> ty, xf, yf, p_tile -> color, 2);
 						//p_tile -> drawOverlay(xf, yf, p_tile -> type, p_tile -> olcolor, 2);
 						engine -> screen.drawText(p_tile -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
 					}
@@ -194,7 +195,7 @@ void c_winSidebar::draw() {
 					if(p_actor != 0) {
 						int xf = x * 16 + ((width * 16) / 2) - 16;
 						int yf = (y + 3) * 16 + 4;
-						//engine -> screen.drawTexture(p_actor -> texture, xf, yf);
+						engine -> screen.drawTile(p_actor -> tx, p_actor -> ty, xf, yf, p_actor -> color, 2);
 						engine -> screen.drawText(p_actor -> name, xf + 16, (y + 5) * 16 + 8, sf::Color::White, textAlign::center);
 					}
 					break;

@@ -151,10 +151,8 @@ bool c_player::channel(const int& key) {
     // World map input
     if(c_helper::isWorldMap()) {
         switch(key) {  
-
             // Explore current tile in local map
             case key::e: {
-                std::cout << father -> getMapX() << " " << father -> getMapY() << std::endl;
                 c_helper::changeMap(father -> getMapX(), father -> getMapY(), 0);
                 return true;
             }            
@@ -242,7 +240,7 @@ bool c_player::channel(const int& key) {
 
             // Travel (go to the world map)
             case key::t: {
-                c_helper::changeMap(0, 0, 0, c_helper::getMapX(), c_helper::getMapY());
+                c_helper::changeMap(50, 0, 0);
                 return true;
             }  
 

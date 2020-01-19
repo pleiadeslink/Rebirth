@@ -292,33 +292,19 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
 }
 
 void c_actorManager::deleteActor(const int& uid) {
-
     c_actor* actor = getActor(uid);
     if(actor == 0) {
         return;
     }
-
-    // Delete actor from tile
     if(engine -> game -> map) {
         engine -> game -> map -> removeActorFromTile(uid, actor -> getMapX(), actor -> getMapY());
     }
-
-    // Delete actor from lists
     removeFromMap(uid);
     removeFromActive(uid);
     removeFromCreature(uid);
     removeFromLocations(uid);
     removeFromInventory(uid);
-
     a_uid[uid] = 0;
-
-    // Update visible creatures
-    //engine -> game -> map -> fov(engine -> game -> actorManager.getPlayer() -> getMapX(), engine -> game -> actorManager.getPlayer() -> getMapY(),
-   // engine -> game -> actorManager.getPlayer() -> life -> getViewRange());
-
-    //engine -> message(actor -> getName() + " deleted.");
-
-    // Delete actor instance
     delete actor;
 }
 

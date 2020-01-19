@@ -34,6 +34,7 @@
 #define MAPSIZE 128
 #define MAXITERATIONS 2000
 #define MAXFLAGS 32
+#define WORLDVIEWRADIUS 11
 #ifndef NDEBUG
 #define DBG(x) printf x
 #else

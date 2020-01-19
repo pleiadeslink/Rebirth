@@ -61,7 +61,7 @@ class c_actorManager {
         /// @param uid The actor's UID
         c_actor* getActor(const int& uid);
 
-        /// @brief Removes an actor from map and vectors, then deletes it
+        /// @brief Creates an actor at the specified position
         /// @param id The actor's asset ID
         /// @param mapX The X coord of the destination tile
         /// @param mapY The X coord of the destination tile

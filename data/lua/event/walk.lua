@@ -55,13 +55,13 @@ if(isPlayer(emitter)) then
 		end
 
 		-- Mountain
-		if(findActorByName(mapX, mapY, "mountain") ~= 0) then
+		if(findTileByName(mapX, mapY, "world_mountain")) then
 			message("The mountain in front of you is too steep to be traversed.")
 			return
 		end
 
 		-- Ocean
-		if(findTileByName(mapX, mapY, "water")) then
+		if(findTileByName(mapX, mapY, "world_ocean")) then
 			message("The water is too deep, you don't wanna drown do you?")
 			return
 		end
@@ -80,9 +80,10 @@ end
 -- If out limits, travel to the world map
 if(isWorldMap() == false) then
 	if(getMapZ() == 0) then
+		-- Go west
 		if(mapX == 0) then
 			if(isPlayer(emitter) == true) then
-				changeMap(getMapX() - 1, getMapY(), getMapZ(), getMapWidth() - 2, getActorMapY(emitter))
+				changeMap(getMapX() - 1, getMapY(), getMapZ())
 				message("You travel to the west.")
 			end
 			return
@@ -90,7 +91,7 @@ if(isWorldMap() == false) then
 		-- Go east
 		elseif(mapX == getMapWidth() - 1) then
 			if(isPlayer(emitter) == true) then
-				changeMap(getMapX() + 1, getMapY(), getMapZ(), 1, getActorMapY(emitter))
+				changeMap(getMapX() + 1, getMapY(), getMapZ())
 				message("You travel to the east.")
 			end
 			return
@@ -98,7 +99,7 @@ if(isWorldMap() == false) then
 		-- Go north
 		elseif(mapY == 0) then
 			if(isPlayer(emitter) == true) then
-				changeMap(getMapX(), getMapY() - 1, getMapZ(), getActorMapX(emitter), getMapHeight() - 2)
+				changeMap(getMapX(), getMapY() - 1, getMapZ())
 				message("You travel to the north.")
 			end
 			return
@@ -106,7 +107,7 @@ if(isWorldMap() == false) then
 		-- Go south
 		elseif(mapY == getMapWidth() - 1) then
 			if(isPlayer(emitter) == true) then
-				changeMap(getMapX(), getMapY() + 1, getMapZ(), mapX, 1)
+				changeMap(getMapX(), getMapY() + 1, getMapZ())
 				message("You travel to the south.")
 			end
 			return
@@ -119,14 +120,14 @@ if(isWorldMap() == false) then
 		if(isPlayer(emitter) == true) then
 
 			-- Up
-			if(direction == 9) then
-				changeMap(getMapX(), getMapY(), getMapZ() - 1, getActorMapX(emitter), getActorMapY(emitter))
+			if(direction == UP) then
+				changeMap(getMapX(), getMapY(), getMapZ() - 1)
 				message("You travel up.")
 				return
 
 			-- Down
-			elseif(direction == 10) then
-				changeMap(getMapX(), getMapY(), getMapZ() + 1, getActorMapX(emitter), getActorMapY(emitter))
+			elseif(direction == DOWN) then
+				changeMap(getMapX(), getMapY(), getMapZ() + 1)
 				message("You travel down.")
 				return
 			end

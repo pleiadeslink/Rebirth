@@ -47,12 +47,14 @@ color: lighter violet
 type: creature
 name: anaconda
 desc: A very large snake that moves with startling rapidity that kills not by poison but by constricting its prey.
+symbol: 3x5
+color: green
 
 [bat]
 type: creature
 name: Bat
 desc: A tiny winged creature.
-symbol: 2x6
+symbol: 4x7
 color: grey
 health: 200
 damage: 10-15
@@ -67,7 +69,7 @@ type: creature
 name: Bear
 desc: A large, powerful omnivore that inhabits many of Terra's forested hills. Equally happy consuming nuts, berries, fish, or small mammals, the bear is nonetheless fiercely territorial, and will kill any intruders. Many northern tribes hunt bears for their thick fur, strong bones, and sharp claws and teeth.
 symbol: 2x6
-color: color: dark sepia
+color: dark sepia
 health: 200
 damage: 10-15
 speed: 2
@@ -87,6 +89,7 @@ damage: 0-0
 speed: 3
 exp: 1
 faction: animal
+PASSIVE
 
 [cow]
 type: creature
@@ -100,6 +103,7 @@ speed: 1
 protection: 1
 exp: 1
 faction: animal
+PASSIVE
 
 [dog]
 type: creature
@@ -163,7 +167,7 @@ exp: 30
 type: creature
 name: monkey
 desc: A highly social creature whose shape resembles that of a very primitive man. They are covered in hair and like to throw feces at their enemies.
-symbol: 1x6
+symbol: 11x6
 color: sepia
 speed: 2
 damage: 4-10
@@ -176,16 +180,41 @@ exp: 30
 type: creature
 name: pig
 desc: This domesticated beast is the descendant of wild boars, and is raised for its meat and hide, being among the most versatile and common farm animals.
+symbol: 0x7
+color: fuchsia
+faction: animal
+PASSIVE
 
 [rabbit]
 type: creature
 name: rabbit
 desc: A small, furry mammal with long ears, short fluffy tail and strong, large hind legs used to move by hopping.
+symbol: 2x6
+color: lighter grey
+faction: animal
+PASSIVE
 
 [sheep]
 type: creature
 name: sheep
 desc: This small, fearful livestock herbivore is raised for its wool, hair or pelts as well as milk and meat.
+symbol: 3x7
+color: lighter grey
+faction: animal
+PASSIVE
+
+[snake]
+type: creature
+name: Snake
+desc: Countless species of these poisonous serpents dwell in the wild, their bites capable of bringing down creatures much larger than themselves.
+symbol: 3x7
+color: green
+speed: 1
+damage: 5-10
+speed_a: 0.5
+accuracy: 80
+dodge: 60
+exp: 15
 
 [wolf]
 type: creature
@@ -341,22 +370,9 @@ resist: pierce|blunt
 exp: 60
 loot: 100.skeleton_corpse
 
-[snake]
-type: creature
-name: Snake
-desc: Countless species of these poisonous serpents dwell in the wild, their bites capable of bringing down creatures much larger than themselves.
-symbol: 3x7
-color: green
-speed: 1
-damage: 5-10
-speed_a: 0.5
-accuracy: 80
-dodge: 60
-exp: 15
-
 [stirge]
 type: creature
-name: Snake
+name: Stirge
 desc: This horrid monster looks like a cross between a large bat and an oversized mosquito. Its legs end in sharp pincers, and its long, needle-like proboscis slashes the air as it seeks to feed on the blood of living creatures.
 symbol: 3x7
 color: green

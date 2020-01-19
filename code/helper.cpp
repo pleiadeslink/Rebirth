@@ -160,47 +160,8 @@ void c_helper::storeMap() {
     }
 }
 
-void c_helper::changeMap(const int& x, const int& y, const int& z, int startX, int startY) {
-	if(!engine -> game or !engine -> game -> map) {
-		return;
-	}
-	engine -> setLoading(true);
-	engine -> screen.clear();
-    engine -> interface.draw();
-    engine -> screen.display();
-	engine -> interface.setTileDestination(0);
-    engine -> game -> saveMap();
-    //engine -> game -> actorManager.savePlayer();
-    engine -> game -> actorManager.clear();
-    engine -> game -> loadMap(x, y, z);
-	//engine -> game -> actorManager.loadPlayer();
-	if(startX == 0 and startY == 0) { // If starting position tile is empty, we teleport to the middle of the map
-		startX = engine -> game -> map -> getWidth() / 2;
-		startY = engine -> game -> map -> getHeight() / 2;
-	}
-	teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), startX, startY, true);
-	engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
-	engine -> setLoading(false);
-
-}
-
-void c_helper::worldMap(const int& mapX, const int& mapY) {
-    if(!engine -> game or !engine -> game -> map) {
-        return;
-    }
-	engine -> setLoading(true);
-	engine -> screen.clear();
-    engine -> interface.draw();
-    engine -> screen.display();
-	engine -> interface.setTileDestination(0);
-    engine -> game -> saveMap();
-    //engine -> game -> actorManager.savePlayer();
-    engine -> game -> actorManager.clear();
-    engine -> game -> loadMap(0, 0, 0);
-    //engine -> game -> actorManager.loadPlayer();
-    teleportActor(engine -> game -> actorManager.getPlayer() -> getUid(), mapX, mapY, true);
-	//engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
-	engine -> setLoading(false);
+void c_helper::changeMap(const int& x, const int& y, const int& z) {
+	engine -> game -> changeMap(x, y, z);
 }
 
 // Returns true if it finds a location actor in the tile
@@ -219,14 +180,8 @@ const bool& c_helper::isLocation(const int& x, const int& y) {
 	return false;
 }
 
-const bool& c_helper::isWorldMap() {
-    if(!engine -> game or !engine -> game -> map) {
-        return false;
-    }
-	if(engine -> game -> map -> getX() == 0 and engine -> game -> map -> getY() == 0) {
-		return true;
-	}
-	return false;
+bool c_helper::isWorldMap() {
+	return engine -> game -> isWorldMap();
 }
 
 void c_helper::resetMap() {
@@ -299,15 +254,8 @@ const int& c_helper::getMapZ() {
     return engine -> game -> map -> getZ();
 }
 
-// Returns true if the tile in location has the same name as parameter
-const bool& c_helper::findTileByName(const int& x, const int& y, std::string name) {
-    if(!engine -> game or !engine -> game -> map) {
-    	return false;
-	}
-	if(engine -> game -> map -> getTile(x, y) -> getId() == name) {
-		return true;
-	}
-	return false;
+bool c_helper::findTileByName(const int& x, const int& y, std::string name) {
+    return engine -> game -> map -> findTileByName(x, y, name);
 }
 
 const bool& c_helper::genClear(std::string tile) {
@@ -493,10 +441,11 @@ void c_helper::stainTileWithBlood(const int& mapX, const int& mapY) {
 
 
 int c_helper::getBiome(const int& x, const int& y) {
-	if(!engine -> game) {
-		return 0;
-	}
 	return engine -> game -> getBiome(x, y);
+}
+
+void c_helper::genAddBorder(std::string tile, const int& direction, const int& minWidth, const int& maxWidth) {
+	engine -> game -> map -> genAddBorder(tile, direction, minWidth, maxWidth);
 }
 
 // Adds a patch of the specified tile using a cellular automata generated pattern
@@ -572,44 +521,10 @@ const bool& c_helper::actorTypeInTile(std::string type, const int& x, const int&
 }*/
 
 void c_helper::teleportActor(const int& actor, const int& mapX, const int& mapY, const bool& recalculateFOV) {
-	if(!engine -> game or !engine -> game -> map) {
-		return;
-	}
-
-	c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
- 
-    // Get last position
-    int oldX = p_actor -> getMapX();
-    int oldY = p_actor -> getMapY();
-
-    // Change values from actor
-    p_actor -> setMapX(mapX);
-    p_actor -> setMapY(mapY);
-            
-    // Recalculate FOV (smaller range for world map)
-    if(recalculateFOV == true and p_actor == engine -> game -> actorManager.getPlayer()) {
-		if(c_helper::isWorldMap() == true) {
-        	engine -> game -> map -> fov(mapX, mapY, 11, true);
-		} else {
-			engine -> game -> map -> fov(mapX, mapY, p_actor -> life -> getViewRange(), true);
-		}
-    }
-
-    // Remove from last position and add to the new one
-    engine -> game -> map -> removeActorFromTile(actor, oldX, oldY);
-    engine -> game -> map -> addActorToTile(actor, mapX, mapY);
-
-	// If it's the player, check for a script
-	/*int script = engine -> game -> map -> getTile(mapX, mapY) -> getScript();
-	if(script != 0 ) {
-
-	}*/
+	engine -> game -> map -> teleportActor(actor, mapX, mapY, recalculateFOV);
 }
 
 const int& c_helper::createActor(std::string id, const int& x, const int& y) {
-	if(!engine -> game) {
-		return false;
-	}
 	return engine -> game -> actorManager.createActor(id, x, y);
 }
 
@@ -621,9 +536,6 @@ void c_helper::startAction(const structEventData& eventData) {
 }
 
 const int& c_helper::findTarget(const int& actor, const int& diplomacy) {
-	if(!engine -> game) {
-		return 0;
-	}
 	return engine -> game -> actorManager.findTarget(actor, diplomacy);
 }
 
@@ -979,9 +891,6 @@ void c_helper::damage(const int& actor, const int& value) {
 }
 
 void c_helper::kill(const int& actor) {
-	if(!engine -> game) {
-		return;
-	}
 	engine -> game -> actorManager.deleteActor(actor);	
 }
 
@@ -1118,6 +1027,5 @@ const bool& c_helper::learn(std::string id) {
 
 //  Wait for enter key and deletes game
 void c_helper::gameOver() {
-	engine -> interface.gameOver();
-	exit(EXIT_SUCCESS);
+	engine -> game -> endGame();
 }

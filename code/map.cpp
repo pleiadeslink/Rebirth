@@ -98,7 +98,7 @@ void c_map::parse(std::string path) {
                     break;
                 }
                 case 'V': {
-                    genMatrix[i][y].tile = "world_mountain";
+                    genMatrix[i][y].tile = "world_location";
                     genMatrix[i][y].actor = "village";
                     break;
                 }
@@ -807,6 +807,95 @@ const bool& c_map::genIsWall(const int& x, const int& y) {
     return false;
 }
 
+void c_map::genAddBorder(std::string tile, const int& direction, const int& minWidth, const int& maxWidth) {
+    switch(direction) {
+        case direction::north: {
+            for(int i1 = 0; i1 < width; ++i1) {
+                for(int i2 = 0; i2 < minWidth; ++i2) {
+                    genMatrix[i1][i2].tile = tile;
+                }
+            }
+            for(int i2 = minWidth; i2 < (maxWidth - minWidth); ++i2) {
+                for(int i1 = 0; i1 < width; ++i1) {
+                    if(i1 > 0 and i1 < (width - 1)
+                    and (genMatrix[i1][i2 - 1].tile == tile
+                    or genMatrix[i1 - 1][i2].tile == tile
+                    or genMatrix[i1 + 1][i2].tile == tile)) {
+                        if(c_helper::d100(90 - (i2 * 5))) {
+                            genMatrix[i1][i2].tile = tile;
+                        }
+                    }
+                }
+            }
+            break;
+        }
+        case direction::south: {
+            for(int i1 = 0; i1 < width; ++i1) {
+                for(int i2 = (height - 1); i2 > (height - 1 - minWidth); --i2) {
+                    genMatrix[i1][i2].tile = tile;
+                }
+            }
+            int counter = 0;
+            for(int i2 = (height - minWidth); i2 > (height - 1 - (maxWidth - minWidth)); --i2) {
+                for(int i1 = 0; i1 < width; ++i1) {
+                    if(i1 > 0 and i1 < (width - 1)
+                    and (genMatrix[i1][i2 + 1].tile == tile
+                    or genMatrix[i1 - 1][i2].tile == tile
+                    or genMatrix[i1 + 1][i2].tile == tile)) {
+                        if(c_helper::d100(90 - (counter * 5))) {
+                            genMatrix[i1][i2].tile = tile;
+                        }
+                    }
+                }
+                ++counter;
+            }
+            break;
+        }
+        case direction::west: {
+            for(int i1 = 0; i1 < height; ++i1) {
+                for(int i2 = 0; i2 < minWidth; ++i2) {
+                    genMatrix[i2][i1].tile = tile;
+                }
+            }
+            for(int i2 = minWidth; i2 < (maxWidth - minWidth); ++i2) {
+                for(int i1 = 0; i1 < width; ++i1) {
+                    if(i1 > 0 and i1 < (width - 1)
+                    and (genMatrix[i2][i1 - 1].tile == tile
+                    or genMatrix[i2 - 1][i1].tile == tile
+                    or genMatrix[i2 + 1][i1].tile == tile)) {
+                        if(c_helper::d100(90 - (i2 * 5))) {
+                            genMatrix[i2][i1].tile = tile;
+                        }
+                    }
+                }
+            }
+            break;
+        }
+        case direction::east: {
+            for(int i1 = 0; i1 < width; ++i1) {
+                for(int i2 = (height - 1); i2 > (height - 1 - minWidth); --i2) {
+                    genMatrix[i2][i1].tile = tile;
+                }
+            }
+            int counter = 0;
+            for(int i2 = (height - minWidth); i2 > (height - 1 - (maxWidth - minWidth)); --i2) {
+                for(int i1 = 0; i1 < width; ++i1) {
+                    if(i1 > 0 and i1 < (width - 1)
+                    and (genMatrix[i2][i1 + 1].tile == tile
+                    or genMatrix[i2 - 1][i1].tile == tile
+                    or genMatrix[i2 + 1][i1].tile == tile)) {
+                        if(c_helper::d100(90 - (counter * 5))) {
+                            genMatrix[i2][i1].tile = tile;
+                        }
+                    }
+                }
+                ++counter;
+            }
+            break;
+        }
+    }
+}
+
 // Adds a patch of the specified tile using a cellular automata generated pattern
 void c_map::genAddCellularPatch(std::string tile, const int& size) {
 
@@ -915,7 +1004,8 @@ void c_map::genPlantTrees(std::string tree, const int& size, const bool& dead) {
            and genMatrix[x - 1][y + 1].actor == ""
            and genMatrix[x - 1][y].actor == ""
            and genMatrix[x - 1][y - 1].actor == ""
-           and genMatrix[x][y].tile != "floor_tallGrass") {
+           and genMatrix[x][y].tile != "floor_tallGrass"
+           and engine -> assetManager.getTileAsset(genMatrix[x][y].tile) -> type != tileType::wall) {
             genMatrix[x][y].actor = tree;
             ++trees;
         }
@@ -959,7 +1049,30 @@ void c_map::build() {
     }
 }
 
-// --- ACTOR ---
+void c_map::teleportActor(const int& actor, const int& mapX, const int& mapY, const bool& recalculateFOV) {
+    c_actor* p_actor = engine -> game -> actorManager.getActor(actor);
+    // Store old position
+    int oldX = p_actor -> getMapX();
+    int oldY = p_actor -> getMapY();
+    // Assign new position to the actor
+    p_actor -> setMapX(mapX);
+    p_actor -> setMapY(mapY);
+     // Recalculate FOV
+    if(recalculateFOV == true and p_actor == engine -> game -> actorManager.getPlayer()) {
+		if(isWorldMap() == true) {
+        	fov(mapX, mapY, WORLDVIEWRADIUS, true);
+		} else {
+			fov(mapX, mapY, p_actor -> life -> getViewRange(), true);
+		}
+    }
+    // Remove from last position and add to the new one
+    removeActorFromTile(actor, oldX, oldY);
+    addActorToTile(actor, mapX, mapY);
+    // If it's the player, check for a script
+	/*int script = engine -> game -> map -> getTile(mapX, mapY) -> getScript();
+	if(script != 0 ) {
+	}*/
+}
 
 const bool& c_map::addActorToTile(const int& actor, const int& x, const int& y) {
 	if(x < 0 || x > width || y < 0 || y > height) {
@@ -1182,6 +1295,13 @@ const bool& c_map::los(int x1, int y1, const int& x2, const int& y2) {
         }
     } while (!TCODLine::step(&x1, &y1));
     return true;
+}
+
+const bool& c_map::findTileByName(const int& x, const int& y, std::string name) {
+	if(getTile(x, y) -> getId() == name) {
+		return true;
+	}
+	return false;
 }
 
 // --- GETS ----

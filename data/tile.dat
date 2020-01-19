@@ -180,7 +180,6 @@ symbol: 10x15
 color: darkest sepia
 colorbg: darkest turquoise
 
-
 [world_ocean]
 name: Ocean
 desc: The vast ocean.
@@ -188,5 +187,13 @@ type: world
 symbol: 14x7
 color: azure
 colorbg: dark azure
+
+[world_location]
+name: Location
+desc: A location.
+type: world
+symbol: 10x15
+color: grey
+colorbg: darkest sepia
 
 [end]

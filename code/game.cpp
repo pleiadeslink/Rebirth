@@ -21,7 +21,7 @@ const bool& c_game::newGame() {
         }
     }
     // Loads initial map
-    loadMap(0, 0, 0);
+    loadMap(50, 0, 0);
     storeMap();
     updateWorld();
     actorManager.createActor("avatar", 2, 2);
@@ -38,6 +38,56 @@ const bool& c_game::loadGame() {
     return true;
 }
 
+void c_game::endGame() {
+    engine -> interface.gameOver();
+	exit(EXIT_SUCCESS);
+    return;
+}
+
+const bool& c_game::changeMap(const int& x, const int& y, const int& z) {
+    if(!map) {
+        return false;
+    }
+    c_actor* p_player = actorManager.getPlayer();
+    // Calculate starting position
+    int startX = p_player -> getMapX();
+    int startY = p_player -> getMapY();
+    if(x == 50 and y == 0 and z == 0) {
+        startX = map -> getX();
+        startY = map -> getY();
+    } else if(isWorldMap() == true) {
+        startX = map -> getWidth() / 2;
+        startY = map -> getHeight() / 2;
+    } else {
+        if(z == map -> getZ()) {
+            if(x < map -> getX()) {
+                startX = map -> getWidth() - 2;
+            } else if(x > map -> getX()) {
+                startX = 1;
+            } else if(y < map -> getY()) {
+                startY = map -> getHeight() - 2;
+            } else if(y > map -> getY()) {
+                startY = 1;
+            }
+        }       
+    }
+    // Screen update
+    engine -> setLoading(true);
+    engine -> screen.clear();
+    engine -> interface.draw();
+    engine -> screen.display();
+    engine -> interface.setTileDestination(0);
+    // Map operations
+    saveMap();
+    actorManager.clear();
+    loadMap(x, y, z);
+    // Teleport player to new starting tile
+    map -> teleportActor(p_player -> getUid(), startX, startY, true);
+	//engine -> sound.playAmbience(engine -> game -> map -> getAmbience());
+	engine -> setLoading(false);
+    return true;
+}
+
 void c_game::loadMap(const int& x, const int& y, const int& z) {
 	if(!map) {
 		return;
@@ -45,7 +95,16 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 	TCODZip zip;
     map -> wipe(x, y, z);
 	// World map
-	if(x == 0 and y == 0 and z == 0) {
+	if(x == 50 and y == 0 and z == 0) {
+        // Load static
+        std::string path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".map";
+        if(zip.loadFromFile(path.c_str())) {
+            map -> load(&zip);
+            path = "data/map/" + std::to_string(x) + "." + std::to_string(y) + "." + std::to_string(z) + ".act";
+            actorManager.loadActorsFromText(path);
+            return;
+        }
+        // Parse from txt if no static was found
         map -> parse("data/world.txt"); 
 	} else {
         // Load saved
@@ -64,25 +123,28 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
             return;
         }
         // Genrate wilderness map
-		if(getWorldTile(x, y).biome == biome::grassland) {
+        map -> setX(x);
+	    map -> setY(y);
+	    map -> setZ(z);
+		if(world[x][y].biome == biome::grassland) {
 			engine -> runScript("gen/grassland.lua");
-		} else if(getWorldTile(x, y).biome == biome::temperateForest) {
+		} else if(world[x][y].biome == biome::temperateForest) {
 			engine -> runScript("gen/temperateForest.lua");
-		} else if(getWorldTile(x, y).biome == biome::taiga) {
+		} else if(world[x][y].biome == biome::taiga) {
 			engine -> runScript("gen/taiga.lua");
-		} else if(getWorldTile(x, y).biome == biome::jungle) {
+		} else if(world[x][y].biome == biome::jungle) {
 			engine -> runScript("gen/jungle.lua");
-		} else if(getWorldTile(x, y).biome == biome::desert) {
+		} else if(world[x][y].biome == biome::desert) {
 			engine -> runScript("gen/desert.lua");
-		} else if(getWorldTile(x, y).biome == biome::savanna) {
+		} else if(world[x][y].biome == biome::savanna) {
 			engine -> runScript("gen/savanna.lua");
-		} else if(getWorldTile(x, y).biome == biome::marsh) {
+		} else if(world[x][y].biome == biome::marsh) {
 			engine -> runScript("gen/marsh.lua");
-		} else if(getWorldTile(x, y).biome == biome::tundra) {
+		} else if(world[x][y].biome == biome::tundra) {
 			engine -> runScript("gen/tundra.lua");
 		}
 	}
-	map -> setX(x);
+    map -> setX(x);
 	map -> setY(y);
 	map -> setZ(z);
 }
@@ -120,7 +182,7 @@ void c_game::storeMap() {
 // Fuck I had to be really stoned when I wrote this
 void c_game::updateWorld() {
     TCODZip zip;
-    std::string defaultFilename = "data/map/0.0.0.map";
+    std::string defaultFilename = "data/map/50.0.0.map";
     // First we need to load a temporal map with the info from 0.0.0
     if(zip.loadFromFile(defaultFilename.c_str())) {
         typedef struct s_temp {
@@ -212,11 +274,15 @@ void c_game::updateWorld() {
                 if(tempMap[i][j].tile == "world_ocean") {
                     world[i][j].biome = biome::ocean;
                 }
+                // LOCATION
+                if(tempMap[i][j].tile == "world_location") {
+                    world[i][j].biome = biome::location;
+                }
             }
         }
         engine -> message("World updated!");
     } else {
-        engine -> message("World update failed because map 0.0.0 was not found.");
+        engine -> message("World update failed because map 50.0.0 was not found.");
     }
 }
 
@@ -374,9 +440,9 @@ bool c_game::runEffect(structEventData& data) {
     return false;
 }
 
-s_worldTile c_game::getWorldTile(const int& x, const int& y) {
-    if(x >= 0 and y >= 0 and x <= MAPSIZE and y <= MAPSIZE) {
-        return world[x][y];
+const bool& c_game::isWorldMap() { 
+    if(map and map -> getX() == 50 and map -> getY() == 0) {
+        return true; 
     }
-    return world[0][0];
+    return false; 
 }

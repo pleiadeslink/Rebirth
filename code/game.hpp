@@ -18,9 +18,23 @@ class c_game {
         
         c_game() { }
         ~c_game();
+
+        /// @brief Creates a new game, loads the world map and teleports the player
+        /// @return Returns true if successful
         const bool& newGame();
+
         const bool& saveGame();
         const bool& loadGame();
+
+        /// @brief Ends game by showing the gameover screen, then closing the program 
+		void endGame();
+
+        /// @brief Unloads current map and loads a local map
+        /// @param x X coordinate
+        /// @param y Y coordinate
+        /// @param z Z coordinate
+        /// @return Returns true if successful
+        const bool& changeMap(const int& x, const int& y, const int& z);
 
         /// @brief Loads a map from a saved file, a static map  or generates it
         /// @param x X coordinate
@@ -63,7 +77,10 @@ class c_game {
         static bool runScript(structEventData& data);
         static bool runEvent(structEventData& data);
         static bool runEffect(structEventData& data);
-        
+
+        /// @brief Returns true when current map is worldmap (50, 0, 0)
+        /// @return True if current map is worldmap
+        const bool& isWorldMap();
 };
 
 #endif

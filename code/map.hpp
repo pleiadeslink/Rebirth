@@ -6,15 +6,30 @@ struct structFOVMap;
 /// @brief A 2D matrix composed of map tiles representing a physical space structure
 class c_map : public TCODMap {
     private:
-        //c_tile** matrix; // *
+        /// @brief This vector array stores tha map tiles 
         std::vector<std::vector<c_tile*>> matrix;
+
+        /// @brief This array is used during map generation
         s_genTile** genMatrix;
-        std::string name; // *
-        int x; // *
-        int y; // *
-        int z; // *
-        int width; // *
-        int height; // *
+
+        /// @brief [SAVED] Map name
+        std::string name;
+
+        /// @brief [SAVED] X world coordinate
+        int x;
+
+        /// @brief [SAVED] T world coordinate
+        int y;
+
+        /// @brief [SAVED] Z world coordinate
+        int z;
+
+        /// @brief [SAVED] Map width
+        int width;
+        
+        /// @brief [SAVED] Map height
+        int height;
+
         int oldXFOV;
         int oldYFOV;
         int selectedTileX;
@@ -101,6 +116,14 @@ class c_map : public TCODMap {
         const bool& genWorld(); // Generates world map
         const bool& genIsFloor(const int& x, const int& y);
         const bool& genIsWall(const int& x, const int& y);
+
+        /// @brief Adds a random border with a specified terrain
+        /// @param tile Tile ID
+        /// @param direction Determines where the border will be made
+        /// @param minWidth Minimum border width
+        /// @param maxWidth Maximum border width    
+        void genAddBorder(std::string tile, const int& direction, const int& minWidth, const int& maxWidth);
+        
         void setGenFloor1(std::string value) { genFloor1 = value; }
         void setGenFloor2(std::string value) { genFloor2 = value; }
         void setGenFloor3(std::string value) { genFloor3 = value; }
@@ -114,6 +137,14 @@ class c_map : public TCODMap {
         void build();
 
         // Actor management
+
+        /// @brief Teleports an actor to a new tile
+        /// @param actor The actor UID
+        /// @param x X map coordinate
+        /// @param x Y map coordinate
+        /// @param recalculateFOV If true, map FOV is recalculated using the new position
+        void teleportActor(const int& actor, const int& mapX, const int& mapY, const bool& recalculateFOV = true);
+
         const bool& addActorToTile(const int& actor, const int& x, const int& y);
         const bool& removeActorFromTile(const int& actor, const int& x, const int& y);
         std::vector<int> countActorsAround(const int& x, const int& y); // Returns a list with the uids of all actors around the tile
@@ -134,6 +165,13 @@ class c_map : public TCODMap {
         /// @param y2 The destiny Y coordinate
         /// @return Returns false if any tile blocks view
         const bool& los(int x1, int y1, const int& x2, const int& y2);
+
+		/// @brief Checks the ID of a tile
+        /// @param x X map coordinate
+        /// @param x Y map coordinate
+		/// @param name Tile ID
+		/// @return Returns true if the tile is found at position
+		const bool& findTileByName(const int& x, const int& y, std::string name);        
 
         // Get
         c_tile* getTile(const int& x, const int& y);

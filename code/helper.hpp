@@ -15,8 +15,13 @@ class c_helper {
 		static void message(const std::string& text, const bool& updateNow = false); // Logs a game message
 		static void updateGamelog(); // Refresh gamelog force pushing all buffer
 		static void toggleFullScreen(); // Changes between window and fullscreen mode
+
+		/// @brief Starts a dialogue with an actor
+		/// @param actor The actor UID
 		static void talk(const int& actor);
-		static void gameOver(); // Wait for enter key and deletes game
+		
+		/// @brief Shows the gameover screen
+		static void gameOver();
 
 		// * Sound
 		static void playAmbience(std::string track); // Plays a big audio file
@@ -26,31 +31,50 @@ class c_helper {
 
 		static void showMapInfo();
 		
-        /// @brief Saves the map in a .TCODZip file.
+        /// @brief [LUA] Saves the map in a .TCODZip file.
 		static void saveMap();
 
-        /// @brief Stores the map in a human-readable file.
+        /// @brief [LUA] Stores the map in a human-readable file.
         static void storeMap();
 
-		static void changeMap(const int& x, const int& y, const int& z, int startX = 0, int startY = 0);
-		
-		/// @brief Loads the world map.
-		/// @param mapX X map coordinate.
-		/// @param mapY Y map coordinate.
-		static void worldMap(const int& mapX, const int& mapY);
+		/// @brief [LUA] Unloads current map, loads new one and teleports player to the starting position
+        /// @param x X map coordinate
+        /// @param y Y map coordinate
+		/// @param z Z map coordinate
+		static void changeMap(const int& x, const int& y, const int& z);
 		
 		static const bool& isLocation(const int& x, const int& y); // Returns true if it finds a location actor in the tile
-		static const bool& isWorldMap();
+		
+        /// @brief [LUA] Returns true when current map is worldmap (50, 0, 0)
+        /// @return True if current map is worldmap		
+		static bool isWorldMap();
+
 		static void resetMap();
 		static void createMapScript(std::string command, const bool& autodelete);
 		static const int& calculateDistance(const int& x1, const int& y1, const int& x2, const int& y2);
 		static const int& getMapSeed();
 		static const int& getMapWidth();
 		static const int& getMapHeight();
+
+		/// @brief [LUA] Returns the active map X coordinate
+		/// @returns The X map coordinate
 		static const int& getMapX();
+
+		/// @brief [LUA] Returns the active map Y coordinate
+		/// @returns The Y map coordinate
 		static const int& getMapY();
+
+		/// @brief [LUA] Returns the active map Z coordinate
+		/// @returns The Z map coordinate
 		static const int& getMapZ();
-		static const bool& findTileByName(const int& x, const int& y, std::string name); // Returns true if the tile in location has the same name as parameter
+
+		/// @brief [LUA] Checks the ID of a tile
+        /// @param x X map coordinate
+        /// @param x Y map coordinate
+		/// @param name Tile ID
+		/// @return Returns true if the tile is found at position
+		static bool findTileByName(const int& x, const int& y, std::string name);
+		
 		static const int& setGenFloor1(std::string value);
 		static const int& setGenFloor2(std::string value);
 		static const int& setGenFloor3(std::string value);
@@ -59,9 +83,19 @@ class c_helper {
 		static const int& setGenWall3(std::string value);
 		static void setAmbience(std::string track);
 
-		/// @brief Returns the biome of the selected location of the world map
+		/// @brief [LUA] Returns the biome of the selected location of the world map
+		/// @param x X world coordinate
+		/// @param y Y world coordinate
+		/// @return Returns the biome ID
 		static int getBiome(const int& x, const int& y);
 
+        /// @brief [LUA] Adds a random border with a specified terrain
+        /// @param tile Tile ID
+        /// @param direction Determines where the border will be made
+        /// @param minWidth Minimum border width
+        /// @param maxWidth Maximum border width    
+        static void genAddBorder(std::string tile, const int& direction, const int& minWidth, const int& maxWidth);		
+		
 		static void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
 		static void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
 		static void genPlaceActorSomewhere(std::string actor, const int& quantity); // Places actor in a free random position	
@@ -100,8 +134,20 @@ class c_helper {
 		static const bool& isObstacle(const int& x, const int& y);
 		static const int& getActorFromTile(const int& x, const int& y, const int& type);
 		static const bool& actorTypeInTile(std::string type, const int& x, const int& y);
+
+        /// @brief [LUA] Teleports an actor to a new tile
+        /// @param actor The actor UID
+        /// @param x X map coordinate
+        /// @param y Y map coordinate
+        /// @param recalculateFOV If true, map FOV is recalculated using the new position		
 		static void teleportActor(const int& actor, const int& x, const int& y, const bool& recalculateFOV = true);
+
+		/// @brief [LUA] Creates an actor at the specified position
+        /// @param id The actor's asset ID
+        /// @param mapX The X coord of the destination tile
+        /// @param mapY The X coord of the destination tile
 		static const int& createActor(std::string id, const int& x, const int& y);
+
 		static const int& tryToTalk(const int& x, const int& y);
 		static void startAction(const structEventData& eventData);
 		static const int& findTarget(const int& actor, const int& diplomacy);
