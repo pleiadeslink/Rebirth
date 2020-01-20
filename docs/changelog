@@ -1,3 +1,6 @@
+0.3.6.1
+- Map borders looked like shit, working on an improved algorithm
+
 0.3.6
 - Map system refactored
 - Mountain borders added to wilderness generation

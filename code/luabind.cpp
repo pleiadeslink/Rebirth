@@ -94,6 +94,5 @@ state["dropLoot"] = &c_helper::dropLoot;
 state["los"] = &c_helper::los;
 state["getActorFlag"] = &c_helper::getActorFlag;
 state["getActorTarget"] = &c_helper::getActorTarget;
-state["setActorTarget"] = &c_helper::setActorTarget;
 state["actorExists"] = &c_helper::actorExists;
 state["genAddBorder"] = &c_helper::genAddBorder;

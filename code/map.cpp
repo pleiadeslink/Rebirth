@@ -808,9 +808,12 @@ const bool& c_map::genIsWall(const int& x, const int& y) {
 }
 
 void c_map::genAddBorder(std::string tile, const int& direction, const int& minWidth, const int& maxWidth) {
+    int i2 = 0;
+    bool in = true;
+    bool out = true;
     switch(direction) {
         case direction::north: {
-            for(int i1 = 0; i1 < width; ++i1) {
+            /*for(int i1 = 0; i1 < width; ++i1) {
                 for(int i2 = 0; i2 < minWidth; ++i2) {
                     genMatrix[i1][i2].tile = tile;
                 }
@@ -825,6 +828,30 @@ void c_map::genAddBorder(std::string tile, const int& direction, const int& minW
                             genMatrix[i1][i2].tile = tile;
                         }
                     }
+                }*/
+            
+            for(int i1 = 0; i1 < width; ++i1) {
+                in = true;
+                out = true;
+                if(i1 == 0 or i1 == (width - 1)) {
+                    i2 = minWidth;
+                    in = false;
+                    out = false;
+                } else if(i2 == minWidth) {
+                    in = false;
+                } else if(i2 == maxWidth) {
+                    out = false;
+                } else if(i2 >= (width - 1 - i1) and i1 >= (width - 1 - maxWidth)) {
+                    out = false;
+                }
+                if(in) {
+                    i2 -= c_helper::random(0, 1);
+                }
+                if(out) {
+                    i2 += c_helper::random(0, 1);
+                }
+                for(int i3 = 0; i3 < i2; ++i3) {
+                    genMatrix[i1][i3].tile = tile;
                 }
             }
             break;
