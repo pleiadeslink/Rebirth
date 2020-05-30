@@ -113,7 +113,10 @@ class c_map : public TCODMap {
         const bool& genDungeon(const int& rooms = 10); // Generates a dungeon map
         const bool& genCave(); // Generates a cave map
         const bool& genWild(const int& type); // Generates wilderness areas
-        const bool& genWorld(); // Generates world map
+        
+        /// @brief Generates world map from heightmap
+        /// @return Returns true if successful
+        const bool& genWorld();
         const bool& genIsFloor(const int& x, const int& y);
         const bool& genIsWall(const int& x, const int& y);
 
@@ -123,6 +126,11 @@ class c_map : public TCODMap {
         /// @param minWidth Minimum border width
         /// @param maxWidth Maximum border width    
         void genAddBorder(std::string tile, const int& direction, const int& minWidth, const int& maxWidth);
+
+        /// @brief Adds a river to the map
+        /// @param tile Tile ID
+        /// @param direction The direction the river will take
+        void genAddRiver(std::string tile, const int& direction);
         
         void setGenFloor1(std::string value) { genFloor1 = value; }
         void setGenFloor2(std::string value) { genFloor2 = value; }

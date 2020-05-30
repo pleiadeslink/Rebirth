@@ -274,6 +274,10 @@ type: creature
 name: Floating eye
 desc: A floating eyeball, said to be one of the servitors of Jivya. It possesses a gaze that can eventually paralyze even the most strong-willed of adventurers.
 
+[ghoul]
+name: ghoul
+desc: An animate rotting corpse that hunger for human flesh.
+
 [mummy]
 type: creature
 name: Mummy
@@ -410,7 +414,7 @@ desc: Zombies are created by much the same process as are skeletons, but if anyt
 [dagger]
 type: weapon
 name: dagger
-desc: A pointy dagger made for close quarter combat.
+desc: A small, pointy dagger.
 symbol: 1x18
 player_tex: dagger
 type_w: one_handed
@@ -419,10 +423,13 @@ damage: 3-6
 speed: 1
 mass: 5
 
+[bloodKnife]
+desc: This long, wavy-bladed dagger has six gems worked into its hilt.
+
 [shortSword]
 type: weapon
 name: Short sword
-desc: A short raw iron sword with some dents and notches, easy to wield in one hand. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+desc: A short raw iron sword with some dents and notches.
 symbol: 0x18
 type_w: one_handed
 category_w: sword
@@ -493,13 +500,14 @@ desc: A straight sword of ancient origin. The grip is covered with strange ornam
 symbol: 0x18
 
 [falcata]
+desc: This heavy blade has a single sharp edge, concave at the bottom and convex at the top, with a hook-shaped hilt.
 
 [machete]
 
 [club]
 type: weapon
 name: Club
-desc: The simplest of all weapons, this is a shaped piece of wood, used in one hand to club and batter your opponent.
+desc: A shaped piece of wood.
 symbol: 2x18
 color: grey
 type_w: one_handed
@@ -511,7 +519,7 @@ mass: 5
 [mace]
 type: weapon
 name: Club
-desc: Similar to a club, but with a metal head.
+desc:  A wooden shaft with a metal head attached.
 symbol: 2x18
 color: grey
 type_w: one_handed
@@ -523,18 +531,21 @@ mass: 5
 [morningStar]
 type: weapon
 name: Morning Star
-desc: A wooden shaft with a spiked metal head used to deliver a combination of blunt-force and puncturing blows.
+desc: A wooden shaft with a spiked metal head.
 symbol: 2x18
 
 [bow]
 type: weapon
 name: Bow
-desc: A popular projectile weapon among hunters.
+desc: This ranged weapon is made up of one solid piece of carefully curved wood.
 symbol: 4x18
 
 [compositeBow]
 type: weapon
 symbol: 4x18
+
+[rodOfAgony]
+desc: A twisted, dark gray shaft of hard wood, studded with thorns and swirling shapes.
 
 ##########################################################################################
 ##########################################################################################
@@ -542,8 +553,13 @@ symbol: 4x18
 ##########################################################################################
 ##########################################################################################
 
+-- Ultimate Equipment pathfinder
+
+[armoredCoat]
+desc: A sturdy leather coat reinforced with metal plates sewn into the lining.
+
 [leatherArmor]
-desc: Leather armor is made up of multiple overlapping pieces of leather, boiled to increase their natural toughness and then deliberately stitched together. Although not as sturdy as metal armor, the flexibility it allows wearers makes it among the most widely used types of armor.
+desc: A sturdy armor made up of multiple overlapping pieces of leather.
 
 [studdedLeatherArmor]
 desc: An improved form of leather armor, studded leather armor is covered with dozens of metal protuberances.
@@ -557,10 +573,17 @@ desc: A breastplate protects a wearer’s torso with a single piece of sculpted 
 [fullPlate]
 desc: This metal suit comprises multiple pieces of interconnected and overlaying metal plates, incorporating the benefits of numerous types of lesser armor.
 
+[bandedMail]
+desc: This piece of armor is made up of overlapping strips of metal, fastened to a sturdy backing of leather and chain.
+-- The size of the metal plates, interconnected metal bands, and layers of underlying armor make it a more  ignificant defense than similar armors, like scale mail or splint mail.
+
+[padded]
+desc: This armor combines heavy, quilted cloth and layers of densely packed stuffing.
+
 [buckler]
 type: armor
 name: Buckler
-desc: Very small round metal shield.
+desc: A small metal shield worn strapped to the forearm.
 
 [leatherShield]
 desc: Round leather-covered shield.
@@ -574,6 +597,12 @@ desc: This thick plate of iron is heavily defensive but ultra heavy.
 [heavyMetalShield]
 desc: A massive metal shield that is almost impossible to destroy but very heavy and fatiguing to wear for any human.
 
+[ringOfShadows]
+desc: A twisted tangle of onyx and obsidian that drinks in any light that strikes it.
+
+[tantricRing]
+desc: A delicate, thin band of silver, shaped to show a lean female form stretched in a curve, enwrapped by a long snake.
+
 ##########################################################################################
 ##########################################################################################
 ##   ITEMS                                                                              ##
@@ -583,7 +612,7 @@ desc: A massive metal shield that is almost impossible to destroy but very heavy
 [altar]
 type: misc
 name: Altar
-desc: An elevated place or structure before which religious ceremonies may be enacted or upon which sacrifices may be offered.
+desc: a massive wood and stone table, with a granite top, large iron rings set into each corner, and sturdy frame and panels of ebony wood covered in mysterious runes..
 symbol: 6x18
 color: white
 canMove: 0
@@ -884,7 +913,7 @@ mass: 2
 
 ##########################################################################################
 ##########################################################################################
-##   TREES                                                                          ##
+##   TREES                                                                              ##
 ##########################################################################################
 ##########################################################################################
 
@@ -963,5 +992,31 @@ color: amber
 
 [trigger]
 type: trigger
+
+##########################################################################################
+##########################################################################################
+##   MATERIALS                                                                          ##
+##########################################################################################
+##########################################################################################
+-- Ultimate equipment pathfinder
+
+[adamantine]
+name: adamantine
+
+[angelskim]
+desc: The preserved skin of an angel retains a portion of celestial grace.
+
+[bloodCrystal]
+name: blood crystal
+desc: Mysterious radiation deep below the surface of the earth warps once-ordinary quartz into blood-craving stone.
+
+[coldIron]
+desc: This iron, mined deep underground and known for its effectiveness against demons and fey creatures, is forged at a lower temperature to preserve its delicate properties.
+
+[darkWood]
+desc: This rare magic wood is as hard as normal wood but very light.
+
+[viridium]
+desc: A deep green volcanic glass formed when molten rock is tainted with anomalous trace minerals from deep beneath the earth.
 
 [end]

@@ -35,6 +35,7 @@
 #define MAXITERATIONS 2000
 #define MAXFLAGS 32
 #define WORLDVIEWRADIUS 11
+#define RIVERWIDTH 16
 #ifndef NDEBUG
 #define DBG(x) printf x
 #else

@@ -22,10 +22,17 @@ if(getBiome(getMapX(), getMapY() + 1) == OCEAN) then
     genAddBorder("water", SOUTH, 20, 30)
 end
 if(getBiome(getMapX() - 1, getMapY()) == OCEAN) then
-    genAddBorder("water", WEST, 20, 30)
+    genAddBorder("water", WEST, 26, 36)
 end
 if(getBiome(getMapX() + 1, getMapY()) == OCEAN) then
-    genAddBorder("water", EAST, 20, 30)
+    genAddBorder("water", EAST, 26, 36)
+end
+
+-- Generate river
+if(getBiome(getMapX(), getMapY() - 1) == RIVER and getBiome(getMapX(), getMapY() + 1) == RIVER) then
+    genAddRiver("water", NORTH)
+elseif(getBiome(getMapX() - 1, getMapY()) == RIVER and getBiome(getMapX() + 1, getMapY()) == RIVER) then
+    genAddBorder("water", EAST)
 end
 
 genPlantTrees("tree_oak", 1, false)

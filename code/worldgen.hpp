@@ -25,8 +25,8 @@
 */
 
 // size of the heightmap
-#define HM_WIDTH 256
-#define HM_HEIGHT 256
+#define HM_WIDTH 128
+#define HM_HEIGHT 128
 
 // biome and climate list. based on Whittaker Biome Diagram
 enum EClimate {

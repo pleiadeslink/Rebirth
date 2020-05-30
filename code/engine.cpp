@@ -73,13 +73,12 @@ int c_engine::input() {
 
         // Mouse event.type == sf::Event::MouseButtonReleased
         if(event.type == sf::Event::MouseButtonPressed) {
-            
-        if(event.mouseButton.button == sf::Mouse::Left) {
-            return key::lclick;
-        } else if(event.mouseButton.button == sf::Mouse::Right) {
-            return key::rclick;
+            if(event.mouseButton.button == sf::Mouse::Left) {
+                return key::lclick;
+            } else if(event.mouseButton.button == sf::Mouse::Right) {
+                return key::rclick;
+            }
         }
-    }
 
         // Edit
         if(interface.getMode() == imode::edit and event.type == sf::Event::TextEntered) {

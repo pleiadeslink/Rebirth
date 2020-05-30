@@ -48,8 +48,8 @@ if(isPlayer(emitter)) then
 	-- World map
 	if(isWorldMap() == true) then
 
-		-- Location
-		if(getBiome(mapX, mapY) == 1) then
+		-- If location or river, go to local map
+		if(getBiome(mapX, mapY) == LOCATION or getBiome(mapX, mapY) == RIVER) then
 			changeMap(mapX, mapY, getMapZ(), 0, 0)
 			return
 		end

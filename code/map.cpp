@@ -134,6 +134,10 @@ void c_map::parse(std::string path) {
                     genMatrix[i][y].tile = "world_ocean";
                     break;
                 }
+                case '+': {
+                    genMatrix[i][y].tile = "world_river";
+                    break;
+                }
                 case '0': {
                     genMatrix[i][y].tile = "world_tundra";
                     break;
@@ -734,14 +738,13 @@ const bool& c_map::genWild(const int& type) {
     return true;
 }
 
-// Generates world map
 const bool& c_map::genWorld() {
 
-    /*s_map elevationMap;
+    s_map elevationMap;
 
     // Generates noise
     FastNoise noise;
-    noise.SetNoiseType(FastNoise::SimplexFractal);
+    noise.SetNoiseType(FastNoise::SimplexFractal); // Value, ValueFractal, Perlin, PerlinFractal, Simplex, SimplexFractal, Cellular, WhiteNoise, Cubic, CubicFractal
     noise.SetFrequency(0.03);
 
     float exponent = 1.60;
@@ -752,14 +755,12 @@ const bool& c_map::genWorld() {
             elevationMap.tile[x][y] = pow(noise.GetNoise(x, y) / 2.0 + 0.5, exponent);
 
             // Sets biomes
-            if (elevationMap.tile[x][y] < 0.1) matrix[x][y] -> setAsset(engine -> assetManager.getTileAsset("world_water"));
-            else if (elevationMap.tile[x][y] < 0.2) matrix[x][y] -> setAsset(engine -> assetManager.getTileAsset("world_desert"));
-            else if (elevationMap.tile[x][y] < 0.3) matrix[x][y] -> setAsset(engine -> assetManager.getTileAsset("world_plains"));
-            else if (elevationMap.tile[x][y] < 0.6) matrix[x][y] -> setAsset(engine -> assetManager.getTileAsset("world_forest"));
-            else if (elevationMap.tile[x][y] < 0.8) matrix[x][y] -> setAsset(engine -> assetManager.getTileAsset("world_desert"));
-            else matrix[x][y] -> setAsset(engine -> assetManager.getTileAsset("world_snow"));
+            if (elevationMap.tile[x][y] < 0.5) genMatrix[x][y].tile = "world_ocean";
+            else if (elevationMap.tile[x][y] < 0.7) genMatrix[x][y].tile = "world_grassland";
+            else if (elevationMap.tile[x][y] < 0.9) genMatrix[x][y].tile = "world_taiga";
+            else genMatrix[x][y].tile = "world_mountain";
         }
-    }*/
+    }
 
     /*static const char *biomeNames[] = {
     "Tundra","Cold desert","Grassland", "Boreal forest",
@@ -768,7 +769,7 @@ const bool& c_map::genWorld() {
     "Thorn forest"
     };*/
 
-    static const char *biomeNames[] = {
+    /*static const char *biomeNames[] = {
         "world_tundra","world_grassland","world_grassland", "world_taiga",
         "world_temperateForest", "world_temperateForest",
         "world_desert", "world_savanna", "world_jungle", "world_grassland",
@@ -781,7 +782,7 @@ const bool& c_map::genWorld() {
         for(int j = 0; j < MAPSIZE; ++j) {
             genMatrix[i][j].tile = biomeNames[worldGen.getBiome(i, j)];
         }
-    }
+    }*/
 
     build();
     return true;
@@ -811,114 +812,98 @@ void c_map::genAddBorder(std::string tile, const int& direction, const int& minW
     int i2 = 0;
     bool in = true;
     bool out = true;
-    switch(direction) {
-        case direction::north: {
-            /*for(int i1 = 0; i1 < width; ++i1) {
-                for(int i2 = 0; i2 < minWidth; ++i2) {
-                    genMatrix[i1][i2].tile = tile;
-                }
+    for(int i1 = 0; i1 < width; ++i1) {
+        in = true;
+        out = true;
+        if(i1 == 0 or i1 == (width - 1)) {
+            i2 = minWidth;
+            in = false;
+            out = false;
+        } else if(i2 >= (width - 1 - i1) and i1 >= (width - 1 - maxWidth)) {
+            out = false;
+        }
+        if(i2 < minWidth) {
+            in = false;
+        } else if(i2 > maxWidth) {
+            out = false;
+        }
+        if(in) {
+            if(i2 >= (width - 1 - i1) and i1 >= (width - 1 - maxWidth)) {
+                --i2;
+            } else {
+                i2 -= c_helper::random(0, 1);
             }
-            for(int i2 = minWidth; i2 < (maxWidth - minWidth); ++i2) {
-                for(int i1 = 0; i1 < width; ++i1) {
-                    if(i1 > 0 and i1 < (width - 1)
-                    and (genMatrix[i1][i2 - 1].tile == tile
-                    or genMatrix[i1 - 1][i2].tile == tile
-                    or genMatrix[i1 + 1][i2].tile == tile)) {
-                        if(c_helper::d100(90 - (i2 * 5))) {
-                            genMatrix[i1][i2].tile = tile;
-                        }
-                    }
-                }*/
-            
-            for(int i1 = 0; i1 < width; ++i1) {
-                in = true;
-                out = true;
-                if(i1 == 0 or i1 == (width - 1)) {
-                    i2 = minWidth;
-                    in = false;
-                    out = false;
-                } else if(i2 == minWidth) {
-                    in = false;
-                } else if(i2 == maxWidth) {
-                    out = false;
-                } else if(i2 >= (width - 1 - i1) and i1 >= (width - 1 - maxWidth)) {
-                    out = false;
-                }
-                if(in) {
-                    i2 -= c_helper::random(0, 1);
-                }
-                if(out) {
-                    i2 += c_helper::random(0, 1);
-                }
-                for(int i3 = 0; i3 < i2; ++i3) {
+        }
+        if(out) {
+            i2 += c_helper::random(0, 1);
+        }
+        for(int i3 = 0; i3 < i2; ++i3) {
+            switch(direction) {
+                case direction::north: {
                     genMatrix[i1][i3].tile = tile;
+                    break;
+                }
+                case direction::south: {
+                    genMatrix[i1][height - 1 - i3].tile = tile;
+                    break;
+                }
+                case direction::west: {
+                    genMatrix[i3][i1].tile = tile;
+                    break;
+                }
+                case direction::east: {
+                    genMatrix[width - 1 - i3][i1].tile = tile;
+                    break;
                 }
             }
-            break;
         }
-        case direction::south: {
-            for(int i1 = 0; i1 < width; ++i1) {
-                for(int i2 = (height - 1); i2 > (height - 1 - minWidth); --i2) {
-                    genMatrix[i1][i2].tile = tile;
-                }
-            }
-            int counter = 0;
-            for(int i2 = (height - minWidth); i2 > (height - 1 - (maxWidth - minWidth)); --i2) {
-                for(int i1 = 0; i1 < width; ++i1) {
-                    if(i1 > 0 and i1 < (width - 1)
-                    and (genMatrix[i1][i2 + 1].tile == tile
-                    or genMatrix[i1 - 1][i2].tile == tile
-                    or genMatrix[i1 + 1][i2].tile == tile)) {
-                        if(c_helper::d100(90 - (counter * 5))) {
-                            genMatrix[i1][i2].tile = tile;
-                        }
-                    }
-                }
-                ++counter;
-            }
-            break;
+    }
+}
+
+void c_map::genAddRiver(std::string tile, const int& direction) {
+    const int minWidth = 5;
+    const int maxWidth = 10;
+    int i2 = 0;
+    bool in = true;
+    bool out = true;
+    for(int i1 = 0; i1 < width; ++i1) {
+        in = true;
+        out = true;
+        if(i1 == 0 or i1 == (width - 1)) {
+            i2 = 0;
+            in = false;
+            out = false;
+        } else if(i2 >= (width - 1 - i1) and i1 >= (width - 1 - maxWidth)) {
+            out = false;
         }
-        case direction::west: {
-            for(int i1 = 0; i1 < height; ++i1) {
-                for(int i2 = 0; i2 < minWidth; ++i2) {
-                    genMatrix[i2][i1].tile = tile;
-                }
-            }
-            for(int i2 = minWidth; i2 < (maxWidth - minWidth); ++i2) {
-                for(int i1 = 0; i1 < width; ++i1) {
-                    if(i1 > 0 and i1 < (width - 1)
-                    and (genMatrix[i2][i1 - 1].tile == tile
-                    or genMatrix[i2 - 1][i1].tile == tile
-                    or genMatrix[i2 + 1][i1].tile == tile)) {
-                        if(c_helper::d100(90 - (i2 * 5))) {
-                            genMatrix[i2][i1].tile = tile;
-                        }
-                    }
-                }
-            }
-            break;
+        if(i2 < minWidth) {
+            in = false;
+        } else if(i2 > maxWidth) {
+            out = false;
         }
-        case direction::east: {
-            for(int i1 = 0; i1 < width; ++i1) {
-                for(int i2 = (height - 1); i2 > (height - 1 - minWidth); --i2) {
-                    genMatrix[i2][i1].tile = tile;
+        if(in) {
+            if(i2 >= (width - 1 - i1) and i1 >= (width - 1 - maxWidth)) {
+                --i2;
+            } else {
+                i2 -= c_helper::random(0, 1);
+            }
+        }
+        if(out) {
+            i2 += c_helper::random(0, 1);
+        }
+        for(int i3 = 0; i3 < RIVERWIDTH; ++i3) {
+            switch(direction) {
+                case direction::north:
+                case direction::south: {
+                    genMatrix[(width / 2) - (RIVERWIDTH / 2) + i3 + i2][i1].tile = tile;
+                    break;
+                }
+                case direction::east:
+                case direction::west: {
+                    genMatrix[i1][(height / 2) - (RIVERWIDTH / 2) + i3 + i2].tile = tile;
+                    break;
                 }
             }
-            int counter = 0;
-            for(int i2 = (height - minWidth); i2 > (height - 1 - (maxWidth - minWidth)); --i2) {
-                for(int i1 = 0; i1 < width; ++i1) {
-                    if(i1 > 0 and i1 < (width - 1)
-                    and (genMatrix[i2][i1 + 1].tile == tile
-                    or genMatrix[i2 - 1][i1].tile == tile
-                    or genMatrix[i2 + 1][i1].tile == tile)) {
-                        if(c_helper::d100(90 - (counter * 5))) {
-                            genMatrix[i2][i1].tile = tile;
-                        }
-                    }
-                }
-                ++counter;
-            }
-            break;
         }
     }
 }

@@ -192,7 +192,8 @@ namespace biome {
         savanna,
         marsh,
         tundra,
-        ocean
+        ocean,
+        river
     };
 }
 

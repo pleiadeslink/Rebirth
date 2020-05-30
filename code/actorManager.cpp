@@ -267,14 +267,17 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         return 0;
     }
     c_actor* newActor;
+	int memoryPos = 0;
     if(id == "avatar") {
         newActor = new c_actor(1);
         a_uid[1] = newActor;
+		memoryPos = 1;
         player = newActor;
         newActor -> init(asset);
     } else {
         newActor = new c_actor(icounter);
         a_uid[icounter] = newActor;
+		memoryPos = icounter;
         newActor -> init(asset);
         v_map.push_back(icounter);
         if(newActor -> AI) {
@@ -287,7 +290,7 @@ const int& c_actorManager::createActor(const std::string& id, const int& mapX, c
         ++icounter;
     }
     c_helper::teleportActor(newActor -> getUid(), mapX, mapY, false);
-    engine -> message("Actor '" + id + "' created.");
+	engine -> message("Actor '" + id + "' created in memory #" + std::to_string(memoryPos) +".");
     return newActor -> getUid();
 }
 

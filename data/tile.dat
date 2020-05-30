@@ -188,6 +188,14 @@ symbol: 14x7
 color: azure
 colorbg: dark azure
 
+[world_river]
+name: River
+desc: A wild, deep river.
+type: world
+symbol: 14x7
+color: azure
+colorbg: dark azure
+
 [world_location]
 name: Location
 desc: A location.

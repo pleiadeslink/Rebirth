@@ -448,6 +448,10 @@ void c_helper::genAddBorder(std::string tile, const int& direction, const int& m
 	engine -> game -> map -> genAddBorder(tile, direction, minWidth, maxWidth);
 }
 
+void c_helper::genAddRiver(std::string tile, const int& direction) {
+	engine -> game -> map -> genAddRiver(tile, direction);
+}
+
 // Adds a patch of the specified tile using a cellular automata generated pattern
 void c_helper::genAddCellularPatch(std::string tile, const int& size) {
 	if(!engine -> game or !engine -> game -> map) {

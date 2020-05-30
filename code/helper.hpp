@@ -96,6 +96,11 @@ class c_helper {
         /// @param maxWidth Maximum border width    
         static void genAddBorder(std::string tile, const int& direction, const int& minWidth, const int& maxWidth);		
 		
+        /// @brief Adds a river to the map
+        /// @param tile Tile ID
+        /// @param direction The direction the river will take
+        static void genAddRiver(std::string tile, const int& direction);		
+	
 		static void genAddCellularPatch(std::string tile, const int& size); // Adds a patch of the specified tile using a cellular automata generated pattern
 		static void genPlantTrees(std::string tree, const int& size, const bool& dead); // Plants trees randomly on grass tiles (if dead is true, there is a small chance every round of a dead tree being plant in a dirt tile if found
 		static void genPlaceActorSomewhere(std::string actor, const int& quantity); // Places actor in a free random position	

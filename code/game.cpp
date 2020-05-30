@@ -142,6 +142,8 @@ void c_game::loadMap(const int& x, const int& y, const int& z) {
 			engine -> runScript("gen/marsh.lua");
 		} else if(world[x][y].biome == biome::tundra) {
 			engine -> runScript("gen/tundra.lua");
+		} else if(world[x][y].biome == biome::river) {
+			engine -> runScript("gen/river.lua");
 		}
 	}
     map -> setX(x);
@@ -273,6 +275,10 @@ void c_game::updateWorld() {
                 // OCEAN
                 if(tempMap[i][j].tile == "world_ocean") {
                     world[i][j].biome = biome::ocean;
+                }
+                // RIVER
+                if(tempMap[i][j].tile == "world_river") {
+                    world[i][j].biome = biome::river;
                 }
                 // LOCATION
                 if(tempMap[i][j].tile == "world_location") {
